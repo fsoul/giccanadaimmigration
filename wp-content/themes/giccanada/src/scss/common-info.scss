@@ -1,0 +1,24 @@
+$image-dir: '../images/';
+
+/*common-info--------------------------------------------*/
+.common-info {
+  background: linear-gradient(66.45deg, #FF8200 34.9%, #FF3400 168.52%);
+}
+
+.common-info-caption {
+  height: 56px;
+  text-align: center;
+  line-height: 56px;
+  font-size: 3em;
+  letter-spacing: 0.42px;
+  text-transform: uppercase;
+  margin-top: 80px;
+  color: #FFFFFF;
+}
+
+.common-info-vid {
+  width: 770px;
+  height: 434px;
+  margin: 60px 0;
+}
+/*common-info end----------------------------------------*/

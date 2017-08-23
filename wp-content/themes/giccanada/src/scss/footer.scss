@@ -1,0 +1,109 @@
+$image-dir: '../images/';
+
+/*footer -----------------------------------------*/
+.footer {
+  height: 372px;
+  background: linear-gradient(82.05deg, #FF8200 54.81%, #FF3400 190%);
+  padding: 8px 0 64px 0;
+}
+
+.footer-text {
+  line-height: 30px;
+  font-size: 1em;
+  color: #fff;
+}
+
+.footer-wrapper {
+  background: #001733;
+  height: 100%;
+}
+
+.footer-block {
+  padding-top: 50px;
+}
+
+.footer-bottom {
+  height: 64px;
+}
+
+.footer-logo {
+  background: url($image-dir + "Logo.png") no-repeat;
+  background-size: 223px 82px;
+  height: 82px;
+  width: 223px;
+  margin-right: 76px;
+  display: block;
+}
+
+.footer-item {
+  width: 270px;
+  padding-top: 16px;
+}
+
+.footer-nav {
+  height: 180px;
+}
+
+.footer-nav-item,
+.footer-site-map {
+  text-decoration-line: underline;
+  padding: 0;
+}
+
+.footer-contact-item {
+  padding: 8px 0;
+}
+
+
+.footer-contact-link {
+  margin-left: 20px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.footer-address-item {
+  margin-bottom: 30px;
+}
+
+.footer-address-name {
+  line-height: 24px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.footer-address {
+  line-height: 20px;
+  margin: 0;
+}
+
+.footer-socials {
+  width: 300px;
+}
+
+.footer-site-map {
+  width: 540px;
+}
+
+/*images------------*/
+.footer-phone {
+  background: url($image-dir + "footer/ic_call_black_24px.png") no-repeat;
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.footer-fax {
+  background: url($image-dir + "footer/ic_local_printshop_black_24px.png") no-repeat;
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.footer-mail {
+  background: url($image-dir + "footer/ic_email_black_24px.png") no-repeat;
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+}
+/*images end---------*/
+/*footer end -------------------------------------*/

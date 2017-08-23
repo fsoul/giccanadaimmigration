@@ -1,0 +1,190 @@
+$image-dir: '../images/';
+
+.header-container {
+  width: 100%;
+  background: url($image-dir + "header/header-bg.png") no-repeat;
+  background-size: cover;
+  min-width: 1040px;
+  max-height: 760px;
+}
+
+/*top bar*/
+.top-bar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.166865);
+  background: linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);
+  background: -webkit-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);; /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%); /* For Firefox 3.6 to 15 */
+}
+
+.tb-menu-border {
+  content: "";
+  width: 1px;
+  height: 28px;
+  background: url($image-dir + 'header/border.png') no-repeat 0 0;
+  margin: 0 16px;
+}
+
+.tb-menu-item {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.top-bar-menu-link {
+  font-size: 1em;
+  color: #fff;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.tb-menu-logo {
+  display: inline-block;
+  padding: 0;
+  margin-right: 10px;
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+.call-logo,
+.search-logo {
+  background-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.skype-logo,
+.messager-logo {
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.skype-logo,
+.messager-logo,
+.fb-logo, .tw-logo,
+.linkedin-logo {
+  background-size: 26px;
+  height: 26px;
+  width: 26px;
+}
+
+.call-logo {
+  background: url($image-dir + "header/ic_call_black_24px.png") no-repeat;
+}
+
+.skype-logo {
+  background: url($image-dir + "header/skype_logo.png") no-repeat;
+}
+
+.messager-logo {
+  background: url($image-dir + "header/messager.png") no-repeat;
+}
+
+.search-logo {
+  background: url($image-dir + "header/search_icon.png") no-repeat;
+}
+
+.tb-search {
+  font-size: 1em;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  min-width: 115px;
+
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.fb-logo {
+  background: url($image-dir + "header/facebook.png") no-repeat center;
+}
+
+.tw-logo {
+  background: url($image-dir + "header/twitter.png") no-repeat center;
+}
+
+.linkedin-logo {
+  background: url($image-dir + "header/linkedIn.png") no-repeat center;
+}
+
+/*top bar end --------------------*/
+
+/*menu*/
+.menu-container {
+  margin-top: 24px;
+}
+
+.menu-logo {
+  background: url($image-dir + "Logo.png") no-repeat;
+  background-size: 223px 82px;
+  height: 82px;
+  width: 223px;
+}
+
+.menu-item {
+  padding: 10px 16px;
+
+  &:active, &:focus, &:hover {
+    border-bottom: 3px solid #fff;
+  }
+}
+
+.menu-link {
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &:visited, &:link {
+    text-decoration: none;
+  }
+}
+
+/*menu end ------------------------------*/
+
+/*menu slider*/
+#header-carousel {
+  margin-top: 108px;
+}
+
+.hs-item {
+  width: 570px;
+}
+
+.hs-caption, .hs-content,
+.hs-item-button {
+  color: #fff;
+  text-align: center;
+}
+
+.hs-caption {
+  font-size: 4.5em;
+  line-height: 80px;
+  text-transform: uppercase;
+  letter-spacing: .75px;
+}
+
+.hs-content {
+  line-height: 32px;
+  font-size: 1.5em;
+}
+
+.hs-item-button {
+  width: 370px;
+  height: 56px;
+  margin-top: 40px;
+
+  &:visited, &:link {
+    text-decoration: none;
+  }
+}
+
+.hs-indicators {
+  position: relative;
+  margin-top: 60px;
+}
+/*menu slider end ------------------------------*/
