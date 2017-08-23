@@ -53,9 +53,7 @@ ol.carousel-indicators li.active {
 .header-container {
   width: 100%;
   background: url(./public/images/header-bg-60bd5054a3.png) no-repeat;
-  background-size: cover;
-  min-width: 1040px;
-  max-height: 760px; }
+  background-size: cover; }
 
 /*top bar*/
 .top-bar {
@@ -77,9 +75,12 @@ ol.carousel-indicators li.active {
 
 .tb-menu-item {
   padding-right: 0;
-  padding-left: 0; }
+  padding-left: 0;
+  display: table-cell;
+  vertical-align: middle; }
 
 .top-bar-menu-link {
+  display: inline-block;
   font-size: 1em;
   color: #fff;
   white-space: nowrap;
@@ -128,7 +129,7 @@ ol.carousel-indicators li.active {
   background-color: transparent;
   border: 0;
   padding: 0;
-  min-width: 115px; }
+  min-width: 50px; }
   .tb-search::placeholder {
     color: #fff; }
 
@@ -155,6 +156,7 @@ ol.carousel-indicators li.active {
 .menu-item {
   padding: 10px 16px; }
   .menu-item:active, .menu-item:focus, .menu-item:hover {
+    padding-bottom: 7px;
     border-bottom: 3px solid #fff; }
 
 .menu-link {
@@ -683,6 +685,13 @@ ol.carousel-indicators li.active {
 /* lg-размер (<=1199px) */
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
+  .top-bar-menu-link {
+    font-size: .9em; }
+  .tb-search {
+    font-size: .9em; }
+    .tb-search::placeholder {
+      color: #fff;
+      font-size: .9em; }
   .academy-slr-item-img {
     height: 200px; }
   .academy-slr-item-caption {
@@ -722,6 +731,22 @@ ol.carousel-indicators li.active {
   /* CSS для ширины от 768px до 991px */
   .menu-container {
     min-width: 780px; }
+  .top-bar-menu-link {
+    font-size: .8em; }
+  .menu-link {
+    font-size: .9em; }
+  .call-logo,
+  .search-logo {
+    background-size: 13px;
+    height: 13px;
+    width: 13px; }
+  .skype-logo,
+  .messager-logo,
+  .fb-logo, .tw-logo,
+  .linkedin-logo {
+    background-size: contain;
+    height: 18px;
+    width: 18px; }
   .hs-item-button {
     min-width: 340px; }
   .academy-slr-item-img {

@@ -4,8 +4,6 @@ $image-dir: '../images/';
   width: 100%;
   background: url($image-dir + "header/header-bg.png") no-repeat;
   background-size: cover;
-  min-width: 1040px;
-  max-height: 760px;
 }
 
 /*top bar*/
@@ -28,9 +26,12 @@ $image-dir: '../images/';
 .tb-menu-item {
   padding-right: 0;
   padding-left: 0;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .top-bar-menu-link {
+  display: inline-block;
   font-size: 1em;
   color: #fff;
   white-space: nowrap;
@@ -92,7 +93,7 @@ $image-dir: '../images/';
   background-color: transparent;
   border: 0;
   padding: 0;
-  min-width: 115px;
+  min-width: 50px;
 
   &::placeholder {
     color: #fff;
@@ -129,6 +130,7 @@ $image-dir: '../images/';
   padding: 10px 16px;
 
   &:active, &:focus, &:hover {
+    padding-bottom: 7px;
     border-bottom: 3px solid #fff;
   }
 }

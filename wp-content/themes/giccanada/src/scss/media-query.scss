@@ -3,6 +3,20 @@ $image-dir: '../images/';
 /* lg-размер (<=1199px) */
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
+
+  .top-bar-menu-link {
+    font-size: .9em;
+  }
+
+  .tb-search {
+    font-size: .9em;
+
+    &::placeholder {
+      color: #fff;
+      font-size: .9em;
+    }
+  }
+
   .academy-slr-item-img {
     height: 200px;
   }
@@ -64,6 +78,30 @@ $image-dir: '../images/';
   /* CSS для ширины от 768px до 991px */
   .menu-container {
     min-width: 780px;
+  }
+
+  .top-bar-menu-link {
+    font-size: .8em;
+  }
+
+  .menu-link {
+    font-size: .9em;
+  }
+
+  .call-logo,
+  .search-logo {
+    background-size: 13px;
+    height: 13px;
+    width: 13px;
+  }
+
+  .skype-logo,
+  .messager-logo,
+  .fb-logo, .tw-logo,
+  .linkedin-logo {
+    background-size: contain;
+    height: 18px;
+    width: 18px;
   }
 
   .hs-item-button {
