@@ -49,6 +49,10 @@ $image-dir: '../images/';
     width: 300px;
   }
 
+  .news-gi-text {
+    min-height: 170px;
+  }
+
   .footer-logo {
     margin-right: 30px;
   }
@@ -157,8 +161,8 @@ $image-dir: '../images/';
 
   .news-gi-text {
     line-height: 16px;
-    min-height: 120px;
-    font-size: .7em;
+    min-height: 115px;
+    font-size: .8em;
     margin-top: 5px;
   }
 
