@@ -1,0 +1,408 @@
+$image-dir: '../images/';
+
+/* lg-размер (<=1199px) */
+@media (max-width: 1199px) {
+  /* CSS для ширины от 992px до 1199px */
+
+  .top-bar-menu-link {
+    font-size: .9em;
+  }
+
+  .tb-search {
+    font-size: .9em;
+
+    &::placeholder {
+      color: #fff;
+      font-size: .9em;
+    }
+  }
+
+  .academy-slr-item-img {
+    height: 200px;
+  }
+
+  .academy-slr-item-caption {
+    font-size: .75em;
+  }
+
+  .process-spider-top {
+    max-width: 310px;
+  }
+
+  .process-spider {
+    background-size: 701px 357px;
+    width: 701px;
+    height: 357px;
+  }
+
+  .process-text, .process-descr {
+    font-size: 1em;
+  }
+
+  .process-spider-bottom {
+    max-width: 235px;
+  }
+
+  .reviews-reviewer-name,
+  .reviews-reviewer-proc,
+  .reviews-review {
+    width: 300px;
+  }
+
+  .news-gi-text {
+    min-height: 170px;
+  }
+
+  .footer-logo {
+    margin-right: 30px;
+  }
+
+  .footer-contact-link {
+    margin-left: 10px;
+    font-size: 0.9em;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  .footer-phone,
+  .footer-fax,
+  .footer-mail    {
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .footer-site-map, .footer-cr {
+    font-size: .8em;
+  }
+}
+
+/* md-размер (<=991px) */
+@media (max-width: 991px) {
+  /* CSS для ширины от 768px до 991px */
+  .menu-container {
+    min-width: 780px;
+  }
+
+  .top-bar-menu-link {
+    font-size: .8em;
+  }
+
+  .menu-link {
+    font-size: .9em;
+  }
+
+  .call-logo,
+  .search-logo {
+    background-size: 13px;
+    height: 13px;
+    width: 13px;
+  }
+
+  .skype-logo,
+  .messager-logo,
+  .fb-logo, .tw-logo,
+  .linkedin-logo {
+    background-size: contain;
+    height: 18px;
+    width: 18px;
+  }
+
+  .hs-item-button {
+    min-width: 340px;
+  }
+
+  .academy-slr-item-img {
+    height: 140px;
+  }
+
+  .academy-slr-item-caption {
+    font-size: .5em;
+    line-height: 12px;
+    height: 30px;
+  }
+
+  .common-info-vid {
+    width: 570px;
+    height: 300px;
+    margin: 30px 0;
+  }
+
+  .process-spider-top {
+    max-width: 222px;
+  }
+
+  .process-spider {
+    background-size: 501px 257px;
+    width: 501px;
+    height: 257px;
+  }
+
+  .process-text, .process-descr {
+    font-size: .9em;
+    line-height: 20px;
+  }
+
+  .process-spider-bottom {
+    max-width: 175px;
+  }
+
+  .reviews-reviewer-name,
+  .reviews-reviewer-proc,
+  .reviews-review {
+    width: 220px;
+  }
+
+  .news-gi-caption {
+    line-height: 16px;
+    font-size: 1em;
+    min-height: 60px;
+  }
+
+  .news-gi-text {
+    line-height: 16px;
+    min-height: 115px;
+    font-size: .8em;
+    margin-top: 5px;
+  }
+
+  .news-gi-link {
+    height: 16px;
+    line-height: 16px;
+    font-size: .7em;
+    margin-top: 10px;
+  }
+
+  .news-gi-arrow {
+    width: 18px;
+    height: 16px;
+    background: url($image-dir + 'arrow.png') no-repeat center;
+    background-size: 18px 12px;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+
+  .footer-text {
+    font-size: .7em;
+    line-height: 24px;
+  }
+
+  .footer-logo {
+    margin-right: 15px;
+    background-size: contain;
+    width: 100%;
+  }
+
+  .footer-contact-link {
+    margin-left: 5px;
+    line-height: 16px;
+  }
+
+  .footer-phone,
+  .footer-fax,
+  .footer-mail    {
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-cr {
+    white-space: nowrap;
+  }
+}
+
+/* sm-размер (<=768px) */
+@media (max-width: 767px) {
+
+}
+
+/* xs-размер (<=575px) */
+@media (max-width: 575px) {
+
+}
+
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+
+  .call-logo {
+    background: url($image-dir + "header/2x/ic_call_black_24px2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .skype-logo {
+    background: url($image-dir + "header/2x/skype_logo2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .messager-logo {
+    background: url($image-dir + "header/2x/messager2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .search-logo {
+    background: url($image-dir + "header/2x/Search_icon2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .fb-logo {
+    background: url($image-dir + "header/2x/facebook2x.png") no-repeat center;
+    background-size: 14px;
+  }
+
+  .tw-logo {
+    background: url($image-dir + "header/2x/twitter2x.png") no-repeat center;
+    background-size: 26px;
+  }
+
+  .linkedin-logo {
+    background: url($image-dir + "header/2x/LinkedIn2x.png") no-repeat center;
+    background-size: cover;
+  }
+
+  #programms-pic1 {
+    background: url($image-dir + "programms/2x/1_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic2 {
+    background: url($image-dir + "programms/2x/2_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic3 {
+    background: url($image-dir + "programms/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic4 {
+    background: url($image-dir + "programms/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic5 {
+    background: url($image-dir + "programms/2x/5_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic6 {
+    background: url($image-dir + "programms/2x/6_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .programms-gi-arrow {
+    background: url($image-dir + "arrow2x.png") no-repeat center;
+    background-size: 18px 12px;
+  }
+
+  .academy-pic1 {
+    background: url($image-dir + "academy/2x/1_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic2 {
+    background: url($image-dir + "academy/2x/2_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic3 {
+    background: url($image-dir + "academy/2x/3_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic4 {
+    background: url($image-dir + "academy/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic1 {
+    background: url($image-dir + 'reviews/2x/Review1m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic2 {
+    background: url($image-dir + 'reviews/2x/Review2m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic3 {
+    background: url($image-dir + 'reviews/2x/Review3m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .quotes-img {
+    background: url($image-dir + 'quote_black@2x.png') no-repeat center;
+    background-size: 28px 20px;
+  }
+
+  #news-pic1 {
+    background: url($image-dir + "news/2x/m1.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  #news-pic2 {
+    background: url($image-dir + "news/2x/m2.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  #news-pic3 {
+    background: url($image-dir + "news/2x/m3.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-phone {
+    background: url($image-dir + "footer/2x/ic_call_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-fax {
+    background: url($image-dir + "footer/2x/ic_local_printshop_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-mail {
+    background: url($image-dir + "footer/2x/ic_email_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .process-spider {
+    background: url($image-dir + "process/2x/Group@2x.png") no-repeat center;
+    background-size: 902px 500px;
+  }
+
+  .proc-pic1 {
+    background: url($image-dir + "process/2x/1@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic2 {
+    background: url($image-dir + "process/2x/2@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic3 {
+    background: url($image-dir + "process/2x/3@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic4 {
+    background: url($image-dir + "process/2x/4@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic5 {
+    background: url($image-dir + "process/2x/5@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic6 {
+    background: url($image-dir + "process/2x/6@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic7 {
+    background: url($image-dir + "process/2x/7@2x.png") no-repeat center;
+    background-size: contain;
+  }
+}

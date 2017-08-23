@@ -1,0 +1,91 @@
+$image-dir: '../images/';
+
+/*news--------------------------------------------*/
+.news-caption {
+  height: 56px;
+  text-align: center;
+  line-height: 56px;
+  font-size: 3em;
+  letter-spacing: 0.42px;
+  text-transform: uppercase;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  color: #ff9500;
+}
+
+.news-item {
+  margin: 0 15px
+}
+
+.news-gi-image {
+  max-width: 370px;
+  height: 280px;
+  display: block;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  margin-bottom: 30px;
+}
+
+.news-gi-caption {
+  line-height: 30px;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding: 0;
+  color: #00003A;
+  min-height: 90px;
+
+  &:visited, &:link, &:hover {
+    text-decoration: none;
+    color: #00003A;
+  }
+}
+
+.news-gi-text {
+  line-height: 24px;
+  min-height: 120px;
+  font-size: 1em;
+  color: #00003A;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.news-gi-link {
+  height: 24px;
+  min-width: 120px;
+  line-height: 24px;
+  font-size: 1em;
+  text-decoration-line: underline;
+  color: #FF9500;
+  margin-top: 20px;
+  background: url($image-dir + "arrow.png") no-repeat right center;
+  background-size: 18px 12px;
+
+  &:hover {
+    color: #FF9500;
+  }
+}
+
+.news-btn {
+  height: 56px;
+  width: 290px;
+  margin: 60px 0;
+}
+
+/*images---------------------------------*/
+#news-pic1 {
+  background: url($image-dir + "news/1.jpg") no-repeat;
+  background-size: cover;
+}
+
+#news-pic2 {
+  background: url($image-dir + "news/2.jpg") no-repeat;
+  background-size: cover;
+}
+
+#news-pic3 {
+  background: url($image-dir + "news/3.jpg") no-repeat;
+  background-size: cover;
+}
+
+/*images end-----------------------------*/
+/*news end----------------------------------------*/

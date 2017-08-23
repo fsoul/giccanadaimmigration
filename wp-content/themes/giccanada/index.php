@@ -81,7 +81,7 @@
         <div class="container menu-container">
             <div class="row justify-content-between align-items-end flex-nowrap">
                 <a href="#" class="col-sm col-md-auto menu-logo"></a>
-                <div class="col col-lg-auto">
+                <div class="col col-auto">
                     <ul class="nav flex-nowrap menu">
                         <li class="nav-item menu-item">
                             <a href="#" class="menu-link white-link-none">Главная</a>
@@ -175,7 +175,7 @@
             </div>
         </div> <!--header slider-->
     </div> <!--header-container end-->
-    <div class="container-fluid programms"> <!--programms-->
+    <div class="container programms"> <!--programms-->
         <div class="row justify-content-center">
             <h2 class="col programms-caption">иммиграционные программы</h2>
         </div>
