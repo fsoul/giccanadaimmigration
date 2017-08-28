@@ -127,15 +127,9 @@ $image-dir: '../images/';
 }
 
 .menu-item {
-  padding: 10px 16px;
+  display: block;
 
-  &:active, &:focus, &:hover {
-    padding-bottom: 7px;
-    border-bottom: 3px solid #fff;
-
-  }
-
-  &:hover > .dropdown-menu {
+  .dropdown-menu.show {
     display: block;
     width: 915px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -184,6 +178,13 @@ $image-dir: '../images/';
   color: #fff;
   text-transform: uppercase;
   white-space: nowrap;
+  padding: 10px 16px;
+
+  &:active, &:focus, &:hover {
+    padding-bottom: 7px;
+    border-bottom: 3px solid #fff;
+
+  }
 
   &:visited, &:link {
     text-decoration: none;
