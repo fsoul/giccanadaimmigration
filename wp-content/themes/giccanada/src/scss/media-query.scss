@@ -261,6 +261,29 @@ only screen and (-moz-min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min-device-pixel-ratio: 1.5) {
 
+  .fixed-right-panel {
+
+    .contact-form {
+      background: url($image-dir + 'Contact-form@2x.png') no-repeat center;
+      background-size: 32.4px 36px;
+    }
+
+    .live-chat {
+      background: url($image-dir + 'Live-chat@2x.png') no-repeat center;
+      background-size: 36px;
+    }
+
+    .request-call {
+      background: url($image-dir + 'Request-call@2x.png') no-repeat center;
+      background-size: 32.4px;
+    }
+
+    .open-case {
+      background: url($image-dir + 'Open-case@2x.png') no-repeat center;
+      background-size: 32.4px 36px;
+    }
+  }
+
   .call-logo {
     background: url($image-dir + "header/2x/ic_call_black_24px2x.png") no-repeat;
     background-size: cover;

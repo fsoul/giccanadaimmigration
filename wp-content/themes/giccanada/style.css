@@ -50,6 +50,38 @@ ol.carousel-indicators li.active {
   background: #fff; }
 
 /*slider indicators li style end ---------------*/
+/*fixed right panel ---------------------------*/
+.fixed-right-panel {
+  position: fixed;
+  width: 72px;
+  height: 288px;
+  right: 0;
+  bottom: 100px;
+  background: #fff;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+  z-index: 500;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px; }
+  .fixed-right-panel .fixed-panel-button {
+    width: 72px;
+    height: 72px;
+    border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
+    .fixed-right-panel .fixed-panel-button:last-child {
+      border-bottom: none; }
+  .fixed-right-panel .contact-form {
+    background: url(./public/images/Contact-form-88c2435a62.png) no-repeat center;
+    background-size: 32.4px 36px; }
+  .fixed-right-panel .live-chat {
+    background: url(./public/images/Live-chat-124670d341.png) no-repeat center;
+    background-size: 36px; }
+  .fixed-right-panel .request-call {
+    background: url(./public/images/Request-call-4b536ce99e.png) no-repeat center;
+    background-size: 32.4px; }
+  .fixed-right-panel .open-case {
+    background: url(./public/images/Open-case-25e66fba1b.png) no-repeat center;
+    background-size: 32.4px 36px; }
+
+/*fixed right panel end -----------------------*/
 .header-container {
   width: 100%;
   background: url(./public/images/header-bg-60bd5054a3.png) no-repeat;
@@ -867,6 +899,18 @@ ol.carousel-indicators li.active {
 /* sm-размер (<=768px) */
 /* xs-размер (<=575px) */
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+  .fixed-right-panel .contact-form {
+    background: url(./public/images/Contact-form@2x-d36729ef16.png) no-repeat center;
+    background-size: 32.4px 36px; }
+  .fixed-right-panel .live-chat {
+    background: url(./public/images/Live-chat@2x-b4a84f2741.png) no-repeat center;
+    background-size: 36px; }
+  .fixed-right-panel .request-call {
+    background: url(./public/images/Request-call@2x-e8b28a4927.png) no-repeat center;
+    background-size: 32.4px; }
+  .fixed-right-panel .open-case {
+    background: url(./public/images/Open-case@2x-109a30d073.png) no-repeat center;
+    background-size: 32.4px 36px; }
   .call-logo {
     background: url(./public/images/ic_call_black_24px2x-c04a22c3c0.png) no-repeat;
     background-size: cover; }
