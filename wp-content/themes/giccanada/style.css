@@ -158,6 +158,35 @@ ol.carousel-indicators li.active {
   .menu-item:active, .menu-item:focus, .menu-item:hover {
     padding-bottom: 7px;
     border-bottom: 3px solid #fff; }
+  .menu-item:hover > .dropdown-menu {
+    display: block;
+    width: 915px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 30px;
+    left: -415px;
+    top: 120%; }
+    .menu-item:hover > .dropdown-menu .col h3.row {
+      height: 24px;
+      line-height: 24px;
+      font-size: 1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: #0076FF;
+      margin-bottom: 30px; }
+    .menu-item:hover > .dropdown-menu .col ul.row {
+      padding: 0; }
+      .menu-item:hover > .dropdown-menu .col ul.row li {
+        list-style-type: none;
+        width: 100%; }
+        .menu-item:hover > .dropdown-menu .col ul.row li a {
+          line-height: 24px;
+          font-size: 1em;
+          color: #00003A;
+          text-decoration: none;
+          white-space: nowrap; }
+          .menu-item:hover > .dropdown-menu .col ul.row li a:visited, .menu-item:hover > .dropdown-menu .col ul.row li a:link {
+            text-decoration: none; }
 
 .menu-link {
   font-size: 1em;
@@ -735,6 +764,25 @@ ol.carousel-indicators li.active {
     min-width: 780px; }
   .top-bar-menu-link {
     font-size: .8em; }
+  .menu-item:hover > .dropdown-menu {
+    width: 700px;
+    left: -240px; }
+    .menu-item:hover > .dropdown-menu .col {
+      margin-left: 15px; }
+      .menu-item:hover > .dropdown-menu .col:first-child {
+        margin: 0; }
+      .menu-item:hover > .dropdown-menu .col h3.row {
+        height: 24px;
+        line-height: 24px;
+        font-size: .9em; }
+      .menu-item:hover > .dropdown-menu .col ul.row {
+        padding: 0; }
+        .menu-item:hover > .dropdown-menu .col ul.row li {
+          list-style-type: none;
+          width: 100%; }
+          .menu-item:hover > .dropdown-menu .col ul.row li a {
+            line-height: 24px;
+            font-size: .9em; }
   .menu-link {
     font-size: .9em; }
   .call-logo,

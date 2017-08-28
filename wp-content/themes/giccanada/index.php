@@ -61,7 +61,8 @@
                     </div>
                 </li>
                 <li class="nav-item nav-link dropdown tb-menu-item">
-                    <a class="nav-link dropdown-toggle top-bar-menu-link white-link-none" data-toggle="dropdown" href="#"
+                    <a class="nav-link dropdown-toggle top-bar-menu-link white-link-none" data-toggle="dropdown"
+                       href="#"
                        role="button"
                        aria-haspopup="true" aria-expanded="false">Русский</a>
                     <div class="dropdown-menu">
@@ -83,8 +84,50 @@
                 <a href="#" class="col-sm col-md-auto menu-logo"></a>
                 <div class="col col-auto">
                     <ul class="nav flex-nowrap menu">
-                        <li class="nav-item menu-item">
-                            <a href="#" class="menu-link white-link-none">Главная</a>
+                        <li class="nav-item dropdown menu-item">
+                            <a class="menu-link white-link-none" href="#" role="button"
+                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">Главная</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h3 class="row">Виды иммиграции</h3>
+                                            <ul class="row">
+                                                <li><a href="#">Express Entry</a></li>
+                                                <li><a href="#">Федеральная программа FSWP</a></li>
+                                                <li><a href="#">Canadian Experience Class</a></li>
+                                                <li><a href="#">Провинциальная программа PNP</a></li>
+                                                <li><a href="#">Студенческие программы</a></li>
+                                                <li><a href="#">Иммиграция в Квебек</a></li>
+                                                <li><a href="#">Рабочая виза</a></li>
+                                                <li><a href="#">Federal Skilled Trades</a></li>
+                                                <li><a href="#">Семейное спонсорство</a></li>
+                                                <li><a href="#">Программа беженства</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <h3 class="row">Работа в Канаде</h3>
+                                            <ul class="row">
+                                                <li><a href="#">Программа Онтарио</a></li>
+                                                <li><a href="#">Квебек</a></li>
+                                                <li><a href="#">Британская Колумбия</a></li>
+                                                <li><a href="#">Альберта</a></li>
+                                                <li><a href="#">Манитоба</a></li>
+                                                <li><a href="#">Саскатчиван</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <h3 class="row">Учёба в Канаде</h3>
+                                            <ul class="row">
+                                                <li><a href="#">Учёба в Канаде и иммиграция</a></li>
+                                                <li><a href="#">Студенческая виза</a></li>
+                                                <li><a href="#"> Учебная программа Co-op 2016</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item menu-item">
                             <a href="#" class="menu-link white-link-none">Отзывы</a>
@@ -306,7 +349,8 @@
                                         <div class="col-sm-3 col-md-3 col-lg-3">
                                             <div class="academy-slr-item-img academy-pic1">
                                                 <div class="academy-caption-wrapper">
-                                                    <a href="#" class="academy-slr-item-caption white-link-none">King George
+                                                    <a href="#" class="academy-slr-item-caption white-link-none">King
+                                                        George
                                                         International Business College</a>
                                                 </div>
                                             </div>
@@ -350,7 +394,8 @@
                                         <div class="col-sm-3 col-md-3 col-lg-3">
                                             <div class="academy-slr-item-img academy-pic1">
                                                 <div class="academy-caption-wrapper">
-                                                    <a href="#" class="academy-slr-item-caption white-link-none">King George
+                                                    <a href="#" class="academy-slr-item-caption white-link-none">King
+                                                        George
                                                         International Business College</a>
                                                 </div>
                                             </div>
@@ -394,7 +439,8 @@
                                         <div class="col-sm-3 col-md-3 col-lg-3">
                                             <div class="academy-slr-item-img academy-pic1">
                                                 <div class="academy-caption-wrapper">
-                                                    <a href="#" class="academy-slr-item-caption white-link-none">King George
+                                                    <a href="#" class="academy-slr-item-caption white-link-none">King
+                                                        George
                                                         International Business College</a>
                                                 </div>
                                             </div>
@@ -438,7 +484,8 @@
                                         <div class="col-sm-3 col-md-3 col-lg-3">
                                             <div class="academy-slr-item-img academy-pic1">
                                                 <div class="academy-caption-wrapper">
-                                                    <a href="#" class="academy-slr-item-caption white-link-none">King George
+                                                    <a href="#" class="academy-slr-item-caption white-link-none">King
+                                                        George
                                                         International Business College</a>
                                                 </div>
                                             </div>
@@ -510,7 +557,8 @@
                     <div class="col process-img proc-pic1"></div>
                 </div>
                 <div class="row">
-                    <p class="col process-descr">Оценка шансов на иммиграцию в Канаду по всем иммиграционным программам.</p>
+                    <p class="col process-descr">Оценка шансов на иммиграцию в Канаду по всем иммиграционным
+                        программам.</p>
                 </div>
             </div>
             <div class="col-4 process-spider-top">
@@ -526,7 +574,8 @@
                     <div class="col process-img proc-pic3"></div>
                 </div>
                 <div class="row">
-                    <p class="col process-descr">Одобрительное письмо подписанное Канадским Лицензированным Иммиграционным
+                    <p class="col process-descr">Одобрительное письмо подписанное Канадским Лицензированным
+                        Иммиграционным
                         Консультантом
                         и Адвокатом.</p>
                 </div>
@@ -549,7 +598,8 @@
                     <div class="col process-img proc-pic5"></div>
                 </div>
                 <div class="row">
-                    <p class="col process-descr">Работа в Канаде, рабочие визы в Канаду и поиск работодателя в Канаде.</p>
+                    <p class="col process-descr">Работа в Канаде, рабочие визы в Канаду и поиск работодателя в
+                        Канаде.</p>
                 </div>
             </div>
             <div class="col-3 process-spider-bottom">
@@ -636,7 +686,8 @@
                                             <p class="reviews-review">
                                                 Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
                                                 иммиграции в Канаду от начала и до конца.
-                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что я
+                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что
+                                                я
                                                 очень признателен!
                                             </p>
                                         </div>
@@ -644,7 +695,8 @@
                                             <p class="reviews-review">
                                                 Получение гостевой визы — это всегда приятно, особенно если это гостевая
                                                 виза в Канаду до конца действия паспорта.
-                                                Я уверена, что моя поездка в Канаду принесет и положительные впечатления, и
+                                                Я уверена, что моя поездка в Канаду принесет и положительные
+                                                впечатления, и
                                                 пользу.
                                             </p>
                                         </div>
@@ -724,7 +776,8 @@
                                             <p class="reviews-review">
                                                 Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
                                                 иммиграции в Канаду от начала и до конца.
-                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что я
+                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что
+                                                я
                                                 очень признателен!
                                             </p>
                                         </div>
@@ -732,7 +785,8 @@
                                             <p class="reviews-review">
                                                 Получение гостевой визы — это всегда приятно, особенно если это гостевая
                                                 виза в Канаду до конца действия паспорта.
-                                                Я уверена, что моя поездка в Канаду принесет и положительные впечатления, и
+                                                Я уверена, что моя поездка в Канаду принесет и положительные
+                                                впечатления, и
                                                 пользу.
                                             </p>
                                         </div>
@@ -812,7 +866,8 @@
                                             <p class="reviews-review">
                                                 Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
                                                 иммиграции в Канаду от начала и до конца.
-                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что я
+                                                Команда специалистов индивидуально подобрала оптимальный вариант, за что
+                                                я
                                                 очень признателен!
                                             </p>
                                         </div>
@@ -820,7 +875,8 @@
                                             <p class="reviews-review">
                                                 Получение гостевой визы — это всегда приятно, особенно если это гостевая
                                                 виза в Канаду до конца действия паспорта.
-                                                Я уверена, что моя поездка в Канаду принесет и положительные впечатления, и
+                                                Я уверена, что моя поездка в Канаду принесет и положительные
+                                                впечатления, и
                                                 пользу.
                                             </p>
                                         </div>
@@ -890,7 +946,8 @@
                             <a href="#" class="col news-gi-caption">Лучшие места для воспитания детей в Канаде</a>
                         </div>
                         <div class="row no-gutters">
-                            <p class="col news-gi-text">Мы продолжаем публиковать данные Рейтинга издания MoneySense «Лучшие
+                            <p class="col news-gi-text">Мы продолжаем публиковать данные Рейтинга издания MoneySense
+                                «Лучшие
                                 места для жизни 2016» –
                                 наиболее полной, основанной на фактических данных, характеристике канадских городов.</p>
                         </div>
@@ -907,10 +964,12 @@
                                 иммиграции</a>
                         </div>
                         <div class="row no-gutters">
-                            <p class="col news-gi-text">Правительство Канады опубликовало нормативные изменения, согласно
+                            <p class="col news-gi-text">Правительство Канады опубликовало нормативные изменения,
+                                согласно
                                 которым
                                 максимальный возраст
-                                ребенка-иждивенца увеличивается, что позволит большему числу семей оставаться вместе.</p>
+                                ребенка-иждивенца увеличивается, что позволит большему числу семей оставаться
+                                вместе.</p>
                         </div>
                         <div class="row no-gutters">
                             <a href="#" class="col-auto news-gi-link">Подробнее</a>
@@ -923,4 +982,4 @@
             <a href="#" class="col col-auto news-btn orange-btn">Больше новостей</a>
         </div>
     </div><!--news end-->
-<?php get_footer();?>
+<?php get_footer(); ?>

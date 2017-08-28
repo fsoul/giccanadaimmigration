@@ -132,6 +132,50 @@ $image-dir: '../images/';
   &:active, &:focus, &:hover {
     padding-bottom: 7px;
     border-bottom: 3px solid #fff;
+
+  }
+
+  &:hover > .dropdown-menu {
+    display: block;
+    width: 915px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 30px;
+    left: -415px;
+    top: 120%;
+
+    .col {
+      h3.row {
+        height: 24px;
+        line-height: 24px;
+        font-size: 1em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #0076FF;
+        margin-bottom: 30px;
+      }
+
+      ul.row {
+        padding: 0;
+
+        li {
+          list-style-type: none;
+          width: 100%;
+
+          a {
+            line-height: 24px;
+            font-size: 1em;
+            color: #00003A;
+            text-decoration: none;
+            white-space: nowrap;
+
+            &:visited, &:link {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -189,4 +233,5 @@ $image-dir: '../images/';
   position: relative;
   margin-top: 60px;
 }
+
 /*menu slider end ------------------------------*/
