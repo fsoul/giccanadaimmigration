@@ -1,4 +1,13 @@
-// import './js/test.js';
+'use strict';
+
+import test from './js/test';
+// export for others scripts to use
+
+
+$( document ).ready(function() {
+    window.onclick = test.onWindowClick;
+    $('button.dropbtn').click(test.toggleMenu);
+});
 
 //scss-------------------------------------------
 import './scss/global.scss';

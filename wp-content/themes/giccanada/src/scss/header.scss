@@ -127,44 +127,57 @@ $image-dir: '../images/';
 }
 
 .menu-item {
-  display: block;
 
-  .dropdown-menu.show {
-    display: block;
-    width: 915px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 16px;
-    padding: 30px;
-    left: -415px;
-    top: 120%;
+  .menu-dropdown {
+    position: relative;
+    display: inline-block;
 
-    .col {
-      h3.row {
-        height: 24px;
-        line-height: 24px;
-        font-size: 1em;
-        text-transform: uppercase;
-        white-space: nowrap;
-        color: #0076FF;
-        margin-bottom: 30px;
-      }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      z-index: 1;
 
-      ul.row {
-        padding: 0;
+      &.show-dropdown-content {
+        display: block;
+        width: 915px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        border-radius: 16px;
+        padding: 30px;
+        left: -415px;
+        top: 120%;
 
-        li {
-          list-style-type: none;
-          width: 100%;
-
-          a {
+        .col {
+          h3.row {
+            height: 24px;
             line-height: 24px;
             font-size: 1em;
-            color: #00003A;
-            text-decoration: none;
+            text-transform: uppercase;
             white-space: nowrap;
+            color: #0076FF;
+            margin-bottom: 30px;
+          }
 
-            &:visited, &:link {
-              text-decoration: none;
+          ul.row {
+            padding: 0;
+
+            li {
+              list-style-type: none;
+              width: 100%;
+
+              a {
+                line-height: 24px;
+                font-size: 1em;
+                color: #00003A;
+                text-decoration: none;
+                white-space: nowrap;
+
+                &:visited, &:link {
+                  text-decoration: none;
+                }
+              }
             }
           }
         }
@@ -179,14 +192,17 @@ $image-dir: '../images/';
   text-transform: uppercase;
   white-space: nowrap;
   padding: 10px 16px;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
 
   &:active, &:focus, &:hover {
     padding-bottom: 7px;
     border-bottom: 3px solid #fff;
+    outline: none;
 
   }
-
-  &:visited, &:link {
+  &:visited, &:link, &:focus {
     text-decoration: none;
   }
 }

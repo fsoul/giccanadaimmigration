@@ -1,6 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+const webpack = require('webpack');
 const themePath = 'wp-content/themes/giccanada';
 
 module.exports = {
@@ -8,6 +8,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, `${themePath}/public`),
         filename: 'giccanada.js',
+        library: [
+            'test'
+        ],
         publicPath: "./public/"
     },
     module: {
@@ -34,8 +37,11 @@ module.exports = {
 
         ]
     },
-
     plugins: [
-        new ExtractTextPlugin('../style.css')
+        new ExtractTextPlugin('../style.css'),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
     ]
 };
