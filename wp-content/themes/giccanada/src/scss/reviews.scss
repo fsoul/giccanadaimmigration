@@ -19,6 +19,13 @@ $image-dir: '../images/';
   color: #fff;
 }
 
+#reviews-carousel {
+  .carousel-indicators {
+    position: relative;
+    margin-top: 60px;
+  }
+}
+
 .reviews-image {
   height: 280px;
   border: 6px solid #fff;

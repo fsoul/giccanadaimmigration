@@ -96,16 +96,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-$( document ).ready(function() {
-    window.onclick = __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick;
-    $('button.dropbtn').click(__WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu);
+$(document).ready(function () {
+    $(window).on('click', function (e) {
+        __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
+    });
+
+    $(window).on('scroll',
+        function () {
+            if ($(window).scrollTop() >= 150) {
+                $('.menu-container').css({
+                        'position': 'fixed',
+                        'top': '0',
+                        'margin-top': '0',
+                        'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
+                        'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
+                });
+            } else {
+                $('.menu-container').removeAttr('style');
+            }
+        });
+
+    $('button.dropbtn').on('click', function () {
+        __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu();
+    });
     $('.fixed-panel-button').hover(
         function () {
-            $(this).parent().find('.fixed-pnl-btn-hover').css('display', 'inline-block');
+            __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onFixedButtonHover($(this));
         },
         function () {
-            $(this).parent().find('.fixed-pnl-btn-hover').css('display', 'none')
-        });
+            __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onFixedButtonHover($(this));
+        }
+    );
 });
 
 //scss-------------------------------------------
@@ -10390,7 +10411,7 @@ return jQuery;
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function toggleMenu(event) {
+function toggleMenu() {
     document.getElementById("main-menu-content").classList.toggle("show-dropdown-content");
 }
 
@@ -10407,11 +10428,20 @@ function onWindowClick (event) {
             }
         }
     }
-};
+}
+
+function onFixedButtonHover($button) {
+    let $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover');
+    if ($btnHoverText.css('display') === 'none')
+        $btnHoverText.css('display', 'inline-block');
+    else
+        $btnHoverText.css('display', 'none');
+}
 
 module.exports = {
     toggleMenu: toggleMenu,
-    onWindowClick: onWindowClick
+    onWindowClick: onWindowClick,
+    onFixedButtonHover: onFixedButtonHover
 };
 
 

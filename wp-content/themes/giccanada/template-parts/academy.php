@@ -189,7 +189,7 @@
 					</div>
 				</div><!-- carousel wrapper -->
 				<!-- Indicators -->
-				<ol class="carousel-indicators hs-indicators">
+				<ol class="carousel-indicators">
 					<li data-target="#academy-carousel" data-slide-to="0" class="active"></li>
 					<li data-target="#academy-carousel" data-slide-to="1"></li>
 					<li data-target="#academy-carousel" data-slide-to="2"></li>

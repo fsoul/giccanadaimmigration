@@ -1,6 +1,6 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function toggleMenu(event) {
+function toggleMenu() {
     document.getElementById("main-menu-content").classList.toggle("show-dropdown-content");
 }
 
@@ -17,9 +17,18 @@ function onWindowClick (event) {
             }
         }
     }
-};
+}
+
+function onFixedButtonHover($button) {
+    let $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover');
+    if ($btnHoverText.css('display') === 'none')
+        $btnHoverText.css('display', 'inline-block');
+    else
+        $btnHoverText.css('display', 'none');
+}
 
 module.exports = {
     toggleMenu: toggleMenu,
-    onWindowClick: onWindowClick
+    onWindowClick: onWindowClick,
+    onFixedButtonHover: onFixedButtonHover
 };

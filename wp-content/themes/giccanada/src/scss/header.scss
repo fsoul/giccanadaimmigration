@@ -7,7 +7,7 @@ $image-dir: '../images/';
 
 /*top bar*/
 .top-bar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.166865);
+  box-shadow: 0 2px 4px rgba(0, 0, 58, 0.5);
   background: linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);
   background: -webkit-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);; /* For Opera 11.1 to 12.0 */
@@ -113,12 +113,13 @@ $image-dir: '../images/';
 
 /*top bar end --------------------*/
 
+/* Rectangle 2 */
+
 /*menu*/
 .menu-container {
-  margin-top: 24px;
+  margin-top: 14px;
+  padding: 10px 0;
   position: absolute;
-  left: 50%;
-  margin-left: -570px;
   z-index: 1;
 }
 

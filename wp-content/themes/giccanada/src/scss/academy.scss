@@ -19,6 +19,10 @@ $image-dir: '../images/';
 
 #academy-carousel {
   margin-top: 60px;
+
+  .carousel-indicators {
+    position: relative;
+  }
 }
 
 .academy-slr-item-img {
