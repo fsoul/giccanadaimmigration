@@ -1,9 +1,15 @@
 <?php ?>
 <div class="container-fluid menu-container">
 	<div class="row justify-content-center">
-        <div class="col-9">
+        <div class="col-md-11 col-lg-9">
             <div class="row justify-content-between align-items-end flex-nowrap">
                 <a href="#" class="col-sm col-md-auto menu-logo"></a>
+                <div class="col col-auto align-self-center menu-phone-block">
+                    <div class="row align-items-center flex-nowrap">
+                        <div class="tb-menu-logo call-logo"></div>
+                        <a class="white-link-none" href="tel:03-6738333">03-6738333</a>
+                    </div>
+                </div>
                 <div class="col col-auto align-self-center">
                     <ul class="nav flex-nowrap menu">
                         <li class="menu-item">

@@ -28,14 +28,18 @@ body {
     color: #FF8200;
     text-decoration: none; }
 
-.white-link-underline:hover {
-  color: #fff;
-  text-decoration: underline;
-  text-decoration-color: #fff; }
+.white-link-underline {
+  color: #fff; }
+  .white-link-underline:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: #fff; }
 
-.white-link-none:hover {
-  color: #fff;
-  text-decoration: none; }
+.white-link-none {
+  color: #fff; }
+  .white-link-none:hover {
+    color: #fff;
+    text-decoration: none; }
 
 /*slider indicators li style*/
 ol.carousel-indicators li,
@@ -207,12 +211,18 @@ ol.carousel-indicators li.active {
   padding: 10px 0;
   position: absolute;
   z-index: 1; }
+  .menu-container .menu-phone-block {
+    display: none; }
+    .menu-container .menu-phone-block a.white-link-none {
+      font-size: 1em;
+      line-height: 16px; }
 
 .menu-logo {
   background: url(./public/images/Logo-f6c4044548.png) no-repeat;
   background-size: 223px 82px;
   height: 82px;
-  width: 223px; }
+  width: 223px;
+  margin-right: 10px; }
 
 .menu-item .menu-dropdown {
   position: relative;

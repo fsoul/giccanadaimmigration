@@ -100,21 +100,9 @@ $(document).ready(function () {
     $(window).on('click', function (e) {
         __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
     });
+    $(window).on('scroll', function () { __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos(); });
 
-    $(window).on('scroll',
-        function () {
-            if ($(window).scrollTop() >= 150) {
-                $('.menu-container').css({
-                        'position': 'fixed',
-                        'top': '0',
-                        'margin-top': '0',
-                        'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
-                        'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
-                });
-            } else {
-                $('.menu-container').removeAttr('style');
-            }
-        });
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
 
     $('button.dropbtn').on('click', function () {
         __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu();
@@ -10407,9 +10395,9 @@ return jQuery;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-/* When the user clicks on the button,
+/* WEBPACK VAR INJECTION */(function($) {/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function toggleMenu() {
     document.getElementById("main-menu-content").classList.toggle("show-dropdown-content");
@@ -10438,12 +10426,31 @@ function onFixedButtonHover($button) {
         $btnHoverText.css('display', 'none');
 }
 
+function updateHeaderMenuPos() {
+    if ($(window).scrollTop() >= 150) {
+        $('.menu-container').css({
+            'position': 'fixed',
+            'top': '0',
+            'margin-top': '0',
+            'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
+            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
+        });
+        $('.menu-phone-block').css('display', 'inline-block');
+    } else {
+        $('.menu-container').removeAttr('style');
+        $('.menu-phone-block').css('display', 'none');
+    }
+}
+
+
 module.exports = {
     toggleMenu: toggleMenu,
     onWindowClick: onWindowClick,
-    onFixedButtonHover: onFixedButtonHover
+    onFixedButtonHover: onFixedButtonHover,
+    updateHeaderMenuPos: updateHeaderMenuPos
 };
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 3 */

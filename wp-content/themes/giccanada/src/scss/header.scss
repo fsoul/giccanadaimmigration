@@ -121,6 +121,15 @@ $image-dir: '../images/';
   padding: 10px 0;
   position: absolute;
   z-index: 1;
+
+  .menu-phone-block {
+    display: none;
+
+      a.white-link-none {
+        font-size: 1em;
+        line-height: 16px;
+      }
+  }
 }
 
 .menu-logo {
@@ -128,6 +137,7 @@ $image-dir: '../images/';
   background-size: 223px 82px;
   height: 82px;
   width: 223px;
+  margin-right: 10px;
 }
 
 .menu-item {
