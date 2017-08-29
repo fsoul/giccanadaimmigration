@@ -1,3 +1,5 @@
+$image-dir: '../images/';
+
 @font-face {
   font-family: 'Lato';
   src: url('../fonts/Lato-Regular.eot'); /* IE9 Compat Modes */
@@ -60,3 +62,49 @@ ol.carousel-indicators li.active {
   background: #fff;
 }
 /*slider indicators li style end ---------------*/
+
+/*fixed right panel ---------------------------*/
+.fixed-right-panel {
+  position: fixed;
+  width: 72px;
+  height: 288px;
+  right: 0;
+  bottom: 100px;
+  background: #fff;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+  z-index: 500;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+
+  .fixed-panel-button {
+    width: 72px;
+    height: 72px;
+    border-bottom: 1px solid rgba(0, 0, 58, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .contact-form {
+    background: url($image-dir + 'Contact-form.png') no-repeat center;
+    background-size: 32.4px 36px;
+  }
+
+  .live-chat {
+    background: url($image-dir + 'Live-chat.png') no-repeat center;
+    background-size: 36px;
+  }
+
+  .request-call {
+    background: url($image-dir + 'Request-call.png') no-repeat center;
+    background-size: 32.4px;
+  }
+
+  .open-case {
+    background: url($image-dir + 'Open-case.png') no-repeat center;
+    background-size: 32.4px 36px;
+  }
+}
+
+/*fixed right panel end -----------------------*/

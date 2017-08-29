@@ -1,5 +1,12 @@
-// import './js/test.js';
+'use strict';
 
+import header from './js/header';
+
+
+$( document ).ready(function() {
+    window.onclick = header.onWindowClick;
+    $('button.dropbtn').click(header.toggleMenu);
+});
 
 //scss-------------------------------------------
 import './scss/global.scss';

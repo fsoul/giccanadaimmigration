@@ -13,7 +13,6 @@ $image-dir: '../images/';
 }
 
 .process-text, .process-descr {
-  width: 570px;
   line-height: 24px;
   font-size: 1.25em;
   text-align: center;
@@ -23,6 +22,7 @@ $image-dir: '../images/';
 .process-text {
   margin-top: 10px;
   margin-bottom: 60px;
+  width: 570px;
 }
 
 .process-spider-top {
@@ -36,7 +36,7 @@ $image-dir: '../images/';
 
 .process-descr {
   margin-top: 40px;
-  padding: 0 7%;
+  padding: 0 18px;
 }
 
 .process-spider-bottom {
