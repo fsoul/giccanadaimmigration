@@ -71,19 +71,19 @@ $image-dir: '../images/';
 }
 
 .call-logo {
-  background: url($image-dir + "header/ic_call_black_24px.png") no-repeat;
+  background: url($image-dir + "header/ic_call_black_24px.png") no-repeat center;
 }
 
 .skype-logo {
-  background: url($image-dir + "header/skype_logo.png") no-repeat;
+  background: url($image-dir + "header/skype_logo.png") no-repeat center;
 }
 
 .messager-logo {
-  background: url($image-dir + "header/messager.png") no-repeat;
+  background: url($image-dir + "header/messager.png") no-repeat center;
 }
 
 .search-logo {
-  background: url($image-dir + "header/search_icon.png") no-repeat;
+  background: url($image-dir + "header/search_icon.png") no-repeat center;
 }
 
 .tb-search {
