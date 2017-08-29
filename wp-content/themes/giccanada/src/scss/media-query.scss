@@ -4,10 +4,6 @@ $image-dir: '../images/';
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
 
-  .menu-container {
-    margin-left: -480px;
-  }
-
   .top-bar-menu-link {
     font-size: .9em;
   }
@@ -84,10 +80,6 @@ $image-dir: '../images/';
 /* md-размер (<=991px) */
 @media (max-width: 991px) {
   /* CSS для ширины от 768px до 991px */
-  .menu-container {
-    min-width: 780px;
-    margin-left: -390px;
-  }
 
   .top-bar-menu-link {
     font-size: .8em;
@@ -272,25 +264,52 @@ $image-dir: '../images/';
     only screen and (min-device-pixel-ratio: 1.5) {
 
       .fixed-right-panel {
+        div {
+          .fixed-pnl-btn-hover {
+            display: none;
+            background: url($image-dir + "fxd-btn-hover-text@2x.png");
+            background-size: cover;
+          }
 
-        .contact-form {
-          background: url($image-dir + 'Contact-form@2x.png') no-repeat center;
-          background-size: 32.4px 36px;
-        }
+          .contact-form {
+            background: url($image-dir + 'Contact-form@2x.png') no-repeat center;
+            background-size: 32.4px 36px;
 
-        .live-chat {
-          background: url($image-dir + 'Live-chat@2x.png') no-repeat center;
-          background-size: 36px;
-        }
+            &:hover {
+              background: url($image-dir + 'Contact-form-hover@2x.png') no-repeat center;
+              background-size: 32.4px 36px;
+            }
+          }
 
-        .request-call {
-          background: url($image-dir + 'Request-call@2x.png') no-repeat center;
-          background-size: 32.4px;
-        }
+          .live-chat {
+            background: url($image-dir + 'Live-chat@2x.png') no-repeat center;
+            background-size: 36px;
 
-        .open-case {
-          background: url($image-dir + 'Open-case@2x.png') no-repeat center;
-          background-size: 32.4px 36px;
+            &:hover {
+              background: url($image-dir + 'Live-chat-hover@2x.png') no-repeat center;
+              background-size: 36px;
+            }
+          }
+
+          .request-call {
+            background: url($image-dir + 'Request-call@2x.png') no-repeat center;
+            background-size: 32.4px;
+
+            &:hover {
+              background: url($image-dir + 'Request-call-hover@2x.png') no-repeat center;
+              background-size: 32.4px;
+            }
+          }
+
+          .open-case {
+            background: url($image-dir + 'Open-case@2x.png') no-repeat center;
+            background-size: 32.4px 36px;
+
+            &:hover {
+              background: url($image-dir + 'Open-case-hover@2x.png') no-repeat center;
+              background-size: 32.4px 36px;
+            }
+          }
         }
       }
 

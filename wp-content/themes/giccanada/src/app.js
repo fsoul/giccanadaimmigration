@@ -2,10 +2,25 @@
 
 import header from './js/header';
 
+$(document).ready(function () {
+    $(window).on('click', function (e) {
+        header.onWindowClick(e);
+    });
+    $(window).on('scroll', function () { header.updateHeaderMenuPos(); });
 
-$( document ).ready(function() {
-    window.onclick = header.onWindowClick;
-    $('button.dropbtn').click(header.toggleMenu);
+    header.updateHeaderMenuPos();
+
+    $('button.dropbtn').on('click', function () {
+        header.toggleMenu();
+    });
+    $('.fixed-panel-button').hover(
+        function () {
+            header.onFixedButtonHover($(this));
+        },
+        function () {
+            header.onFixedButtonHover($(this));
+        }
+    );
 });
 
 //scss-------------------------------------------
@@ -21,4 +36,3 @@ import './scss/footer.scss';
 
 
 import './scss/media-query.scss';
-

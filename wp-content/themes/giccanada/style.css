@@ -28,14 +28,18 @@ body {
     color: #FF8200;
     text-decoration: none; }
 
-.white-link-underline:hover {
-  color: #fff;
-  text-decoration: underline;
-  text-decoration-color: #fff; }
+.white-link-underline {
+  color: #fff; }
+  .white-link-underline:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: #fff; }
 
-.white-link-none:hover {
-  color: #fff;
-  text-decoration: none; }
+.white-link-none {
+  color: #fff; }
+  .white-link-none:hover {
+    color: #fff;
+    text-decoration: none; }
 
 /*slider indicators li style*/
 ol.carousel-indicators li,
@@ -62,24 +66,50 @@ ol.carousel-indicators li.active {
   z-index: 500;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px; }
-  .fixed-right-panel .fixed-panel-button {
-    width: 72px;
-    height: 72px;
-    border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
-    .fixed-right-panel .fixed-panel-button:last-child {
-      border-bottom: none; }
-  .fixed-right-panel .contact-form {
-    background: url(./public/images/Contact-form-88c2435a62.png) no-repeat center;
-    background-size: 32.4px 36px; }
-  .fixed-right-panel .live-chat {
-    background: url(./public/images/Live-chat-124670d341.png) no-repeat center;
-    background-size: 36px; }
-  .fixed-right-panel .request-call {
-    background: url(./public/images/Request-call-4b536ce99e.png) no-repeat center;
-    background-size: 32.4px; }
-  .fixed-right-panel .open-case {
-    background: url(./public/images/Open-case-25e66fba1b.png) no-repeat center;
-    background-size: 32.4px 36px; }
+  .fixed-right-panel div {
+    position: relative; }
+    .fixed-right-panel div .fixed-pnl-btn-hover {
+      display: none;
+      background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
+      background-size: cover;
+      height: 32px;
+      min-width: 175px;
+      position: absolute;
+      right: 80px;
+      white-space: nowrap;
+      padding-right: 50px;
+      padding-left: 10px;
+      line-height: 32px;
+      font-size: 1em;
+      color: #fff;
+      top: 50%;
+      margin-top: -16px; }
+    .fixed-right-panel div .fixed-panel-button {
+      width: 72px;
+      height: 72px;
+      border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
+      .fixed-right-panel div .fixed-panel-button:last-child {
+        border-bottom: none; }
+    .fixed-right-panel div .contact-form {
+      background: url(./public/images/Contact-form-88c2435a62.png) no-repeat center;
+      background-size: 32.4px 36px; }
+      .fixed-right-panel div .contact-form:hover {
+        background: url(./public/images/Contact-form-hover-26abda9ead.png) no-repeat center; }
+    .fixed-right-panel div .live-chat {
+      background: url(./public/images/Live-chat-124670d341.png) no-repeat center;
+      background-size: 36px; }
+      .fixed-right-panel div .live-chat:hover {
+        background: url(./public/images/Live-chat-hover-1a6b37684b.png) no-repeat center; }
+    .fixed-right-panel div .request-call {
+      background: url(./public/images/Request-call-4b536ce99e.png) no-repeat center;
+      background-size: 32.4px; }
+      .fixed-right-panel div .request-call:hover {
+        background: url(./public/images/Request-call-hover-6e5c7ddf41.png) no-repeat center; }
+    .fixed-right-panel div .open-case {
+      background: url(./public/images/Open-case-25e66fba1b.png) no-repeat center;
+      background-size: 32.4px 36px; }
+      .fixed-right-panel div .open-case:hover {
+        background: url(./public/images/Open-case-hover-a35d7c32d0.png) no-repeat center; }
 
 /*fixed right panel end -----------------------*/
 .header-container {
@@ -88,7 +118,7 @@ ol.carousel-indicators li.active {
 
 /*top bar*/
 .top-bar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.166865);
+  box-shadow: 0 2px 4px rgba(0, 0, 58, 0.5);
   background: linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);
   background: -webkit-linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%);
   /* For Safari 5.1 to 6.0 */
@@ -174,19 +204,25 @@ ol.carousel-indicators li.active {
   background: url(./public/images/linkedIn-8ca445e299.png) no-repeat center; }
 
 /*top bar end --------------------*/
+/* Rectangle 2 */
 /*menu*/
 .menu-container {
-  margin-top: 24px;
+  margin-top: 14px;
+  padding: 10px 0;
   position: absolute;
-  left: 50%;
-  margin-left: -570px;
   z-index: 1; }
+  .menu-container .menu-phone-block {
+    display: none; }
+    .menu-container .menu-phone-block a.white-link-none {
+      font-size: 1em;
+      line-height: 16px; }
 
 .menu-logo {
   background: url(./public/images/Logo-f6c4044548.png) no-repeat;
   background-size: 223px 82px;
   height: 82px;
-  width: 223px; }
+  width: 223px;
+  margin-right: 10px; }
 
 .menu-item .menu-dropdown {
   position: relative;
@@ -393,6 +429,8 @@ ol.carousel-indicators li.active {
 
 #academy-carousel {
   margin-top: 60px; }
+  #academy-carousel .carousel-indicators {
+    position: relative; }
 
 .academy-slr-item-img {
   height: 220px;
@@ -558,6 +596,10 @@ ol.carousel-indicators li.active {
   margin-top: 80px;
   margin-bottom: 60px;
   color: #fff; }
+
+#reviews-carousel .carousel-indicators {
+  position: relative;
+  margin-top: 60px; }
 
 .reviews-image {
   height: 280px;
@@ -775,8 +817,6 @@ ol.carousel-indicators li.active {
 /* lg-размер (<=1199px) */
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
-  .menu-container {
-    margin-left: -480px; }
   .top-bar-menu-link {
     font-size: .9em; }
   .tb-search {
@@ -823,9 +863,6 @@ ol.carousel-indicators li.active {
 /* md-размер (<=991px) */
 @media (max-width: 991px) {
   /* CSS для ширины от 768px до 991px */
-  .menu-container {
-    min-width: 780px;
-    margin-left: -390px; }
   .top-bar-menu-link {
     font-size: .8em; }
   .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
@@ -931,18 +968,34 @@ ol.carousel-indicators li.active {
 /* sm-размер (<=768px) */
 /* xs-размер (<=575px) */
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
-  .fixed-right-panel .contact-form {
+  .fixed-right-panel div .fixed-pnl-btn-hover {
+    display: none;
+    background: url(./public/images/fxd-btn-hover-text@2x-87a1983d87.png);
+    background-size: cover; }
+  .fixed-right-panel div .contact-form {
     background: url(./public/images/Contact-form@2x-d36729ef16.png) no-repeat center;
     background-size: 32.4px 36px; }
-  .fixed-right-panel .live-chat {
+    .fixed-right-panel div .contact-form:hover {
+      background: url(./public/images/Contact-form-hover@2x-cf82a56d1c.png) no-repeat center;
+      background-size: 32.4px 36px; }
+  .fixed-right-panel div .live-chat {
     background: url(./public/images/Live-chat@2x-b4a84f2741.png) no-repeat center;
     background-size: 36px; }
-  .fixed-right-panel .request-call {
+    .fixed-right-panel div .live-chat:hover {
+      background: url(./public/images/Live-chat-hover@2x-d62cf352ec.png) no-repeat center;
+      background-size: 36px; }
+  .fixed-right-panel div .request-call {
     background: url(./public/images/Request-call@2x-e8b28a4927.png) no-repeat center;
     background-size: 32.4px; }
-  .fixed-right-panel .open-case {
+    .fixed-right-panel div .request-call:hover {
+      background: url(./public/images/Request-call-hover@2x-2d4ff4ec9b.png) no-repeat center;
+      background-size: 32.4px; }
+  .fixed-right-panel div .open-case {
     background: url(./public/images/Open-case@2x-109a30d073.png) no-repeat center;
     background-size: 32.4px 36px; }
+    .fixed-right-panel div .open-case:hover {
+      background: url(./public/images/Open-case-hover@2x-22dc412389.png) no-repeat center;
+      background-size: 32.4px 36px; }
   .call-logo {
     background: url(./public/images/ic_call_black_24px2x-c04a22c3c0.png) no-repeat;
     background-size: cover; }
