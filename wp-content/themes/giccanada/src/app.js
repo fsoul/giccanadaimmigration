@@ -1,11 +1,11 @@
 'use strict';
 
-import test from './js/test';
+import header from './js/header';
 
 
 $( document ).ready(function() {
-    window.onclick = test.onWindowClick;
-    $('button.dropbtn').click(test.toggleMenu);
+    window.onclick = header.onWindowClick;
+    $('button.dropbtn').click(header.toggleMenu);
 });
 
 //scss-------------------------------------------

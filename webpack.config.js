@@ -9,7 +9,7 @@ module.exports = {
         path: path.resolve(__dirname, `${themePath}/public`),
         filename: 'giccanada.js',
         library: [
-            'test'
+            'header'
         ],
         publicPath: "./public/"
     },

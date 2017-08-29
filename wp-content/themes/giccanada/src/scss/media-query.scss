@@ -4,6 +4,10 @@ $image-dir: '../images/';
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
 
+  .menu-container {
+    margin-left: -480px;
+  }
+
   .top-bar-menu-link {
     font-size: .9em;
   }
@@ -82,6 +86,7 @@ $image-dir: '../images/';
   /* CSS для ширины от 768px до 991px */
   .menu-container {
     min-width: 780px;
+    margin-left: -390px;
   }
 
   .top-bar-menu-link {

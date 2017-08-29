@@ -2,8 +2,7 @@ $image-dir: '../images/';
 
 .header-container {
   width: 100%;
-  background: url($image-dir + "header/header-bg.png") no-repeat;
-  background-size: cover;
+  height: 828px;
 }
 
 /*top bar*/
@@ -117,6 +116,10 @@ $image-dir: '../images/';
 /*menu*/
 .menu-container {
   margin-top: 24px;
+  position: absolute;
+  left: 50%;
+  margin-left: -570px;
+  z-index: 1;
 }
 
 .menu-logo {
@@ -208,8 +211,17 @@ $image-dir: '../images/';
 /*menu end ------------------------------*/
 
 /*menu slider*/
-#header-carousel {
-  margin-top: 108px;
+
+.carousel-div {
+  padding: 0;
+
+  #header-carousel {
+
+    .carousel-item {
+      padding-top: 200px;
+      padding-bottom: 180px;
+    }
+  }
 }
 
 .hs-item {
@@ -246,7 +258,22 @@ $image-dir: '../images/';
 
 .hs-indicators {
   position: relative;
-  margin-top: 60px;
+  top:-60px;
+}
+
+#hs-sl1 {
+  background: url($image-dir + "header/Hero-image_1.jpg") no-repeat;
+  background-size: 100%;
+}
+
+#hs-sl2 {
+  background: url($image-dir + "header/Hero-image_2.jpg") no-repeat;
+  background-size: cover;
+}
+
+#hs-sl3 {
+  background: url($image-dir + "header/Hero-image_3.jpg") no-repeat;
+  background-size: cover;
 }
 
 /*menu slider end ------------------------------*/

@@ -1,4 +1,4 @@
-var test =
+var header =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,8 +70,8 @@ var test =
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_test__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_test___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_test__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_header__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_header___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__js_header__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scss_global_scss__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scss_global_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__scss_global_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_header_scss__ = __webpack_require__(4);
@@ -98,8 +98,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 $( document ).ready(function() {
-    window.onclick = __WEBPACK_IMPORTED_MODULE_0__js_test___default.a.onWindowClick;
-    $('button.dropbtn').click(__WEBPACK_IMPORTED_MODULE_0__js_test___default.a.toggleMenu);
+    window.onclick = __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick;
+    $('button.dropbtn').click(__WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu);
 });
 
 //scss-------------------------------------------

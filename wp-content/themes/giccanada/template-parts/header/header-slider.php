@@ -1,11 +1,11 @@
 <?php ?>
-<div class="container-fluid"> <!--header slider-->
-	<div class="row justify-content-center">
+<div class="container-fluid no-gutters carousel-div"> <!--header slider-->
+	<div class="row justify-content-center no-gutters">
 		<div class="col">
 			<div id="header-carousel" class="carousel slide" data-ride="carousel">
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
-					<div class="carousel-item active">
+					<div class="carousel-item active" id="hs-sl1">
 						<div class="d-block">
 							<div class="container-fluid hs-item">
 								<div class="row">
@@ -24,7 +24,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="carousel-item">
+					<div class="carousel-item" id="hs-sl2">
 						<div class="d-block">
 							<div class="container-fluid hs-item">
 								<div class="row">
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="carousel-item">
+					<div class="carousel-item" id="hs-sl3">
 						<div class="d-block">
 							<div class="container-fluid hs-item">
 								<div class="row">
@@ -74,4 +74,3 @@
 		</div>
 	</div>
 </div> <!--header slider-->
-
