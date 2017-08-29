@@ -1,6 +1,6 @@
 <?php ?>
 <div class="container-fluid menu-container">
-	<div class="row justify-content-center">
+	<div class="row justify-content-center no-gutters">
         <div class="col-md-11 col-lg-9">
             <div class="row justify-content-between align-items-end flex-nowrap">
                 <a href="#" class="col-sm col-md-auto menu-logo"></a>
