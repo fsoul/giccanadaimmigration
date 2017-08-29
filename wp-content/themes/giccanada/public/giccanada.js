@@ -96,14 +96,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 $( document ).ready(function() {
     window.onclick = __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick;
     $('button.dropbtn').click(__WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu);
+    $('.fixed-panel-button').hover(
+        function () {
+            $(this).parent().find('.fixed-pnl-btn-hover').css('display', 'inline-block');
+        },
+        function () {
+            $(this).parent().find('.fixed-pnl-btn-hover').css('display', 'none')
+        });
 });
 
 //scss-------------------------------------------
-
 
 
 
