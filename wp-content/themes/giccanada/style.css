@@ -191,9 +191,7 @@ ol.carousel-indicators li.active {
   .menu-item .menu-dropdown .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
     z-index: 1; }
     .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
       display: block;
@@ -202,7 +200,7 @@ ol.carousel-indicators li.active {
       border-radius: 16px;
       padding: 30px;
       left: -415px;
-      top: 120%; }
+      top: 130%; }
       .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col h3.row {
         height: 24px;
         line-height: 24px;
@@ -809,23 +807,23 @@ ol.carousel-indicators li.active {
     min-width: 780px; }
   .top-bar-menu-link {
     font-size: .8em; }
-  .menu-item:hover > .dropdown-menu {
+  .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
     width: 700px;
     left: -240px; }
-    .menu-item:hover > .dropdown-menu .col {
+    .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col {
       margin-left: 15px; }
-      .menu-item:hover > .dropdown-menu .col:first-child {
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col:first-child {
         margin: 0; }
-      .menu-item:hover > .dropdown-menu .col h3.row {
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col h3.row {
         height: 24px;
         line-height: 24px;
         font-size: .9em; }
-      .menu-item:hover > .dropdown-menu .col ul.row {
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row {
         padding: 0; }
-        .menu-item:hover > .dropdown-menu .col ul.row li {
+        .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li {
           list-style-type: none;
           width: 100%; }
-          .menu-item:hover > .dropdown-menu .col ul.row li a {
+          .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li a {
             line-height: 24px;
             font-size: .9em; }
   .menu-link {

@@ -135,9 +135,7 @@ $image-dir: '../images/';
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      background-color: #fff;
       z-index: 1;
 
       &.show-dropdown-content {
@@ -147,7 +145,7 @@ $image-dir: '../images/';
         border-radius: 16px;
         padding: 30px;
         left: -415px;
-        top: 120%;
+        top: 130%;
 
         .col {
           h3.row {

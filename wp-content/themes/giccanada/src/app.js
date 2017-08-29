@@ -1,7 +1,6 @@
 'use strict';
 
 import test from './js/test';
-// export for others scripts to use
 
 
 $( document ).ready(function() {
