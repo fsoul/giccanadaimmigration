@@ -27,7 +27,10 @@
 	    <?php get_template_part( 'template-parts/process/process'); ?>
     </div> <!--process end-->
     <div class="container-fluid reviews"><!--reviews-->
-	    <?php get_template_part( 'template-parts/reviews'); ?>
+	    <?php
+            get_template_part( 'template-parts/reviews/reviews');
+            get_template_part( 'template-parts/reviews/mobile-content');
+	    ?>
     </div><!--reviews end-->
     <div class="container-fluid news"> <!--news-->
 	    <?php get_template_part( 'template-parts/news'); ?>

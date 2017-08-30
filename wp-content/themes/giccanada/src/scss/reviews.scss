@@ -7,6 +7,14 @@ $image-dir: '../images/';
   height: 998px;
 }
 
+.descktop-content {
+  display: block;
+}
+
+.mobile-content {
+  display: none;
+}
+
 .reviews-caption {
   height: 56px;
   text-align: center;

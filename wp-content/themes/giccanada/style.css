@@ -602,6 +602,12 @@ ol.carousel-indicators li.active {
   background: linear-gradient(57.4deg, #852EF6 16.78%, #19D8DA 124.06%, #00FFD4 148.97%);
   height: 998px; }
 
+.descktop-content {
+  display: block; }
+
+.mobile-content {
+  display: none; }
+
 .reviews-caption {
   height: 56px;
   text-align: center;
@@ -1168,7 +1174,33 @@ ol.carousel-indicators li.active {
       width: 345px;
       height: 48px;
       line-height: 48px;
-      margin: 0; } }
+      margin: 0; }
+  .reviews {
+    padding: 30px 15px;
+    height: auto; }
+    .reviews .descktop-content {
+      display: none; }
+    .reviews .mobile-content {
+      display: block; }
+      .reviews .mobile-content .reviews-reviewer-name {
+        margin-top: 20px; }
+      .reviews .mobile-content .reviews-slr-item {
+        min-height: 350px; }
+        .reviews .mobile-content .reviews-slr-item .row .col {
+          padding-left: 0;
+          padding-right: 0; }
+      .reviews .mobile-content .reviews-image {
+        height: 261px; }
+      .reviews .mobile-content .reviews-reviewer-proc, .reviews .mobile-content .reviews-review {
+        width: auto; }
+      .reviews .mobile-content #reviews-carousel .carousel-indicators {
+        margin-top: 20px; }
+    .reviews .reviews-caption {
+      height: auto;
+      line-height: 30px;
+      font-size: 1.5em;
+      margin: 0;
+      padding-bottom: 20px; } }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
