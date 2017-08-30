@@ -14,8 +14,11 @@
             get_template_part( 'template-parts/programms/mobile-content');
 	    ?>
     </div> <!--programms end-->
-    <div class="container-fluid academy"><!--academy-->
-	    <?php get_template_part( 'template-parts/academy'); ?>
+    <div class="container-fluid academy-container"><!--academy-->
+	    <?php
+            get_template_part( 'template-parts/academy/academy');
+            get_template_part( 'template-parts/academy/mobile-content');
+	    ?>
     </div> <!--academy end-->
     <div class="container-fluid common-info"><!--common-info-->
 	    <?php get_template_part( 'template-parts/common-info'); ?>

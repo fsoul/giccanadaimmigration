@@ -424,6 +424,9 @@ ol.carousel-indicators li.active {
   background: linear-gradient(67.51deg, #852EF6 36.76%, #00FFD4 170.53%);
   padding-bottom: 30px; }
 
+.academy-mobile-content {
+  display: none; }
+
 .academy-caption {
   height: 56px;
   text-align: center;
@@ -1057,7 +1060,42 @@ ol.carousel-indicators li.active {
       width: 345px;
       height: 48px;
       line-height: 48px;
-      margin-bottom: 30px; } }
+      margin-bottom: 30px; }
+  .academy {
+    display: none; }
+  .academy-container {
+    padding: 0; }
+  .academy-mobile-content {
+    display: block;
+    background: linear-gradient(67.51deg, #852EF6 36.76%, #00FFD4 170.53%); }
+    .academy-mobile-content .academy-caption {
+      height: auto;
+      white-space: nowrap;
+      margin-top: 30px;
+      line-height: 30px;
+      font-size: 1.5em; }
+    .academy-mobile-content #academy-carousel {
+      margin-top: 30px;
+      padding: 0 15px; }
+      .academy-mobile-content #academy-carousel .academy-slr-item-img {
+        height: 282px; }
+        .academy-mobile-content #academy-carousel .academy-slr-item-img .academy-slr-item-caption {
+          height: 20px;
+          line-height: 20px;
+          font-size: 1em; }
+      .academy-mobile-content #academy-carousel .orange-btn {
+        margin: 30px 0;
+        width: 345px;
+        height: 48px;
+        line-height: 48px;
+        font-size: 1em; }
+      .academy-mobile-content #academy-carousel .carousel-indicators {
+        bottom: 0; }
+        .academy-mobile-content #academy-carousel .carousel-indicators li {
+          height: 6px; }
+          .academy-mobile-content #academy-carousel .carousel-indicators li.active {
+            height: 7px;
+            width: 7px; } }
 
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
