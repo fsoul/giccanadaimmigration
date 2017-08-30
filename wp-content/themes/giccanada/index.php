@@ -3,10 +3,16 @@
 	    <?php get_template_part( 'template-parts/header/fixed-right-panel'); ?>
 	    <?php get_template_part( 'template-parts/header/top-bar'); ?>
 	    <?php get_template_part( 'template-parts/header/menu-container'); ?>
-	    <?php get_template_part( 'template-parts/header/header-slider'); ?>
+	    <?php
+            get_template_part( 'template-parts/header/header-slider');
+            get_template_part( 'template-parts/header/mobile-content');
+        ?>
     </div> <!--header-container end-->
-    <div class="container programms"> <!--programms-->
-	    <?php get_template_part( 'template-parts/programms'); ?>
+    <div class="container"> <!--programms-->
+	    <?php
+            get_template_part( 'template-parts/programms/programms');
+            get_template_part( 'template-parts/programms/mobile-content');
+	    ?>
     </div> <!--programms end-->
     <div class="container-fluid academy"><!--academy-->
 	    <?php get_template_part( 'template-parts/academy'); ?>

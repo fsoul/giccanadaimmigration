@@ -260,6 +260,7 @@ $image-dir: '../images/';
 
     @media (max-width: 375px) {
       @import "mobile/header@375px";
+      @import "mobile/programms@375px";
     }
 
     @media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
@@ -315,6 +316,11 @@ $image-dir: '../images/';
             }
           }
         }
+      }
+
+      .mobile-menu-button{
+        background: url($image-dir + "Hamburger@2x.png") transparent no-repeat center;
+        background-size: 18px 12px;
       }
 
       .call-logo {
