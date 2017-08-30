@@ -1095,7 +1095,19 @@ ol.carousel-indicators li.active {
           height: 6px; }
           .academy-mobile-content #academy-carousel .carousel-indicators li.active {
             height: 7px;
-            width: 7px; } }
+            width: 7px; }
+  .common-info {
+    padding: 30px 15px; }
+    .common-info .common-info-caption {
+      height: auto;
+      line-height: 30px;
+      font-size: 1.5em;
+      margin: 0;
+      padding-bottom: 20px; }
+    .common-info .common-info-vid {
+      height: 194px;
+      margin: 0;
+      padding: 0 15px; } }
 
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
