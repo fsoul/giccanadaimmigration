@@ -24,7 +24,7 @@
 	    <?php get_template_part( 'template-parts/common-info'); ?>
     </div> <!--common-info end-->
     <div class="container-fluid process"><!--process-->
-	    <?php get_template_part( 'template-parts/process'); ?>
+	    <?php get_template_part( 'template-parts/process/process'); ?>
     </div> <!--process end-->
     <div class="container-fluid reviews"><!--reviews-->
 	    <?php get_template_part( 'template-parts/reviews'); ?>

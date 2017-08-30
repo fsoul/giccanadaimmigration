@@ -539,6 +539,12 @@ ol.carousel-indicators li.active {
   margin-bottom: 60px;
   width: 570px; }
 
+.process-desktop-content {
+  display: block; }
+
+.process-mobile-content {
+  display: none; }
+
 .process-spider-top {
   max-width: 400px; }
 
@@ -1107,9 +1113,64 @@ ol.carousel-indicators li.active {
     .common-info .common-info-vid {
       height: 194px;
       margin: 0;
-      padding: 0 15px; } }
+      padding: 0 15px; }
+  .process {
+    padding: 30px 15px; }
+    .process .process-caption {
+      height: auto;
+      line-height: 30px;
+      font-size: 1.5em;
+      margin: 0;
+      padding-bottom: 20px; }
+    .process .process-text {
+      line-height: 20px;
+      font-size: 1em;
+      margin: 0;
+      padding-bottom: 30px; }
+    .process .process-desktop-content {
+      display: none; }
+    .process .process-mobile-content {
+      display: block; }
+      .process .process-mobile-content .process-spider {
+        background: url(./public/images/image@1x-4ee0c4bc8c.png) left center no-repeat;
+        background-size: contain;
+        margin: 0 0 30px 0;
+        height: 813px;
+        padding-left: 110px;
+        overflow: hidden; }
+        .process .process-mobile-content .process-spider .process-step {
+          overflow: hidden;
+          margin-bottom: 8px; }
+        .process .process-mobile-content .process-spider .process-step.-step1 {
+          height: 89.6px; }
+        .process .process-mobile-content .process-spider .process-step.-step2 {
+          height: 67.2px; }
+        .process .process-mobile-content .process-spider .process-step.-step3 {
+          height: 134.4px;
+          margin-bottom: 140px; }
+        .process .process-mobile-content .process-spider .process-step.-step4 {
+          height: 89.6px; }
+        .process .process-mobile-content .process-spider .process-step.-step5 {
+          height: 89.6px; }
+        .process .process-mobile-content .process-spider .process-step.-step6 {
+          height: 67.2px; }
+        .process .process-mobile-content .process-spider .process-step.-step7 {
+          height: 89.6px; }
+        .process .process-mobile-content .process-spider .process-step-inner {
+          display: table;
+          width: 100%;
+          height: 100%; }
+        .process .process-mobile-content .process-spider .process-step-text {
+          display: table-cell;
+          vertical-align: middle;
+          word-break: break-all; }
+    .process .academy-slr-item-btn {
+      width: 345px;
+      height: 48px;
+      line-height: 48px;
+      margin: 0; } }
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
     display: none;
     background: url(./public/images/fxd-btn-hover-text@2x-87a1983d87.png);
