@@ -25,7 +25,6 @@ $(window).on('load', function () {
         dataType: "json"
     }).done(function (data) {
         $.each(data, function (i, val) {
-            alert("." + i);
             $("." + i).html(val);
         });
     });
@@ -49,6 +48,12 @@ $(document).ready(function () {
             header.onFixedButtonHover($(this));
         }
     );
+
+    $('.news-grid').find('.news-item').each( function (index) {
+       if (index > 1 && $(window).width() <= 375) {
+           $(this).css('display', 'none');
+       }
+    });
 });
 
 //scss-------------------------------------------

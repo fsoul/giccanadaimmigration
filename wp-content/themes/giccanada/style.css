@@ -67,7 +67,10 @@ ol.carousel-indicators li.active {
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px; }
   .fixed-right-panel div {
-    position: relative; }
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
+    .fixed-right-panel div:last-child {
+      border-bottom: none; }
     .fixed-right-panel div .fixed-pnl-btn-hover {
       display: none;
       background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
@@ -86,10 +89,7 @@ ol.carousel-indicators li.active {
       margin-top: -16px; }
     .fixed-right-panel div .fixed-panel-button {
       width: 72px;
-      height: 72px;
-      border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
-      .fixed-right-panel div .fixed-panel-button:last-child {
-        border-bottom: none; }
+      height: 72px; }
     .fixed-right-panel div .contact-form {
       background: url(./public/images/Contact-form-88c2435a62.png) no-repeat center;
       background-size: 32.4px 36px; }
@@ -1207,7 +1207,32 @@ ol.carousel-indicators li.active {
       line-height: 30px;
       font-size: 1.5em;
       margin: 0;
-      padding-bottom: 20px; } }
+      padding-bottom: 20px; }
+  .news {
+    padding: 30px 0;
+    height: auto; }
+    .news .news-caption {
+      height: auto;
+      line-height: 30px;
+      font-size: 1.5em;
+      margin: 0;
+      padding-bottom: 20px; }
+    .news .news-grid {
+      padding-bottom: 30px; }
+      .news .news-grid .news-item {
+        padding-bottom: 10px; }
+        .news .news-grid .news-item .news-gi-image {
+          margin-bottom: 20px; }
+        .news .news-grid .news-item .news-gi-caption {
+          min-height: 10px; }
+        .news .news-grid .news-item .news-gi-text {
+          min-height: unset;
+          margin-bottom: 0; }
+    .news .news-btn {
+      height: 48px;
+      line-height: 48px;
+      margin: 0;
+      width: 330px; } }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .fixed-right-panel div .fixed-pnl-btn-hover {

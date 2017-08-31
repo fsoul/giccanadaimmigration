@@ -10379,7 +10379,6 @@ $(window).on('load', function () {
         dataType: "json"
     }).done(function (data) {
         $.each(data, function (i, val) {
-            alert("." + i);
             $("." + i).html(val);
         });
     });
@@ -10403,6 +10402,12 @@ $(document).ready(function () {
             __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onFixedButtonHover($(this));
         }
     );
+
+    $('.news-grid').find('.news-item').each( function (index) {
+       if (index > 1 && $(window).width() <= 375) {
+           $(this).css('display', 'none');
+       }
+    });
 });
 
 //scss-------------------------------------------
