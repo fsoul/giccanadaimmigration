@@ -5,15 +5,7 @@ import header from './js/header';
 //
 // var windowObj = new Window();
 
-
-$(window).on('click', function (e) {
-    header.onWindowClick(e);
-});
-$(window).on('scroll', function () {
-    header.updateHeaderMenuPos();
-});
-
-$(window).on('load', function () {
+function getContent() {
     let windowWidth = $(window).width();
     $.ajax({
         url: gic.ajaxurl,
@@ -28,6 +20,18 @@ $(window).on('load', function () {
             $("#" + i).html(val);
         });
     });
+}
+
+
+$(window).on('click', function (e) {
+    header.onWindowClick(e);
+});
+$(window).on('scroll', function () {
+    header.updateHeaderMenuPos();
+});
+
+$(window).on('load', function () {
+    getContent();
     header.updateHeaderMenuPos();
 });
 

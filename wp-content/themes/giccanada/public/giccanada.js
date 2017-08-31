@@ -10359,15 +10359,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 // var windowObj = new Window();
 
-
-$(window).on('click', function (e) {
-    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
-});
-$(window).on('scroll', function () {
-    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
-});
-
-$(window).on('load', function () {
+function getContent() {
     let windowWidth = $(window).width();
     $.ajax({
         url: gic.ajaxurl,
@@ -10382,6 +10374,18 @@ $(window).on('load', function () {
             $("#" + i).html(val);
         });
     });
+}
+
+
+$(window).on('click', function (e) {
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
+});
+$(window).on('scroll', function () {
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+});
+
+$(window).on('load', function () {
+    getContent();
     __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
 });
 
