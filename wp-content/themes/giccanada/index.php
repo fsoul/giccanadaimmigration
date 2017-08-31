@@ -3,22 +3,15 @@
 	    <?php get_template_part( 'template-parts/header/fixed-right-panel'); ?>
 	    <?php get_template_part( 'template-parts/header/top-bar'); ?>
 	    <?php get_template_part( 'template-parts/header/menu-container'); ?>
-	    <?php
-            get_template_part( 'template-parts/header/header-slider');
-            get_template_part( 'template-parts/header/mobile-content');
-        ?>
+        <div class="header-slider-container">
+	        <?php get_template_part( 'template-parts/header/header-slider'); ?>
+        </div>
     </div> <!--header-container end-->
-    <div class="container"> <!--programms-->
-	    <?php
-            get_template_part( 'template-parts/programms/programms');
-            get_template_part( 'template-parts/programms/mobile-content');
-	    ?>
+    <div class="container programms"> <!--programms-->
+	    <?php get_template_part( 'template-parts/programms/programms'); ?>
     </div> <!--programms end-->
     <div class="container-fluid academy-container"><!--academy-->
-	    <?php
-            get_template_part( 'template-parts/academy/academy');
-            get_template_part( 'template-parts/academy/mobile-content');
-	    ?>
+	    <?php get_template_part( 'template-parts/academy/academy'); ?>
     </div> <!--academy end-->
     <div class="container-fluid common-info"><!--common-info-->
 	    <?php get_template_part( 'template-parts/common-info'); ?>
@@ -27,10 +20,7 @@
 	    <?php get_template_part( 'template-parts/process/process'); ?>
     </div> <!--process end-->
     <div class="container-fluid reviews"><!--reviews-->
-	    <?php
-            get_template_part( 'template-parts/reviews/reviews');
-            get_template_part( 'template-parts/reviews/mobile-content');
-	    ?>
+	    <?php  get_template_part( 'template-parts/reviews/reviews'); ?>
     </div><!--reviews end-->
     <div class="container-fluid news"> <!--news-->
 	    <?php get_template_part( 'template-parts/news'); ?>

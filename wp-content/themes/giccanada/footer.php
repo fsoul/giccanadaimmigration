@@ -4,5 +4,6 @@
     </div>
 	<?php get_template_part( 'template-parts/footer/footer', 'bottom'); ?>
 </div> <!--footer end-->
+<?php wp_footer(); ?>
 </body>
 </html>

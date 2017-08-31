@@ -1,5 +1,5 @@
 <?php ?>
-<div class="programms">
+<div class="programms-desktop-content">
     <div class="row justify-content-center">
         <h2 class="col programms-caption">иммиграционные программы</h2>
     </div>

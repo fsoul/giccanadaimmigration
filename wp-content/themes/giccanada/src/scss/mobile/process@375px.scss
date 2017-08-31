@@ -1,7 +1,7 @@
 $image-dir: '../images/';
 
 .process {
-  padding: 30px 15px;
+  padding: 30px;
 
   .process-caption {
     height: auto;
@@ -46,7 +46,7 @@ $image-dir: '../images/';
       }
 
       .process-step.-step3 {
-        height: 134.4px;
+        height: 140px;
         margin-bottom: 140px;
       }
 
@@ -75,7 +75,6 @@ $image-dir: '../images/';
       .process-step-text {
         display: table-cell;
         vertical-align: middle;
-        word-break: break-all;
       }
     }
   }

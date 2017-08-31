@@ -1,4 +1,4 @@
-var header =
+var header = header || {}; header["Window"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -10355,14 +10355,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+// const Window = require('./js/window');
+//
+// var windowObj = new Window();
+
+
+$(window).on('click', function (e) {
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
+});
+$(window).on('scroll', function () {
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+});
+
+$(window).on('load', function () {
+    let windowWidth = $(window).width();
+    $.ajax({
+        url: gic.ajaxurl,
+        method: "POST",
+        data: {
+            action: 'get_content',
+            windowWidth: windowWidth
+        },
+        dataType: "json"
+    }).done(function (data) {
+        $.each(data, function (i, val) {
+            alert("." + i);
+            $("." + i).html(val);
+        });
+    });
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+});
+
+$(window).on('resize', function () {
+    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+});
 
 $(document).ready(function () {
-    $(window).on('click', function (e) {
-        __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onWindowClick(e);
-    });
-    $(window).on('scroll', function () { __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos(); });
-
-    __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
 
     $('button.dropbtn').on('click', function () {
         __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu();

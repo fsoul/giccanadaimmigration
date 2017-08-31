@@ -1,6 +1,11 @@
 $image-dir: '../images/';
 
 /*academy -------------------------------------*/
+.academy-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .academy {
   background: linear-gradient(67.51deg, #852EF6 36.76%, #00FFD4 170.53%);
   padding-bottom: 30px;

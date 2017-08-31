@@ -1,14 +1,42 @@
 'use strict';
 
 import header from './js/header';
+// const Window = require('./js/window');
+//
+// var windowObj = new Window();
+
+
+$(window).on('click', function (e) {
+    header.onWindowClick(e);
+});
+$(window).on('scroll', function () {
+    header.updateHeaderMenuPos();
+});
+
+$(window).on('load', function () {
+    let windowWidth = $(window).width();
+    $.ajax({
+        url: gic.ajaxurl,
+        method: "POST",
+        data: {
+            action: 'get_content',
+            windowWidth: windowWidth
+        },
+        dataType: "json"
+    }).done(function (data) {
+        $.each(data, function (i, val) {
+            alert("." + i);
+            $("." + i).html(val);
+        });
+    });
+    header.updateHeaderMenuPos();
+});
+
+$(window).on('resize', function () {
+    header.updateHeaderMenuPos();
+});
 
 $(document).ready(function () {
-    $(window).on('click', function (e) {
-        header.onWindowClick(e);
-    });
-    $(window).on('scroll', function () { header.updateHeaderMenuPos(); });
-
-    header.updateHeaderMenuPos();
 
     $('button.dropbtn').on('click', function () {
         header.toggleMenu();
