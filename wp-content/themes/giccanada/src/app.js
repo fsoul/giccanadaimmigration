@@ -25,7 +25,7 @@ $(window).on('load', function () {
         dataType: "json"
     }).done(function (data) {
         $.each(data, function (i, val) {
-            $("." + i).html(val);
+            $("#" + i).html(val);
         });
     });
     header.updateHeaderMenuPos();

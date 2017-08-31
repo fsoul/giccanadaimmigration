@@ -1,6 +1,6 @@
 $image-dir: '../images/';
 
-.news {
+#news {
   padding: 30px 0;
   height: auto;
 
@@ -17,6 +17,7 @@ $image-dir: '../images/';
 
     .news-item {
       padding-bottom: 10px;
+      margin: 0;
 
       .news-gi-image {
         margin-bottom: 20px;

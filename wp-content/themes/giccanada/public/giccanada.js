@@ -10379,7 +10379,7 @@ $(window).on('load', function () {
         dataType: "json"
     }).done(function (data) {
         $.each(data, function (i, val) {
-            $("." + i).html(val);
+            $("#" + i).html(val);
         });
     });
     __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();

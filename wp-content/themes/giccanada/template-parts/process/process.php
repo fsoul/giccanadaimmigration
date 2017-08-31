@@ -8,7 +8,7 @@
             тщательного изучения дела, объективной оценки шансов и подбора оптимальных вариантов.</span>
 </div>
 
-<div class="process-content">
+<div id="process-content">
     <div class="process-desktop-content">
 		<?php get_template_part( 'template-parts/process/desktop-content'); ?>
     </div>
