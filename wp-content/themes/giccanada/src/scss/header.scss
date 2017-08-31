@@ -278,7 +278,7 @@ $image-dir: '../images/';
 
 #hs-sl1 {
   background: url($image-dir + "header/Hero-image_1.jpg") no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 
 #hs-sl2 {

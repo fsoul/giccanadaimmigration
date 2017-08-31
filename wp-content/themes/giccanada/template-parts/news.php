@@ -5,7 +5,7 @@
 </div>
 <div class="row justify-content-center no-gutters">
     <div class="container news-grid">
-        <div class="row no-gutters">
+        <div class="row">
             <div class="col-sm-12 col-md-4 col-lg news-item">
                 <div class="row no-gutters">
                     <a href="#" class="col news-gi-image" id="news-pic1"></a>

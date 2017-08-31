@@ -71,6 +71,7 @@
 					<li data-target="#header-carousel" data-slide-to="2"></li>
 				</ol>
 			</div> <!--carousel-->
-		</div>
+            <script> $('#header-carousel').carousel('cycle') </script>
+        </div>
 	</div>
 </div> <!--header slider-->
