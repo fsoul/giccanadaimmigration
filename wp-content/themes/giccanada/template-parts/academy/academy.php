@@ -1,10 +1,10 @@
 <?php ?>
 
 <div class="academy">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center no-gutters">
         <h2 class="col academy-caption">Учебные программы в Канаде</h2>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center no-gutters">
         <div class="col">
             <div id="academy-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->

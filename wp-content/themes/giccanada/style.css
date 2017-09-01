@@ -817,7 +817,7 @@ ol.carousel-indicators li.active {
   width: 300px; }
 
 .footer-site-map {
-  width: 540px; }
+  padding-left: 45px; }
 
 /*images------------*/
 .footer-phone {
@@ -888,7 +888,9 @@ ol.carousel-indicators li.active {
     width: 18px;
     height: 18px; }
   .footer-site-map, .footer-cr {
-    font-size: .8em; } }
+    font-size: .8em; }
+  .footer-site-map {
+    padding-left: 40px; } }
 
 /* md-размер (<=991px) */
 @media (max-width: 991px) {
@@ -932,9 +934,11 @@ ol.carousel-indicators li.active {
     min-width: 340px; }
   .academy-slr-item-img {
     height: 140px; }
+  .academy-caption-wrapper {
+    height: 30px; }
   .academy-slr-item-caption {
-    font-size: .5em;
-    line-height: 12px;
+    font-size: 0.7em;
+    line-height: 15px;
     height: 30px; }
   .common-info-vid {
     width: 570px;
@@ -992,6 +996,8 @@ ol.carousel-indicators li.active {
     background-size: 16px 16px;
     width: 16px;
     height: 16px; }
+  .footer-site-map {
+    padding-left: 30px; }
   .footer-cr {
     white-space: nowrap; } }
 
@@ -1271,17 +1277,16 @@ ol.carousel-indicators li.active {
           height: 24px;
           line-height: 24px; }
         #footer .footer-wrapper .footer-block .footer-address-item {
-          width: 270px; }
+          width: 250px; }
           #footer .footer-wrapper .footer-block .footer-address-item:first-child {
             padding-top: 30px; }
     #footer .footer-site-map {
       font-size: 1em;
-      text-align: right; }
+      float: right;
+      padding: 0; }
     #footer #footer-socials,
     #footer #footer-map {
       max-width: 47%; }
-    #footer #footer-map div.col-5 {
-      display: none; }
     #footer #footer-socials {
       margin-left: 15px; }
     #footer #footer-info {
