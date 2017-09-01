@@ -15,7 +15,7 @@ $(window).on('scroll', function () {
 $(window).on('load', function () {
     header.updateHeaderMenuPos();
 
-    $('#programms').find('').each(function (index) {
+    $('#programms').find('.programms-grid-item').each(function (index) {
         if (index > 2 && $(window).width() <= 375) {
             $(this).css('display', 'none');
         } else {
@@ -33,24 +33,26 @@ $(window).on('load', function () {
     });
 
     if ( $(window).width() <= 375 ){
-        $('#academy-container').find('.academy-caption').text('Учебные программы');
+        $('.academy').find('.academy-caption').text('Учебные программы');
 
     } else {
-        $('#academy-container').find('.academy-caption').text('Учебные программы в Канаде');
+        $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
     }
 
 });
+
 
 $(window).on('resize', function () {
     header.updateHeaderMenuPos();
 
-    $('#programms').find('').each(function (index) {
+    $('#programms').find('.programms-grid-item').each(function (index) {
         if (index > 2 && $(window).width() <= 375) {
             $(this).css('display', 'none');
         } else {
             $(this).css('display', 'block');
         }
     });
+
 
     $('.news-grid').find('.news-item').each(function (index) {
         if (index > 1 && $(window).width() <= 375) {
@@ -61,13 +63,14 @@ $(window).on('resize', function () {
     });
 
     if ( $(window).width() <= 375 ){
-        $('#academy-container').find('.academy-caption').text('Учебные программы');
+        $('.academy').find('.academy-caption').text('Учебные программы');
 
     } else {
-        $('#academy-container').find('.academy-caption').text('Учебные программы в Канаде');
+        $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
     }
 
 });
+
 
 $(document).ready(function () {
     $('button.dropbtn').on('click', function () {

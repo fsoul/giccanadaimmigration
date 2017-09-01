@@ -1,6 +1,6 @@
 <?php ?>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center no-gutters">
     <h2 class="col programms-caption">иммиграционные программы</h2>
 </div>
 <div class="row justify-content-center no-gutters">
@@ -113,7 +113,7 @@
         </div>
     </div>
 </div>
-<div class="row align-items-center justify-content-center">
+<div class="row align-items-center justify-content-center no-gutters">
     <a href="#" class="orange-btn">Еще три программы</a>
 </div>
 
