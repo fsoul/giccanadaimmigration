@@ -1,6 +1,6 @@
 <?php ?>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center no-gutters">
     <h2 class="col news-caption">Новости</h2>
 </div>
 <div class="row justify-content-center no-gutters">
@@ -63,6 +63,6 @@
         </div>
     </div>
 </div>
-<div class="row align-items-center justify-content-center">
+<div class="row align-items-center justify-content-center no-gutters">
     <a href="#" class="col col-auto news-btn orange-btn">Больше новостей</a>
 </div>
