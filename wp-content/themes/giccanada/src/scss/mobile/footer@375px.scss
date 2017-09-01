@@ -62,7 +62,7 @@ $image-dir: '../images/';
       }
 
       .footer-address-item {
-        width: 270px;
+        width: 250px;
         &:first-child {
           padding-top: 30px;
         }
@@ -73,18 +73,13 @@ $image-dir: '../images/';
 
   .footer-site-map {
     font-size: 1em;
-    text-align: right;
+    float: right;
+    padding: 0;
   }
 
   #footer-socials,
   #footer-map {
     max-width: 47%;
-  }
-
-  #footer-map {
-    div.col-5 {
-      display: none;
-    }
   }
 
   #footer-socials {

@@ -51,6 +51,14 @@ $image-dir: '../images/';
 }
 
 
+.process-btn {
+  max-width: 290px;
+  width: 290px;
+  height: 56px;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
 /*images --------------------------*/
 .process-spider {
   background: url($image-dir + "process/Group.png") no-repeat center;

@@ -5,24 +5,6 @@ import header from './js/header';
 //
 // var windowObj = new Window();
 
-function getContent() {
-    let windowWidth = $(window).width();
-    $.ajax({
-        url: gic.ajaxurl,
-        method: "POST",
-        data: {
-            action: 'get_content',
-            windowWidth: windowWidth
-        },
-        dataType: "json"
-    }).done(function (data) {
-        $.each(data, function (i, val) {
-            $("#" + i).html(val);
-        });
-    });
-}
-
-
 $(window).on('click', function (e) {
     header.onWindowClick(e);
 });
@@ -31,16 +13,63 @@ $(window).on('scroll', function () {
 });
 
 $(window).on('load', function () {
-    getContent();
     header.updateHeaderMenuPos();
+
+    $('#programms').find('').each(function (index) {
+        if (index > 2 && $(window).width() <= 375) {
+            $(this).css('display', 'none');
+        } else {
+            $(this).css('display', 'block');
+        }
+    });
+
+
+    $('.news-grid').find('.news-item').each(function (index) {
+        if (index > 1 && $(window).width() <= 375) {
+            $(this).css('display', 'none');
+        } else {
+            $(this).css('display', 'block');
+        }
+    });
+
+    if ( $(window).width() <= 375 ){
+        $('#academy-container').find('.academy-caption').text('Учебные программы');
+
+    } else {
+        $('#academy-container').find('.academy-caption').text('Учебные программы в Канаде');
+    }
+
 });
 
 $(window).on('resize', function () {
     header.updateHeaderMenuPos();
+
+    $('#programms').find('').each(function (index) {
+        if (index > 2 && $(window).width() <= 375) {
+            $(this).css('display', 'none');
+        } else {
+            $(this).css('display', 'block');
+        }
+    });
+
+    $('.news-grid').find('.news-item').each(function (index) {
+        if (index > 1 && $(window).width() <= 375) {
+            $(this).css('display', 'none');
+        } else {
+            $(this).css('display', 'block');
+        }
+    });
+
+    if ( $(window).width() <= 375 ){
+        $('#academy-container').find('.academy-caption').text('Учебные программы');
+
+    } else {
+        $('#academy-container').find('.academy-caption').text('Учебные программы в Канаде');
+    }
+
 });
 
 $(document).ready(function () {
-
     $('button.dropbtn').on('click', function () {
         header.toggleMenu();
     });
@@ -52,12 +81,6 @@ $(document).ready(function () {
             header.onFixedButtonHover($(this));
         }
     );
-
-    $('.news-grid').find('.news-item').each( function (index) {
-       if (index > 1 && $(window).width() <= 375) {
-           $(this).css('display', 'none');
-       }
-    });
 });
 
 //scss-------------------------------------------

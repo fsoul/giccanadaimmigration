@@ -232,9 +232,14 @@ $image-dir: '../images/';
 
   #header-carousel {
 
-    .carousel-item {
+    .item {
       padding-top: 200px;
       padding-bottom: 180px;
+    }
+
+    .owl-dots {
+      position: relative;
+      top: -70px;
     }
   }
 }
