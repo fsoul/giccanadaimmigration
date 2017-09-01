@@ -54,20 +54,26 @@ body {
   }
 }
 
-/*slider indicators li style*/
-ol.carousel-indicators li,
-ol.carousel-indicators li.active {
-  width: 14px;
-  height: 14px;
-  box-sizing: border-box;
-  border-radius: 7.5px;
-}
+.owl-theme .owl-dots {
+  .owl-dot {
+    span {
+      background: #fff;
+      opacity: .5;
 
-ol.carousel-indicators li.active {
-  border: 2px solid #fff;
-  background: #fff;
+      &:hover {
+        background: #fff;
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      span {
+        background: #fff;
+        opacity: 1;
+      }
+    }
+  }
 }
-/*slider indicators li style end ---------------*/
 
 /*fixed right panel ---------------------------*/
 .fixed-right-panel {

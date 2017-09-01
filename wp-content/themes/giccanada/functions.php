@@ -5,37 +5,6 @@ remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
-add_action( 'wp_ajax_get_content', 'get_content' );
-add_action( 'wp_ajax_nopriv_get_content', 'get_content' );
-
-function get_content() {
-	if (isset($_POST['windowWidth'])) {
-		$width = $_POST['windowWidth'];
-		if ($width <= '375') {
-			echo  json_encode( array(
-				'header-slider-container'=> file_get_contents(get_stylesheet_directory() . '/template-parts/header/mobile-content.php'),
-				'programms'=> file_get_contents(get_stylesheet_directory() . '/template-parts/programms/mobile-content.php'),
-				'academy-container'=> file_get_contents(get_stylesheet_directory() . '/template-parts/academy/mobile-content.php'),
-				'process-content'=> file_get_contents(get_stylesheet_directory() . '/template-parts/process/mobile-content.php'),
-				'reviews'=> file_get_contents(get_stylesheet_directory() . '/template-parts/reviews/mobile-content.php')
-			));
-		} else {
-			echo  json_encode( array(
-				'header-slider-container'=> file_get_contents(get_stylesheet_directory() . '/template-parts/header/header-slider.php'),
-				'programms'=> file_get_contents(get_stylesheet_directory() . '/template-parts/programms/programms.php'),
-				'academy-container'=> file_get_contents(get_stylesheet_directory() . '/template-parts/academy/academy.php'),
-				'process-content'=> file_get_contents(get_stylesheet_directory() . '/template-parts/process/desktop-content.php'),
-				'reviews'=> file_get_contents(get_stylesheet_directory() . '/template-parts/reviews/reviews.php')
-			));
-		}
-	}
-	wp_die();
-}
-
-
-
-
-
 /**
  * Enqueue scripts and styles.
  */

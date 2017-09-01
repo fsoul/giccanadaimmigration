@@ -1,12 +1,18 @@
-.academy {
-  display: none;
-}
-
 #academy-container {
   padding: 0;
+
+  .owl-stage-outer {
+    padding-bottom: 20px;
+  }
+
+  .owl-dots {
+    .owl-dot span {
+      margin: 0 3px;
+    }
+  }
 }
 
-.academy-mobile-content {
+.academy {
   display: block;
   background: linear-gradient(67.51deg, #852EF6 36.76%, #00FFD4 170.53%);
 

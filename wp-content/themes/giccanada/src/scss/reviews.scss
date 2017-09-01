@@ -28,16 +28,22 @@ $image-dir: '../images/';
 }
 
 #reviews-carousel {
-  .carousel-indicators {
-    position: relative;
-    margin-top: 60px;
+  padding-bottom: 60px;
+
+  .owl-dots {
+    padding-top: 30px;
   }
+
 }
 
 .reviews-image {
   height: 280px;
   border: 6px solid #fff;
   border-radius: 28px;
+}
+
+.reviews-slr-item{
+  padding: 0;
 }
 
 .reviews-reviewer-name,
@@ -55,6 +61,7 @@ $image-dir: '../images/';
 }
 
 .reviews-reviewer-proc {
+  min-height: 48px;
   line-height: 24px;
   font-size: 1em;
   padding: 0 10%;
@@ -64,6 +71,7 @@ $image-dir: '../images/';
 .reviews-review {
   font-size: 1em;
   margin-bottom: 0;
+  min-height: 150px;
 }
 
 .quotes-img {

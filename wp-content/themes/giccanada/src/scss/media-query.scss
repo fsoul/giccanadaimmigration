@@ -49,6 +49,10 @@ $image-dir: '../images/';
     width: 300px;
   }
 
+  .reviews-review {
+    min-height: 170px;
+  }
+
   .news-gi-text {
     min-height: 170px;
   }
@@ -196,6 +200,14 @@ $image-dir: '../images/';
   .reviews-reviewer-proc,
   .reviews-review {
     width: 220px;
+  }
+
+  .reviews-reviewer-proc {
+    min-height: 72px;
+  }
+
+  .reviews-review {
+    min-height: 220px;
   }
 
   .news-gi-caption {

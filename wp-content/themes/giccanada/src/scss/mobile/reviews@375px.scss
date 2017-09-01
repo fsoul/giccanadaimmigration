@@ -4,13 +4,6 @@ $image-dir: '../images/';
   padding: 30px 15px;
   height: auto;
 
-  .descktop-content {
-    display: none;
-  }
-
-  .mobile-content {
-    display: block;
-
     .reviews-reviewer-name {
       margin-top: 20px;
     }
@@ -30,14 +23,15 @@ $image-dir: '../images/';
 
     .reviews-reviewer-proc, .reviews-review {
       width: auto;
+      min-height: auto;
     }
 
     #reviews-carousel {
-      .carousel-indicators {
-        margin-top: 20px;
+
+      .owl-dots {
+        padding-top: 0;
       }
     }
-  }
 
   .reviews-caption {
     height: auto;
@@ -46,6 +40,8 @@ $image-dir: '../images/';
     margin: 0;
     padding-bottom: 20px;
   }
-
-
 }
+
+
+
+

@@ -11,10 +11,6 @@ $image-dir: '../images/';
   padding-bottom: 30px;
 }
 
-.academy-mobile-content {
-  display: none;
-}
-
 .academy-caption {
   height: 56px;
   text-align: center;
@@ -29,8 +25,13 @@ $image-dir: '../images/';
 #academy-carousel {
   margin-top: 60px;
 
-  .carousel-indicators {
+  .owl-stage-outer {
+    padding-bottom: 60px;
+  }
+
+  .owl-dots {
     position: relative;
+    top: 80px;
   }
 }
 
@@ -68,10 +69,11 @@ $image-dir: '../images/';
 }
 
 .academy-slr-item-btn {
+  position: relative;
+  top: -35px;
   max-width: 290px;
   width: 290px;
   height: 56px;
-  margin: 60px 0;
 }
 
 .academy-slr-item-btn:visited,
