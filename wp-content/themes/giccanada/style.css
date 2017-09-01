@@ -284,9 +284,19 @@ ol.carousel-indicators li.active {
 /*menu slider*/
 .carousel-div {
   padding: 0; }
-  .carousel-div #header-carousel .carousel-item {
+  .carousel-div #header-carousel .item {
     padding-top: 200px;
     padding-bottom: 180px; }
+  .carousel-div #header-carousel .owl-dots {
+    position: relative;
+    top: -70px; }
+    .carousel-div #header-carousel .owl-dots .owl-dot span {
+      background-color: #fff;
+      opacity: .5; }
+      .carousel-div #header-carousel .owl-dots .owl-dot span:hover {
+        opacity: 1; }
+    .carousel-div #header-carousel .owl-dots .owl-dot.active span {
+      opacity: 1; }
 
 .hs-item {
   width: 570px; }

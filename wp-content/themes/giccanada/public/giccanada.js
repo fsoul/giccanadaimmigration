@@ -10394,7 +10394,6 @@ $(window).on('resize', function () {
 });
 
 $(document).ready(function () {
-
     $('button.dropbtn').on('click', function () {
         __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.toggleMenu();
     });

@@ -40,7 +40,6 @@ $(window).on('resize', function () {
 });
 
 $(document).ready(function () {
-
     $('button.dropbtn').on('click', function () {
         header.toggleMenu();
     });
