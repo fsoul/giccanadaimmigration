@@ -1,0 +1,51 @@
+$image-dir: '../images/';
+
+#reviews {
+  padding: 30px 15px;
+  height: auto;
+
+  .descktop-content {
+    display: none;
+  }
+
+  .mobile-content {
+    display: block;
+
+    .reviews-reviewer-name {
+      margin-top: 20px;
+    }
+
+    .reviews-slr-item {
+      min-height: 350px;
+
+      .row .col {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .reviews-image {
+      height: 261px;
+    }
+
+    .reviews-reviewer-proc, .reviews-review {
+      width: auto;
+    }
+
+    #reviews-carousel {
+      .carousel-indicators {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .reviews-caption {
+    height: auto;
+    line-height: 30px;
+    font-size: 1.5em;
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+
+}

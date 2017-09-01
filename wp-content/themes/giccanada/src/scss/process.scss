@@ -25,6 +25,13 @@ $image-dir: '../images/';
   width: 570px;
 }
 
+.process-desktop-content {
+  display: block;
+}
+.process-mobile-content {
+  display: none;
+}
+
 .process-spider-top {
   max-width: 400px;
 }

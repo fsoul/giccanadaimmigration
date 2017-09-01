@@ -2,19 +2,20 @@
 <div class="container-fluid menu-container">
 	<div class="row justify-content-center no-gutters">
         <div class="col-md-11 col-lg-9">
-            <div class="row justify-content-between align-items-end flex-nowrap">
+            <div class="row justify-content-between align-items-end no-gutters flex-nowrap menu-row">
                 <a href="#" class="col-sm col-md-auto menu-logo"></a>
+                <button class="col col-auto align-self-center mobile-menu-button"></button>
                 <div class="col col-auto align-self-center menu-phone-block">
                     <div class="row align-items-center flex-nowrap">
                         <div class="tb-menu-logo call-logo"></div>
                         <a class="white-link-none" href="tel:03-6738333">03-6738333</a>
                     </div>
                 </div>
-                <div class="col col-auto align-self-center">
-                    <ul class="nav flex-nowrap menu">
+                <div class="col col-auto align-self-center menu">
+                    <ul class="nav flex-nowrap">
                         <li class="menu-item">
                             <div class="menu-dropdown">
-                                <button class="menu-link white-link-none dropbtn" id="hui">Главная</button>
+                                <button class="menu-link white-link-none dropbtn">Главная</button>
                                 <div class="dropdown-content" id="main-menu-content">
                                     <div class="container-fluid">
                                         <div class="row">

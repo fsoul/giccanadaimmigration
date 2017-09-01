@@ -3,7 +3,7 @@
 
 <div class="top-bar">
 	<ul class="nav justify-content-center flex-nowrap">
-		<li class="nav-item nav-link tb-menu-item">
+		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="tb-menu-border"></div>
 		</li>
 		<li class="nav-item nav-link tb-menu-item">
@@ -28,7 +28,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo skype-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline" href="skype:#?call">Skype</a>
+					<a class="col top-bar-menu-link white-link-underline to-hide" href="skype:#?call">Skype</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo messager-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline" href="#">Напишите нам</a>
+					<a class="col top-bar-menu-link white-link-underline to-hide" href="#">Напишите нам</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -46,12 +46,12 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo search-logo"></div>
-					<input type="text" class="col tb-search" placeholder="Поиск">
-					<div class="tb-menu-border"></div>
+					<input type="text" class="col tb-search to-hide" placeholder="Поиск">
+					<div class="tb-menu-border to-hide"></div>
 				</div>
 			</div>
 		</li>
-		<li class="nav-item nav-link tb-menu-item">
+		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<a href="#" class="col tb-menu-logo fb-logo"></a>
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</li>
-		<li class="nav-item nav-link dropdown tb-menu-item">
+		<li class="nav-item nav-link dropdown tb-menu-item to-hide">
 			<a class="nav-link dropdown-toggle top-bar-menu-link white-link-none" data-toggle="dropdown"
 			   href="#"
 			   role="button"
@@ -71,7 +71,7 @@
 				<a class="dropdown-item" href="#">Украинский</a>
 			</div>
 		</li>
-		<li class="nav-item nav-link tb-menu-item">
+		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="tb-menu-border"></div>

@@ -1,0 +1,42 @@
+.programms-desktop-content{
+  display: none;
+}
+
+.programms-mobile-content {
+  display: block;
+  .programms-caption {
+    font-size: 1.5em;
+    line-height: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: auto;
+  }
+
+  .programms-grid-item {
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-height: 393px;
+
+    .programms-gi-image {
+      width: 100%;
+      height: 205px;
+    }
+
+    .programms-gi-text {
+      margin: 0;
+      line-height: 19px;
+      font-size: 1em;
+    }
+
+    .programms-gi-link {
+      margin: 0;
+    }
+  }
+
+  .orange-btn {
+    width: 345px;
+    height: 48px;
+    line-height: 48px;
+    margin-bottom: 30px;
+  }
+}

@@ -1,13 +1,13 @@
 <?php ?>
 
 <div class="container">
-	<div class="row no-gutters align-items-start footer-block flex-nowrap">
-		<div class="col-3">
+	<div class="row no-gutters align-items-start footer-block">
+		<div class="col-sm-12 col-md-3 col-lg-3">
 			<a href="#" class="footer-logo"></a>
 		</div>
-		<div class="col-6">
-			<div class="row no-gutters flex-nowrap justify-content-center">
-				<div class="col-5 col-auto footer-item">
+		<div class="col-sm-12 col-md-6 col-lg-6">
+			<div class="row no-gutters justify-content-center" id="footer-info">
+				<div class="col-sm-12 col-md-5 col-lg-5 col-auto footer-item">
 					<nav class="nav flex-column footer-nav">
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Главная</a>
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Виды иммиграции</a>
@@ -17,7 +17,7 @@
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Контакты</a>
 					</nav>
 				</div>
-				<div class="col-5 col-auto footer-item">
+				<div class="col-sm-12 col-md-5 col-lg-5 col-auto footer-item">
 					<div class="row no-gutters footer-contact-item">
 						<a href="#" class="col-auto footer-phone"></a>
 						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">03-6738333</a>
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-3 footer-item">
+		<div class="col-sm-12 col-md-3 col-lg-3">
 			<div class="footer-address-item row no-gutters">
 				<div class="col">
 					<h2 class="footer-address-name footer-text">Тель-Авив</h2>

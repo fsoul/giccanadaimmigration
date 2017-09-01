@@ -1,8 +1,17 @@
 $image-dir: '../images/';
 
+#programms {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 /*programms*/
-.programms {
+.programms-desktop-content {
   padding-bottom: 40px;
+}
+
+.programms-mobile-content {
+  display: none;
 }
 
 .programms-caption {
