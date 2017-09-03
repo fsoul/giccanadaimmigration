@@ -1050,14 +1050,21 @@ body {
         background-size: cover;
         height: 61px;
         width: 167px;
-        margin: 0; }
+        margin: 0;
+        color: #fff;
+        font-size: 1em;
+        line-height: 24px;
+        order: 1; }
+      .menu-container .menu-row .menu-phone-block {
+        order: 2; }
       .menu-container .menu-row .mobile-menu-button {
         display: inline-block;
         width: 24px;
         height: 24px;
         background: url(./public/images/Hamburger-3e76654d79.png) transparent no-repeat center;
         background-size: 18px 12px;
-        border: none; }
+        border: none;
+        order: 3; }
         .menu-container .menu-row .mobile-menu-button:active, .menu-container .menu-row .mobile-menu-button:focus {
           outline: none; }
     .menu-container div.menu {
@@ -1348,7 +1355,7 @@ body {
     background-size: 18px 12px; }
   .call-logo {
     background: url(./public/images/ic_call_black_24px2x-c04a22c3c0.png) no-repeat center;
-    background-size: 18px; }
+    background-size: cover; }
   .skype-logo {
     background: url(./public/images/skype_logo2x-fdd4160b62.png) no-repeat center;
     background-size: cover; }

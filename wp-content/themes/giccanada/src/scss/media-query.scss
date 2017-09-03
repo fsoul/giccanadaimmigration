@@ -354,7 +354,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
 
   .call-logo {
     background: url($image-dir + "header/2x/ic_call_black_24px2x.png") no-repeat center;
-    background-size: 18px;
+    background-size: cover;
   }
 
   .skype-logo {

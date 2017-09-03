@@ -1,6 +1,6 @@
 <?php ?>
 <div class="container-fluid no-gutters header-mobile-content"> <!--header-mobile-content-->
-    <div class="row justify-content-center no-gutters">
+    <div class="row justify-content-center">
         <div class="col">
             <div class="row">
                 <h2 class="col hs-caption">Иммиграция в Канаду</h2>
@@ -15,7 +15,7 @@
         </div>
     </div>
 </div> <!--header-mobile-content-->
-<div class="container-fluid no-gutters carousel-div"> <!--header slider-->
+<div class="container-fluid carousel-div"> <!--header slider-->
 	<div class="row justify-content-center no-gutters">
 		<div class="col">
             <div id="header-carousel" class="owl-carousel owl-theme">
