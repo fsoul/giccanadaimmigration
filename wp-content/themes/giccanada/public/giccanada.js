@@ -10482,8 +10482,9 @@ function onWindowClick (event) {
 }
 
 function onFixedButtonHover($button) {
-    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover');
-    if ($btnHoverText.css('display') === 'none')
+    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover'),
+        windowWidth = $(window).width();
+    if ($btnHoverText.css('display') === 'none' && windowWidth > 375)
         $btnHoverText.css('display', 'inline-block');
     else
         $btnHoverText.css('display', 'none');

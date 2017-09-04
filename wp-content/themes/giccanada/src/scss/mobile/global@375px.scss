@@ -2,23 +2,26 @@ $image-dir: '../images/';
 
 /*fixed right panel ---------------------------*/
 .fixed-right-panel {
-  display: none;
   position: fixed;
-  width: 72px;
-  height: 288px;
-  right: 0;
-  bottom: 100px;
+  width: 192px;
+  height: 48px;
+  bottom: 0;
   background: #fff;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
   z-index: 500;
   border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 0;
+  left: 50%;
+  margin-left: -96px;
 
   div {
     position: relative;
-    border-bottom: 1px solid rgba(0, 0, 58, 0.1);
+    border-bottom: none;
+    border-right: 1px solid rgba(0, 0, 58, 0.1);
+    float: left;
     &:last-child {
-      border-bottom: none;
+      border-right: none;
     }
 
     .fixed-pnl-btn-hover {
@@ -40,47 +43,21 @@ $image-dir: '../images/';
     }
 
     .fixed-panel-button {
-      width: 72px;
-      height: 72px;
+      width: 47px;
+      height: 48px;
     }
 
-    .contact-form {
-      background: url($image-dir + 'Contact-form.png') no-repeat center;
-      background-size: 32.4px 36px;
+    .contact-form,
+    .live-chat,
+    .request-call,
+    .open-case{
+      background-size: 24px;
 
       &:hover {
-        background: url($image-dir + 'Contact-form-hover.png') no-repeat center;
-      }
-    }
-
-    .live-chat {
-      background: url($image-dir + 'Live-chat.png') no-repeat center;
-      background-size: 36px;
-
-      &:hover {
-        background: url($image-dir + 'Live-chat-hover.png') no-repeat center;
-      }
-    }
-
-    .request-call {
-      background: url($image-dir + 'Request-call.png') no-repeat center;
-      background-size: 32.4px;
-
-      &:hover {
-        background: url($image-dir + 'Request-call-hover.png') no-repeat center;
-      }
-    }
-
-    .open-case {
-      background: url($image-dir + 'Open-case.png') no-repeat center;
-      background-size: 32.4px 36px;
-
-      &:hover {
-        background: url($image-dir + 'Open-case-hover.png') no-repeat center;
+        background-size: 24px;
       }
     }
   }
-
 }
 
 /*fixed right panel end -----------------------*/
