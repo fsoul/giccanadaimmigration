@@ -15,7 +15,7 @@
 				</div>
 			</div>
 		</li>
-		<li class="nav-item nav-link tb-menu-item">
+		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo call-logo"></div>

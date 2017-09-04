@@ -1029,6 +1029,64 @@ body {
 /* sm-размер (<=768px) */
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
+  /*fixed right panel ---------------------------*/
+  .fixed-right-panel {
+    display: none;
+    position: fixed;
+    width: 72px;
+    height: 288px;
+    right: 0;
+    bottom: 100px;
+    background: #fff;
+    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+    z-index: 500;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px; }
+    .fixed-right-panel div {
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 58, 0.1); }
+      .fixed-right-panel div:last-child {
+        border-bottom: none; }
+      .fixed-right-panel div .fixed-pnl-btn-hover {
+        display: none;
+        background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
+        background-size: cover;
+        height: 32px;
+        min-width: 175px;
+        position: absolute;
+        right: 80px;
+        white-space: nowrap;
+        padding-right: 50px;
+        padding-left: 10px;
+        line-height: 32px;
+        font-size: 1em;
+        color: #fff;
+        top: 50%;
+        margin-top: -16px; }
+      .fixed-right-panel div .fixed-panel-button {
+        width: 72px;
+        height: 72px; }
+      .fixed-right-panel div .contact-form {
+        background: url(./public/images/Contact-form-88c2435a62.png) no-repeat center;
+        background-size: 32.4px 36px; }
+        .fixed-right-panel div .contact-form:hover {
+          background: url(./public/images/Contact-form-hover-26abda9ead.png) no-repeat center; }
+      .fixed-right-panel div .live-chat {
+        background: url(./public/images/Live-chat-124670d341.png) no-repeat center;
+        background-size: 36px; }
+        .fixed-right-panel div .live-chat:hover {
+          background: url(./public/images/Live-chat-hover-1a6b37684b.png) no-repeat center; }
+      .fixed-right-panel div .request-call {
+        background: url(./public/images/Request-call-4b536ce99e.png) no-repeat center;
+        background-size: 32.4px; }
+        .fixed-right-panel div .request-call:hover {
+          background: url(./public/images/Request-call-hover-6e5c7ddf41.png) no-repeat center; }
+      .fixed-right-panel div .open-case {
+        background: url(./public/images/Open-case-25e66fba1b.png) no-repeat center;
+        background-size: 32.4px 36px; }
+        .fixed-right-panel div .open-case:hover {
+          background: url(./public/images/Open-case-hover-a35d7c32d0.png) no-repeat center; }
+  /*fixed right panel end -----------------------*/
   .header-container {
     height: 660px; }
   .top-bar .tb-menu-border {
@@ -1039,7 +1097,10 @@ body {
     display: none; }
   .top-bar .top-bar-menu-link {
     margin-right: 10px; }
-  .top-bar .call-logo, .top-bar .search-logo {
+  .top-bar .call-logo {
+    height: 18px;
+    width: 18px; }
+  .top-bar .search-logo {
     height: 28px;
     width: 18px; }
   .menu-container {
@@ -1073,10 +1134,14 @@ body {
     display: none; }
   .header-mobile-content {
     display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     padding-top: 155px;
     background: url(./public/images/Hero-image_3m-57d1cce8f0.jpg) no-repeat center;
     background-size: cover;
     height: 616px; }
+    .header-mobile-content .row {
+      width: 100%; }
     .header-mobile-content .hs-caption {
       font-size: 2.5em;
       letter-spacing: 1px;
@@ -1090,7 +1155,8 @@ body {
       margin: 0;
       height: 48px;
       line-height: 48px;
-      min-width: 290px; }
+      min-width: initial;
+      width: initial; }
   .programms-caption {
     font-size: 1.5em;
     line-height: 30px;
@@ -1165,7 +1231,7 @@ body {
     #common-info .common-info-vid {
       height: 194px;
       margin: 0;
-      padding: 0 15px; }
+      width: 90%; }
   #process {
     padding: 30px; }
     #process .process-caption {
@@ -1268,7 +1334,7 @@ body {
       height: 48px;
       line-height: 48px;
       margin: 0;
-      width: 330px; }
+      width: 100%; }
   #footer {
     height: auto;
     padding-bottom: 0; }
@@ -1321,6 +1387,14 @@ body {
     #footer #footer-info {
       flex-wrap: wrap; } }
 
+@media (max-width: 370px) {
+  #process .process-mobile-content .process-spider .process-step-text {
+    font-size: .79em; } }
+
+@media (max-width: 320px) {
+  .header-mobile-content .hs-caption {
+    font-size: 2.4em; } }
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
     display: none;
@@ -1367,10 +1441,10 @@ body {
     background-size: 18px; }
   .fb-logo {
     background: url(./public/images/facebook2x-df2cbb5217.png) no-repeat center;
-    background-size: 14px; }
+    background-size: contain; }
   .tw-logo {
     background: url(./public/images/twitter2x-2e0cd40e7c.png) no-repeat center;
-    background-size: 26px; }
+    background-size: contain; }
   .linkedin-logo {
     background: url(./public/images/LinkedIn2x-b32bd9e015.png) no-repeat center;
     background-size: cover; }

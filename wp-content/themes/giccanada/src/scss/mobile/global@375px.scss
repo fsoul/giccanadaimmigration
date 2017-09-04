@@ -1,0 +1,86 @@
+$image-dir: '../images/';
+
+/*fixed right panel ---------------------------*/
+.fixed-right-panel {
+  display: none;
+  position: fixed;
+  width: 72px;
+  height: 288px;
+  right: 0;
+  bottom: 100px;
+  background: #fff;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+  z-index: 500;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+
+  div {
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 58, 0.1);
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .fixed-pnl-btn-hover {
+      display: none;
+      background: url($image-dir + "fxd-btn-hover-text.png");
+      background-size: cover;
+      height: 32px;
+      min-width: 175px;
+      position: absolute;
+      right: 80px;
+      white-space: nowrap;
+      padding-right: 50px;
+      padding-left: 10px;
+      line-height: 32px;
+      font-size: 1em;
+      color: #fff;
+      top: 50%;
+      margin-top: -16px;
+    }
+
+    .fixed-panel-button {
+      width: 72px;
+      height: 72px;
+    }
+
+    .contact-form {
+      background: url($image-dir + 'Contact-form.png') no-repeat center;
+      background-size: 32.4px 36px;
+
+      &:hover {
+        background: url($image-dir + 'Contact-form-hover.png') no-repeat center;
+      }
+    }
+
+    .live-chat {
+      background: url($image-dir + 'Live-chat.png') no-repeat center;
+      background-size: 36px;
+
+      &:hover {
+        background: url($image-dir + 'Live-chat-hover.png') no-repeat center;
+      }
+    }
+
+    .request-call {
+      background: url($image-dir + 'Request-call.png') no-repeat center;
+      background-size: 32.4px;
+
+      &:hover {
+        background: url($image-dir + 'Request-call-hover.png') no-repeat center;
+      }
+    }
+
+    .open-case {
+      background: url($image-dir + 'Open-case.png') no-repeat center;
+      background-size: 32.4px 36px;
+
+      &:hover {
+        background: url($image-dir + 'Open-case-hover.png') no-repeat center;
+      }
+    }
+  }
+
+}
+
+/*fixed right panel end -----------------------*/
