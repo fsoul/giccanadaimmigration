@@ -1,9 +1,6 @@
 'use strict';
 
-import header from './js/header';
-// const Window = require('./js/window');
-//
-// var windowObj = new Window();
+var header = require('./js/header');
 
 $(window).on('click', function (e) {
     header.onWindowClick(e);
@@ -117,15 +114,15 @@ $(document).ready(function () {
 });
 
 //scss-------------------------------------------
-import './scss/global.scss';
-import './scss/header.scss';
-import './scss/programms.scss';
-import './scss/academy.scss';
-import './scss/common-info.scss';
-import './scss/process.scss';
-import './scss/reviews.scss';
-import './scss/news.scss';
-import './scss/footer.scss';
+require('./scss/global.scss');
+require('./scss/header.scss');
+require('./scss/programms.scss');
+require('./scss/academy.scss');
+require('./scss/common-info.scss');
+require('./scss/process.scss');
+require('./scss/reviews.scss');
+require('./scss/news.scss');
+require('./scss/footer.scss');
 
 
-import './scss/media-query.scss';
+require('./scss/media-query.scss');
