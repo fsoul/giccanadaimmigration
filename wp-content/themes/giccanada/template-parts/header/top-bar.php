@@ -1,7 +1,5 @@
-<?php
-?>
-
-<div class="top-bar">
+<?php ?>
+<div class="top-bar" id="top">
 	<ul class="nav justify-content-center flex-nowrap">
 		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="tb-menu-border"></div>
