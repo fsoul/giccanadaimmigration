@@ -1,12 +1,13 @@
 'use strict';
 
 var header = require('./js/header');
+require('./js/stickymenu');
 
 $(window).on('click', function (e) {
     header.onWindowClick(e);
 });
 $(window).on('scroll', function () {
-    header.updateHeaderMenuPos();
+    // header.updateHeaderMenuPos();
 
     var width = $(window).width(),
         scrollTop = $(window).scrollTop(),
@@ -20,7 +21,7 @@ $(window).on('scroll', function () {
 });
 
 $(window).on('load', function () {
-    header.updateHeaderMenuPos();
+    // header.updateHeaderMenuPos();
     var width = $(window).width(),
         scrollTop = $(window).scrollTop(),
         $btnUp = $("#mobile-btn-up");
@@ -58,7 +59,7 @@ $(window).on('load', function () {
 
 
 $(window).on('resize', function () {
-    header.updateHeaderMenuPos();
+    // header.updateHeaderMenuPos();
     var width = $(window).width();
 
     $('#programms').find('.programms-grid-item').each(function (index) {
@@ -88,6 +89,11 @@ $(window).on('resize', function () {
 
 
 $(document).ready(function () {
+
+    var menuSticky = document.getElementsByClassName('menu-container');
+    menuSticky.sticky();
+
+
     $('button.dropbtn').on('click', function () {
         header.toggleMenu();
     });
