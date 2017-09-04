@@ -1,6 +1,7 @@
 <?php get_header(); ?>
+<?php get_template_part( 'template-parts/header/fixed-right-panel'); ?>
+<?php get_template_part( 'template-parts/header/mobile-btn-up'); ?>
     <div class="header-container">
-	    <?php get_template_part( 'template-parts/header/fixed-right-panel'); ?>
 	    <?php get_template_part( 'template-parts/header/top-bar'); ?>
 	    <?php get_template_part( 'template-parts/header/menu-container'); ?>
         <div id="header-slider-container">

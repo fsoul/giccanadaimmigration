@@ -8,10 +8,10 @@ function toggleMenu() {
 function onWindowClick (event) {
     if (!event.target.matches('.dropbtn')) {
 
-        let dropdowns = document.getElementsByClassName("dropdown-content");
-        let i;
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
         for (i = 0; i < dropdowns.length; i++) {
-            let openDropdown = dropdowns[i];
+            var openDropdown = dropdowns[i];
             if (openDropdown.classList.contains('show-dropdown-content')) {
                 openDropdown.classList.remove('show-dropdown-content');
             }
@@ -20,25 +20,58 @@ function onWindowClick (event) {
 }
 
 function onFixedButtonHover($button) {
-    let $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover');
-    if ($btnHoverText.css('display') === 'none')
+    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover'),
+        windowWidth = $(window).width();
+    if ($btnHoverText.css('display') === 'none' && windowWidth > 375)
         $btnHoverText.css('display', 'inline-block');
     else
         $btnHoverText.css('display', 'none');
 }
 
 function updateHeaderMenuPos() {
-    if ($(window).scrollTop() >= 150) {
-        $('.menu-container').css({
+    var windowWidth = $(window).width(),
+        $menuContainer = $('.menu-container'),
+        $menuLogo = $('.menu-container').find('.menu-logo'),
+        menuContainerCSS = {},
+        scrollTop = 0;
+
+    if (windowWidth > 375) {
+        scrollTop = 150;
+        menuContainerCSS = {
             'position': 'fixed',
             'top': '0',
             'margin-top': '0',
             'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
             'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
-        });
+        };
+    } else {
+        scrollTop = 125;
+        menuContainerCSS = {
+            'position': 'fixed',
+            'top': '0',
+            'margin-top': '0',
+            'box-shadow': '0 2px 4px rgba(0, 0, 58, 0.5)',
+            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)',
+            'height': '48px'
+        };
+    }
+
+    if ($(window).scrollTop() >= scrollTop) {
+
+        if (windowWidth <= 375) {
+            $menuLogo.css({
+                'background': 'none',
+                'height': '24px',
+                'width': 'auto'
+            });
+            $menuLogo.text('GIC Canada');
+        }
+        $menuContainer.css(menuContainerCSS);
         $('.menu-phone-block').css('display', 'inline-block');
     } else {
-        $('.menu-container').removeAttr('style');
+        $menuContainer.removeAttr('style');
+        $menuLogo.removeAttr('style');
+        $menuLogo.text('');
         $('.menu-phone-block').css('display', 'none');
     }
 }

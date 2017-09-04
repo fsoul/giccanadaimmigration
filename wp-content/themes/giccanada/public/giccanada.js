@@ -10364,13 +10364,32 @@ $(window).on('click', function (e) {
 });
 $(window).on('scroll', function () {
     __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+
+    var width = $(window).width(),
+        scrollTop = $(window).scrollTop(),
+        $btnUp = $("#mobile-btn-up");
+
+    if (width <= 375 && scrollTop > 125)  {
+        $btnUp.css('display', 'block');
+    } else {
+        $btnUp.removeAttr('style');
+    }
 });
 
 $(window).on('load', function () {
     __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+    var width = $(window).width(),
+        scrollTop = $(window).scrollTop(),
+        $btnUp = $("#mobile-btn-up");
+
+    if (width <= 375 && scrollTop > 125)  {
+        $btnUp.css('display', 'block');
+    } else {
+        $btnUp.removeAttr('style');
+    }
 
     $('#programms').find('.programms-grid-item').each(function (index) {
-        if (index > 2 && $(window).width() <= 375) {
+        if (index > 2 && width <= 375) {
             $(this).css('display', 'none');
         } else {
             $(this).css('display', 'block');
@@ -10379,28 +10398,28 @@ $(window).on('load', function () {
 
 
     $('.news-grid').find('.news-item').each(function (index) {
-        if (index > 1 && $(window).width() <= 375) {
+        if (index > 1 && width <= 375) {
             $(this).css('display', 'none');
         } else {
             $(this).css('display', 'block');
         }
     });
 
-    if ( $(window).width() <= 375 ){
+    if ( width <= 375 ){
         $('.academy').find('.academy-caption').text('Учебные программы');
 
     } else {
         $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
     }
-
 });
 
 
 $(window).on('resize', function () {
     __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.updateHeaderMenuPos();
+    var width = $(window).width();
 
     $('#programms').find('.programms-grid-item').each(function (index) {
-        if (index > 2 && $(window).width() <= 375) {
+        if (index > 2 && width <= 375) {
             $(this).css('display', 'none');
         } else {
             $(this).css('display', 'block');
@@ -10409,20 +10428,19 @@ $(window).on('resize', function () {
 
 
     $('.news-grid').find('.news-item').each(function (index) {
-        if (index > 1 && $(window).width() <= 375) {
+        if (index > 1 && width <= 375) {
             $(this).css('display', 'none');
         } else {
             $(this).css('display', 'block');
         }
     });
 
-    if ( $(window).width() <= 375 ){
+    if ( width <= 375 ){
         $('.academy').find('.academy-caption').text('Учебные программы');
 
     } else {
         $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
     }
-
 });
 
 
@@ -10438,6 +10456,18 @@ $(document).ready(function () {
             __WEBPACK_IMPORTED_MODULE_0__js_header___default.a.onFixedButtonHover($(this));
         }
     );
+
+    var $btnUp = $("#mobile-btn-up");
+    $btnUp.on("click", "a", function (event) {
+        //отменяем стандартную обработку нажатия по ссылке
+        event.preventDefault();
+        //забираем идентификатор бока с атрибута href
+        var id  = $(this).attr('href'),
+            //узнаем высоту от начала страницы до блока на который ссылается якорь
+            top = $(id).offset().top;
+        //анимируем переход на расстояние - top за 1500 мс
+        $('body,html').animate({scrollTop: top}, 1500);
+    });
 });
 
 //scss-------------------------------------------
@@ -10470,10 +10500,10 @@ function toggleMenu() {
 function onWindowClick (event) {
     if (!event.target.matches('.dropbtn')) {
 
-        let dropdowns = document.getElementsByClassName("dropdown-content");
-        let i;
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
         for (i = 0; i < dropdowns.length; i++) {
-            let openDropdown = dropdowns[i];
+            var openDropdown = dropdowns[i];
             if (openDropdown.classList.contains('show-dropdown-content')) {
                 openDropdown.classList.remove('show-dropdown-content');
             }
@@ -10482,25 +10512,58 @@ function onWindowClick (event) {
 }
 
 function onFixedButtonHover($button) {
-    let $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover');
-    if ($btnHoverText.css('display') === 'none')
+    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover'),
+        windowWidth = $(window).width();
+    if ($btnHoverText.css('display') === 'none' && windowWidth > 375)
         $btnHoverText.css('display', 'inline-block');
     else
         $btnHoverText.css('display', 'none');
 }
 
 function updateHeaderMenuPos() {
-    if ($(window).scrollTop() >= 150) {
-        $('.menu-container').css({
+    var windowWidth = $(window).width(),
+        $menuContainer = $('.menu-container'),
+        $menuLogo = $('.menu-container').find('.menu-logo'),
+        menuContainerCSS = {},
+        scrollTop = 0;
+
+    if (windowWidth > 375) {
+        scrollTop = 150;
+        menuContainerCSS = {
             'position': 'fixed',
             'top': '0',
             'margin-top': '0',
             'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
             'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
-        });
+        };
+    } else {
+        scrollTop = 125;
+        menuContainerCSS = {
+            'position': 'fixed',
+            'top': '0',
+            'margin-top': '0',
+            'box-shadow': '0 2px 4px rgba(0, 0, 58, 0.5)',
+            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)',
+            'height': '48px'
+        };
+    }
+
+    if ($(window).scrollTop() >= scrollTop) {
+
+        if (windowWidth <= 375) {
+            $menuLogo.css({
+                'background': 'none',
+                'height': '24px',
+                'width': 'auto'
+            });
+            $menuLogo.text('GIC Canada');
+        }
+        $menuContainer.css(menuContainerCSS);
         $('.menu-phone-block').css('display', 'inline-block');
     } else {
-        $('.menu-container').removeAttr('style');
+        $menuContainer.removeAttr('style');
+        $menuLogo.removeAttr('style');
+        $menuLogo.text('');
         $('.menu-phone-block').css('display', 'none');
     }
 }

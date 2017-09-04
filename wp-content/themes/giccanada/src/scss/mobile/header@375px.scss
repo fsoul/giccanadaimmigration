@@ -21,7 +21,12 @@ $image-dir: '../images/';
     margin-right: 10px;
   }
 
-  .call-logo, .search-logo {
+  .call-logo {
+    height: 18px;
+    width: 18px;
+  }
+
+  .search-logo {
     height: 28px;
     width: 18px;
   }
@@ -29,6 +34,7 @@ $image-dir: '../images/';
 
 .menu-container {
   margin: 0;
+
     .menu-row {
     padding: 0 15px;
 
@@ -37,6 +43,14 @@ $image-dir: '../images/';
       height: 61px;
       width: 167px;
       margin: 0;
+      color: #fff;
+      font-size: 1em;
+      line-height: 24px;
+      order: 1;
+    }
+
+    .menu-phone-block {
+      order: 2;
     }
 
     .mobile-menu-button{
@@ -46,6 +60,7 @@ $image-dir: '../images/';
       background: url($image-dir + "Hamburger.png") transparent no-repeat center;
       background-size: 18px 12px;
       border: none;
+      order: 3;
 
       &:active, &:focus {
         outline: none;
@@ -64,10 +79,16 @@ $image-dir: '../images/';
 
 .header-mobile-content {
   display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
   padding-top: 155px;
   background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;
   background-size: cover;
   height: 616px;
+
+  .row {
+    width: 100%;
+  }
 
   .hs-caption {
     font-size: 2.5em;
@@ -87,6 +108,7 @@ $image-dir: '../images/';
     margin: 0;
     height: 48px;
     line-height: 48px;
-    min-width: 290px;
+    min-width: initial;
+    width: initial;
   }
 }
