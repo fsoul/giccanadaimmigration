@@ -89,74 +89,11 @@ $image-dir: '../images/';
 @media (max-width: 991px) {
   /* CSS для ширины от 768px до 991px */
 
-  .top-bar-menu-link {
-    font-size: .8em;
+  .to-hide {
+    display: none;
   }
 
-  .menu-item {
-
-    .menu-dropdown {
-
-      .dropdown-content {
-
-        &.show-dropdown-content {
-          width: 700px;
-          left: -240px;
-          .col {
-            margin-left: 15px;
-
-            &:first-child {
-              margin: 0;
-            }
-
-            h3.row {
-              height: 24px;
-              line-height: 24px;
-              font-size: .9em;
-            }
-
-            ul.row {
-              padding: 0;
-
-              li {
-                list-style-type: none;
-                width: 100%;
-
-                a {
-                  line-height: 24px;
-                  font-size: .9em;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  .menu-link {
-    font-size: .9em;
-  }
-
-  .call-logo,
-  .search-logo {
-    background-size: 13px;
-    height: 13px;
-    width: 13px;
-  }
-
-  .skype-logo,
-  .messager-logo,
-  .fb-logo, .tw-logo,
-  .linkedin-logo {
-    background-size: contain;
-    height: 18px;
-    width: 18px;
-  }
-
-  .hs-item-button {
-    min-width: 340px;
-  }
-
+  @import "./mobile/991/header@991px";
   .academy-slr-item-img {
     height: 140px;
   }
@@ -273,8 +210,8 @@ $image-dir: '../images/';
 }
 
 /* sm-размер (<=768px) */
-@media (max-width: 767px) {
-
+@media (max-width: 768px) {
+  @import "./mobile/768/header@768px";
 }
 
 /* xs-размер (<=575px) */
@@ -283,21 +220,21 @@ $image-dir: '../images/';
 }
 
 @media (max-width: 375px) {
-  @import "mobile/global@375px";
-  @import "mobile/header@375px";
-  @import "mobile/programms@375px";
-  @import "mobile/academy@375px";
-  @import "mobile/common-info@375px";
-  @import "mobile/process@375px";
-  @import "mobile/reviews@375px";
-  @import "mobile/news@375px";
-  @import "mobile/footer@375px";
+  @import "mobile/375/global@375px";
+  @import "mobile/375/header@375px";
+  @import "mobile/375/programms@375px";
+  @import "mobile/375/academy@375px";
+  @import "mobile/375/common-info@375px";
+  @import "mobile/375/process@375px";
+  @import "mobile/375/reviews@375px";
+  @import "mobile/375/news@375px";
+  @import "mobile/375/footer@375px";
 }
 
 @media (max-width: 370px) {
-  @import "mobile/process@370px";
+  @import "mobile/375/process@370px";
 }
 
 @media (max-width: 320px) {
-  @import "mobile/header@320px";
+  @import "mobile/375/header@320px";
 }

@@ -10361,6 +10361,23 @@ return jQuery;
 
 module.exports =
     (function () {
+        var throttle = function(type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function() {
+                if (running) { return; }
+                running = true;
+                requestAnimationFrame(function() {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
+        };
+
+        var btnDropdown = document.querySelector('button.dropbtn');
+        var fixedButton = document.getElementsByClassName("fixed-panel-button");
+
         function onFixedButtonHover() {
             var windowWidth = window.innerWidth
                 || document.documentElement.clientWidth
@@ -10396,20 +10413,21 @@ module.exports =
             document.getElementById("main-menu-content").classList.add('show-dropdown-content');
         }
 
-        function assignReadyEvents() {
-            document.querySelector('button.dropbtn').addEventListener('click', toggleMenu);
+        /* init - you can init any event */
+        throttle("click", "toggleMenu", btnDropdown);
+        throttle("click", "windowClick");
+        throttle("resize", "windowResize");
 
-            var fixedButton = document.getElementsByClassName("fixed-panel-button");
-            for (var i = 0; i < fixedButton.length; i++) {
-                fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
-                fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
-            }
-
-            document.addEventListener('click', onWindowClick);
+        // handle event
+        for (var i = 0; i < fixedButton.length; i++) {
+            throttle("mouseover", "fixedButtonHover", fixedButton[i]);
+            throttle("mouseout", "fixedButtonHover", fixedButton[i]);
+            fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
+            fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
         }
 
-        //on document load
-        assignReadyEvents();
+        btnDropdown.addEventListener("toggleMenu", toggleMenu);
+        window.addEventListener('click', onWindowClick);
     })();
 
 

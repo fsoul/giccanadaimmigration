@@ -1,7 +1,7 @@
 <?php ?>
 <div class="top-bar" id="top">
-	<ul class="nav justify-content-center flex-nowrap">
-		<li class="nav-item nav-link tb-menu-item to-hide">
+	<ul class="nav justify-content-center flex-nowrap" id='desktop-top-bar'>
+		<li class="nav-item nav-link tb-menu-item">
 			<div class="tb-menu-border"></div>
 		</li>
 		<li class="nav-item nav-link tb-menu-item">
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 		</li>
-		<li class="nav-item nav-link tb-menu-item to-hide">
+		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo call-logo"></div>
@@ -26,7 +26,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo skype-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline to-hide" href="skype:#?call">Skype</a>
+					<a class="col top-bar-menu-link white-link-underline" href="skype:#?call">Skype</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo messager-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline to-hide" href="#">Напишите нам</a>
+					<a class="col top-bar-menu-link white-link-underline" href="#">Напишите нам</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -45,11 +45,11 @@
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo search-logo"></div>
 					<input type="text" class="col tb-search to-hide" placeholder="Поиск">
-					<div class="tb-menu-border to-hide"></div>
+					<div class="tb-menu-border"></div>
 				</div>
 			</div>
 		</li>
-		<li class="nav-item nav-link tb-menu-item to-hide">
+		<li class="nav-item nav-link tb-menu-item ">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<a href="#" class="col tb-menu-logo fb-logo"></a>
@@ -72,6 +72,44 @@
 		<li class="nav-item nav-link tb-menu-item to-hide">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
+					<div class="tb-menu-border"></div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul class="nav justify-content-between flex-nowrap" id='mobile-top-bar'>
+		<li class="nav-item nav-link tb-menu-item">
+			<div class="container-fluid">
+				<div class="row align-items-center flex-nowrap">
+					<div class="tb-menu-logo call-logo"></div>
+					<a class="top-bar-menu-link white-link-underline" href="tel:03-6738333">03-6738333</a>
+					<div class="tb-menu-border"></div>
+				</div>
+			</div>
+		</li>
+		<li class="nav-item nav-link tb-menu-item">
+			<div class="container-fluid">
+				<div class="row align-items-center flex-nowrap">
+					<div class="col col-md-auto tb-menu-logo skype-logo"></div>
+					<a class="col top-bar-menu-link white-link-underline" href="skype:#?call">Skype</a>
+					<div class="tb-menu-border"></div>
+				</div>
+			</div>
+		</li>
+		<li class="nav-item nav-link tb-menu-item">
+			<div class="container-fluid">
+				<div class="row align-items-center flex-nowrap">
+					<div class="col col-md-auto tb-menu-logo messager-logo"></div>
+					<a class="col top-bar-menu-link white-link-underline" href="#">Напишите нам</a>
+					<div class="tb-menu-border"></div>
+				</div>
+			</div>
+		</li>
+		<li class="nav-item nav-link tb-menu-item">
+			<div class="container-fluid">
+				<div class="row align-items-center flex-nowrap">
+					<div class="col col-md-auto tb-menu-logo search-logo"></div>
+					<input type="text" class="col tb-search to-hide" placeholder="Поиск">
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>

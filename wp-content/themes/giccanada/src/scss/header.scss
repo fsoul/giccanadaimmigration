@@ -3,6 +3,10 @@ $image-dir: '../images/';
 .header-container {
   width: 100%;
   height: 828px;
+
+  #mobile-top-bar {
+    display: none;
+  }
 }
 
 /*top bar*/
@@ -112,8 +116,6 @@ $image-dir: '../images/';
 }
 
 /*top bar end --------------------*/
-
-/* Rectangle 2 */
 
 /*menu*/
 #menu-container {

@@ -116,6 +116,8 @@ body {
 .header-container {
   width: 100%;
   height: 828px; }
+  .header-container #mobile-top-bar {
+    display: none; }
 
 /*top bar*/
 .top-bar {
@@ -205,7 +207,6 @@ body {
   background: url(./public/images/linkedIn-8ca445e299.png) no-repeat center; }
 
 /*top bar end --------------------*/
-/* Rectangle 2 */
 /*menu*/
 #menu-container {
   margin-top: 14px;
@@ -919,8 +920,21 @@ body {
 /* md-размер (<=991px) */
 @media (max-width: 991px) {
   /* CSS для ширины от 768px до 991px */
-  .top-bar-menu-link {
+  .to-hide {
+    display: none; }
+  .header-container .top-bar .tb-menu-border {
+    margin: 0; }
+  .header-container .top-bar .tb-menu-logo {
+    margin: 0 10px; }
+  .header-container .top-bar .top-bar-menu-link {
+    margin-right: 10px;
     font-size: .8em; }
+  .header-container .top-bar .call-logo {
+    height: 18px;
+    width: 18px; }
+  .header-container .top-bar .search-logo {
+    height: 28px;
+    width: 18px; }
   .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
     width: 700px;
     left: -240px; }
@@ -1030,6 +1044,60 @@ body {
     white-space: nowrap; } }
 
 /* sm-размер (<=768px) */
+@media (max-width: 768px) {
+  .header-container .top-bar #desktop-top-bar {
+    display: none; }
+  .header-container .top-bar #mobile-top-bar {
+    display: flex; }
+  .header-container .top-bar .tb-menu-border {
+    margin: 0; }
+  .header-container .top-bar .tb-menu-logo {
+    margin: 0 10px; }
+  .header-container .top-bar .top-bar-menu-link {
+    margin-right: 10px;
+    font-size: .8em; }
+  .header-container .top-bar .call-logo {
+    height: 18px;
+    width: 18px; }
+  .header-container .top-bar .search-logo {
+    height: 28px;
+    width: 18px; }
+  .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
+    width: 700px;
+    left: -240px; }
+    .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col {
+      margin-left: 15px; }
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col:first-child {
+        margin: 0; }
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col h3.row {
+        height: 24px;
+        line-height: 24px;
+        font-size: .9em; }
+      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row {
+        padding: 0; }
+        .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li {
+          list-style-type: none;
+          width: 100%; }
+          .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li a {
+            line-height: 24px;
+            font-size: .9em; }
+  .menu-link {
+    font-size: .9em; }
+  .call-logo,
+  .search-logo {
+    background-size: 13px;
+    height: 13px;
+    width: 13px; }
+  .skype-logo,
+  .messager-logo,
+  .fb-logo, .tw-logo,
+  .linkedin-logo {
+    background-size: contain;
+    height: 18px;
+    width: 18px; }
+  .hs-item-button {
+    min-width: 340px; } }
+
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
   /*fixed right panel ---------------------------*/
