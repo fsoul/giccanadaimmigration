@@ -61,11 +61,42 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+$(document).ready(function () {
+
+    __webpack_require__(2);
+    __webpack_require__(3);
+    __webpack_require__(4);
+    __webpack_require__(5);
+});
+
+//scss-------------------------------------------
+__webpack_require__(6);
+__webpack_require__(7);
+__webpack_require__(8);
+__webpack_require__(9);
+__webpack_require__(10);
+__webpack_require__(11);
+__webpack_require__(12);
+__webpack_require__(13);
+__webpack_require__(14);
+
+
+__webpack_require__(15);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10325,238 +10356,62 @@ return jQuery;
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var header = __webpack_require__(2);
-__webpack_require__(3);
-
-$(window).on('click', function (e) {
-    header.onWindowClick(e);
-});
-$(window).on('scroll', function () {
-    // header.updateHeaderMenuPos();
-
-    var width = $(window).width(),
-        scrollTop = $(window).scrollTop(),
-        $btnUp = $("#mobile-btn-up");
-
-    if (width <= 375 && scrollTop > 125)  {
-        $btnUp.css('display', 'block');
-    } else {
-        $btnUp.removeAttr('style');
-    }
-});
-
-$(window).on('load', function () {
-    // header.updateHeaderMenuPos();
-    var width = $(window).width(),
-        scrollTop = $(window).scrollTop(),
-        $btnUp = $("#mobile-btn-up");
-
-    if (width <= 375 && scrollTop > 125)  {
-        $btnUp.css('display', 'block');
-    } else {
-        $btnUp.removeAttr('style');
-    }
-
-    $('#programms').find('.programms-grid-item').each(function (index) {
-        if (index > 2 && width <= 375) {
-            $(this).css('display', 'none');
-        } else {
-            $(this).css('display', 'block');
-        }
-    });
-
-
-    $('.news-grid').find('.news-item').each(function (index) {
-        if (index > 1 && width <= 375) {
-            $(this).css('display', 'none');
-        } else {
-            $(this).css('display', 'block');
-        }
-    });
-
-    if ( width <= 375 ){
-        $('.academy').find('.academy-caption').text('Учебные программы');
-
-    } else {
-        $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
-    }
-});
-
-
-$(window).on('resize', function () {
-    // header.updateHeaderMenuPos();
-    var width = $(window).width();
-
-    $('#programms').find('.programms-grid-item').each(function (index) {
-        if (index > 2 && width <= 375) {
-            $(this).css('display', 'none');
-        } else {
-            $(this).css('display', 'block');
-        }
-    });
-
-
-    $('.news-grid').find('.news-item').each(function (index) {
-        if (index > 1 && width <= 375) {
-            $(this).css('display', 'none');
-        } else {
-            $(this).css('display', 'block');
-        }
-    });
-
-    if ( width <= 375 ){
-        $('.academy').find('.academy-caption').text('Учебные программы');
-
-    } else {
-        $('.academy').find('.academy-caption').text('Учебные программы в Канаде');
-    }
-});
-
-
-$(document).ready(function () {
-
-    var menuSticky = document.getElementsByClassName('menu-container');
-    menuSticky.sticky();
-
-
-    $('button.dropbtn').on('click', function () {
-        header.toggleMenu();
-    });
-    $('.fixed-panel-button').hover(
-        function () {
-            header.onFixedButtonHover($(this));
-        },
-        function () {
-            header.onFixedButtonHover($(this));
-        }
-    );
-
-    var $btnUp = $("#mobile-btn-up");
-    $btnUp.on("click", "a", function (event) {
-        //отменяем стандартную обработку нажатия по ссылке
-        event.preventDefault();
-        //забираем идентификатор бока с атрибута href
-        var id  = $(this).attr('href'),
-            //узнаем высоту от начала страницы до блока на который ссылается якорь
-            top = $(id).offset().top;
-        //анимируем переход на расстояние - top за 1500 мс
-        $('body,html').animate({scrollTop: top}, 1500);
-    });
-});
-
-//scss-------------------------------------------
-__webpack_require__(4);
-__webpack_require__(5);
-__webpack_require__(6);
-__webpack_require__(7);
-__webpack_require__(8);
-__webpack_require__(9);
-__webpack_require__(10);
-__webpack_require__(11);
-__webpack_require__(12);
-
-
-__webpack_require__(13);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function($) {/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function toggleMenu() {
-    document.getElementById("main-menu-content").classList.toggle("show-dropdown-content");
-}
+module.exports =
+    (function () {
+        function onFixedButtonHover() {
+            var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            var btnHoverText = this.parentElement.querySelector('.fixed-pnl-btn-hover');
+            if (
+                (
+                    btnHoverText.style.display === 'none' ||
+                    btnHoverText.style.display === ''
+                ) &&
+                windowWidth > 375
+            )
+                btnHoverText.style.display = 'inline-block';
+            else
+                btnHoverText.style.display = 'none';
+        }
 
-// Close the dropdown menu if the user clicks outside of it
-function onWindowClick (event) {
-    if (!event.target.matches('.dropbtn')) {
 
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show-dropdown-content')) {
-                openDropdown.classList.remove('show-dropdown-content');
+        // Close the dropdown menu if the user clicks outside of it
+        function onWindowClick(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show-dropdown-content')) {
+                        openDropdown.classList.remove('show-dropdown-content');
+                    }
+                }
             }
         }
-    }
-}
 
-function onFixedButtonHover($button) {
-    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover'),
-        windowWidth = $(window).width();
-    if ($btnHoverText.css('display') === 'none' && windowWidth > 375)
-        $btnHoverText.css('display', 'inline-block');
-    else
-        $btnHoverText.css('display', 'none');
-}
-
-function updateHeaderMenuPos() {
-    var windowWidth = $(window).width(),
-        $menuContainer = $('.menu-container'),
-        $menuLogo = $('.menu-container').find('.menu-logo'),
-        menuContainerCSS = {},
-        scrollTop = 0;
-
-    if (windowWidth > 375) {
-        scrollTop = 150;
-        menuContainerCSS = {
-            'position': 'fixed',
-            'top': '0',
-            'margin-top': '0',
-            'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
-            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
-        };
-    } else {
-        scrollTop = 125;
-        menuContainerCSS = {
-            'position': 'fixed',
-            'top': '0',
-            'margin-top': '0',
-            'box-shadow': '0 2px 4px rgba(0, 0, 58, 0.5)',
-            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)',
-            'height': '48px'
-        };
-    }
-
-    if ($(window).scrollTop() >= scrollTop) {
-
-        if (windowWidth <= 375) {
-            $menuLogo.css({
-                'background': 'none',
-                'height': '24px',
-                'width': 'auto'
-            });
-            $menuLogo.text('GIC Canada');
+        function toggleMenu() {
+            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
         }
-        $menuContainer.css(menuContainerCSS);
-        $('.menu-phone-block').css('display', 'inline-block');
-    } else {
-        $menuContainer.removeAttr('style');
-        $menuLogo.removeAttr('style');
-        $menuLogo.text('');
-        $('.menu-phone-block').css('display', 'none');
-    }
-}
 
+        function assignReadyEvents() {
+            document.querySelector('button.dropbtn').addEventListener('click', toggleMenu);
 
-module.exports = {
-    toggleMenu: toggleMenu,
-    onWindowClick: onWindowClick,
-    onFixedButtonHover: onFixedButtonHover,
-    updateHeaderMenuPos: updateHeaderMenuPos
-};
+            var fixedButton = document.getElementsByClassName("fixed-panel-button");
+            for (var i = 0; i < fixedButton.length; i++) {
+                fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
+                fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
+            }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+            document.addEventListener('click', onWindowClick);
+        }
+
+        //on document load
+        assignReadyEvents();
+    })();
+
 
 /***/ }),
 /* 3 */
@@ -10564,48 +10419,181 @@ module.exports = {
 
 module.exports = (function () {
 
-    if (document.documentElement.sticky === undefined) {
-        Object.defineProperty(Element.prototype, 'sticky', {
-            get: function() {
-                window.addEventListener('sticky', function () {
-                    Scroll(this);
-                });
-            }
-        });
+
+    var h = document.getElementById("menu-container");
+    var menuLogo = h.querySelector('.menu-logo');
+    var menuPhoneBlock = h.querySelector('.menu-phone-block');
+    var stuck = false;
+    var stickPoint = getDistance();
+
+    function getDistance() {
+        return h.offsetTop;
     }
 
+    function updateHeaderMenuPos(e) {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        var offset = window.pageYOffset;
+        var distance = getDistance() - offset;
 
-    function Scroll(target) {
+        if ((distance <= 0) && !stuck) {
+            h.style.position = 'fixed';
+            h.style.top = '0px';
+            h.style.marginTop = '0px';
+            h.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+            h.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+            stuck = true;
 
-        var windowHeight = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-        var nodeHeight = target.offsetHeight;
-        var scrollTop = document.scrollTop;
 
-        // when top of window reaches the top of the panel detach
-        if (scrollTop <= document.body.clientHeight - windowHeight && // Fix for rubberband scrolling in Safari on Lion
-            scrollTop > target.offsetTop) {
-            target.style.position = 'fixed';
-            target.style.top = '0';
-            target.style.marginTop = '0';
-            target.style.boxShadow = '0 2px 4px rgba(0, 0, 58, 0.5)';
-            target.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+            if (windowWidth <= 375) {
+                menuLogo.style.background = 'none';
+                menuLogo.style.height = '24px';
+                menuLogo.style.width = 'auto';
+                menuLogo.innerText = 'GIC Canada';
+
+                menuPhoneBlock.style.display = 'inline-block';
+            }
+        } else if (stuck && (offset <= stickPoint)) {
+            h.removeAttribute('style');
+            stuck = false;
+            if (windowWidth <= 375) {
+                menuLogo.removeAttribute('style');
+                menuLogo.innerText = '';
+
+                menuPhoneBlock.style.display = 'none';
+            }
         }
     }
+    document.addEventListener('scroll', updateHeaderMenuPos);
+
+    //on document load
+    updateHeaderMenuPos();
 })();
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+
+
+module.exports =  (function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+            requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        for (var i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && windowWidth <= 375) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
+
+        var newsItems = document.getElementsByClassName('news-item');
+        for (var i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && windowWidth <= 375) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = windowWidth <= 375 ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
+
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
+})();
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+
+
+module.exports =  (function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+            requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    var btnUp = document.getElementById('mobile-btn-up');
+    var btnUplink = btnUp.querySelector('a');
+
+    function onBtnUpScrollLoad () {
+        var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth,
+            scrollTop = window.pageYOffset;
+
+        if (windowWidth <= 375 && scrollTop > 125)  {
+            btnUp.style.display = 'block';
+        } else {
+            btnUp.style.display = 'none';
+        }
+    }
+
+    function onBtnUpClick(event) {
+        event.preventDefault();
+        var id = this.getAttribute('href'),
+            top = document.querySelector(id).offsetTop;
+
+        var windowTop = window.pageYOffset;
+        var timerID = setInterval(function () {
+            if (windowTop <= top) {
+                clearInterval(timerID);
+            } else {
+                window.scrollTo(0, windowTop -=50);
+            }
+        }, 10);
+    }
+
+
+    /* init - you can init any event */
+    throttle("scroll", "scrollLoad", document);
+    throttle("click", "click", btnUplink);
+
+    // handle event
+    document.addEventListener("scrollLoad", onBtnUpScrollLoad);
+    btnUplink.addEventListener("click", onBtnUpClick);
+
+    //on document load
+    onBtnUpScrollLoad();
+})();
 
 /***/ }),
 /* 6 */
@@ -10651,6 +10639,18 @@ module.exports = (function () {
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

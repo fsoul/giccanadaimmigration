@@ -207,16 +207,16 @@ body {
 /*top bar end --------------------*/
 /* Rectangle 2 */
 /*menu*/
-.menu-container {
+#menu-container {
   margin-top: 14px;
   padding: 10px 0;
   position: absolute;
   z-index: 20; }
-  .menu-container .mobile-menu-button {
+  #menu-container .mobile-menu-button {
     display: none; }
-  .menu-container .menu-phone-block {
+  #menu-container .menu-phone-block {
     display: none; }
-    .menu-container .menu-phone-block a.white-link-none {
+    #menu-container .menu-phone-block a.white-link-none {
       font-size: 1em;
       line-height: 16px; }
 
@@ -1117,11 +1117,11 @@ body {
   .top-bar .search-logo {
     height: 28px;
     width: 18px; }
-  .menu-container {
+  #menu-container {
     margin: 0; }
-    .menu-container .menu-row {
+    #menu-container .menu-row {
       padding: 0 15px; }
-      .menu-container .menu-row .menu-logo {
+      #menu-container .menu-row .menu-logo {
         background-size: cover;
         height: 61px;
         width: 167px;
@@ -1130,9 +1130,9 @@ body {
         font-size: 1em;
         line-height: 24px;
         order: 1; }
-      .menu-container .menu-row .menu-phone-block {
+      #menu-container .menu-row .menu-phone-block {
         order: 2; }
-      .menu-container .menu-row .mobile-menu-button {
+      #menu-container .menu-row .mobile-menu-button {
         display: inline-block;
         width: 24px;
         height: 24px;
@@ -1140,9 +1140,9 @@ body {
         background-size: 18px 12px;
         border: none;
         order: 3; }
-        .menu-container .menu-row .mobile-menu-button:active, .menu-container .menu-row .mobile-menu-button:focus {
+        #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
           outline: none; }
-    .menu-container div.menu {
+    #menu-container div.menu {
       display: none; }
   .carousel-div {
     display: none; }

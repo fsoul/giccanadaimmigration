@@ -1,5 +1,6 @@
 'use strict';
-(function() {
+
+module.exports =  (function() {
     var throttle = function(type, name, obj) {
         obj = obj || window;
         var running = false;
@@ -14,15 +15,38 @@
         obj.addEventListener(type, func);
     };
 
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        for (var i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && windowWidth <= 375) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
+
+        var newsItems = document.getElementsByClassName('news-item');
+        for (var i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && windowWidth <= 375) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = windowWidth <= 375 ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
+
     /* init - you can init any event */
     throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
 })();
-
-// handle event
-window.addEventListener("optimizedResize", function() {
-    console.log("Resource conscious resize callback!");
-});
-
-module.exports = {
-    Window: Window
-};

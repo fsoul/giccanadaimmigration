@@ -1,31 +1,53 @@
 module.exports = (function () {
 
-    if (document.documentElement.sticky === undefined) {
-        Object.defineProperty(Element.prototype, 'sticky', {
-            get: function() {
-                window.addEventListener('sticky', function () {
-                    Scroll(this);
-                });
-            }
-        });
+
+    var h = document.getElementById("menu-container");
+    var menuLogo = h.querySelector('.menu-logo');
+    var menuPhoneBlock = h.querySelector('.menu-phone-block');
+    var stuck = false;
+    var stickPoint = getDistance();
+
+    function getDistance() {
+        return h.offsetTop;
     }
 
+    function updateHeaderMenuPos(e) {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        var offset = window.pageYOffset;
+        var distance = getDistance() - offset;
 
-    function Scroll(target) {
-        var windowHeight = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-        var nodeHeight = target.offsetHeight;
-        var scrollTop = document.scrollTop;
+        if ((distance <= 0) && !stuck) {
+            h.style.position = 'fixed';
+            h.style.top = '0px';
+            h.style.marginTop = '0px';
+            h.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+            h.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+            stuck = true;
 
-        // when top of window reaches the top of the panel detach
-        if (scrollTop <= document.body.clientHeight - windowHeight && // Fix for rubberband scrolling in Safari on Lion
-            scrollTop > target.offsetTop) {
-            target.style.position = 'fixed';
-            target.style.top = '0';
-            target.style.marginTop = '0';
-            target.style.boxShadow = '0 2px 4px rgba(0, 0, 58, 0.5)';
-            target.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+
+            if (windowWidth <= 375) {
+                menuLogo.style.background = 'none';
+                menuLogo.style.height = '24px';
+                menuLogo.style.width = 'auto';
+                menuLogo.innerText = 'GIC Canada';
+
+                menuPhoneBlock.style.display = 'inline-block';
+            }
+        } else if (stuck && (offset <= stickPoint)) {
+            h.removeAttribute('style');
+            stuck = false;
+            if (windowWidth <= 375) {
+                menuLogo.removeAttribute('style');
+                menuLogo.innerText = '';
+
+                menuPhoneBlock.style.display = 'none';
+            }
         }
     }
+    document.addEventListener('scroll', updateHeaderMenuPos);
+
+    //on document load
+    updateHeaderMenuPos();
 })();
