@@ -10388,7 +10388,7 @@ module.exports =
                     btnHoverText.style.display === 'none' ||
                     btnHoverText.style.display === ''
                 ) &&
-                windowWidth > 375
+                windowWidth > 768
             )
                 btnHoverText.style.display = 'inline-block';
             else
@@ -10464,7 +10464,7 @@ module.exports = (function () {
             stuck = true;
 
 
-            if (windowWidth <= 375) {
+            if (windowWidth <= 768) {
                 menuLogo.style.background = 'none';
                 menuLogo.style.height = '24px';
                 menuLogo.style.width = 'auto';
@@ -10475,7 +10475,7 @@ module.exports = (function () {
         } else if (stuck && (offset <= stickPoint)) {
             h.removeAttribute('style');
             stuck = false;
-            if (windowWidth <= 375) {
+            if (windowWidth <= 768) {
                 menuLogo.removeAttribute('style');
                 menuLogo.innerText = '';
 
@@ -10579,7 +10579,7 @@ module.exports =  (function() {
                 || document.body.clientWidth,
             scrollTop = window.pageYOffset;
 
-        if (windowWidth <= 375 && scrollTop > 125)  {
+        if (windowWidth <= 768 && scrollTop > 125)  {
             btnUp.style.display = 'block';
         } else {
             btnUp.style.display = 'none';

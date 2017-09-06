@@ -27,7 +27,7 @@ module.exports = (function () {
             stuck = true;
 
 
-            if (windowWidth <= 375) {
+            if (windowWidth <= 768) {
                 menuLogo.style.background = 'none';
                 menuLogo.style.height = '24px';
                 menuLogo.style.width = 'auto';
@@ -38,7 +38,7 @@ module.exports = (function () {
         } else if (stuck && (offset <= stickPoint)) {
             h.removeAttribute('style');
             stuck = false;
-            if (windowWidth <= 375) {
+            if (windowWidth <= 768) {
                 menuLogo.removeAttribute('style');
                 menuLogo.innerText = '';
 

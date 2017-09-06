@@ -24,7 +24,7 @@ module.exports =  (function() {
                 || document.body.clientWidth,
             scrollTop = window.pageYOffset;
 
-        if (windowWidth <= 375 && scrollTop > 125)  {
+        if (windowWidth <= 768 && scrollTop > 125)  {
             btnUp.style.display = 'block';
         } else {
             btnUp.style.display = 'none';

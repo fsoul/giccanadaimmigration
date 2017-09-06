@@ -79,10 +79,6 @@ $image-dir: '../images/';
   .footer-site-map, .footer-cr {
     font-size: .8em;
   }
-
-  .footer-site-map {
-    padding-left: 40px;
-  }
 }
 
 /* md-размер (<=991px) */
@@ -99,57 +95,28 @@ $image-dir: '../images/';
   @import "./mobile/991/process@991px";
   @import "./mobile/991/reviews@991px";
   @import "./mobile/991/news@991px";
-
-  .footer-text {
-    font-size: .7em;
-    line-height: 24px;
-  }
-
-  .footer-logo {
-    margin-right: 15px;
-    background-size: contain;
-    width: 100%;
-  }
-
-  .footer-contact-link {
-    margin-left: 5px;
-    line-height: 16px;
-  }
-
-  .footer-phone,
-  .footer-fax,
-  .footer-mail {
-    background-size: 16px 16px;
-    width: 16px;
-    height: 16px;
-  }
-
-  .footer-site-map {
-    padding-left: 30px;
-  }
-
-  .footer-cr {
-    white-space: nowrap;
-  }
+  @import "./mobile/991/footer@991px";
 }
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
+  @import "./mobile/768/global@768px";
   @import "./mobile/768/header@768px";
   @import "./mobile/768/programms@768px";
   @import "./mobile/768/academy@768px";
   @import "./mobile/768/common-info@768px";
   @import "./mobile/768/reviews@768px";
   @import "./mobile/768/news@768px";
+  @import "./mobile/768/footer@768px";
 }
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
   @import "mobile/575/reviews@575px";
+  @import "mobile/575/footer@575px";
 }
 
 @media (max-width: 375px) {
-  @import "mobile/375/global@375px";
   @import "mobile/375/header@375px";
   @import "mobile/375/programms@375px";
   @import "mobile/375/academy@375px";

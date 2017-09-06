@@ -1,0 +1,42 @@
+#footer {
+  .footer-text {
+    font-size: .7em;
+    line-height: 24px;
+  }
+
+  .footer-logo {
+    margin-right: 0;
+    background-size: contain;
+    width: 100%;
+  }
+
+  .footer-contact-link {
+    margin-left: 5px;
+    line-height: 16px;
+  }
+
+  .footer-address-item {
+    margin-bottom: 0;
+    padding-top: 16px;
+  }
+
+  .footer-phone,
+  .footer-fax,
+  .footer-mail {
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-site-map {
+    padding-left: 30px;
+  }
+
+  .footer-cr {
+    white-space: nowrap;
+  }
+}
+
+
+
+

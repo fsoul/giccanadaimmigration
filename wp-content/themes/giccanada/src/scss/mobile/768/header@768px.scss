@@ -96,7 +96,7 @@ $image-dir: '../images/';
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  align-content: flex-start;
+  //align-content: flex-start;
   padding-top: 155px;
 
   background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;

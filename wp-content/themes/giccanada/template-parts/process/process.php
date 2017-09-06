@@ -15,7 +15,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic1"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Оценка шансов на иммиграцию в Канаду по всем иммиграционным
                         программам.</p>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic2"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Подбор наиболее оптимальной программы.</p>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic3"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Одобрительное письмо подписанное Канадским Лицензированным
                         Иммиграционным
                         Консультантом
@@ -48,7 +48,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic4"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Оформление документов на ПМЖ в Канаду, и полное сопровождение.</p>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic5"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Работа в Канаде, рабочие визы в Канаду и поиск работодателя в
                         Канаде.</p>
                 </div>
@@ -65,7 +65,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic6"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Учеба в Канаде, студенческие визы в Канаду, подбор учебного заведения и
                         учебной программы.</p>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="row no-gutters">
                     <div class="col process-img proc-pic7"></div>
                 </div>
-                <div class="row">
+                <div class="row no-gutters">
                     <p class="col process-descr">Оформление на документов на Семейное Спонсорство.</p>
                 </div>
             </div>

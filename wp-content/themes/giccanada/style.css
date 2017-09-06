@@ -911,9 +911,7 @@ body {
     width: 18px;
     height: 18px; }
   .footer-site-map, .footer-cr {
-    font-size: .8em; }
-  .footer-site-map {
-    padding-left: 40px; } }
+    font-size: .8em; } }
 
 /* md-размер (<=991px) */
 @media (max-width: 991px) {
@@ -1026,29 +1024,101 @@ body {
       background-size: 18px 12px;
       margin-top: 10px;
       margin-left: 15px; }
-  .footer-text {
+  #footer .footer-text {
     font-size: .7em;
     line-height: 24px; }
-  .footer-logo {
-    margin-right: 15px;
+  #footer .footer-logo {
+    margin-right: 0;
     background-size: contain;
     width: 100%; }
-  .footer-contact-link {
+  #footer .footer-contact-link {
     margin-left: 5px;
     line-height: 16px; }
-  .footer-phone,
-  .footer-fax,
-  .footer-mail {
+  #footer .footer-address-item {
+    margin-bottom: 0;
+    padding-top: 16px; }
+  #footer .footer-phone,
+  #footer .footer-fax,
+  #footer .footer-mail {
     background-size: 16px 16px;
     width: 16px;
     height: 16px; }
-  .footer-site-map {
+  #footer .footer-site-map {
     padding-left: 30px; }
-  .footer-cr {
+  #footer .footer-cr {
     white-space: nowrap; } }
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
+  /*fixed right panel ---------------------------*/
+  .fixed-right-panel {
+    position: fixed;
+    width: 192px;
+    height: 48px;
+    bottom: 0;
+    background: #fff;
+    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+    z-index: 500;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 0;
+    left: 50%;
+    margin-left: -96px; }
+    .fixed-right-panel div {
+      position: relative;
+      border-bottom: none;
+      border-right: 1px solid rgba(0, 0, 58, 0.1);
+      float: left; }
+      .fixed-right-panel div:last-child {
+        border-right: none; }
+      .fixed-right-panel div .fixed-pnl-btn-hover {
+        display: none;
+        background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
+        background-size: cover;
+        height: 32px;
+        min-width: 175px;
+        position: absolute;
+        right: 80px;
+        white-space: nowrap;
+        padding-right: 50px;
+        padding-left: 10px;
+        line-height: 32px;
+        font-size: 1em;
+        color: #fff;
+        top: 50%;
+        margin-top: -16px; }
+      .fixed-right-panel div .fixed-panel-button {
+        width: 47px;
+        height: 48px; }
+      .fixed-right-panel div .contact-form,
+      .fixed-right-panel div .live-chat,
+      .fixed-right-panel div .request-call,
+      .fixed-right-panel div .open-case {
+        background-size: 24px; }
+        .fixed-right-panel div .contact-form:hover,
+        .fixed-right-panel div .live-chat:hover,
+        .fixed-right-panel div .request-call:hover,
+        .fixed-right-panel div .open-case:hover {
+          background-size: 24px; }
+  #mobile-btn-up {
+    position: fixed;
+    right: 0;
+    bottom: 100px;
+    height: 68px;
+    width: 68px;
+    background: rgba(255, 255, 255, 0.2);
+    mix-blend-mode: normal;
+    border-radius: 68px;
+    padding: 10px;
+    z-index: 3; }
+    #mobile-btn-up a {
+      display: block;
+      height: 48px;
+      padding: 16px;
+      width: 48px;
+      border-radius: 48px;
+      background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
+  /*fixed right panel end -----------------------*/
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {
@@ -1108,7 +1178,6 @@ body {
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    align-content: flex-start;
     padding-top: 155px;
     background: url(./public/images/Hero-image_3m-57d1cce8f0.jpg) no-repeat center;
     background-size: cover;
@@ -1216,7 +1285,14 @@ body {
     #news .news-btn {
       height: 56px;
       width: 290px;
-      margin: 30px 0 10px 0; } }
+      margin: 30px 0 10px 0; }
+  #footer .footer-logo {
+    height: 62px;
+    background-size: 120px 50px; }
+  #footer .footer-site-map {
+    display: inline-block;
+    position: relative;
+    float: right; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
@@ -1242,78 +1318,58 @@ body {
       line-height: 30px;
       font-size: 1.5em;
       margin: 0;
-      padding-bottom: 20px; } }
+      padding-bottom: 20px; }
+  #footer {
+    height: auto;
+    padding-bottom: 0; }
+    #footer .footer-wrapper {
+      padding: 0; }
+      #footer .footer-wrapper .footer-block {
+        padding-top: 17px; }
+        #footer .footer-wrapper .footer-block .footer-logo {
+          height: 62px;
+          background-size: 168px 62px; }
+        #footer .footer-wrapper .footer-block .footer-item {
+          width: 100%; }
+          #footer .footer-wrapper .footer-block .footer-item:nth-child(1) {
+            order: 2; }
+          #footer .footer-wrapper .footer-block .footer-item:nth-child(2) {
+            order: 1; }
+          #footer .footer-wrapper .footer-block .footer-item .footer-nav {
+            height: auto; }
+          #footer .footer-wrapper .footer-block .footer-item .footer-phone {
+            background-size: 24px 24px;
+            width: 24px;
+            height: 24px; }
+          #footer .footer-wrapper .footer-block .footer-item .footer-fax {
+            background-size: 27px 24px;
+            width: 27px;
+            height: 24px; }
+          #footer .footer-wrapper .footer-block .footer-item .footer-mail {
+            background-size: 27px 24px;
+            width: 27px;
+            height: 24px; }
+        #footer .footer-wrapper .footer-block .footer-text {
+          line-height: 30px;
+          font-size: 1em; }
+        #footer .footer-wrapper .footer-block .footer-contact-link {
+          height: 24px;
+          line-height: 24px; }
+        #footer .footer-wrapper .footer-block .footer-address-item {
+          width: 250px; }
+          #footer .footer-wrapper .footer-block .footer-address-item:first-child {
+            padding-top: 30px; }
+    #footer .footer-site-map {
+      font-size: 1em;
+      float: right;
+      padding: 0; }
+    #footer #footer-socials,
+    #footer #footer-map {
+      max-width: 47%; }
+    #footer #footer-info {
+      flex-wrap: wrap; } }
 
 @media (max-width: 375px) {
-  /*fixed right panel ---------------------------*/
-  .fixed-right-panel {
-    position: fixed;
-    width: 192px;
-    height: 48px;
-    bottom: 0;
-    background: #fff;
-    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
-    z-index: 500;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-bottom-left-radius: 0;
-    left: 50%;
-    margin-left: -96px; }
-    .fixed-right-panel div {
-      position: relative;
-      border-bottom: none;
-      border-right: 1px solid rgba(0, 0, 58, 0.1);
-      float: left; }
-      .fixed-right-panel div:last-child {
-        border-right: none; }
-      .fixed-right-panel div .fixed-pnl-btn-hover {
-        display: none;
-        background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
-        background-size: cover;
-        height: 32px;
-        min-width: 175px;
-        position: absolute;
-        right: 80px;
-        white-space: nowrap;
-        padding-right: 50px;
-        padding-left: 10px;
-        line-height: 32px;
-        font-size: 1em;
-        color: #fff;
-        top: 50%;
-        margin-top: -16px; }
-      .fixed-right-panel div .fixed-panel-button {
-        width: 47px;
-        height: 48px; }
-      .fixed-right-panel div .contact-form,
-      .fixed-right-panel div .live-chat,
-      .fixed-right-panel div .request-call,
-      .fixed-right-panel div .open-case {
-        background-size: 24px; }
-        .fixed-right-panel div .contact-form:hover,
-        .fixed-right-panel div .live-chat:hover,
-        .fixed-right-panel div .request-call:hover,
-        .fixed-right-panel div .open-case:hover {
-          background-size: 24px; }
-  #mobile-btn-up {
-    position: fixed;
-    right: 0;
-    bottom: 100px;
-    height: 68px;
-    width: 68px;
-    background: rgba(255, 255, 255, 0.2);
-    mix-blend-mode: normal;
-    border-radius: 68px;
-    padding: 10px;
-    z-index: 3; }
-    #mobile-btn-up a {
-      display: block;
-      height: 48px;
-      padding: 16px;
-      width: 48px;
-      border-radius: 48px;
-      background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
-  /*fixed right panel end -----------------------*/
   .header-container {
     height: 660px; }
     .header-container .top-bar .skype-logo,
@@ -1438,32 +1494,15 @@ body {
       margin: 0; }
     #process .process-btn {
       margin-top: 0; }
-  #news {
-    padding: 30px 0;
-    height: auto; }
-    #news .news-caption {
-      height: auto;
-      line-height: 30px;
-      font-size: 1.5em;
-      margin: 0;
-      padding-bottom: 20px; }
-    #news .news-grid {
-      padding-bottom: 30px; }
-      #news .news-grid .news-item {
-        padding-bottom: 10px;
-        margin: 0; }
-        #news .news-grid .news-item .news-gi-image {
-          margin-bottom: 20px; }
-        #news .news-grid .news-item .news-gi-caption {
-          min-height: 10px; }
-        #news .news-grid .news-item .news-gi-text {
-          min-height: unset;
-          margin-bottom: 0; }
-    #news .news-btn {
-      height: 48px;
-      line-height: 48px;
-      margin: 0;
-      width: 100%; }
+  #news .news-grid {
+    padding-bottom: 30px; }
+    #news .news-grid .news-item .news-gi-image {
+      height: 250px; }
+  #news .news-btn {
+    height: 48px;
+    line-height: 48px;
+    margin: 0;
+    width: 100%; }
   #footer {
     height: auto;
     padding-bottom: 0; }

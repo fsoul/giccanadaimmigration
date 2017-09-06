@@ -27,7 +27,7 @@ module.exports =
                     btnHoverText.style.display === 'none' ||
                     btnHoverText.style.display === ''
                 ) &&
-                windowWidth > 375
+                windowWidth > 768
             )
                 btnHoverText.style.display = 'inline-block';
             else
