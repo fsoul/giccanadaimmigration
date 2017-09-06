@@ -968,14 +968,16 @@ body {
     width: 18px; }
   .hs-item-button {
     min-width: 340px; }
-  .academy-slr-item-img {
-    height: 140px; }
-  .academy-caption-wrapper {
-    height: 30px; }
-  .academy-slr-item-caption {
+  .academy .academy-caption {
+    margin-top: 30px; }
+  .academy .academy-slr-item-img {
+    height: 180px; }
+  .academy .academy-caption-wrapper {
+    height: 40px; }
+  .academy .academy-slr-item-caption {
     font-size: 0.7em;
-    line-height: 15px;
-    height: 30px; }
+    line-height: 40px;
+    height: 40px; }
   .common-info-vid {
     width: 570px;
     height: 300px;
@@ -1149,7 +1151,23 @@ body {
     width: 345px;
     height: 48px;
     line-height: 48px;
-    margin: 30px 0; } }
+    margin: 30px 0; }
+  #academy-carousel {
+    margin-top: 30px; }
+  .academy .academy-caption {
+    font-size: 2.5em; }
+  #common-info {
+    padding: 30px 15px; }
+    #common-info .common-info-caption {
+      height: auto;
+      line-height: 30px;
+      font-size: 2.5em;
+      margin: 0;
+      padding-bottom: 30px; }
+    #common-info .common-info-vid {
+      height: 290px;
+      margin: 0;
+      width: 90%; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
