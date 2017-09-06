@@ -1068,41 +1068,33 @@ body {
     height: 20px;
     width: 22px;
     background-size: contain; }
-  .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
-    width: 700px;
-    left: -240px; }
-    .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col {
-      margin-left: 15px; }
-      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col:first-child {
-        margin: 0; }
-      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col h3.row {
-        height: 24px;
+  #menu-container {
+    margin: 0; }
+    #menu-container .menu-row {
+      padding: 0 15px; }
+      #menu-container .menu-row .menu-logo {
+        background-size: contain;
+        height: 61px;
+        width: 167px;
+        margin: 0;
+        color: #fff;
+        font-size: 1em;
         line-height: 24px;
-        font-size: .9em; }
-      .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row {
-        padding: 0; }
-        .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li {
-          list-style-type: none;
-          width: 100%; }
-          .menu-item .menu-dropdown .dropdown-content.show-dropdown-content .col ul.row li a {
-            line-height: 24px;
-            font-size: .9em; }
-  .menu-link {
-    font-size: .9em; }
-  .call-logo,
-  .search-logo {
-    background-size: 13px;
-    height: 13px;
-    width: 13px; }
-  .skype-logo,
-  .messager-logo,
-  .fb-logo, .tw-logo,
-  .linkedin-logo {
-    background-size: contain;
-    height: 18px;
-    width: 18px; }
-  .hs-item-button {
-    min-width: 340px; } }
+        order: 1; }
+      #menu-container .menu-row .menu-phone-block {
+        order: 2; }
+      #menu-container .menu-row .mobile-menu-button {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url(./public/images/Hamburger-3e76654d79.png) transparent no-repeat center;
+        background-size: 18px 12px;
+        border: none;
+        order: 3; }
+        #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
+          outline: none; }
+    #menu-container div.menu {
+      display: none; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
@@ -1181,33 +1173,6 @@ body {
     .header-container .top-bar .messager-logo,
     .header-container .top-bar .search-logo {
       margin: 0; }
-  #menu-container {
-    margin: 0; }
-    #menu-container .menu-row {
-      padding: 0 15px; }
-      #menu-container .menu-row .menu-logo {
-        background-size: cover;
-        height: 61px;
-        width: 167px;
-        margin: 0;
-        color: #fff;
-        font-size: 1em;
-        line-height: 24px;
-        order: 1; }
-      #menu-container .menu-row .menu-phone-block {
-        order: 2; }
-      #menu-container .menu-row .mobile-menu-button {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        background: url(./public/images/Hamburger-3e76654d79.png) transparent no-repeat center;
-        background-size: 18px 12px;
-        border: none;
-        order: 3; }
-        #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
-          outline: none; }
-    #menu-container div.menu {
-      display: none; }
   .carousel-div {
     display: none; }
   .header-mobile-content {
