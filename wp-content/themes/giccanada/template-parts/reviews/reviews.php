@@ -15,7 +15,7 @@
                             <h2 class="col reviews-reviewer-name">Давид</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через провинцию Саскачеван</p>
                                 </div>
@@ -25,7 +25,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
@@ -55,7 +55,7 @@
                             <h2 class="col reviews-reviewer-name">Светлана</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Гостевая виза</p>
                                 </div>
@@ -65,7 +65,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Получение гостевой визы — это всегда приятно, особенно если это гостевая
@@ -95,7 +95,7 @@
                             <h2 class="col reviews-reviewer-name">Александр</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через программу
                                         Skilled Worker</p>
@@ -106,7 +106,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу выразить благодарность GIC Canada. Любые вопросы, коих было немало,
@@ -135,7 +135,7 @@
                             <h2 class="col reviews-reviewer-name">Давид</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через провинцию Саскачеван</p>
                                 </div>
@@ -145,7 +145,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
@@ -175,7 +175,7 @@
                             <h2 class="col reviews-reviewer-name">Светлана</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Гостевая виза</p>
                                 </div>
@@ -185,7 +185,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Получение гостевой визы — это всегда приятно, особенно если это гостевая
@@ -215,7 +215,7 @@
                             <h2 class="col reviews-reviewer-name">Александр</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через программу
                                         Skilled Worker</p>
@@ -226,7 +226,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу выразить благодарность GIC Canada. Любые вопросы, коих было немало,
@@ -255,7 +255,7 @@
                             <h2 class="col reviews-reviewer-name">Давид</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через провинцию Саскачеван</p>
                                 </div>
@@ -265,7 +265,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу искренне поблагодарить GIC Canada в его профессиональном содействии
@@ -295,7 +295,7 @@
                             <h2 class="col reviews-reviewer-name">Светлана</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Гостевая виза</p>
                                 </div>
@@ -305,7 +305,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Получение гостевой визы — это всегда приятно, особенно если это гостевая
@@ -335,7 +335,7 @@
                             <h2 class="col reviews-reviewer-name">Александр</h2>
                         </div>
                         <div class="container reviews-slr-item">
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-reviewer-proc">Иммиграция через программу
                                         Skilled Worker</p>
@@ -346,7 +346,7 @@
                                     <div class="quotes-img"></div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-gutters">
                                 <div class="col">
                                     <p class="reviews-review">
                                         Хочу выразить благодарность GIC Canada. Любые вопросы, коих было немало,
@@ -376,7 +376,7 @@
                     0: {
                         items: 1
                     },
-                    376: {
+                    576: {
                         items: 2
                     },
                     768: {

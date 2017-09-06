@@ -21,7 +21,8 @@ module.exports =  (function() {
             || document.body.clientWidth;
 
         var programmsItems = document.getElementsByClassName('programms-grid-item');
-        for (var i = 0; i < programmsItems.length; ++i) {
+        var i;
+        for (i = 0; i < programmsItems.length; ++i) {
             if (i > 2 && windowWidth <= 768) {
                 programmsItems[i].style.display = 'none';
             } else {
@@ -30,7 +31,7 @@ module.exports =  (function() {
         }
 
         var newsItems = document.getElementsByClassName('news-item');
-        for (var i = 0; i < newsItems.length; ++i) {
+        for (i = 0; i < newsItems.length; ++i) {
             if (i > 1 && windowWidth <= 768) {
                 newsItems[i].style.display = 'none';
             } else {

@@ -46,7 +46,7 @@ $image-dir: '../images/';
   .reviews-reviewer-name,
   .reviews-reviewer-proc,
   .reviews-review {
-    width: 300px;
+    width: 100%;
   }
 
   .reviews-review {
@@ -97,20 +97,7 @@ $image-dir: '../images/';
   @import "./mobile/991/academy@991px";
   @import "./mobile/991/common-info@991px";
   @import "./mobile/991/process@991px";
-
-  .reviews-reviewer-name,
-  .reviews-reviewer-proc,
-  .reviews-review {
-    width: 220px;
-  }
-
-  .reviews-reviewer-proc {
-    min-height: 72px;
-  }
-
-  .reviews-review {
-    min-height: 220px;
-  }
+  @import "./mobile/991/reviews@991px";
 
   .news-gi-caption {
     line-height: 16px;
@@ -180,11 +167,12 @@ $image-dir: '../images/';
   @import "./mobile/768/programms@768px";
   @import "./mobile/768/academy@768px";
   @import "./mobile/768/common-info@768px";
+  @import "./mobile/768/reviews@768px";
 }
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
-
+  @import "mobile/575/reviews@575px";
 }
 
 @media (max-width: 375px) {
@@ -194,7 +182,6 @@ $image-dir: '../images/';
   @import "mobile/375/academy@375px";
   @import "mobile/375/common-info@375px";
   @import "mobile/375/process@375px";
-  @import "mobile/375/reviews@375px";
   @import "mobile/375/news@375px";
   @import "mobile/375/footer@375px";
 }
