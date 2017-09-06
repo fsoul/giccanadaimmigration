@@ -338,8 +338,7 @@ body {
 .header-mobile-content {
   display: none; }
 #programms {
-  padding-right: 0;
-  padding-left: 0; }
+  padding: 0 0 40px 0; }
   #programms .orange-btn {
     display: none; }
 
@@ -362,7 +361,6 @@ body {
   margin-top: 80px; }
 
 .programms-grid-item {
-  max-width: 370px;
   height: 444px;
   margin-top: 60px; }
 
@@ -405,28 +403,28 @@ body {
 
 /*images---------------------------------*/
 #programms-pic1 {
-  background: url(./public/images/1-f30c028dd5.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/1-f30c028dd5.png) no-repeat left center;
+  background-size: contain; }
 
 #programms-pic2 {
-  background: url(./public/images/2-4af33da74e.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/2-4af33da74e.png) no-repeat left center;
+  background-size: contain; }
 
 #programms-pic3 {
-  background: url(./public/images/3-763ce1702f.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/3-763ce1702f.png) no-repeat left center;
+  background-size: contain; }
 
 #programms-pic4 {
-  background: url(./public/images/4-47d913ce56.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/4-47d913ce56.png) no-repeat left center;
+  background-size: contain; }
 
 #programms-pic5 {
-  background: url(./public/images/5-0a5f25e7ff.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/5-0a5f25e7ff.png) no-repeat left center;
+  background-size: contain; }
 
 #programms-pic6 {
-  background: url(./public/images/6-5c5e01e62b.png) no-repeat;
-  background-size: cover; }
+  background: url(./public/images/6-5c5e01e62b.png) no-repeat center;
+  background-size: contain; }
 
 /*images end-----------------------------*/
 /*programms end -------------------------------------*/
@@ -1126,7 +1124,32 @@ body {
       height: 48px;
       line-height: 48px;
       min-width: initial;
-      width: initial; } }
+      width: initial; }
+  #programms .programms-caption {
+    font-size: 2em;
+    line-height: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: auto;
+    width: auto; }
+  #programms .programms-grid-item {
+    margin-top: 0;
+    margin-bottom: 20px;
+    max-height: none; }
+    #programms .programms-grid-item .programms-gi-image {
+      height: 304px; }
+    #programms .programms-grid-item .programms-gi-text {
+      margin: 0;
+      line-height: 19px;
+      font-size: 1em; }
+    #programms .programms-grid-item .programms-gi-link {
+      margin: 0; }
+  #programms .orange-btn {
+    display: block;
+    width: 345px;
+    height: 48px;
+    line-height: 48px;
+    margin: 30px 0; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
@@ -1209,32 +1232,15 @@ body {
       height: 616px; }
       .header-container .header-mobile-content .hs-caption {
         font-size: 2.1em; }
-  .programms-caption {
+  #programms .programms-caption {
     font-size: 1.5em;
-    line-height: 30px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    height: auto;
-    width: auto; }
-  .programms-grid-item {
-    margin-top: 0;
-    margin-bottom: 20px;
-    max-height: 393px; }
-    .programms-grid-item .programms-gi-image {
-      width: 100%;
-      height: 205px; }
-    .programms-grid-item .programms-gi-text {
-      margin: 0;
-      line-height: 19px;
-      font-size: 1em; }
-    .programms-grid-item .programms-gi-link {
-      margin: 0; }
+    margin-bottom: 0; }
+  #programms .programms-grid-item {
+    height: 380px; }
+    #programms .programms-grid-item .programms-gi-image {
+      height: 220px; }
   #programms .orange-btn {
-    display: block;
-    width: 345px;
-    height: 48px;
-    line-height: 48px;
-    margin-bottom: 30px; }
+    margin-bottom: 0; }
   #academy-container {
     padding: 0; }
     #academy-container .owl-stage-outer {

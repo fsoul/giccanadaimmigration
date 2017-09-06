@@ -1,8 +1,7 @@
 $image-dir: '../images/';
 
 #programms {
-  padding-right: 0;
-  padding-left: 0;
+  padding: 0 0 40px 0;
 
   .orange-btn {
     display: none;
@@ -31,7 +30,7 @@ $image-dir: '../images/';
 }
 
 .programms-grid-item {
-  max-width: 370px;
+  //max-width: 370px;
   height: 444px;
   margin-top: 60px;
 }
@@ -84,33 +83,33 @@ $image-dir: '../images/';
 /*images---------------------------------*/
 
 #programms-pic1 {
-  background: url($image-dir + "programms/1.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/1.png") no-repeat left center;
+  background-size: contain;
 }
 
 #programms-pic2 {
-  background: url($image-dir + "programms/2.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/2.png") no-repeat left center;
+  background-size: contain;
 }
 
 #programms-pic3 {
-  background: url($image-dir + "programms/3.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/3.png") no-repeat left center;
+  background-size: contain;
 }
 
 #programms-pic4 {
-  background: url($image-dir + "programms/4.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/4.png") no-repeat left center;
+  background-size: contain;
 }
 
 #programms-pic5 {
-  background: url($image-dir + "programms/5.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/5.png") no-repeat left center;
+  background-size: contain;
 }
 
 #programms-pic6 {
-  background: url($image-dir + "programms/6.png") no-repeat;
-  background-size: cover;
+  background: url($image-dir + "programms/6.png") no-repeat center;
+  background-size: contain;
 }
 
 /*images end-----------------------------*/

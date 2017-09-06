@@ -212,6 +212,7 @@ $image-dir: '../images/';
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
   @import "./mobile/768/header@768px";
+  @import "./mobile/768/programms@768px";
 }
 
 /* xs-размер (<=575px) */
