@@ -234,7 +234,3 @@ $image-dir: '../images/';
 @media (max-width: 370px) {
   @import "mobile/375/process@370px";
 }
-
-@media (max-width: 320px) {
-  @import "mobile/375/header@320px";
-}

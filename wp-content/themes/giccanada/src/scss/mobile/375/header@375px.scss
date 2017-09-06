@@ -12,44 +12,13 @@ $image-dir: '../images/';
       margin: 0;
     }
   }
-}
 
-.carousel-div {
-  display: none;
-}
+  .header-mobile-content {
+    height: 616px;
 
-.header-mobile-content {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  padding-top: 155px;
-  background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;
-  background-size: cover;
-  height: 616px;
-
-  .row {
-    width: 100%;
-  }
-
-  .hs-caption {
-    font-size: 2.5em;
-    letter-spacing: 1px;
-    line-height: normal;
-
-  }
-
-  .hs-content {
-    line-height: 20px;
-    font-size: 1em;
-    padding-top: 20px;
-    padding-bottom: 40px;
-  }
-
-  a.hs-item-button {
-    margin: 0;
-    height: 48px;
-    line-height: 48px;
-    min-width: initial;
-    width: initial;
+    .hs-caption {
+      font-size: 2.1em;
+    }
   }
 }
+

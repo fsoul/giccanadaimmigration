@@ -1045,29 +1045,31 @@ body {
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
-  .header-container .top-bar #desktop-top-bar {
-    display: none; }
-  .header-container .top-bar #mobile-top-bar {
-    display: flex; }
-  .header-container .top-bar .tb-menu-border {
-    margin: 0;
-    width: 1px;
-    padding: 0; }
-  .header-container .top-bar .tb-menu-logo {
-    margin: 0 10px; }
-  .header-container .top-bar .top-bar-menu-link {
-    margin-right: 10px;
-    font-size: .8em; }
-  .header-container .top-bar .call-logo {
-    height: 18px;
-    width: 22px;
-    background-size: contain; }
-  .header-container .top-bar .skype-logo,
-  .header-container .top-bar .messager-logo,
-  .header-container .top-bar .search-logo {
-    height: 20px;
-    width: 22px;
-    background-size: contain; }
+  .header-container {
+    height: auto; }
+    .header-container .top-bar #desktop-top-bar {
+      display: none; }
+    .header-container .top-bar #mobile-top-bar {
+      display: flex; }
+    .header-container .top-bar .tb-menu-border {
+      margin: 0;
+      width: 1px;
+      padding: 0; }
+    .header-container .top-bar .tb-menu-logo {
+      margin: 0 10px; }
+    .header-container .top-bar .top-bar-menu-link {
+      margin-right: 10px;
+      font-size: .8em; }
+    .header-container .top-bar .call-logo {
+      height: 18px;
+      width: 22px;
+      background-size: contain; }
+    .header-container .top-bar .skype-logo,
+    .header-container .top-bar .messager-logo,
+    .header-container .top-bar .search-logo {
+      height: 20px;
+      width: 22px;
+      background-size: contain; }
   #menu-container {
     margin: 0; }
     #menu-container .menu-row {
@@ -1094,7 +1096,37 @@ body {
         #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
           outline: none; }
     #menu-container div.menu {
-      display: none; } }
+      display: none; }
+  .carousel-div {
+    display: none; }
+  .header-mobile-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    align-content: flex-start;
+    padding-top: 155px;
+    background: url(./public/images/Hero-image_3m-57d1cce8f0.jpg) no-repeat center;
+    background-size: cover;
+    height: 616px; }
+    .header-mobile-content .row {
+      width: 90%;
+      max-width: 345px; }
+    .header-mobile-content .hs-caption {
+      font-size: 2.5em;
+      letter-spacing: 1px;
+      line-height: normal; }
+    .header-mobile-content .hs-content {
+      line-height: 20px;
+      font-size: 1em;
+      padding-top: 20px;
+      padding-bottom: 40px; }
+    .header-mobile-content a.hs-item-button {
+      margin: 0;
+      height: 48px;
+      line-height: 48px;
+      min-width: initial;
+      width: initial; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 375px) {
@@ -1173,33 +1205,10 @@ body {
     .header-container .top-bar .messager-logo,
     .header-container .top-bar .search-logo {
       margin: 0; }
-  .carousel-div {
-    display: none; }
-  .header-mobile-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    padding-top: 155px;
-    background: url(./public/images/Hero-image_3m-57d1cce8f0.jpg) no-repeat center;
-    background-size: cover;
-    height: 616px; }
-    .header-mobile-content .row {
-      width: 100%; }
-    .header-mobile-content .hs-caption {
-      font-size: 2.5em;
-      letter-spacing: 1px;
-      line-height: normal; }
-    .header-mobile-content .hs-content {
-      line-height: 20px;
-      font-size: 1em;
-      padding-top: 20px;
-      padding-bottom: 40px; }
-    .header-mobile-content a.hs-item-button {
-      margin: 0;
-      height: 48px;
-      line-height: 48px;
-      min-width: initial;
-      width: initial; }
+    .header-container .header-mobile-content {
+      height: 616px; }
+      .header-container .header-mobile-content .hs-caption {
+        font-size: 2.1em; }
   .programms-caption {
     font-size: 1.5em;
     line-height: 30px;
@@ -1433,9 +1442,5 @@ body {
 @media (max-width: 370px) {
   #process .process-mobile-content .process-spider .process-step-text {
     font-size: .79em; } }
-
-@media (max-width: 320px) {
-  .header-mobile-content .hs-caption {
-    font-size: 2.4em; } }
 
 /*# sourceMappingURL=style.css.map*/
