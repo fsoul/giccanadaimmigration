@@ -13,6 +13,8 @@ $image-dir: '../images/';
 
     .tb-menu-border {
       margin: 0;
+      width: 1px;
+      padding: 0;
     }
 
     .tb-menu-logo{
@@ -26,12 +28,17 @@ $image-dir: '../images/';
 
     .call-logo {
       height: 18px;
-      width: 18px;
+      width: 22px;
+      background-size: contain;
     }
 
-    .search-logo {
-      height: 28px;
-      width: 18px;
+    .skype-logo,
+    .messager-logo,
+    .search-logo
+    {
+      height: 20px;
+      width: 22px;
+      background-size: contain;
     }
   }
 }

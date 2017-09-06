@@ -2,33 +2,15 @@ $image-dir: '../images/';
 
 .header-container {
   height: 660px;
-}
 
-.top-bar {
-  .tb-menu-border {
-    margin: 0;
-  }
+  .top-bar {
 
-  .tb-menu-logo{
-    margin: 0 10px;
-  }
-
-  .to-hide {
-    display: none;
-  }
-
-  .top-bar-menu-link {
-    margin-right: 10px;
-  }
-
-  .call-logo {
-    height: 18px;
-    width: 18px;
-  }
-
-  .search-logo {
-    height: 28px;
-    width: 18px;
+    .skype-logo,
+    .messager-logo,
+    .search-logo
+    {
+      margin: 0;
+    }
   }
 }
 

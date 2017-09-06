@@ -1050,7 +1050,9 @@ body {
   .header-container .top-bar #mobile-top-bar {
     display: flex; }
   .header-container .top-bar .tb-menu-border {
-    margin: 0; }
+    margin: 0;
+    width: 1px;
+    padding: 0; }
   .header-container .top-bar .tb-menu-logo {
     margin: 0 10px; }
   .header-container .top-bar .top-bar-menu-link {
@@ -1058,10 +1060,14 @@ body {
     font-size: .8em; }
   .header-container .top-bar .call-logo {
     height: 18px;
-    width: 18px; }
+    width: 22px;
+    background-size: contain; }
+  .header-container .top-bar .skype-logo,
+  .header-container .top-bar .messager-logo,
   .header-container .top-bar .search-logo {
-    height: 28px;
-    width: 18px; }
+    height: 20px;
+    width: 22px;
+    background-size: contain; }
   .menu-item .menu-dropdown .dropdown-content.show-dropdown-content {
     width: 700px;
     left: -240px; }
@@ -1171,20 +1177,10 @@ body {
   /*fixed right panel end -----------------------*/
   .header-container {
     height: 660px; }
-  .top-bar .tb-menu-border {
-    margin: 0; }
-  .top-bar .tb-menu-logo {
-    margin: 0 10px; }
-  .top-bar .to-hide {
-    display: none; }
-  .top-bar .top-bar-menu-link {
-    margin-right: 10px; }
-  .top-bar .call-logo {
-    height: 18px;
-    width: 18px; }
-  .top-bar .search-logo {
-    height: 28px;
-    width: 18px; }
+    .header-container .top-bar .skype-logo,
+    .header-container .top-bar .messager-logo,
+    .header-container .top-bar .search-logo {
+      margin: 0; }
   #menu-container {
     margin: 0; }
     #menu-container .menu-row {

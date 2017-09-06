@@ -90,27 +90,24 @@
 		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-					<div class="col col-md-auto tb-menu-logo skype-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline" href="skype:#?call">Skype</a>
-					<div class="tb-menu-border"></div>
-				</div>
-			</div>
-		</li>
-		<li class="nav-item nav-link tb-menu-item">
-			<div class="container-fluid">
-				<div class="row align-items-center flex-nowrap">
-					<div class="col col-md-auto tb-menu-logo messager-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline" href="#">Напишите нам</a>
-					<div class="tb-menu-border"></div>
-				</div>
-			</div>
-		</li>
-		<li class="nav-item nav-link tb-menu-item">
-			<div class="container-fluid">
-				<div class="row align-items-center flex-nowrap">
-					<div class="col col-md-auto tb-menu-logo search-logo"></div>
-					<input type="text" class="col tb-search to-hide" placeholder="Поиск">
-					<div class="tb-menu-border"></div>
+                    <div class="col">
+                        <div class="row no-gutters">
+                            <div class="col tb-menu-logo skype-logo"></div>
+                        </div>
+                    </div>
+                    <div class="col-auto tb-menu-border"></div>
+                    <div class="col">
+                        <div class="row no-gutters">
+                            <div class="col tb-menu-logo messager-logo"></div>
+                        </div>
+                    </div>
+                    <div class="col-auto tb-menu-border"></div>
+                    <div class="col">
+                        <div class="row no-gutters">
+                            <div class="col tb-menu-logo search-logo"></div>
+                            <input type="text" class="col tb-search to-hide" placeholder="Поиск">
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</li>
