@@ -1,29 +1,53 @@
-function Window() {
-    var loadContentByWidth = function () {
-        let windowWidth = $(window).width();
-        $.ajax({
-            url: gic.ajaxurl,
-            method: "POST",
-            data: {
-                action: 'get_content',
-                windowWidth: windowWidth
-            },
-            dataType: "json"
-        }).done(function (data) {
-            $.each(data, function (i, val) {
-                alert("." + i);
-                $("." + i).html(val);
+'use strict';
+
+module.exports =  (function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+            requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
             });
-        });
+        };
+        obj.addEventListener(type, func);
     };
 
-    Window.prototype.onLoad = function () {
-        loadContentByWidth();
-    };
-}
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
 
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        var i;
+        for (i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && windowWidth <= 768) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
 
+        var newsItems = document.getElementsByClassName('news-item');
+        for (i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && windowWidth <= 768) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = windowWidth <= 768 ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
 
-module.exports = {
-    Window: Window
-};
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
+})();

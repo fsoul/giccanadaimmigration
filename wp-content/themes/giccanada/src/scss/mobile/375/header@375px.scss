@@ -1,0 +1,22 @@
+$image-dir: '../images/';
+
+.header-container {
+  height: 660px;
+
+  .top-bar {
+    .messager-logo,
+    .search-logo
+    {
+      margin: 0;
+    }
+  }
+
+  .header-mobile-content {
+    height: 616px;
+
+    .hs-caption {
+      font-size: 2.1em;
+    }
+  }
+}
+

@@ -4,9 +4,10 @@ const webpack = require('webpack');
 const themePath = 'wp-content/themes/giccanada';
 
 module.exports = {
-    entry: `./${themePath}/src/app.js`,
+    devtool: "source-map",
+    entry: './' + themePath + '/src/app.js',
     output: {
-        path: path.resolve(__dirname, `${themePath}/public`),
+        path: path.resolve(__dirname, themePath + '/public'),
         filename: 'giccanada.js',
         library: [
             'header',

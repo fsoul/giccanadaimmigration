@@ -1,85 +1,70 @@
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function toggleMenu() {
-    document.getElementById("main-menu-content").classList.toggle("show-dropdown-content");
-}
+module.exports =
+    (function () {
+        var throttle = function(type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function() {
+                if (running) { return; }
+                running = true;
+                requestAnimationFrame(function() {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
+        };
 
-// Close the dropdown menu if the user clicks outside of it
-function onWindowClick (event) {
-    if (!event.target.matches('.dropbtn')) {
+        var btnDropdown = document.querySelector('button.dropbtn');
+        var fixedButton = document.getElementsByClassName("fixed-panel-button");
 
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show-dropdown-content')) {
-                openDropdown.classList.remove('show-dropdown-content');
+        function onFixedButtonHover() {
+            var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            var btnHoverText = this.parentElement.querySelector('.fixed-pnl-btn-hover');
+            if (
+                (
+                    btnHoverText.style.display === 'none' ||
+                    btnHoverText.style.display === ''
+                ) &&
+                windowWidth > 768
+            )
+                btnHoverText.style.display = 'inline-block';
+            else
+                btnHoverText.style.display = 'none';
+        }
+
+
+        // Close the dropdown menu if the user clicks outside of it
+        function onWindowClick(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show-dropdown-content')) {
+                        openDropdown.classList.remove('show-dropdown-content');
+                    }
+                }
             }
         }
-    }
-}
 
-function onFixedButtonHover($button) {
-    var $btnHoverText = $button.parent().find('.fixed-pnl-btn-hover'),
-        windowWidth = $(window).width();
-    if ($btnHoverText.css('display') === 'none' && windowWidth > 375)
-        $btnHoverText.css('display', 'inline-block');
-    else
-        $btnHoverText.css('display', 'none');
-}
-
-function updateHeaderMenuPos() {
-    var windowWidth = $(window).width(),
-        $menuContainer = $('.menu-container'),
-        $menuLogo = $('.menu-container').find('.menu-logo'),
-        menuContainerCSS = {},
-        scrollTop = 0;
-
-    if (windowWidth > 375) {
-        scrollTop = 150;
-        menuContainerCSS = {
-            'position': 'fixed',
-            'top': '0',
-            'margin-top': '0',
-            'box-shadow': '0px 2px 4px rgba(0, 0, 58, 0.5)',
-            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)'
-        };
-    } else {
-        scrollTop = 125;
-        menuContainerCSS = {
-            'position': 'fixed',
-            'top': '0',
-            'margin-top': '0',
-            'box-shadow': '0 2px 4px rgba(0, 0, 58, 0.5)',
-            'background': 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)',
-            'height': '48px'
-        };
-    }
-
-    if ($(window).scrollTop() >= scrollTop) {
-
-        if (windowWidth <= 375) {
-            $menuLogo.css({
-                'background': 'none',
-                'height': '24px',
-                'width': 'auto'
-            });
-            $menuLogo.text('GIC Canada');
+        function toggleMenu() {
+            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
         }
-        $menuContainer.css(menuContainerCSS);
-        $('.menu-phone-block').css('display', 'inline-block');
-    } else {
-        $menuContainer.removeAttr('style');
-        $menuLogo.removeAttr('style');
-        $menuLogo.text('');
-        $('.menu-phone-block').css('display', 'none');
-    }
-}
 
+        /* init - you can init any event */
+        throttle("click", "toggleMenu", btnDropdown);
+        throttle("click", "windowClick");
+        throttle("resize", "windowResize");
 
-module.exports = {
-    toggleMenu: toggleMenu,
-    onWindowClick: onWindowClick,
-    onFixedButtonHover: onFixedButtonHover,
-    updateHeaderMenuPos: updateHeaderMenuPos
-};
+        // handle event
+        for (var i = 0; i < fixedButton.length; i++) {
+            throttle("mouseover", "fixedButtonHover", fixedButton[i]);
+            throttle("mouseout", "fixedButtonHover", fixedButton[i]);
+            fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
+            fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
+        }
+
+        btnDropdown.addEventListener("toggleMenu", toggleMenu);
+        window.addEventListener('click', onWindowClick);
+    })();

@@ -1,0 +1,21 @@
+$image-dir: '../images/';
+
+#news {
+
+  .news-grid {
+    padding-bottom: 30px;
+
+    .news-item {
+      .news-gi-image {
+        height: 250px;
+      }
+    }
+  }
+
+  .news-btn {
+    height: 48px;
+    line-height: 48px;
+    margin: 0;
+    width: 100%;
+  }
+}

@@ -3,6 +3,10 @@ $image-dir: '../images/';
 .header-container {
   width: 100%;
   height: 828px;
+
+  #mobile-top-bar {
+    display: none;
+  }
 }
 
 /*top bar*/
@@ -41,13 +45,14 @@ $image-dir: '../images/';
   display: inline-block;
   padding: 0;
   margin-right: 10px;
+  font-size: 1.5em;
+  color: #fff;
 
   &:hover {
     opacity: .5;
   }
 }
 
-.call-logo,
 .search-logo {
   background-size: 18px;
   height: 18px;
@@ -61,21 +66,10 @@ $image-dir: '../images/';
   }
 }
 
-.skype-logo,
-.messager-logo,
-.fb-logo, .tw-logo,
-.linkedin-logo {
+.messager-logo {
   background-size: 26px;
   height: 26px;
   width: 26px;
-}
-
-.call-logo {
-  background: url($image-dir + "header/ic_call_black_24px.png") no-repeat center;
-}
-
-.skype-logo {
-  background: url($image-dir + "header/skype_logo.png") no-repeat center;
 }
 
 .messager-logo {
@@ -99,24 +93,10 @@ $image-dir: '../images/';
   }
 }
 
-.fb-logo {
-  background: url($image-dir + "header/facebook.png") no-repeat center;
-}
-
-.tw-logo {
-  background: url($image-dir + "header/twitter.png") no-repeat center;
-}
-
-.linkedin-logo {
-  background: url($image-dir + "header/linkedIn.png") no-repeat center;
-}
-
 /*top bar end --------------------*/
 
-/* Rectangle 2 */
-
 /*menu*/
-.menu-container {
+#menu-container {
   margin-top: 14px;
   padding: 10px 0;
   position: absolute;

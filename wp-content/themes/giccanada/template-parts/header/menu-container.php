@@ -1,14 +1,14 @@
 <?php ?>
-<div class="container-fluid menu-container">
+<div class="container-fluid" id="menu-container">
 	<div class="row justify-content-center no-gutters">
         <div class="col-md-11 col-lg-9">
             <div class="row justify-content-between align-items-end no-gutters flex-nowrap menu-row">
-                <a href="#" class="col-sm col-md-auto menu-logo"></a>
-                <button class="col col-auto align-self-center mobile-menu-button"></button>
-                <div class="col col-auto align-self-center menu-phone-block">
-                    <div class="row align-items-center flex-nowrap">
-                        <div class="tb-menu-logo call-logo"></div>
-                        <a class="white-link-none" href="tel:03-6738333">03-6738333</a>
+                <a href="#" class="col-auto menu-logo"></a>
+                <button class="col-auto align-self-center mobile-menu-button"></button>
+                <div class="col-8 col-auto align-self-center menu-phone-block">
+                    <div class="row no-gutters justify-content-center align-items-center flex-nowrap">
+                        <i class="fa fa-phone tb-menu-logo"></i>
+                        <a class="white-link-none" href="tel:+1647558491">+1647558491</a>
                     </div>
                 </div>
                 <div class="col col-auto align-self-center menu">

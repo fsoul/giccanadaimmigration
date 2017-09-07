@@ -1,0 +1,119 @@
+$image-dir: '../images/';
+
+.header-container {
+  height: auto;
+
+  .top-bar {
+
+    #desktop-top-bar {
+      display: none;
+    }
+
+    #mobile-top-bar {
+      display: flex;
+    }
+
+    .tb-menu-border {
+      width: 1px;
+      padding: 0;
+    }
+
+    .top-bar-menu-link {
+      margin-right: 10px;
+      font-size: .8em;
+    }
+
+    .messager-logo,
+    .search-logo
+    {
+      height: 20px;
+      width: 22px;
+      background-size: contain;
+    }
+  }
+}
+
+#menu-container {
+  margin: 0;
+
+  .menu-row {
+    padding: 0 15px;
+
+    .menu-logo {
+      background-size: contain;
+      height: 61px;
+      width: 167px;
+      margin: 0;
+      color: #fff;
+      font-size: 1em;
+      line-height: 24px;
+      order: 1;
+    }
+
+    .menu-phone-block {
+      order: 2;
+    }
+
+    .mobile-menu-button{
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: url($image-dir + "Hamburger.png") transparent no-repeat center;
+      background-size: 18px 12px;
+      border: none;
+      order: 3;
+
+      &:active, &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  div.menu {
+    display: none;
+  }
+}
+
+
+.carousel-div {
+  display: none;
+}
+
+.header-mobile-content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  //align-content: flex-start;
+  padding-top: 155px;
+
+  background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;
+  background-size: cover;
+  height: 616px;
+
+  .row {
+    width: 90%;
+    max-width: 345px;
+  }
+
+  .hs-caption {
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    line-height: normal;
+  }
+
+  .hs-content {
+    line-height: 20px;
+    font-size: 1em;
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  a.hs-item-button {
+    margin: 0;
+    height: 48px;
+    line-height: 48px;
+    min-width: initial;
+    width: initial;
+  }
+}
