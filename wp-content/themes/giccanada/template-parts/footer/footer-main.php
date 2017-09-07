@@ -20,15 +20,11 @@
 				<div class="col-sm-7 col-md-5 col-auto footer-item">
 					<div class="row no-gutters footer-contact-item">
 						<a href="#" class="col-auto footer-phone"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">03-6738333</a>
-					</div>
-					<div class="row no-gutters footer-contact-item">
-						<a href="#" class="col-auto footer-phone"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">054-3319797</a>
+						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">+1647558491</a>
 					</div>
 					<div class="row no-gutters footer-contact-item">
 						<a href="#" class="col-auto footer-fax"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">03-6738333</a>
+						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">+1647558491</a>
 					</div>
 					<div class="row no-gutters footer-contact-item">
 						<a href="#" class="col-auto footer-mail"></a>

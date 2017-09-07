@@ -112,6 +112,7 @@ $image-dir: '../images/';
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
+  @import "mobile/575/process@575px";
   @import "mobile/575/reviews@575px";
   @import "mobile/575/footer@575px";
 }
@@ -128,4 +129,219 @@ $image-dir: '../images/';
 
 @media (max-width: 370px) {
   @import "mobile/375/process@370px";
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi) {
+
+  .fixed-right-panel {
+    div {
+      .fixed-pnl-btn-hover {
+        display: none;
+        background: url($image-dir + "fxd-btn-hover-text@2x.png");
+        background-size: cover;
+      }
+
+      .contact-form {
+        background: url($image-dir + 'Contact-form@2x.png') no-repeat center;
+        background-size: 32.4px 36px;
+
+        &:hover {
+          background: url($image-dir + 'Contact-form-hover@2x.png') no-repeat center;
+          background-size: 32.4px 36px;
+        }
+      }
+
+      .live-chat {
+        background: url($image-dir + 'Live-chat@2x.png') no-repeat center;
+        background-size: 36px;
+
+        &:hover {
+          background: url($image-dir + 'Live-chat-hover@2x.png') no-repeat center;
+          background-size: 36px;
+        }
+      }
+
+      .request-call {
+        background: url($image-dir + 'Request-call@2x.png') no-repeat center;
+        background-size: 32.4px;
+
+        &:hover {
+          background: url($image-dir + 'Request-call-hover@2x.png') no-repeat center;
+          background-size: 32.4px;
+        }
+      }
+
+      .open-case {
+        background: url($image-dir + 'Open-case@2x.png') no-repeat center;
+        background-size: 32.4px 36px;
+
+        &:hover {
+          background: url($image-dir + 'Open-case-hover@2x.png') no-repeat center;
+          background-size: 32.4px 36px;
+        }
+      }
+    }
+  }
+
+  .mobile-menu-button {
+    background: url($image-dir + "Hamburger@2x.png") transparent no-repeat center;
+    background-size: 18px 12px;
+  }
+
+  .messager-logo {
+    background: url($image-dir + "header/2x/messager2x.png") no-repeat center;
+    background-size: cover;
+  }
+
+  .search-logo {
+    background: url($image-dir + "header/2x/Search_icon2x.png") no-repeat center;
+    background-size: 18px;
+  }
+
+  #programms-pic1 {
+    background: url($image-dir + "programms/2x/1_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic2 {
+    background: url($image-dir + "programms/2x/2_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic3 {
+    background: url($image-dir + "programms/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic4 {
+    background: url($image-dir + "programms/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic5 {
+    background: url($image-dir + "programms/2x/5_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  #programms-pic6 {
+    background: url($image-dir + "programms/2x/6_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .programms-gi-arrow {
+    background: url($image-dir + "arrow2x.png") no-repeat center;
+    background-size: 18px 12px;
+  }
+
+  .academy-pic1 {
+    background: url($image-dir + "academy/2x/1_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic2 {
+    background: url($image-dir + "academy/2x/2_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic3 {
+    background: url($image-dir + "academy/2x/3_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .academy-pic4 {
+    background: url($image-dir + "academy/2x/4_2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic1 {
+    background: url($image-dir + 'reviews/2x/Review1m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic2 {
+    background: url($image-dir + 'reviews/2x/Review2m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .reviews-pic3 {
+    background: url($image-dir + 'reviews/2x/Review3m.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .quotes-img {
+    background: url($image-dir + 'quote_black@2x.png') no-repeat center;
+    background-size: 28px 20px;
+  }
+
+  #news-pic1 {
+    background: url($image-dir + "news/2x/m1.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  #news-pic2 {
+    background: url($image-dir + "news/2x/m2.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  #news-pic3 {
+    background: url($image-dir + "news/2x/m3.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-phone {
+    background: url($image-dir + "footer/2x/ic_call_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-fax {
+    background: url($image-dir + "footer/2x/ic_local_printshop_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .footer-mail {
+    background: url($image-dir + "footer/2x/ic_email_black_24px@2x.png") no-repeat;
+    background-size: cover;
+  }
+
+  .process-spider {
+    background: url($image-dir + "process/2x/Group@2x.png") no-repeat center;
+    background-size: 902px 500px;
+  }
+
+  .proc-pic1 {
+    background: url($image-dir + "process/2x/1@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic2 {
+    background: url($image-dir + "process/2x/2@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic3 {
+    background: url($image-dir + "process/2x/3@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic4 {
+    background: url($image-dir + "process/2x/4@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic5 {
+    background: url($image-dir + "process/2x/5@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic6 {
+    background: url($image-dir + "process/2x/6@2x.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .proc-pic7 {
+    background: url($image-dir + "process/2x/7@2x.png") no-repeat center;
+    background-size: contain;
+  }
 }

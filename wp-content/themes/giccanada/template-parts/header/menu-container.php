@@ -7,8 +7,8 @@
                 <button class="col-auto align-self-center mobile-menu-button"></button>
                 <div class="col-8 col-auto align-self-center menu-phone-block">
                     <div class="row no-gutters justify-content-center align-items-center flex-nowrap">
-                        <div class="tb-menu-logo call-logo"></div>
-                        <a class="white-link-none" href="tel:03-6738333">03-6738333</a>
+                        <i class="fa fa-phone tb-menu-logo"></i>
+                        <a class="white-link-none" href="tel:+1647558491">+1647558491</a>
                     </div>
                 </div>
                 <div class="col col-auto align-self-center menu">

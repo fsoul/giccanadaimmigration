@@ -7,8 +7,8 @@
 		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-					<div class="tb-menu-logo call-logo"></div>
-					<a class="top-bar-menu-link white-link-underline" href="tel:03-6738333">03-6738333</a>
+                    <i class="fa fa-phone tb-menu-logo"></i>
+					<a class="top-bar-menu-link white-link-underline" href="tel:+1647558491">+1647558491</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -16,16 +16,7 @@
 		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-					<div class="col col-md-auto tb-menu-logo call-logo"></div>
-					<a class="col top-bar-menu-link white-link-underline" href="tel:054-3319797">054-3319797</a>
-					<div class="tb-menu-border"></div>
-				</div>
-			</div>
-		</li>
-		<li class="nav-item nav-link tb-menu-item">
-			<div class="container-fluid">
-				<div class="row align-items-center flex-nowrap">
-					<div class="col col-md-auto tb-menu-logo skype-logo"></div>
+                    <i class="fa fa-skype tb-menu-logo skype-logo"></i>
 					<a class="col top-bar-menu-link white-link-underline" href="skype:#?call">Skype</a>
 					<div class="tb-menu-border"></div>
 				</div>
@@ -44,7 +35,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
 					<div class="col col-md-auto tb-menu-logo search-logo"></div>
-					<input type="text" class="col tb-search to-hide" placeholder="Поиск">
+					<input type="text" class="col tb-search" placeholder="Поиск">
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -52,9 +43,9 @@
 		<li class="nav-item nav-link tb-menu-item ">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-					<a href="#" class="col tb-menu-logo fb-logo"></a>
-					<a href="#" class="col tb-menu-logo tw-logo"></a>
-					<a href="#" class="col tb-menu-logo linkedin-logo"></a>
+                    <a href="#" class="col-auto"><i class="fa fa-vk tb-menu-logo"></i></a>
+                    <a href="#" class="col-auto"><i class="fa fa fa-facebook tb-menu-logo"></i></a>
+                    <a href="#" class="col-auto"><i class="fa fa-instagram tb-menu-logo"></i></a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -81,7 +72,7 @@
 		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-					<div class="tb-menu-logo call-logo"></div>
+                    <i class="fa fa-phone tb-menu-logo"></i>
 					<a class="top-bar-menu-link white-link-underline" href="tel:03-6738333">03-6738333</a>
 					<div class="tb-menu-border"></div>
 				</div>

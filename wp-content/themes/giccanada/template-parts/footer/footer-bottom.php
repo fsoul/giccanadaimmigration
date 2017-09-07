@@ -5,9 +5,9 @@
 		<div class="col-sm-6 col-md-3" id="footer-socials">
 			<!--footer-socials-->
 			<div class="row no-gutters flex-nowrap">
-				<a href="#" class="col col-auto tb-menu-logo fb-logo"></a>
-				<a href="#" class="col col-auto tb-menu-logo tw-logo"></a>
-				<a href="#" class="col col-auto tb-menu-logo linkedin-logo"></a>
+                <a href="#" class="col-auto"><i class="fa fa-vk tb-menu-logo"></i></a>
+                <a href="#" class="col-auto"><i class="fa fa fa-facebook tb-menu-logo"></i></a>
+                <a href="#" class="col-auto"><i class="fa fa-instagram tb-menu-logo"></i></a>
 			</div>
 		</div>
 		<div class="col-sm-6" id="footer-map">

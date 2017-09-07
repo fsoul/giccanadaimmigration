@@ -8,16 +8,12 @@ $image-dir: '../images/';
 
     .tb-menu-logo{
       margin: 0 10px;
+      font-size: 1.4em;
     }
 
     .top-bar-menu-link {
       margin-right: 10px;
       font-size: .8em;
-    }
-
-    .call-logo {
-      height: 18px;
-      width: 18px;
     }
 
     .search-logo {
@@ -71,17 +67,13 @@ $image-dir: '../images/';
   font-size: .9em;
 }
 
-.call-logo,
 .search-logo {
   background-size: 13px;
   height: 13px;
   width: 13px;
 }
 
-.skype-logo,
-.messager-logo,
-.fb-logo, .tw-logo,
-.linkedin-logo {
+.messager-logo {
   background-size: contain;
   height: 18px;
   width: 18px;
