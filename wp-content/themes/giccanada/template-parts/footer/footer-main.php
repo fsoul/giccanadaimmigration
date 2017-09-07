@@ -36,16 +36,14 @@
 		<div class="col-12 col-sm-3">
 			<div class="footer-address-item row no-gutters">
 				<div class="col">
-					<h2 class="footer-address-name footer-text">Тель-Авив</h2>
-					<p class="footer-address footer-text">ул. Нирим 3, Правый Лифт,
-						3-ий этаж (Здание Канадского Посольства)</p>
+					<h2 class="footer-address-name footer-text">Киев, Украина</h2>
+					<p class="footer-address footer-text">ул. Антоновича 172, 714а</p>
 				</div>
 			</div>
 			<div class="row no-gutters footer-address-item">
 				<div class="col">
-					<h2 class="footer-address-name footer-text">Хайфа</h2>
-					<p class="footer-address footer-text">ул.Шаар Палмер 1 5-ый этаж,
-						офис 521</p>
+					<h2 class="footer-address-name footer-text">Aventura, FL 33180, USA</h2>
+					<p class="footer-address footer-text">APT 1410</p>
 				</div>
 			</div>
 		</div>

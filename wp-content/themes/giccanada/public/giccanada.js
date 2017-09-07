@@ -61,7 +61,7 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,18 +69,53 @@ var header = header || {}; header["Window"] =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+function throttle(type, name, obj) {
+    obj = obj || window;
+    var running = false;
+    var func = function() {
+        if (running) { return; }
+        running = true;
+        requestAnimationFrame(function() {
+            obj.dispatchEvent(new CustomEvent(name));
+            running = false;
+        });
+    };
+    obj.addEventListener(type, func);
+}
+
+function toggle(elem) {
+
+
+}
+
+module.exports = {
+    throttle: throttle,
+    toggle: toggle
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
 $(document).ready(function () {
-
-    __webpack_require__(2);
+    var helper = __webpack_require__(0);
     __webpack_require__(3);
-    __webpack_require__(4);
+    var StickyMenu = __webpack_require__(4);
+    var stickMenu = new StickyMenu();
     __webpack_require__(5);
+    __webpack_require__(6);
+
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
+    });
 });
 
 //scss-------------------------------------------
-__webpack_require__(6);
 __webpack_require__(7);
 __webpack_require__(8);
 __webpack_require__(9);
@@ -89,14 +124,15 @@ __webpack_require__(11);
 __webpack_require__(12);
 __webpack_require__(13);
 __webpack_require__(14);
-
-
 __webpack_require__(15);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+__webpack_require__(16);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10356,7 +10392,7 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -10432,121 +10468,235 @@ module.exports =
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = (function () {
-
-
-    var h = document.getElementById("menu-container");
-    var menuLogo = h.querySelector('.menu-logo');
-    var menuPhoneBlock = h.querySelector('.menu-phone-block');
-    var stuck = false;
-    var stickPoint = getDistance();
-
-    function getDistance() {
-        return h.offsetTop;
-    }
-
-    function updateHeaderMenuPos(e) {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var offset = window.pageYOffset;
-        var distance = getDistance() - offset;
-
-        if ((distance <= 0) && !stuck) {
-            h.style.position = 'fixed';
-            h.style.top = '0px';
-            h.style.marginTop = '0px';
-            h.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-            h.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
-            stuck = true;
-
-
-            if (windowWidth <= 768) {
-                menuLogo.style.background = 'none';
-                menuLogo.style.height = '24px';
-                menuLogo.style.width = 'auto';
-                menuLogo.innerText = 'GIC Canada';
-
-                menuPhoneBlock.style.display = 'inline-block';
-            }
-        } else if (stuck && (offset <= stickPoint)) {
-            h.removeAttribute('style');
-            stuck = false;
-            if (windowWidth <= 768) {
-                menuLogo.removeAttribute('style');
-                menuLogo.innerText = '';
-
-                menuPhoneBlock.style.display = 'none';
-            }
-        }
-    }
-    document.addEventListener('scroll', updateHeaderMenuPos);
-
-    //on document load
-    updateHeaderMenuPos();
-})();
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
+
+module.exports = (function () {
+    var helper = __webpack_require__(0);
+
+    function StickyMenu() {
+        this._header = document.getElementById("menu-container");
+        this._stuck = false;
+        this._stickPoint = this._header.offsetTop;
+        this._handlers = [];
+        this._headerStickingStr = 'headerSticking';
+        this._headerNormalizeStr = 'headerNormalize';
+
+        this.updateHeaderMenuPos();
+
+        helper.throttle('scroll', this._headerStickingStr, this._header);
+        helper.throttle('scroll', this._headerNormalizeStr, this._header);
+        this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
+        this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
+    }
+
+    StickyMenu.prototype.onHeaderSticking = function (isMobile) {
+        this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
+            detail: {
+                isMobile: isMobile
+            }
+        }));
     };
 
-    function onWindowLoadResize () {
+    StickyMenu.prototype.onHeadNormalize = function (isMobile) {
+        this._header.dispatchEvent(new CustomEvent(this._headerNormalizeStr, {
+            detail: {
+                isMobile: isMobile
+            }
+        }));
+    };
+
+    StickyMenu.prototype.doHeadSticking = function (event) {
+        this._header.style.position = 'fixed';
+        this._header.style.top = '0px';
+        this._header.style.marginTop = '0px';
+        this._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+        this._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+        this._stuck = true;
+
+        this.fire(this._headerStickingStr, event.detail.isMobile);
+    };
+
+    StickyMenu.prototype.doHeaderNormalize = function(event) {
+        this._header.removeAttribute('style');
+        this._stuck = false;
+
+        this.fire(this._headerNormalizeStr, event.detail.isMobile);
+    };
+
+    StickyMenu.prototype.updateHeaderMenuPos =  function () {
         var windowWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
+        var offset = window.pageYOffset;
+        var distance = this._header.offsetTop - offset;
+        var isMobile = windowWidth <= 768;
 
-        var programmsItems = document.getElementsByClassName('programms-grid-item');
-        var i;
-        for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && windowWidth <= 768) {
-                programmsItems[i].style.display = 'none';
-            } else {
-                programmsItems[i].style.display = 'block';
-            }
+        if ((distance <= 0) && !this._stuck) {
+            this.onHeaderSticking(isMobile);
+        } else if (this._stuck && (offset <= this._stickPoint)) {
+            this.onHeadNormalize(isMobile);
         }
+    };
 
-        var newsItems = document.getElementsByClassName('news-item');
-        for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && windowWidth <= 768) {
-                newsItems[i].style.display = 'none';
-            } else {
-                newsItems[i].style.display = 'block';
+    StickyMenu.prototype.subscribe = function (elem) {
+        this._handlers.push(elem);
+        helper.throttle('scroll', this._headerNormalizeStr, elem);
+        helper.throttle('scroll', this._headerStickingStr, elem);
+    };
+
+    StickyMenu.prototype.unsubscribe = function (elem) {
+        this._handlers.slice(this._handlers.indexOf(elem), 1);
+    };
+
+    StickyMenu.prototype.fire = function (eventName, isMobile) {
+      this._handlers.forEach(function (element) {
+          element.dispatchEvent(new CustomEvent(eventName, {
+            detail: {
+                isMobile: isMobile
             }
-        }
-        var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = windowWidth <= 768 ?  'Учебные программы' : 'Учебные программы в Канаде';
-    }
+        }));
+      });
+    };
 
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
-
-    // handle event
-    window.addEventListener("optimizedResize", onWindowLoadResize);
-
-    //on document load
-    onWindowLoadResize();
+    return StickyMenu;
 })();
+
+
+// module.exports = (function () {
+//
+//     var helper = require('./lib/helpers');
+//     var header = document.getElementById("menu-container");
+//     var menuLogo = header.querySelector('.menu-logo');
+//     var menuPhoneBlock = header.querySelector('.menu-phone-block');
+//     var stuck = false;
+//     var stickPoint = getDistance();
+//
+//     function getDistance() {
+//         return header.offsetTop;
+//     }
+//
+//     function onHeaderSticking(isMobile) {
+//         header.dispatchEvent(new CustomEvent('headerSticking', {
+//             detail: {
+//                 isMobile: isMobile
+//             }
+//         }));
+//     }
+//
+//     function onHeadNormalize(isMobile) {
+//         header.dispatchEvent(new CustomEvent('headerNormalize', {
+//             detail: {
+//                 isMobile: isMobile
+//             }
+//         }));
+//     }
+//
+//     function doHeadSticking(event) {
+//         header.style.position = 'fixed';
+//         header.style.top = '0px';
+//         header.style.marginTop = '0px';
+//         header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+//         header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+//         stuck = true;
+//
+//         menuLogo.dispatchEvent(new CustomEvent('headerSticking', {
+//             detail: {
+//                 isMobile: event.detail.isMobile
+//             }
+//         }));
+//
+//         menuPhoneBlock.dispatchEvent(new CustomEvent('headerSticking', {
+//             detail: {
+//                 isMobile: event.detail.isMobile
+//             }
+//         }));
+//     }
+//
+//     function doHeaderNomalize(event) {
+//         header.removeAttribute('style');
+//         stuck = false;
+//
+//         menuLogo.dispatchEvent(new CustomEvent('headerNormalize', {
+//             detail: {
+//                 isMobile: event.detail.isMobile
+//             }
+//         }));
+//
+//         menuPhoneBlock.dispatchEvent(new CustomEvent('headerNormalize', {
+//             detail: {
+//                 isMobile: event.detail.isMobile
+//             }
+//         }));
+//     }
+//
+//     function doUpdateMenuLogo(event) {
+//         if (event.detail.isMobile) {
+//             menuLogo.style.background = 'none';
+//             menuLogo.style.height = '24px';
+//             menuLogo.style.width = 'auto';
+//             menuLogo.innerText = 'GIC Canada';
+//         }
+//     }
+//
+//     function doNormalizeMenuLogo(event) {
+//         if (event.detail.isMobile) {
+//             menuLogo.removeAttribute('style');
+//             menuLogo.innerText = '';
+//         }
+//     }
+//
+//
+//     function doUpdateMenuPhoneBlock(event) {
+//         if (event.detail.isMobile) {
+//             menuPhoneBlock.style.display = 'inline-block';
+//         }
+//     }
+//
+//     function doNormalizeMenuPhoneBlock(event) {
+//         if (event.detail.isMobile) {
+//             menuPhoneBlock.style.display = 'none';
+//         }
+//     }
+//
+//     function updateHeaderMenuPos() {
+//         var windowWidth = window.innerWidth
+//             || document.documentElement.clientWidth
+//             || document.body.clientWidth;
+//         var offset = window.pageYOffset;
+//         var distance = getDistance() - offset;
+//         var isMobile = windowWidth <= 768;
+//
+//         if ((distance <= 0) && !stuck) {
+//             onHeaderSticking(isMobile);
+//         } else if (stuck && (offset <= stickPoint)) {
+//             onHeadNormalize(isMobile);
+//         }
+//     }
+//
+//     //on document load
+//     updateHeaderMenuPos();
+//
+//     helper.throttle('scroll', 'updateHeaderMenuPos', document);
+//     helper.throttle('scroll', 'headerSticking', header);
+//     helper.throttle('scroll', 'headerNormalize', header);
+//     helper.throttle('scroll', 'headerSticking', menuLogo);
+//     helper.throttle('scroll', 'headerNormalize', menuLogo);
+//     helper.throttle('scroll', 'headerSticking', menuPhoneBlock);
+//     helper.throttle('scroll', 'headerNormalize', menuPhoneBlock);
+//
+//     document.addEventListener('updateHeaderMenuPos', updateHeaderMenuPos);
+//     header.addEventListener('headerSticking', doHeadSticking);
+//     header.addEventListener('headerNormalize', doHeaderNomalize);
+//     menuLogo.addEventListener('headerSticking', doUpdateMenuLogo);
+//     menuLogo.addEventListener('headerNormalize', doNormalizeMenuLogo);
+//     menuPhoneBlock.addEventListener('headerSticking', doUpdateMenuPhoneBlock);
+//     menuPhoneBlock.addEventListener('headerNormalize', doNormalizeMenuPhoneBlock);
+// })();
 
 /***/ }),
 /* 5 */
@@ -10556,19 +10706,55 @@ module.exports =  (function() {
 
 
 module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
+    var helper = __webpack_require__(0);
+
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        var isMobile = windowWidth <= 768;
+
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        var i;
+        for (i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && isMobile) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
+
+        var newsItems = document.getElementsByClassName('news-item');
+        for (i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && isMobile) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
+
+    /* init - you can init any event */
+    helper.throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
+})();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports =  (function() {
+    var helper = __webpack_require__(0);
 
     var btnUp = document.getElementById('mobile-btn-up');
     var btnUplink = btnUp.querySelector('a');
@@ -10603,8 +10789,8 @@ module.exports =  (function() {
 
 
     /* init - you can init any event */
-    throttle("scroll", "scrollLoad", document);
-    throttle("click", "click", btnUplink);
+    helper.throttle("scroll", "scrollLoad", document);
+    helper.throttle("click", "click", btnUplink);
 
     // handle event
     document.addEventListener("scrollLoad", onBtnUpScrollLoad);
@@ -10613,12 +10799,6 @@ module.exports =  (function() {
     //on document load
     onBtnUpScrollLoad();
 })();
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 7 */
@@ -10670,6 +10850,12 @@ module.exports =  (function() {
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

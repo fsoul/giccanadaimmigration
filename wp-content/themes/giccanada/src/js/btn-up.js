@@ -1,19 +1,7 @@
 'use strict';
 
 module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
+    var helper = require('./lib/helpers');
 
     var btnUp = document.getElementById('mobile-btn-up');
     var btnUplink = btnUp.querySelector('a');
@@ -48,8 +36,8 @@ module.exports =  (function() {
 
 
     /* init - you can init any event */
-    throttle("scroll", "scrollLoad", document);
-    throttle("click", "click", btnUplink);
+    helper.throttle("scroll", "scrollLoad", document);
+    helper.throttle("click", "click", btnUplink);
 
     // handle event
     document.addEventListener("scrollLoad", onBtnUpScrollLoad);

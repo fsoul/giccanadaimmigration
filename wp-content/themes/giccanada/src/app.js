@@ -1,11 +1,16 @@
 'use strict';
 
 $(document).ready(function () {
-
+    var helper = require('./js/lib/helpers');
     require('./js/header');
-    require('./js/stickymenu');
+    var StickyMenu = require('./js/stickymenu');
+    var stickMenu = new StickyMenu();
     require('./js/window');
     require('./js/btn-up');
+
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
+    });
 });
 
 //scss-------------------------------------------
