@@ -15,8 +15,11 @@ function throttle(type, name, obj) {
 }
 
 function toggle(elem) {
-
-
+    if (elem.style.display === "none")  {
+        elem.style.display = 'block';
+    } else {
+        elem.style.display = 'none';
+    }
 }
 
 module.exports = {

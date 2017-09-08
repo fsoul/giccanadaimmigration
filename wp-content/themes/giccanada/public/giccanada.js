@@ -61,7 +61,7 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,8 +86,11 @@ function throttle(type, name, obj) {
 }
 
 function toggle(elem) {
-
-
+    if (elem.style.display === "none")  {
+        elem.style.display = 'block';
+    } else {
+        elem.style.display = 'none';
+    }
 }
 
 module.exports = {
@@ -99,16 +102,92 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var helper = __webpack_require__(0),
+    headerStickingStr = 'headerSticking',
+    headerNormalizeStr = 'headerNormalize';
+
+
+function ListenerElement() {
+    this.element = {};
+}
+
+
+function MenuLogo() {
+    document.addEventListener('DOMContentLoaded', this.init);
+}
+
+MenuLogo.prototype = Object.create(ListenerElement.prototype);
+MenuLogo.prototype.constructor = MenuLogo;
+
+MenuLogo.prototype.init = function () {
+    this.element = document.querySelector('.menu-logo');
+    this.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+    this.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+};
+
+MenuLogo.prototype.doUpdateMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.style.background = 'none';
+        this.style.height = '24px';
+        this.style.width = 'auto';
+        this.innerText = 'GIC Canada';
+    }
+};
+
+MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.removeAttribute('style');
+        this.innerText = '';
+    }
+};
+
+
+function MenuPhoneBlock() {
+    document.addEventListener('DOMContentLoaded', this.init);
+}
+
+MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
+MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
+
+MenuPhoneBlock.prototype.init = function () {
+    this.element = document.querySelector('.menu-phone-block');
+    this.element.addEventListener(headerStickingStr, this.doUpdateMenuPhoneBlock);
+    this.element.addEventListener(headerNormalizeStr, this.doUpdateMenuPhoneBlock);
+};
+
+MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+module.exports = {
+    menuLogo: new MenuLogo(),
+    menuPhoneBlock: new MenuPhoneBlock()
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
+var helper = __webpack_require__(0);
+
+var StickyMenu = __webpack_require__(4);
+var stickMenu = new StickyMenu();
+var menuLogo = __webpack_require__(1).menuLogo;
+var menuPhoneBlock = __webpack_require__(1).menuPhoneBlock;
+
 $(document).ready(function () {
-    var helper = __webpack_require__(0);
-    __webpack_require__(3);
-    var StickyMenu = __webpack_require__(4);
-    var stickMenu = new StickyMenu();
+
     __webpack_require__(5);
     __webpack_require__(6);
+    __webpack_require__(7);
+
+    stickMenu.subscribe(menuLogo.logo);
+    stickMenu.subscribe(menuPhoneBlock.menuPhoneBlock);
 
     document.addEventListener('scroll', function () {
         stickMenu.updateHeaderMenuPos();
@@ -116,7 +195,6 @@ $(document).ready(function () {
 });
 
 //scss-------------------------------------------
-__webpack_require__(7);
 __webpack_require__(8);
 __webpack_require__(9);
 __webpack_require__(10);
@@ -125,14 +203,15 @@ __webpack_require__(12);
 __webpack_require__(13);
 __webpack_require__(14);
 __webpack_require__(15);
-
-
 __webpack_require__(16);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+__webpack_require__(17);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10392,7 +10471,112 @@ return jQuery;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(0);
+
+function StickyMenu() {
+    this._stuck = false;
+    this._handlers = [];
+    this._headerStickingStr = 'headerSticking';
+    this._headerNormalizeStr = 'headerNormalize';
+    var self = this;
+    function init() {
+        self._header = document.getElementById("menu-container");
+        self._stickPoint = self._header.offsetTop;
+        helper.throttle('scroll', self._headerStickingStr, self._header);
+        helper.throttle('scroll', self._headerNormalizeStr, self._header);
+        self._header.addEventListener(self._headerStickingStr, self.doHeadSticking);
+        self._header.addEventListener(self._headerNormalizeStr, self.doHeaderNormalize);
+        self.updateHeaderMenuPos();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+StickyMenu.prototype.onHeaderSticking = function (isMobile) {
+    this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
+        detail: {
+            isMobile: isMobile,
+            context: this
+        }
+    }));
+};
+
+StickyMenu.prototype.onHeadNormalize = function (isMobile) {
+    this._header.dispatchEvent(new CustomEvent(this._headerNormalizeStr, {
+        detail: {
+            isMobile: isMobile,
+            context: this
+        }
+    }));
+};
+
+StickyMenu.prototype.doHeadSticking = function (event) {
+    var stMenu = event.detail.context;
+    stMenu._header.style.position = 'fixed';
+    stMenu._header.style.top = '0px';
+    stMenu._header.style.marginTop = '0px';
+    stMenu._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+    stMenu._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+    stMenu._stuck = true;
+    stMenu.fire(stMenu._headerStickingStr, event.detail.isMobile);
+};
+
+StickyMenu.prototype.doHeaderNormalize = function(event) {
+    var stMenu = event.detail.context;
+    stMenu._header.removeAttribute('style');
+    stMenu._stuck = false;
+
+    stMenu.fire(stMenu._headerNormalizeStr, event.detail.isMobile);
+};
+
+StickyMenu.prototype.updateHeaderMenuPos =  function () {
+    var windowWidth = window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+    var offset = window.pageYOffset;
+    var distance = this._header.offsetTop - offset;
+    var isMobile = windowWidth <= 768;
+
+    if ((distance <= 0) && !this._stuck) {
+        this.onHeaderSticking(isMobile);
+    } else if (this._stuck && (offset <= this._stickPoint)) {
+        this.onHeadNormalize(isMobile);
+    }
+};
+
+
+
+StickyMenu.prototype.subscribe = function (elem) {
+    this._handlers.push(elem);
+    helper.throttle('scroll', this._headerNormalizeStr, elem);
+    helper.throttle('scroll', this._headerStickingStr, elem);
+};
+
+StickyMenu.prototype.unsubscribe = function (elem) {
+    this._handlers.slice(this._handlers.indexOf(elem), 1);
+};
+
+StickyMenu.prototype.fire = function (eventName, isMobile) {
+    this._handlers.forEach(function (element) {
+        element.dispatchEvent(new CustomEvent(eventName, {
+            detail: {
+                isMobile: isMobile
+            }
+        }));
+    });
+};
+
+module.exports = StickyMenu;
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -10468,238 +10652,7 @@ module.exports =
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-
-module.exports = (function () {
-    var helper = __webpack_require__(0);
-
-    function StickyMenu() {
-        this._header = document.getElementById("menu-container");
-        this._stuck = false;
-        this._stickPoint = this._header.offsetTop;
-        this._handlers = [];
-        this._headerStickingStr = 'headerSticking';
-        this._headerNormalizeStr = 'headerNormalize';
-
-        this.updateHeaderMenuPos();
-
-        helper.throttle('scroll', this._headerStickingStr, this._header);
-        helper.throttle('scroll', this._headerNormalizeStr, this._header);
-        this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
-        this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
-    }
-
-    StickyMenu.prototype.onHeaderSticking = function (isMobile) {
-        this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
-            detail: {
-                isMobile: isMobile
-            }
-        }));
-    };
-
-    StickyMenu.prototype.onHeadNormalize = function (isMobile) {
-        this._header.dispatchEvent(new CustomEvent(this._headerNormalizeStr, {
-            detail: {
-                isMobile: isMobile
-            }
-        }));
-    };
-
-    StickyMenu.prototype.doHeadSticking = function (event) {
-        this._header.style.position = 'fixed';
-        this._header.style.top = '0px';
-        this._header.style.marginTop = '0px';
-        this._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-        this._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
-        this._stuck = true;
-
-        this.fire(this._headerStickingStr, event.detail.isMobile);
-    };
-
-    StickyMenu.prototype.doHeaderNormalize = function(event) {
-        this._header.removeAttribute('style');
-        this._stuck = false;
-
-        this.fire(this._headerNormalizeStr, event.detail.isMobile);
-    };
-
-    StickyMenu.prototype.updateHeaderMenuPos =  function () {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var offset = window.pageYOffset;
-        var distance = this._header.offsetTop - offset;
-        var isMobile = windowWidth <= 768;
-
-        if ((distance <= 0) && !this._stuck) {
-            this.onHeaderSticking(isMobile);
-        } else if (this._stuck && (offset <= this._stickPoint)) {
-            this.onHeadNormalize(isMobile);
-        }
-    };
-
-    StickyMenu.prototype.subscribe = function (elem) {
-        this._handlers.push(elem);
-        helper.throttle('scroll', this._headerNormalizeStr, elem);
-        helper.throttle('scroll', this._headerStickingStr, elem);
-    };
-
-    StickyMenu.prototype.unsubscribe = function (elem) {
-        this._handlers.slice(this._handlers.indexOf(elem), 1);
-    };
-
-    StickyMenu.prototype.fire = function (eventName, isMobile) {
-      this._handlers.forEach(function (element) {
-          element.dispatchEvent(new CustomEvent(eventName, {
-            detail: {
-                isMobile: isMobile
-            }
-        }));
-      });
-    };
-
-    return StickyMenu;
-})();
-
-
-// module.exports = (function () {
-//
-//     var helper = require('./lib/helpers');
-//     var header = document.getElementById("menu-container");
-//     var menuLogo = header.querySelector('.menu-logo');
-//     var menuPhoneBlock = header.querySelector('.menu-phone-block');
-//     var stuck = false;
-//     var stickPoint = getDistance();
-//
-//     function getDistance() {
-//         return header.offsetTop;
-//     }
-//
-//     function onHeaderSticking(isMobile) {
-//         header.dispatchEvent(new CustomEvent('headerSticking', {
-//             detail: {
-//                 isMobile: isMobile
-//             }
-//         }));
-//     }
-//
-//     function onHeadNormalize(isMobile) {
-//         header.dispatchEvent(new CustomEvent('headerNormalize', {
-//             detail: {
-//                 isMobile: isMobile
-//             }
-//         }));
-//     }
-//
-//     function doHeadSticking(event) {
-//         header.style.position = 'fixed';
-//         header.style.top = '0px';
-//         header.style.marginTop = '0px';
-//         header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-//         header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
-//         stuck = true;
-//
-//         menuLogo.dispatchEvent(new CustomEvent('headerSticking', {
-//             detail: {
-//                 isMobile: event.detail.isMobile
-//             }
-//         }));
-//
-//         menuPhoneBlock.dispatchEvent(new CustomEvent('headerSticking', {
-//             detail: {
-//                 isMobile: event.detail.isMobile
-//             }
-//         }));
-//     }
-//
-//     function doHeaderNomalize(event) {
-//         header.removeAttribute('style');
-//         stuck = false;
-//
-//         menuLogo.dispatchEvent(new CustomEvent('headerNormalize', {
-//             detail: {
-//                 isMobile: event.detail.isMobile
-//             }
-//         }));
-//
-//         menuPhoneBlock.dispatchEvent(new CustomEvent('headerNormalize', {
-//             detail: {
-//                 isMobile: event.detail.isMobile
-//             }
-//         }));
-//     }
-//
-//     function doUpdateMenuLogo(event) {
-//         if (event.detail.isMobile) {
-//             menuLogo.style.background = 'none';
-//             menuLogo.style.height = '24px';
-//             menuLogo.style.width = 'auto';
-//             menuLogo.innerText = 'GIC Canada';
-//         }
-//     }
-//
-//     function doNormalizeMenuLogo(event) {
-//         if (event.detail.isMobile) {
-//             menuLogo.removeAttribute('style');
-//             menuLogo.innerText = '';
-//         }
-//     }
-//
-//
-//     function doUpdateMenuPhoneBlock(event) {
-//         if (event.detail.isMobile) {
-//             menuPhoneBlock.style.display = 'inline-block';
-//         }
-//     }
-//
-//     function doNormalizeMenuPhoneBlock(event) {
-//         if (event.detail.isMobile) {
-//             menuPhoneBlock.style.display = 'none';
-//         }
-//     }
-//
-//     function updateHeaderMenuPos() {
-//         var windowWidth = window.innerWidth
-//             || document.documentElement.clientWidth
-//             || document.body.clientWidth;
-//         var offset = window.pageYOffset;
-//         var distance = getDistance() - offset;
-//         var isMobile = windowWidth <= 768;
-//
-//         if ((distance <= 0) && !stuck) {
-//             onHeaderSticking(isMobile);
-//         } else if (stuck && (offset <= stickPoint)) {
-//             onHeadNormalize(isMobile);
-//         }
-//     }
-//
-//     //on document load
-//     updateHeaderMenuPos();
-//
-//     helper.throttle('scroll', 'updateHeaderMenuPos', document);
-//     helper.throttle('scroll', 'headerSticking', header);
-//     helper.throttle('scroll', 'headerNormalize', header);
-//     helper.throttle('scroll', 'headerSticking', menuLogo);
-//     helper.throttle('scroll', 'headerNormalize', menuLogo);
-//     helper.throttle('scroll', 'headerSticking', menuPhoneBlock);
-//     helper.throttle('scroll', 'headerNormalize', menuPhoneBlock);
-//
-//     document.addEventListener('updateHeaderMenuPos', updateHeaderMenuPos);
-//     header.addEventListener('headerSticking', doHeadSticking);
-//     header.addEventListener('headerNormalize', doHeaderNomalize);
-//     menuLogo.addEventListener('headerSticking', doUpdateMenuLogo);
-//     menuLogo.addEventListener('headerNormalize', doNormalizeMenuLogo);
-//     menuPhoneBlock.addEventListener('headerSticking', doUpdateMenuPhoneBlock);
-//     menuPhoneBlock.addEventListener('headerNormalize', doNormalizeMenuPhoneBlock);
-// })();
-
-/***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10747,7 +10700,7 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10801,12 +10754,6 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
@@ -10856,6 +10803,12 @@ module.exports =  (function() {
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

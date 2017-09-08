@@ -1,12 +1,20 @@
 'use strict';
 
+var helper = require('./js/lib/helpers');
+
+var StickyMenu = require('./js/stickymenu');
+var stickMenu = new StickyMenu();
+var menuLogo = require('./js/listeners').menuLogo;
+var menuPhoneBlock = require('./js/listeners').menuPhoneBlock;
+
 $(document).ready(function () {
-    var helper = require('./js/lib/helpers');
+
     require('./js/header');
-    var StickyMenu = require('./js/stickymenu');
-    var stickMenu = new StickyMenu();
     require('./js/window');
     require('./js/btn-up');
+
+    stickMenu.subscribe(menuLogo.logo);
+    stickMenu.subscribe(menuPhoneBlock.menuPhoneBlock);
 
     document.addEventListener('scroll', function () {
         stickMenu.updateHeaderMenuPos();
