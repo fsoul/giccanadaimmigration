@@ -1606,7 +1606,9 @@ body {
     height: auto;
     padding-bottom: 0; }
     #footer .footer-wrapper {
-      padding: 0; }
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 48px; }
       #footer .footer-wrapper .footer-block {
         padding-top: 17px; }
         #footer .footer-wrapper .footer-block .footer-logo {

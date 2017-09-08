@@ -3,10 +3,12 @@
 function throttle(type, name, obj) {
     obj = obj || window;
     var running = false;
-    var func = function() {
-        if (running) { return; }
+    var func = function () {
+        if (running) {
+            return;
+        }
         running = true;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             obj.dispatchEvent(new CustomEvent(name));
             running = false;
         });
@@ -15,7 +17,8 @@ function throttle(type, name, obj) {
 }
 
 function toggle(elem) {
-    if (elem.style.display === "none")  {
+    if (getComputedStyle(elem).display === "none" ||
+        elem.style.display === "none") {
         elem.style.display = 'block';
     } else {
         elem.style.display = 'none';

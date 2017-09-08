@@ -74,10 +74,12 @@ var header = header || {}; header["Window"] =
 function throttle(type, name, obj) {
     obj = obj || window;
     var running = false;
-    var func = function() {
-        if (running) { return; }
+    var func = function () {
+        if (running) {
+            return;
+        }
         running = true;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             obj.dispatchEvent(new CustomEvent(name));
             running = false;
         });
@@ -86,7 +88,8 @@ function throttle(type, name, obj) {
 }
 
 function toggle(elem) {
-    if (elem.style.display === "none")  {
+    if (getComputedStyle(elem).display === "none" ||
+        elem.style.display === "none") {
         elem.style.display = 'block';
     } else {
         elem.style.display = 'none';
@@ -102,6 +105,9 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var helper = __webpack_require__(0),
     headerStickingStr = 'headerSticking',
     headerNormalizeStr = 'headerNormalize';
@@ -113,17 +119,19 @@ function ListenerElement() {
 
 
 function MenuLogo() {
-    document.addEventListener('DOMContentLoaded', this.init);
+    var self = this;
+
+    function init() {
+        self.element = document.querySelector('.menu-logo');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
 }
 
 MenuLogo.prototype = Object.create(ListenerElement.prototype);
 MenuLogo.prototype.constructor = MenuLogo;
-
-MenuLogo.prototype.init = function () {
-    this.element = document.querySelector('.menu-logo');
-    this.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
-    this.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
-};
 
 MenuLogo.prototype.doUpdateMenuLogo = function (event) {
     if (event.detail.isMobile) {
@@ -143,17 +151,19 @@ MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
 
 
 function MenuPhoneBlock() {
-    document.addEventListener('DOMContentLoaded', this.init);
+    var self = this;
+
+    function init () {
+        self.element = document.querySelector('.menu-phone-block');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
 }
 
 MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
 MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
-
-MenuPhoneBlock.prototype.init = function () {
-    this.element = document.querySelector('.menu-phone-block');
-    this.element.addEventListener(headerStickingStr, this.doUpdateMenuPhoneBlock);
-    this.element.addEventListener(headerNormalizeStr, this.doUpdateMenuPhoneBlock);
-};
 
 MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
     if (event.detail.isMobile) {
@@ -161,9 +171,48 @@ MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
     }
 };
 
+
+function ButtonUp() {
+    var self = this;
+
+    function init () {
+        self.element = document.getElementById('mobile-btn-up');
+        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+        self.element.addEventListener('click', self.doClick);
+    }
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+ButtonUp.prototype = Object.create(ListenerElement.prototype);
+ButtonUp.prototype.constructor = ButtonUp;
+
+ButtonUp.prototype.doUpdateButtonUp = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+ButtonUp.prototype.doClick = function (event) {
+    event.preventDefault();
+    var link = this.querySelector('a');
+    var id = link.getAttribute('href'),
+        top = document.querySelector(id).offsetTop;
+
+    var windowTop = window.pageYOffset;
+    var timerID = setInterval(function () {
+        if (windowTop <= top) {
+            clearInterval(timerID);
+        } else {
+            window.scrollTo(0, windowTop -=50);
+        }
+    }, 10);
+};
+
 module.exports = {
     menuLogo: new MenuLogo(),
-    menuPhoneBlock: new MenuPhoneBlock()
+    menuPhoneBlock: new MenuPhoneBlock(),
+    buttonUp: new ButtonUp()
 };
 
 /***/ }),
@@ -173,24 +222,35 @@ module.exports = {
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-var helper = __webpack_require__(0);
-
 var StickyMenu = __webpack_require__(4);
 var stickMenu = new StickyMenu();
 var menuLogo = __webpack_require__(1).menuLogo;
 var menuPhoneBlock = __webpack_require__(1).menuPhoneBlock;
+var buttonUp = __webpack_require__(1).buttonUp;
 
 $(document).ready(function () {
 
     __webpack_require__(5);
     __webpack_require__(6);
-    __webpack_require__(7);
 
-    stickMenu.subscribe(menuLogo.logo);
-    stickMenu.subscribe(menuPhoneBlock.menuPhoneBlock);
+    stickMenu.subscribe(menuLogo);
+    stickMenu.subscribe(menuPhoneBlock);
+    stickMenu.subscribe(buttonUp);
+    stickMenu.init();
 
     document.addEventListener('scroll', function () {
         stickMenu.updateHeaderMenuPos();
+    });
+
+    document.addEventListener('scroll', function () {
+        var wrapper = document.querySelector('.footer-wrapper');
+        var bottom = wrapper.offsetTop + wrapper.clientHeight;
+        var widget = document.querySelector('.fixed-right-panel');
+        if(window.pageYOffset + window.innerHeight >= bottom) {
+            widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
+        } else {
+            widget.style.bottom = '0px';
+        }
     });
 });
 
@@ -10484,19 +10544,17 @@ function StickyMenu() {
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
-    var self = this;
-    function init() {
-        self._header = document.getElementById("menu-container");
-        self._stickPoint = self._header.offsetTop;
-        helper.throttle('scroll', self._headerStickingStr, self._header);
-        helper.throttle('scroll', self._headerNormalizeStr, self._header);
-        self._header.addEventListener(self._headerStickingStr, self.doHeadSticking);
-        self._header.addEventListener(self._headerNormalizeStr, self.doHeaderNormalize);
-        self.updateHeaderMenuPos();
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
 }
+
+StickyMenu.prototype.init = function () {
+    this._header = document.getElementById("menu-container");
+    this._stickPoint = this._header.offsetTop;
+    helper.throttle('scroll', this._headerStickingStr, this._header);
+    helper.throttle('scroll', this._headerNormalizeStr, this._header);
+    this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
+    this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
+    this.updateHeaderMenuPos();
+};
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
     this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
@@ -10549,22 +10607,29 @@ StickyMenu.prototype.updateHeaderMenuPos =  function () {
         this.onHeadNormalize(isMobile);
     }
 };
-
-
-
-StickyMenu.prototype.subscribe = function (elem) {
-    this._handlers.push(elem);
-    helper.throttle('scroll', this._headerNormalizeStr, elem);
-    helper.throttle('scroll', this._headerStickingStr, elem);
+/**
+ * Subscribe ListenerElement on sticking and normalize header
+ * @param {ListenerElement} listener
+ */
+StickyMenu.prototype.subscribe = function (listener) {
+    this._handlers.push(listener);
+    helper.throttle('scroll', this._headerNormalizeStr, listener.element);
+    helper.throttle('scroll', this._headerStickingStr, listener.element);
 };
+
 
 StickyMenu.prototype.unsubscribe = function (elem) {
     this._handlers.slice(this._handlers.indexOf(elem), 1);
 };
 
+/**
+ * Fire sticking and normalize listeners event
+ * @param {string} eventName
+ * @param {boolean} isMobile
+ */
 StickyMenu.prototype.fire = function (eventName, isMobile) {
-    this._handlers.forEach(function (element) {
-        element.dispatchEvent(new CustomEvent(eventName, {
+    this._handlers.forEach(function (listener) {
+        listener.element.dispatchEvent(new CustomEvent(eventName, {
             detail: {
                 isMobile: isMobile
             }
@@ -10700,60 +10765,7 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports =  (function() {
-    var helper = __webpack_require__(0);
-
-    var btnUp = document.getElementById('mobile-btn-up');
-    var btnUplink = btnUp.querySelector('a');
-
-    function onBtnUpScrollLoad () {
-        var windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth,
-            scrollTop = window.pageYOffset;
-
-        if (windowWidth <= 768 && scrollTop > 125)  {
-            btnUp.style.display = 'block';
-        } else {
-            btnUp.style.display = 'none';
-        }
-    }
-
-    function onBtnUpClick(event) {
-        event.preventDefault();
-        var id = this.getAttribute('href'),
-            top = document.querySelector(id).offsetTop;
-
-        var windowTop = window.pageYOffset;
-        var timerID = setInterval(function () {
-            if (windowTop <= top) {
-                clearInterval(timerID);
-            } else {
-                window.scrollTo(0, windowTop -=50);
-            }
-        }, 10);
-    }
-
-
-    /* init - you can init any event */
-    helper.throttle("scroll", "scrollLoad", document);
-    helper.throttle("click", "click", btnUplink);
-
-    // handle event
-    document.addEventListener("scrollLoad", onBtnUpScrollLoad);
-    btnUplink.addEventListener("click", onBtnUpClick);
-
-    //on document load
-    onBtnUpScrollLoad();
-})();
-
-/***/ }),
+/* 7 */,
 /* 8 */
 /***/ (function(module, exports) {
 

@@ -7,19 +7,17 @@ function StickyMenu() {
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
-    var self = this;
-    function init() {
-        self._header = document.getElementById("menu-container");
-        self._stickPoint = self._header.offsetTop;
-        helper.throttle('scroll', self._headerStickingStr, self._header);
-        helper.throttle('scroll', self._headerNormalizeStr, self._header);
-        self._header.addEventListener(self._headerStickingStr, self.doHeadSticking);
-        self._header.addEventListener(self._headerNormalizeStr, self.doHeaderNormalize);
-        self.updateHeaderMenuPos();
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
 }
+
+StickyMenu.prototype.init = function () {
+    this._header = document.getElementById("menu-container");
+    this._stickPoint = this._header.offsetTop;
+    helper.throttle('scroll', this._headerStickingStr, this._header);
+    helper.throttle('scroll', this._headerNormalizeStr, this._header);
+    this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
+    this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
+    this.updateHeaderMenuPos();
+};
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
     this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
@@ -72,20 +70,29 @@ StickyMenu.prototype.updateHeaderMenuPos =  function () {
         this.onHeadNormalize(isMobile);
     }
 };
-
-StickyMenu.prototype.subscribe = function (elem) {
-    this._handlers.push(elem);
-    helper.throttle('scroll', this._headerNormalizeStr, elem);
-    helper.throttle('scroll', this._headerStickingStr, elem);
+/**
+ * Subscribe ListenerElement on sticking and normalize header
+ * @param {ListenerElement} listener
+ */
+StickyMenu.prototype.subscribe = function (listener) {
+    this._handlers.push(listener);
+    helper.throttle('scroll', this._headerNormalizeStr, listener.element);
+    helper.throttle('scroll', this._headerStickingStr, listener.element);
 };
+
 
 StickyMenu.prototype.unsubscribe = function (elem) {
     this._handlers.slice(this._handlers.indexOf(elem), 1);
 };
 
+/**
+ * Fire sticking and normalize listeners event
+ * @param {string} eventName
+ * @param {boolean} isMobile
+ */
 StickyMenu.prototype.fire = function (eventName, isMobile) {
-    this._handlers.forEach(function (element) {
-        element.dispatchEvent(new CustomEvent(eventName, {
+    this._handlers.forEach(function (listener) {
+        listener.element.dispatchEvent(new CustomEvent(eventName, {
             detail: {
                 isMobile: isMobile
             }
