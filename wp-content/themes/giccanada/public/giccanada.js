@@ -61,42 +61,23 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-$(document).ready(function () {
-
-    __webpack_require__(2);
-    __webpack_require__(3);
-    __webpack_require__(4);
-    __webpack_require__(5);
-});
-
-//scss-------------------------------------------
-__webpack_require__(6);
-__webpack_require__(7);
-__webpack_require__(8);
-__webpack_require__(9);
-__webpack_require__(10);
-__webpack_require__(11);
-__webpack_require__(12);
-__webpack_require__(13);
-__webpack_require__(14);
-
-
-__webpack_require__(15);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+module.exports = __webpack_require__.p + "images/4_2x-8aa070a9f6.png";
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/arrow-473d65fe8b.png";
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10356,323 +10337,344 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports =
-    (function () {
-        var throttle = function(type, name, obj) {
-            obj = obj || window;
-            var running = false;
-            var func = function() {
-                if (running) { return; }
-                running = true;
-                requestAnimationFrame(function() {
-                    obj.dispatchEvent(new CustomEvent(name));
-                    running = false;
-                });
-            };
-            obj.addEventListener(type, func);
-        };
-
-        var btnDropdown = document.querySelector('button.dropbtn');
-        var fixedButton = document.getElementsByClassName("fixed-panel-button");
-
-        function onFixedButtonHover() {
-            var windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth;
-            var btnHoverText = this.parentElement.querySelector('.fixed-pnl-btn-hover');
-            if (
-                (
-                    btnHoverText.style.display === 'none' ||
-                    btnHoverText.style.display === ''
-                ) &&
-                windowWidth > 768
-            )
-                btnHoverText.style.display = 'inline-block';
-            else
-                btnHoverText.style.display = 'none';
-        }
-
-
-        // Close the dropdown menu if the user clicks outside of it
-        function onWindowClick(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show-dropdown-content')) {
-                        openDropdown.classList.remove('show-dropdown-content');
-                    }
-                }
-            }
-        }
-
-        function toggleMenu() {
-            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
-        }
-
-        /* init - you can init any event */
-        throttle("click", "toggleMenu", btnDropdown);
-        throttle("click", "windowClick");
-        throttle("resize", "windowResize");
-
-        // handle event
-        for (var i = 0; i < fixedButton.length; i++) {
-            throttle("mouseover", "fixedButtonHover", fixedButton[i]);
-            throttle("mouseout", "fixedButtonHover", fixedButton[i]);
-            fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
-            fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
-        }
-
-        btnDropdown.addEventListener("toggleMenu", toggleMenu);
-        window.addEventListener('click', onWindowClick);
-    })();
-
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = (function () {
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
 
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
 
-    var h = document.getElementById("menu-container");
-    var menuLogo = h.querySelector('.menu-logo');
-    var menuPhoneBlock = h.querySelector('.menu-phone-block');
-    var stuck = false;
-    var stickPoint = getDistance();
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
 
-    function getDistance() {
-        return h.offsetTop;
-    }
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
 
-    function updateHeaderMenuPos(e) {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var offset = window.pageYOffset;
-        var distance = getDistance() - offset;
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
 
-        if ((distance <= 0) && !stuck) {
-            h.style.position = 'fixed';
-            h.style.top = '0px';
-            h.style.marginTop = '0px';
-            h.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-            h.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
-            stuck = true;
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
 
+	return [content].join('\n');
+}
 
-            if (windowWidth <= 768) {
-                menuLogo.style.background = 'none';
-                menuLogo.style.height = '24px';
-                menuLogo.style.width = 'auto';
-                menuLogo.innerText = 'GIC Canada';
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
-                menuPhoneBlock.style.display = 'inline-block';
-            }
-        } else if (stuck && (offset <= stickPoint)) {
-            h.removeAttribute('style');
-            stuck = false;
-            if (windowWidth <= 768) {
-                menuLogo.removeAttribute('style');
-                menuLogo.innerText = '';
+	return '/*# ' + data + ' */';
+}
 
-                menuPhoneBlock.style.display = 'none';
-            }
-        }
-    }
-    document.addEventListener('scroll', updateHeaderMenuPos);
-
-    //on document load
-    updateHeaderMenuPos();
-})();
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    function onWindowLoadResize () {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-
-        var programmsItems = document.getElementsByClassName('programms-grid-item');
-        var i;
-        for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && windowWidth <= 768) {
-                programmsItems[i].style.display = 'none';
-            } else {
-                programmsItems[i].style.display = 'block';
-            }
-        }
-
-        var newsItems = document.getElementsByClassName('news-item');
-        for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && windowWidth <= 768) {
-                newsItems[i].style.display = 'none';
-            } else {
-                newsItems[i].style.display = 'block';
-            }
-        }
-        var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = windowWidth <= 768 ?  'Учебные программы' : 'Учебные программы в Канаде';
-    }
-
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
-
-    // handle event
-    window.addEventListener("optimizedResize", onWindowLoadResize);
-
-    //on document load
-    onWindowLoadResize();
-})();
+module.exports = __webpack_require__.p + "images/fxd-btn-hover-text@2x-87a1983d87.png";
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    var btnUp = document.getElementById('mobile-btn-up');
-    var btnUplink = btnUp.querySelector('a');
-
-    function onBtnUpScrollLoad () {
-        var windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth,
-            scrollTop = window.pageYOffset;
-
-        if (windowWidth <= 768 && scrollTop > 125)  {
-            btnUp.style.display = 'block';
-        } else {
-            btnUp.style.display = 'none';
-        }
-    }
-
-    function onBtnUpClick(event) {
-        event.preventDefault();
-        var id = this.getAttribute('href'),
-            top = document.querySelector(id).offsetTop;
-
-        var windowTop = window.pageYOffset;
-        var timerID = setInterval(function () {
-            if (windowTop <= top) {
-                clearInterval(timerID);
-            } else {
-                window.scrollTo(0, windowTop -=50);
-            }
-        }, 10);
-    }
-
-
-    /* init - you can init any event */
-    throttle("scroll", "scrollLoad", document);
-    throttle("click", "click", btnUplink);
-
-    // handle event
-    document.addEventListener("scrollLoad", onBtnUpScrollLoad);
-    btnUplink.addEventListener("click", onBtnUpClick);
-
-    //on document load
-    onBtnUpScrollLoad();
-})();
+module.exports = __webpack_require__.p + "images/Contact-form@2x-d36729ef16.png";
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Contact-form-hover@2x-cf82a56d1c.png";
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Live-chat@2x-b4a84f2741.png";
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Live-chat-hover@2x-d62cf352ec.png";
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Request-call@2x-e8b28a4927.png";
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Request-call-hover@2x-2d4ff4ec9b.png";
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Open-case@2x-109a30d073.png";
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Open-case-hover@2x-22dc412389.png";
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/Hamburger@2x-8cf93ce8ec.png";
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/messager2x-b82f657853.png";
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Search_icon2x-ce39146696.png";
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports) {
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "images/2_2x-f213ea76ca.png";
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/5_2x-71ac206b8a.png";
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/6_2x-28955543bd.png";
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/arrow2x-4df9726583.png";
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/1_2x-db46adc531.png";
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/2_2x-6bc69ba7f4.png";
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/3_2x-cb05d4d12b.png";
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/4_2x-80433f51c4.png";
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Review1m-acf2cfdedf.jpg";
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Review2m-acf2cfdedf.jpg";
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Review3m-acf2cfdedf.jpg";
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/quote_black@2x-d21d731106.png";
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/m1-ad44fe2279.jpg";
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/m2-ec43118176.jpg";
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/m3-ec43118176.jpg";
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/ic_call_black_24px@2x-888f4c91f7.png";
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/ic_local_printshop_black_24px@2x-1ee2352d8e.png";
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/ic_email_black_24px@2x-9a6356d598.png";
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Group@2x-ff740e0174.png";
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/1@2x-85a6303374.png";
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/2@2x-64a7cf9f2d.png";
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/3@2x-84f10fbd3e.png";
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/4@2x-b3f5f1960b.png";
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/5@2x-fe8893ccff.png";
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/6@2x-c8e64b3edd.png";
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/7@2x-b3623f18aa.png";
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/fxd-btn-hover-text-539e33d552.png";
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Hamburger-3e76654d79.png";
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/Hero-image_3m-57d1cce8f0.jpg";
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/image@1x-4ee0c4bc8c.png";
 
 /***/ })
 /******/ ]);
