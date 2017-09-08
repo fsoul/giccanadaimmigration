@@ -1,29 +1,18 @@
 'use strict';
 
 module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
+    var helper = require('./lib/helpers');
 
     function onWindowLoadResize () {
         var windowWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
+        var isMobile = windowWidth <= 768;
 
         var programmsItems = document.getElementsByClassName('programms-grid-item');
         var i;
         for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && windowWidth <= 768) {
+            if (i > 2 && isMobile) {
                 programmsItems[i].style.display = 'none';
             } else {
                 programmsItems[i].style.display = 'block';
@@ -32,18 +21,18 @@ module.exports =  (function() {
 
         var newsItems = document.getElementsByClassName('news-item');
         for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && windowWidth <= 768) {
+            if (i > 1 && isMobile) {
                 newsItems[i].style.display = 'none';
             } else {
                 newsItems[i].style.display = 'block';
             }
         }
         var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = windowWidth <= 768 ?  'Учебные программы' : 'Учебные программы в Канаде';
+        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
     }
 
     /* init - you can init any event */
-    throttle("resize", "optimizedResize");
+    helper.throttle("resize", "optimizedResize");
 
     // handle event
     window.addEventListener("optimizedResize", onWindowLoadResize);
