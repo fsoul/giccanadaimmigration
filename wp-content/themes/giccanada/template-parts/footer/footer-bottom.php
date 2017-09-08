@@ -4,10 +4,10 @@
 	<div class="row align-items-center no-gutters footer-bottom">
 		<div class="col-sm-6 col-md-3" id="footer-socials">
 			<!--footer-socials-->
-			<div class="row no-gutters flex-nowrap">
-                <a href="#" class="col-auto"><i class="fa fa-vk tb-menu-logo"></i></a>
-                <a href="#" class="col-auto"><i class="fa fa fa-facebook tb-menu-logo"></i></a>
-                <a href="#" class="col-auto"><i class="fa fa-instagram tb-menu-logo"></i></a>
+			<div class="row flex-nowrap">
+                <a href="#" class="col-2"><i class="fa fa-vk tb-menu-logo"></i></a>
+                <a href="#" class="col-2"><i class="fa fa fa-facebook tb-menu-logo"></i></a>
+                <a href="#" class="col-2"><i class="fa fa-instagram tb-menu-logo"></i></a>
 			</div>
 		</div>
 		<div class="col-sm-6" id="footer-map">

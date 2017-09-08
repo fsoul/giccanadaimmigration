@@ -58,7 +58,8 @@ body {
   width: 72px;
   height: 288px;
   right: 0;
-  bottom: 100px;
+  bottom: 15%;
+  margin-top: -144px;
   background: #fff;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
   z-index: 500;
@@ -848,6 +849,132 @@ body {
 /*images end---------*/
 /*footer end -------------------------------------*/
 @charset "UTF-8";
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .fixed-right-panel div .fixed-pnl-btn-hover {
+    display: none;
+    background: url(./public/images/fxd-btn-hover-text@2x-87a1983d87.png);
+    background-size: cover; }
+  .fixed-right-panel div .contact-form {
+    background: url(./public/images/Contact-form@2x-d36729ef16.png) no-repeat center;
+    background-size: 32.4px 36px; }
+    .fixed-right-panel div .contact-form:hover {
+      background: url(./public/images/Contact-form-hover@2x-cf82a56d1c.png) no-repeat center;
+      background-size: 32.4px 36px; }
+  .fixed-right-panel div .live-chat {
+    background: url(./public/images/Live-chat@2x-b4a84f2741.png) no-repeat center;
+    background-size: 36px; }
+    .fixed-right-panel div .live-chat:hover {
+      background: url(./public/images/Live-chat-hover@2x-d62cf352ec.png) no-repeat center;
+      background-size: 36px; }
+  .fixed-right-panel div .request-call {
+    background: url(./public/images/Request-call@2x-e8b28a4927.png) no-repeat center;
+    background-size: 32.4px; }
+    .fixed-right-panel div .request-call:hover {
+      background: url(./public/images/Request-call-hover@2x-2d4ff4ec9b.png) no-repeat center;
+      background-size: 32.4px; }
+  .fixed-right-panel div .open-case {
+    background: url(./public/images/Open-case@2x-109a30d073.png) no-repeat center;
+    background-size: 32.4px 36px; }
+    .fixed-right-panel div .open-case:hover {
+      background: url(./public/images/Open-case-hover@2x-22dc412389.png) no-repeat center;
+      background-size: 32.4px 36px; }
+  .mobile-menu-button {
+    background: url(./public/images/Hamburger@2x-8cf93ce8ec.png) transparent no-repeat center;
+    background-size: 18px 12px; }
+  .messager-logo {
+    background: url(./public/images/messager2x-b82f657853.png) no-repeat center;
+    background-size: cover; }
+  .search-logo {
+    background: url(./public/images/Search_icon2x-ce39146696.png) no-repeat center;
+    background-size: 18px; }
+  #programms-pic1 {
+    background: url(./public/images/1_2x-b17a3ffa63.png) no-repeat;
+    background-size: cover; }
+  #programms-pic2 {
+    background: url(./public/images/2_2x-f213ea76ca.png) no-repeat;
+    background-size: cover; }
+  #programms-pic3 {
+    background: url(./public/images/4_2x-8aa070a9f6.png) no-repeat;
+    background-size: cover; }
+  #programms-pic4 {
+    background: url(./public/images/4_2x-8aa070a9f6.png) no-repeat;
+    background-size: cover; }
+  #programms-pic5 {
+    background: url(./public/images/5_2x-71ac206b8a.png) no-repeat;
+    background-size: cover; }
+  #programms-pic6 {
+    background: url(./public/images/6_2x-28955543bd.png) no-repeat;
+    background-size: cover; }
+  .programms-gi-arrow {
+    background: url(./public/images/arrow2x-4df9726583.png) no-repeat center;
+    background-size: 18px 12px; }
+  .academy-pic1 {
+    background: url(./public/images/1_2x-db46adc531.png) no-repeat;
+    background-size: cover; }
+  .academy-pic2 {
+    background: url(./public/images/2_2x-6bc69ba7f4.png) no-repeat;
+    background-size: cover; }
+  .academy-pic3 {
+    background: url(./public/images/3_2x-cb05d4d12b.png) no-repeat;
+    background-size: cover; }
+  .academy-pic4 {
+    background: url(./public/images/4_2x-80433f51c4.png) no-repeat;
+    background-size: cover; }
+  .reviews-pic1 {
+    background: url(./public/images/Review1m-acf2cfdedf.jpg) no-repeat;
+    background-size: cover; }
+  .reviews-pic2 {
+    background: url(./public/images/Review2m-acf2cfdedf.jpg) no-repeat;
+    background-size: cover; }
+  .reviews-pic3 {
+    background: url(./public/images/Review3m-acf2cfdedf.jpg) no-repeat;
+    background-size: cover; }
+  .quotes-img {
+    background: url(./public/images/quote_black@2x-d21d731106.png) no-repeat center;
+    background-size: 28px 20px; }
+  #news-pic1 {
+    background: url(./public/images/m1-ad44fe2279.jpg) no-repeat;
+    background-size: cover; }
+  #news-pic2 {
+    background: url(./public/images/m2-ec43118176.jpg) no-repeat;
+    background-size: cover; }
+  #news-pic3 {
+    background: url(./public/images/m3-ec43118176.jpg) no-repeat;
+    background-size: cover; }
+  .footer-phone {
+    background: url(./public/images/ic_call_black_24px@2x-888f4c91f7.png) no-repeat;
+    background-size: cover; }
+  .footer-fax {
+    background: url(./public/images/ic_local_printshop_black_24px@2x-1ee2352d8e.png) no-repeat;
+    background-size: cover; }
+  .footer-mail {
+    background: url(./public/images/ic_email_black_24px@2x-9a6356d598.png) no-repeat;
+    background-size: cover; }
+  .process-spider {
+    background: url(./public/images/Group@2x-ff740e0174.png) no-repeat center;
+    background-size: 902px 500px; }
+  .proc-pic1 {
+    background: url(./public/images/1@2x-85a6303374.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic2 {
+    background: url(./public/images/2@2x-64a7cf9f2d.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic3 {
+    background: url(./public/images/3@2x-84f10fbd3e.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic4 {
+    background: url(./public/images/4@2x-b3f5f1960b.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic5 {
+    background: url(./public/images/5@2x-fe8893ccff.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic6 {
+    background: url(./public/images/6@2x-c8e64b3edd.png) no-repeat center;
+    background-size: contain; }
+  .proc-pic7 {
+    background: url(./public/images/7@2x-b3623f18aa.png) no-repeat center;
+    background-size: contain; } }
+
 /* lg-размер (<=1199px) */
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
@@ -1080,7 +1207,7 @@ body {
   #mobile-btn-up {
     position: fixed;
     right: 0;
-    bottom: 100px;
+    bottom: 15%;
     height: 68px;
     width: 68px;
     background: rgba(255, 255, 255, 0.2);
@@ -1261,7 +1388,9 @@ body {
   #footer .footer-site-map {
     display: inline-block;
     position: relative;
-    float: right; } }
+    float: right; }
+  #footer .footer-bottom {
+    padding-top: 10px; } }
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
@@ -1297,7 +1426,7 @@ body {
     height: auto;
     padding-bottom: 0; }
     #footer .footer-wrapper {
-      padding: 0; }
+      padding-bottom: 48px; }
       #footer .footer-wrapper .footer-block {
         padding-top: 17px; }
         #footer .footer-wrapper .footer-block .footer-logo {
@@ -1346,9 +1475,6 @@ body {
 @media (max-width: 375px) {
   .header-container {
     height: 660px; }
-    .header-container .top-bar .messager-logo,
-    .header-container .top-bar .search-logo {
-      margin: 0; }
     .header-container .header-mobile-content {
       height: 616px; }
       .header-container .header-mobile-content .hs-caption {
@@ -1480,7 +1606,9 @@ body {
     height: auto;
     padding-bottom: 0; }
     #footer .footer-wrapper {
-      padding: 0; }
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 48px; }
       #footer .footer-wrapper .footer-block {
         padding-top: 17px; }
         #footer .footer-wrapper .footer-block .footer-logo {
@@ -1523,139 +1651,11 @@ body {
     #footer #footer-socials,
     #footer #footer-map {
       max-width: 47%; }
-    #footer #footer-socials {
-      margin-left: 15px; }
     #footer #footer-info {
       flex-wrap: wrap; } }
 
 @media (max-width: 370px) {
   #process .process-mobile-content .process-spider .process-step-text {
     font-size: .79em; } }
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  .fixed-right-panel div .fixed-pnl-btn-hover {
-    display: none;
-    background: url(./public/images/fxd-btn-hover-text@2x-87a1983d87.png);
-    background-size: cover; }
-  .fixed-right-panel div .contact-form {
-    background: url(./public/images/Contact-form@2x-d36729ef16.png) no-repeat center;
-    background-size: 32.4px 36px; }
-    .fixed-right-panel div .contact-form:hover {
-      background: url(./public/images/Contact-form-hover@2x-cf82a56d1c.png) no-repeat center;
-      background-size: 32.4px 36px; }
-  .fixed-right-panel div .live-chat {
-    background: url(./public/images/Live-chat@2x-b4a84f2741.png) no-repeat center;
-    background-size: 36px; }
-    .fixed-right-panel div .live-chat:hover {
-      background: url(./public/images/Live-chat-hover@2x-d62cf352ec.png) no-repeat center;
-      background-size: 36px; }
-  .fixed-right-panel div .request-call {
-    background: url(./public/images/Request-call@2x-e8b28a4927.png) no-repeat center;
-    background-size: 32.4px; }
-    .fixed-right-panel div .request-call:hover {
-      background: url(./public/images/Request-call-hover@2x-2d4ff4ec9b.png) no-repeat center;
-      background-size: 32.4px; }
-  .fixed-right-panel div .open-case {
-    background: url(./public/images/Open-case@2x-109a30d073.png) no-repeat center;
-    background-size: 32.4px 36px; }
-    .fixed-right-panel div .open-case:hover {
-      background: url(./public/images/Open-case-hover@2x-22dc412389.png) no-repeat center;
-      background-size: 32.4px 36px; }
-  .mobile-menu-button {
-    background: url(./public/images/Hamburger@2x-8cf93ce8ec.png) transparent no-repeat center;
-    background-size: 18px 12px; }
-  .messager-logo {
-    background: url(./public/images/messager2x-b82f657853.png) no-repeat center;
-    background-size: cover; }
-  .search-logo {
-    background: url(./public/images/Search_icon2x-ce39146696.png) no-repeat center;
-    background-size: 18px; }
-  #programms-pic1 {
-    background: url(./public/images/1_2x-b17a3ffa63.png) no-repeat;
-    background-size: cover; }
-  #programms-pic2 {
-    background: url(./public/images/2_2x-f213ea76ca.png) no-repeat;
-    background-size: cover; }
-  #programms-pic3 {
-    background: url(./public/images/4_2x-8aa070a9f6.png) no-repeat;
-    background-size: cover; }
-  #programms-pic4 {
-    background: url(./public/images/4_2x-8aa070a9f6.png) no-repeat;
-    background-size: cover; }
-  #programms-pic5 {
-    background: url(./public/images/5_2x-71ac206b8a.png) no-repeat;
-    background-size: cover; }
-  #programms-pic6 {
-    background: url(./public/images/6_2x-28955543bd.png) no-repeat;
-    background-size: cover; }
-  .programms-gi-arrow {
-    background: url(./public/images/arrow2x-4df9726583.png) no-repeat center;
-    background-size: 18px 12px; }
-  .academy-pic1 {
-    background: url(./public/images/1_2x-db46adc531.png) no-repeat;
-    background-size: cover; }
-  .academy-pic2 {
-    background: url(./public/images/2_2x-6bc69ba7f4.png) no-repeat;
-    background-size: cover; }
-  .academy-pic3 {
-    background: url(./public/images/3_2x-cb05d4d12b.png) no-repeat;
-    background-size: cover; }
-  .academy-pic4 {
-    background: url(./public/images/4_2x-80433f51c4.png) no-repeat;
-    background-size: cover; }
-  .reviews-pic1 {
-    background: url(./public/images/Review1m-acf2cfdedf.jpg) no-repeat;
-    background-size: cover; }
-  .reviews-pic2 {
-    background: url(./public/images/Review2m-acf2cfdedf.jpg) no-repeat;
-    background-size: cover; }
-  .reviews-pic3 {
-    background: url(./public/images/Review3m-acf2cfdedf.jpg) no-repeat;
-    background-size: cover; }
-  .quotes-img {
-    background: url(./public/images/quote_black@2x-d21d731106.png) no-repeat center;
-    background-size: 28px 20px; }
-  #news-pic1 {
-    background: url(./public/images/m1-ad44fe2279.jpg) no-repeat;
-    background-size: cover; }
-  #news-pic2 {
-    background: url(./public/images/m2-ec43118176.jpg) no-repeat;
-    background-size: cover; }
-  #news-pic3 {
-    background: url(./public/images/m3-ec43118176.jpg) no-repeat;
-    background-size: cover; }
-  .footer-phone {
-    background: url(./public/images/ic_call_black_24px@2x-888f4c91f7.png) no-repeat;
-    background-size: cover; }
-  .footer-fax {
-    background: url(./public/images/ic_local_printshop_black_24px@2x-1ee2352d8e.png) no-repeat;
-    background-size: cover; }
-  .footer-mail {
-    background: url(./public/images/ic_email_black_24px@2x-9a6356d598.png) no-repeat;
-    background-size: cover; }
-  .process-spider {
-    background: url(./public/images/Group@2x-ff740e0174.png) no-repeat center;
-    background-size: 902px 500px; }
-  .proc-pic1 {
-    background: url(./public/images/1@2x-85a6303374.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic2 {
-    background: url(./public/images/2@2x-64a7cf9f2d.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic3 {
-    background: url(./public/images/3@2x-84f10fbd3e.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic4 {
-    background: url(./public/images/4@2x-b3f5f1960b.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic5 {
-    background: url(./public/images/5@2x-fe8893ccff.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic6 {
-    background: url(./public/images/6@2x-c8e64b3edd.png) no-repeat center;
-    background-size: contain; }
-  .proc-pic7 {
-    background: url(./public/images/7@2x-b3623f18aa.png) no-repeat center;
-    background-size: contain; } }
 
 /*# sourceMappingURL=style.css.map*/

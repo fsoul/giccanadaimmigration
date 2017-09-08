@@ -61,7 +61,7 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,18 +69,194 @@ var header = header || {}; header["Window"] =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+function throttle(type, name, obj) {
+    obj = obj || window;
+    var running = false;
+    var func = function () {
+        if (running) {
+            return;
+        }
+        running = true;
+        requestAnimationFrame(function () {
+            obj.dispatchEvent(new CustomEvent(name));
+            running = false;
+        });
+    };
+    obj.addEventListener(type, func);
+}
+
+function toggle(elem) {
+    if (getComputedStyle(elem).display === "none" ||
+        elem.style.display === "none") {
+        elem.style.display = 'block';
+    } else {
+        elem.style.display = 'none';
+    }
+}
+
+module.exports = {
+    throttle: throttle,
+    toggle: toggle
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(0),
+    headerStickingStr = 'headerSticking',
+    headerNormalizeStr = 'headerNormalize';
+
+
+function ListenerElement() {
+    this.element = {};
+}
+
+
+function MenuLogo() {
+    var self = this;
+
+    function init() {
+        self.element = document.querySelector('.menu-logo');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuLogo.prototype = Object.create(ListenerElement.prototype);
+MenuLogo.prototype.constructor = MenuLogo;
+
+MenuLogo.prototype.doUpdateMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.style.background = 'none';
+        this.style.height = '24px';
+        this.style.width = 'auto';
+        this.innerText = 'GIC Canada';
+    }
+};
+
+MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.removeAttribute('style');
+        this.innerText = '';
+    }
+};
+
+
+function MenuPhoneBlock() {
+    var self = this;
+
+    function init () {
+        self.element = document.querySelector('.menu-phone-block');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
+MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
+
+MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+
+function ButtonUp() {
+    var self = this;
+
+    function init () {
+        self.element = document.getElementById('mobile-btn-up');
+        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+        self.element.addEventListener('click', self.doClick);
+    }
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+ButtonUp.prototype = Object.create(ListenerElement.prototype);
+ButtonUp.prototype.constructor = ButtonUp;
+
+ButtonUp.prototype.doUpdateButtonUp = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+ButtonUp.prototype.doClick = function (event) {
+    event.preventDefault();
+    var link = this.querySelector('a');
+    var id = link.getAttribute('href'),
+        top = document.querySelector(id).offsetTop;
+
+    var windowTop = window.pageYOffset;
+    var timerID = setInterval(function () {
+        if (windowTop <= top) {
+            clearInterval(timerID);
+        } else {
+            window.scrollTo(0, windowTop -=50);
+        }
+    }, 10);
+};
+
+module.exports = {
+    menuLogo: new MenuLogo(),
+    menuPhoneBlock: new MenuPhoneBlock(),
+    buttonUp: new ButtonUp()
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function($) {
+
+var StickyMenu = __webpack_require__(4);
+var stickMenu = new StickyMenu();
+var menuLogo = __webpack_require__(1).menuLogo;
+var menuPhoneBlock = __webpack_require__(1).menuPhoneBlock;
+var buttonUp = __webpack_require__(1).buttonUp;
 
 $(document).ready(function () {
 
-    __webpack_require__(2);
-    __webpack_require__(3);
-    __webpack_require__(4);
     __webpack_require__(5);
+    __webpack_require__(6);
+
+    stickMenu.subscribe(menuLogo);
+    stickMenu.subscribe(menuPhoneBlock);
+    stickMenu.subscribe(buttonUp);
+    stickMenu.init();
+
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
+    });
+
+    document.addEventListener('scroll', function () {
+        if (document.body.clientWidth <= 768) {
+            var wrapper = document.querySelector('.footer-wrapper');
+            var bottom = wrapper.offsetTop + wrapper.clientHeight;
+            var widget = document.querySelector('.fixed-right-panel');
+            if(window.pageYOffset + window.innerHeight >= bottom) {
+                widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
+            } else {
+                widget.style.bottom = '0px';
+            }
+        }
+    });
 });
 
 //scss-------------------------------------------
-__webpack_require__(6);
 __webpack_require__(7);
 __webpack_require__(8);
 __webpack_require__(9);
@@ -89,14 +265,15 @@ __webpack_require__(11);
 __webpack_require__(12);
 __webpack_require__(13);
 __webpack_require__(14);
-
-
 __webpack_require__(15);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+__webpack_require__(16);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10356,7 +10533,117 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(0);
+
+function StickyMenu() {
+    this._stuck = false;
+    this._handlers = [];
+    this._headerStickingStr = 'headerSticking';
+    this._headerNormalizeStr = 'headerNormalize';
+}
+
+StickyMenu.prototype.init = function () {
+    this._header = document.getElementById("menu-container");
+    this._stickPoint = this._header.offsetTop;
+    helper.throttle('scroll', this._headerStickingStr, this._header);
+    helper.throttle('scroll', this._headerNormalizeStr, this._header);
+    this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
+    this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
+    this.updateHeaderMenuPos();
+};
+
+StickyMenu.prototype.onHeaderSticking = function (isMobile) {
+    this._header.dispatchEvent(new CustomEvent(this._headerStickingStr, {
+        detail: {
+            isMobile: isMobile,
+            context: this
+        }
+    }));
+};
+
+StickyMenu.prototype.onHeadNormalize = function (isMobile) {
+    this._header.dispatchEvent(new CustomEvent(this._headerNormalizeStr, {
+        detail: {
+            isMobile: isMobile,
+            context: this
+        }
+    }));
+};
+
+StickyMenu.prototype.doHeadSticking = function (event) {
+    var stMenu = event.detail.context;
+    stMenu._header.style.position = 'fixed';
+    stMenu._header.style.top = '0px';
+    stMenu._header.style.marginTop = '0px';
+    stMenu._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
+    stMenu._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
+    stMenu._stuck = true;
+    stMenu.fire(stMenu._headerStickingStr, event.detail.isMobile);
+};
+
+StickyMenu.prototype.doHeaderNormalize = function(event) {
+    var stMenu = event.detail.context;
+    stMenu._header.removeAttribute('style');
+    stMenu._stuck = false;
+
+    stMenu.fire(stMenu._headerNormalizeStr, event.detail.isMobile);
+};
+
+StickyMenu.prototype.updateHeaderMenuPos =  function () {
+    var windowWidth = window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+    var offset = window.pageYOffset;
+    var distance = this._header.offsetTop - offset;
+    var isMobile = windowWidth <= 768;
+
+    if ((distance <= 0) && !this._stuck) {
+        this.onHeaderSticking(isMobile);
+    } else if (this._stuck && (offset <= this._stickPoint)) {
+        this.onHeadNormalize(isMobile);
+    }
+};
+/**
+ * Subscribe ListenerElement on sticking and normalize header
+ * @param {ListenerElement} listener
+ */
+StickyMenu.prototype.subscribe = function (listener) {
+    this._handlers.push(listener);
+    helper.throttle('scroll', this._headerNormalizeStr, listener.element);
+    helper.throttle('scroll', this._headerStickingStr, listener.element);
+};
+
+
+StickyMenu.prototype.unsubscribe = function (elem) {
+    this._handlers.slice(this._handlers.indexOf(elem), 1);
+};
+
+/**
+ * Fire sticking and normalize listeners event
+ * @param {string} eventName
+ * @param {boolean} isMobile
+ */
+StickyMenu.prototype.fire = function (eventName, isMobile) {
+    this._handlers.forEach(function (listener) {
+        listener.element.dispatchEvent(new CustomEvent(eventName, {
+            detail: {
+                isMobile: isMobile
+            }
+        }));
+    });
+};
+
+module.exports = StickyMenu;
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -10432,94 +10719,25 @@ module.exports =
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = (function () {
-
-
-    var h = document.getElementById("menu-container");
-    var menuLogo = h.querySelector('.menu-logo');
-    var menuPhoneBlock = h.querySelector('.menu-phone-block');
-    var stuck = false;
-    var stickPoint = getDistance();
-
-    function getDistance() {
-        return h.offsetTop;
-    }
-
-    function updateHeaderMenuPos(e) {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var offset = window.pageYOffset;
-        var distance = getDistance() - offset;
-
-        if ((distance <= 0) && !stuck) {
-            h.style.position = 'fixed';
-            h.style.top = '0px';
-            h.style.marginTop = '0px';
-            h.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-            h.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
-            stuck = true;
-
-
-            if (windowWidth <= 768) {
-                menuLogo.style.background = 'none';
-                menuLogo.style.height = '24px';
-                menuLogo.style.width = 'auto';
-                menuLogo.innerText = 'GIC Canada';
-
-                menuPhoneBlock.style.display = 'inline-block';
-            }
-        } else if (stuck && (offset <= stickPoint)) {
-            h.removeAttribute('style');
-            stuck = false;
-            if (windowWidth <= 768) {
-                menuLogo.removeAttribute('style');
-                menuLogo.innerText = '';
-
-                menuPhoneBlock.style.display = 'none';
-            }
-        }
-    }
-    document.addEventListener('scroll', updateHeaderMenuPos);
-
-    //on document load
-    updateHeaderMenuPos();
-})();
-
-/***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
+    var helper = __webpack_require__(0);
 
     function onWindowLoadResize () {
         var windowWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
+        var isMobile = windowWidth <= 768;
 
         var programmsItems = document.getElementsByClassName('programms-grid-item');
         var i;
         for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && windowWidth <= 768) {
+            if (i > 2 && isMobile) {
                 programmsItems[i].style.display = 'none';
             } else {
                 programmsItems[i].style.display = 'block';
@@ -10528,18 +10746,18 @@ module.exports =  (function() {
 
         var newsItems = document.getElementsByClassName('news-item');
         for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && windowWidth <= 768) {
+            if (i > 1 && isMobile) {
                 newsItems[i].style.display = 'none';
             } else {
                 newsItems[i].style.display = 'block';
             }
         }
         var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = windowWidth <= 768 ?  'Учебные программы' : 'Учебные программы в Канаде';
+        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
     }
 
     /* init - you can init any event */
-    throttle("resize", "optimizedResize");
+    helper.throttle("resize", "optimizedResize");
 
     // handle event
     window.addEventListener("optimizedResize", onWindowLoadResize);
@@ -10547,78 +10765,6 @@ module.exports =  (function() {
     //on document load
     onWindowLoadResize();
 })();
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports =  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-            requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    var btnUp = document.getElementById('mobile-btn-up');
-    var btnUplink = btnUp.querySelector('a');
-
-    function onBtnUpScrollLoad () {
-        var windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth,
-            scrollTop = window.pageYOffset;
-
-        if (windowWidth <= 768 && scrollTop > 125)  {
-            btnUp.style.display = 'block';
-        } else {
-            btnUp.style.display = 'none';
-        }
-    }
-
-    function onBtnUpClick(event) {
-        event.preventDefault();
-        var id = this.getAttribute('href'),
-            top = document.querySelector(id).offsetTop;
-
-        var windowTop = window.pageYOffset;
-        var timerID = setInterval(function () {
-            if (windowTop <= top) {
-                clearInterval(timerID);
-            } else {
-                window.scrollTo(0, windowTop -=50);
-            }
-        }, 10);
-    }
-
-
-    /* init - you can init any event */
-    throttle("scroll", "scrollLoad", document);
-    throttle("click", "click", btnUplink);
-
-    // handle event
-    document.addEventListener("scrollLoad", onBtnUpScrollLoad);
-    btnUplink.addEventListener("click", onBtnUpClick);
-
-    //on document load
-    onBtnUpScrollLoad();
-})();
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 7 */
@@ -10670,6 +10816,12 @@ module.exports =  (function() {
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

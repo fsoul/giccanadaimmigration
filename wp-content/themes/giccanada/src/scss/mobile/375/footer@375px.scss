@@ -6,7 +6,9 @@ $image-dir: '../images/';
 
   .footer-wrapper {
 
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 48px;
 
     .footer-block {
 
@@ -82,9 +84,6 @@ $image-dir: '../images/';
     max-width: 47%;
   }
 
-  #footer-socials {
-    margin-left: 15px;
-  }
 
   #footer-info {
     flex-wrap: wrap;

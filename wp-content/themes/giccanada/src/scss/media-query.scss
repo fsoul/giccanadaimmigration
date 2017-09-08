@@ -1,136 +1,5 @@
 $image-dir: '../images/';
 
-/* lg-размер (<=1199px) */
-@media (max-width: 1199px) {
-  /* CSS для ширины от 992px до 1199px */
-
-  .top-bar-menu-link {
-    font-size: .9em;
-  }
-
-  .tb-search {
-    font-size: .9em;
-
-    &::placeholder {
-      color: #fff;
-      font-size: .9em;
-    }
-  }
-
-  .academy-slr-item-img {
-    height: 200px;
-  }
-
-  .academy-slr-item-caption {
-    font-size: .75em;
-  }
-
-  .process-spider-top {
-    max-width: 310px;
-  }
-
-  .process-spider {
-    background-size: 701px 357px;
-    width: 701px;
-    height: 357px;
-  }
-
-  .process-text, .process-descr {
-    font-size: 1em;
-  }
-
-  .process-spider-bottom {
-    max-width: 235px;
-  }
-
-  .reviews-reviewer-name,
-  .reviews-reviewer-proc,
-  .reviews-review {
-    width: 100%;
-  }
-
-  .reviews-review {
-    min-height: 170px;
-  }
-
-  .news-gi-text {
-    min-height: 170px;
-  }
-
-  .footer-logo {
-    margin-right: 30px;
-  }
-
-  .footer-contact-link {
-    margin-left: 10px;
-    font-size: 0.9em;
-    height: 18px;
-    line-height: 18px;
-  }
-
-  .footer-phone,
-  .footer-fax,
-  .footer-mail {
-    background-size: 18px 18px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .footer-site-map, .footer-cr {
-    font-size: .8em;
-  }
-}
-
-/* md-размер (<=991px) */
-@media (max-width: 991px) {
-  /* CSS для ширины от 768px до 991px */
-
-  .to-hide {
-    display: none;
-  }
-
-  @import "./mobile/991/header@991px";
-  @import "./mobile/991/academy@991px";
-  @import "./mobile/991/common-info@991px";
-  @import "./mobile/991/process@991px";
-  @import "./mobile/991/reviews@991px";
-  @import "./mobile/991/news@991px";
-  @import "./mobile/991/footer@991px";
-}
-
-/* sm-размер (<=768px) */
-@media (max-width: 768px) {
-  @import "./mobile/768/global@768px";
-  @import "./mobile/768/header@768px";
-  @import "./mobile/768/programms@768px";
-  @import "./mobile/768/academy@768px";
-  @import "./mobile/768/common-info@768px";
-  @import "./mobile/768/reviews@768px";
-  @import "./mobile/768/news@768px";
-  @import "./mobile/768/footer@768px";
-}
-
-/* xs-размер (<=575px) */
-@media (max-width: 575px) {
-  @import "mobile/575/process@575px";
-  @import "mobile/575/reviews@575px";
-  @import "mobile/575/footer@575px";
-}
-
-@media (max-width: 375px) {
-  @import "mobile/375/header@375px";
-  @import "mobile/375/programms@375px";
-  @import "mobile/375/academy@375px";
-  @import "mobile/375/common-info@375px";
-  @import "mobile/375/process@375px";
-  @import "mobile/375/news@375px";
-  @import "mobile/375/footer@375px";
-}
-
-@media (max-width: 370px) {
-  @import "mobile/375/process@370px";
-}
-
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
@@ -344,4 +213,136 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
     background: url($image-dir + "process/2x/7@2x.png") no-repeat center;
     background-size: contain;
   }
+}
+
+
+/* lg-размер (<=1199px) */
+@media (max-width: 1199px) {
+  /* CSS для ширины от 992px до 1199px */
+
+  .top-bar-menu-link {
+    font-size: .9em;
+  }
+
+  .tb-search {
+    font-size: .9em;
+
+    &::placeholder {
+      color: #fff;
+      font-size: .9em;
+    }
+  }
+
+  .academy-slr-item-img {
+    height: 200px;
+  }
+
+  .academy-slr-item-caption {
+    font-size: .75em;
+  }
+
+  .process-spider-top {
+    max-width: 310px;
+  }
+
+  .process-spider {
+    background-size: 701px 357px;
+    width: 701px;
+    height: 357px;
+  }
+
+  .process-text, .process-descr {
+    font-size: 1em;
+  }
+
+  .process-spider-bottom {
+    max-width: 235px;
+  }
+
+  .reviews-reviewer-name,
+  .reviews-reviewer-proc,
+  .reviews-review {
+    width: 100%;
+  }
+
+  .reviews-review {
+    min-height: 170px;
+  }
+
+  .news-gi-text {
+    min-height: 170px;
+  }
+
+  .footer-logo {
+    margin-right: 30px;
+  }
+
+  .footer-contact-link {
+    margin-left: 10px;
+    font-size: 0.9em;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  .footer-phone,
+  .footer-fax,
+  .footer-mail {
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .footer-site-map, .footer-cr {
+    font-size: .8em;
+  }
+}
+
+/* md-размер (<=991px) */
+@media (max-width: 991px) {
+  /* CSS для ширины от 768px до 991px */
+
+  .to-hide {
+    display: none;
+  }
+
+  @import "./mobile/991/header@991px";
+  @import "./mobile/991/academy@991px";
+  @import "./mobile/991/common-info@991px";
+  @import "./mobile/991/process@991px";
+  @import "./mobile/991/reviews@991px";
+  @import "./mobile/991/news@991px";
+  @import "./mobile/991/footer@991px";
+}
+
+/* sm-размер (<=768px) */
+@media (max-width: 768px) {
+  @import "./mobile/768/global@768px";
+  @import "./mobile/768/header@768px";
+  @import "./mobile/768/programms@768px";
+  @import "./mobile/768/academy@768px";
+  @import "./mobile/768/common-info@768px";
+  @import "./mobile/768/reviews@768px";
+  @import "./mobile/768/news@768px";
+  @import "./mobile/768/footer@768px";
+}
+
+/* xs-размер (<=575px) */
+@media (max-width: 575px) {
+  @import "mobile/575/process@575px";
+  @import "mobile/575/reviews@575px";
+  @import "mobile/575/footer@575px";
+}
+
+@media (max-width: 375px) {
+  @import "mobile/375/header@375px";
+  @import "mobile/375/programms@375px";
+  @import "mobile/375/academy@375px";
+  @import "mobile/375/common-info@375px";
+  @import "mobile/375/process@375px";
+  @import "mobile/375/news@375px";
+  @import "mobile/375/footer@375px";
+}
+
+@media (max-width: 370px) {
+  @import "mobile/375/process@370px";
 }

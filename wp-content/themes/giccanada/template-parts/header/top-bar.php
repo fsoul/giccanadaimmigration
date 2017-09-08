@@ -73,7 +73,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
                     <i class="fa fa-phone tb-menu-logo"></i>
-					<a class="top-bar-menu-link white-link-underline" href="tel:03-6738333">03-6738333</a>
+                    <a class="top-bar-menu-link white-link-underline" href="tel:+1647558491">+1647558491</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -81,24 +81,12 @@
 		<li class="nav-item nav-link tb-menu-item">
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
-                    <div class="col">
-                        <div class="row no-gutters">
-                            <div class="col tb-menu-logo skype-logo"></div>
-                        </div>
-                    </div>
+                    <div class="col tb-menu-logo messager-logo"></div>
                     <div class="col-auto tb-menu-border"></div>
-                    <div class="col">
-                        <div class="row no-gutters">
-                            <div class="col tb-menu-logo messager-logo"></div>
-                        </div>
-                    </div>
+                    <i class="col fa fa-skype tb-menu-logo"></i>
                     <div class="col-auto tb-menu-border"></div>
-                    <div class="col">
-                        <div class="row no-gutters">
-                            <div class="col tb-menu-logo search-logo"></div>
-                            <input type="text" class="col tb-search to-hide" placeholder="Поиск">
-                        </div>
-                    </div>
+                    <div class="col tb-menu-logo search-logo"></div>
+                    <input type="text" class="col tb-search to-hide" placeholder="Поиск">
 				</div>
 			</div>
 		</li>
