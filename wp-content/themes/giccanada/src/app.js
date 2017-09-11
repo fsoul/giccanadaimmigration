@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     require('./js/header');
     require('./js/window');
+    require('./js/modal-menu');
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
