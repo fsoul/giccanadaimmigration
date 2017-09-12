@@ -1308,7 +1308,7 @@ body {
       #mobile-modal .modal-dialog .modal-content {
         background: linear-gradient(150.41deg, #3023AE, #C86DD7);
         height: 100%;
-        min-height: 600px; }
+        overflow-y: auto; }
         #mobile-modal .modal-dialog .modal-content .modal-header {
           justify-content: space-between;
           border-bottom: none; }
@@ -1321,48 +1321,48 @@ body {
           #mobile-modal .modal-dialog .modal-content .modal-header #modal-back-arrow {
             font-size: 1.5em;
             visibility: hidden; }
-        #mobile-modal .modal-dialog .modal-content .modal-body {
-          padding-top: 10%; }
-          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list {
-            padding: 0;
-            margin: 0;
-            -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -webkit-align-items: center;
-            -ms-flex-align: center;
-            align-items: center; }
-            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item {
-              text-transform: uppercase;
-              list-style-type: none;
-              color: #fff;
-              font-size: 1em;
-              line-height: 44px;
-              min-width: 173px; }
-              #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul {
-                padding-left: 40px;
-                -webkit-flex-direction: column;
-                -ms-flex-direction: column;
-                flex-direction: column;
-                -webkit-align-items: flex-start;
-                -ms-flex-align: start;
-                align-items: flex-start;
-                display: none; }
-                #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li {
-                  text-transform: none;
-                  list-style-type: none; }
-                  #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a {
-                    font-size: 1em;
-                    color: #fff;
-                    text-decoration: none;
-                    white-space: nowrap;
-                    line-height: 44px; }
-                    #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:visited, #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:link {
-                      text-decoration: none; }
-            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected {
-              width: auto; }
-              #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
-                display: flex; }
+        #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list {
+          padding: 0;
+          margin: 0;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center; }
+          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item {
+            text-transform: uppercase;
+            list-style-type: none;
+            color: #fff;
+            font-size: 1em;
+            line-height: 44px;
+            min-width: 173px; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item:nth-child(n+7) {
+              padding-top: 40px; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul {
+              padding-left: 40px;
+              -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+              flex-direction: column;
+              -webkit-align-items: flex-start;
+              -ms-flex-align: start;
+              align-items: flex-start;
+              display: none; }
+              #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li {
+                text-transform: none;
+                list-style-type: none; }
+                #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a {
+                  font-size: 1em;
+                  color: #fff;
+                  text-decoration: none;
+                  white-space: nowrap;
+                  line-height: 44px; }
+                  #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:visited, #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:link {
+                    text-decoration: none; }
+          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected {
+            width: auto; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
+              display: flex; }
   #programms .programms-caption {
     font-size: 2em;
     line-height: 30px;

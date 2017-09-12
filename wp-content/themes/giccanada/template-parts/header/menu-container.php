@@ -9,7 +9,7 @@
                 <div class="col-8 col-auto align-self-center menu-phone-block">
                     <div class="row no-gutters justify-content-center align-items-center flex-nowrap">
                         <i class="fa fa-phone tb-menu-logo"></i>
-                        <a class="white-link-none" href="tel:+1647558491">+1647558491</a>
+                        <a class="white-link-none" href="tel:+16475584910">+16475584910</a>
                     </div>
                 </div>
                 <div class="col col-auto align-self-center menu">
@@ -129,7 +129,7 @@
     </div>
 </div>
 <script>
-    $('#mobile-modal').on('hidden.bs.modal', function (e) {
+    $('#mobile-modal').on('hidden.bs.modal', function () {
         var li = this.querySelectorAll('li.modal-item');
         for (var i = 0; i < li.length; ++i) {
             li[i].classList.remove('to-hide');
