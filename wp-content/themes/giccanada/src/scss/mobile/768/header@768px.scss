@@ -131,7 +131,7 @@ $image-dir: '../images/';
     .modal-content {
       background: linear-gradient(150.41deg, #3023AE, #C86DD7);
       height: 100%;
-      min-height: 600px;
+      overflow-y: auto;
 
       .modal-header {
         justify-content: space-between;
@@ -152,7 +152,6 @@ $image-dir: '../images/';
       }
 
       .modal-body {
-        padding-top: 10%;
 
         #modal-menu-list {
           padding: 0;
@@ -171,6 +170,10 @@ $image-dir: '../images/';
             font-size: 1em;
             line-height: 44px;
             min-width: 173px;
+
+            &:nth-child(n+7) {
+              padding-top: 40px;
+            }
 
             ul {
               padding-left: 40px;

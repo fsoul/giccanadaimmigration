@@ -8,7 +8,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
                     <i class="fa fa-phone tb-menu-logo"></i>
-					<a class="top-bar-menu-link white-link-underline" href="tel:+1647558491">+1647558491</a>
+					<a class="top-bar-menu-link white-link-underline" href="tel:+16475584910">+16475584910</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 			<div class="container-fluid">
 				<div class="row align-items-center flex-nowrap">
                     <i class="fa fa-phone tb-menu-logo"></i>
-                    <a class="top-bar-menu-link white-link-underline" href="tel:+1647558491">+1647558491</a>
+                    <a class="top-bar-menu-link white-link-underline" href="tel:+16475584910">+16475584910</a>
 					<div class="tb-menu-border"></div>
 				</div>
 			</div>
