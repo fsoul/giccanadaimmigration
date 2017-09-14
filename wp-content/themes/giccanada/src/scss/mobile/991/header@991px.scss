@@ -2,6 +2,23 @@ $image-dir: '../images/';
 
 .header-container {
   .top-bar {
+
+    #tb-socials {
+      padding: 0;
+
+      & > .row {
+        margin: 0;
+
+        & > a {
+          padding: 0;
+        }
+      }
+    }
+
+    a.nav-link.dropdown-toggle {
+      padding-left: 15px;
+    }
+
     .tb-menu-border {
       margin: 0;
     }

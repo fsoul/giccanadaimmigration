@@ -7,7 +7,7 @@ module.exports =  (function() {
         var windowWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
-        var isMobile = windowWidth <= 768;
+        var isMobile = windowWidth <= 575;
 
         var programmsItems = document.getElementsByClassName('programms-grid-item');
         var i;

@@ -27,8 +27,8 @@ $image-dir: '../images/';
 }
 
 .footer-logo {
-  background: url($image-dir + "Logo.png") no-repeat;
-  background-size: 223px 82px;
+  background: url($image-dir + "Logo.png") no-repeat left center;
+  background-size: contain;
   height: 82px;
   width: 223px;
   margin-right: 76px;

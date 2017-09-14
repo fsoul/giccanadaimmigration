@@ -1,0 +1,50 @@
+$image-dir: '../images/';
+
+#news {
+  padding: 30px 0;
+  height: auto;
+
+  .news-caption {
+    font-size: 2em;
+    line-height: 40px;
+    margin-bottom: 0;
+  }
+
+  .news-grid {
+
+    & > .row {
+
+      flex-wrap: wrap;
+
+      .news-item {
+
+        padding-top: 20px;
+
+        .news-gi-image {
+          height: 360px;
+        }
+
+        .news-gi-caption {
+          min-height: unset;
+        }
+
+        .news-gi-text {
+          min-height: unset;
+        }
+
+        .news-gi-link {
+          height: 20px;
+          line-height: 20px;
+          font-size: 1em;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  .news-btn {
+    height: 56px;
+    width: 290px;
+    margin: 30px 0 10px 0;
+  }
+}

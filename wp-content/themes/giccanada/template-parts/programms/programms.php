@@ -4,7 +4,7 @@
     <h2 class="col programms-caption">иммиграционные программы</h2>
 </div>
 <div class="row justify-content-center no-gutters">
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container  programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic1"></a>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic2"></a>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic3"></a>
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic4"></a>
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic5"></a>
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="container programms-grid-item">
             <div class="row no-gutters">
                 <a href="#" class="col programms-gi-image" id="programms-pic6"></a>

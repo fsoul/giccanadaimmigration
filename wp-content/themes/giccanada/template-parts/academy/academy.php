@@ -5,7 +5,7 @@
         <h2 class="col academy-caption">Учебные программы в Канаде</h2>
     </div>
     <div class="row justify-content-center no-gutters">
-        <div class="container">
+        <div class="container-fluid">
             <div id="academy-carousel" class="owl-carousel owl-theme">
                 <div class="item">
                     <div class="academy-slr-item-img academy-pic1">
@@ -155,9 +155,6 @@
                             items: 1
                         },
                         576: {
-                            items: 2
-                        },
-                        768: {
                             items: 3
                         },
                         1200: {
