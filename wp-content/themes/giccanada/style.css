@@ -1613,10 +1613,8 @@ body {
   #programms .programms-caption {
     font-size: 1.5em;
     margin-bottom: 0; }
-  #programms .programms-grid-item {
-    height: 380px; }
-    #programms .programms-grid-item .programms-gi-image {
-      height: 220px; }
+  #programms .programms-grid-item .programms-gi-image {
+    height: 220px; }
   #programms .orange-btn {
     margin-bottom: 0; }
   #academy-container {
