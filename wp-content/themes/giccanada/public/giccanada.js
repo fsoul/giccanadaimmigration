@@ -244,15 +244,17 @@ $(document).ready(function () {
     });
 
     document.addEventListener('scroll', function () {
-        if (document.body.clientWidth <= 768) {
-            var wrapper = document.querySelector('.footer-wrapper');
-            var bottom = wrapper.offsetTop + wrapper.clientHeight;
-            var widget = document.querySelector('.fixed-right-panel');
+        var wrapper = document.querySelector('.footer-wrapper');
+        var bottom = wrapper.offsetTop + wrapper.clientHeight;
+        var widget = document.querySelector('.fixed-right-panel');
+        if (document.body.clientWidth <= 575) {
             if(window.pageYOffset + window.innerHeight >= bottom) {
                 widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
             } else {
                 widget.style.bottom = '0px';
             }
+        } else {
+            widget.removeAttribute('style');
         }
     });
 });
@@ -10602,7 +10604,7 @@ StickyMenu.prototype.updateHeaderMenuPos =  function () {
         || document.body.clientWidth;
     var offset = window.pageYOffset;
     var distance = this._header.offsetTop - offset;
-    var isMobile = windowWidth <= 768;
+    var isMobile = windowWidth <= 575;
 
     if ((distance <= 0) && !this._stuck) {
         this.onHeaderSticking(isMobile);
@@ -10733,7 +10735,7 @@ module.exports =  (function() {
         var windowWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
-        var isMobile = windowWidth <= 768;
+        var isMobile = windowWidth <= 575;
 
         var programmsItems = document.getElementsByClassName('programms-grid-item');
         var i;

@@ -194,7 +194,7 @@ body {
 /*menu*/
 #menu-container {
   margin-top: 14px;
-  padding: 10px 0;
+  padding: 20px 0;
   position: absolute;
   z-index: 20; }
   #menu-container .mobile-menu-button {
@@ -206,8 +206,8 @@ body {
       line-height: 16px; }
 
 .menu-logo {
-  background: url(./public/images/Logo-f6c4044548.png) no-repeat;
-  background-size: 223px 82px;
+  background: url(./public/images/Logo-3f7ab697b9.png) no-repeat left center;
+  background-size: contain;
   height: 82px;
   width: 223px;
   margin-right: 10px; }
@@ -684,6 +684,14 @@ body {
 /*images end-----------------*/
 /*reviews end----------------------------------------*/
 /*news--------------------------------------------*/
+.news-grid > .row {
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center; }
+
+.news-item {
+  max-width: 370px; }
+
 .news-caption {
   height: 56px;
   text-align: center;
@@ -779,8 +787,8 @@ body {
   height: 64px; }
 
 .footer-logo {
-  background: url(./public/images/Logo-f6c4044548.png) no-repeat;
-  background-size: 223px 82px;
+  background: url(./public/images/Logo-3f7ab697b9.png) no-repeat left center;
+  background-size: contain;
   height: 82px;
   width: 223px;
   margin-right: 76px;
@@ -1005,8 +1013,6 @@ body {
     width: 100%; }
   .reviews-review {
     min-height: 170px; }
-  .news-gi-text {
-    min-height: 170px; }
   .footer-logo {
     margin-right: 30px; }
   .footer-contact-link {
@@ -1028,6 +1034,14 @@ body {
   /* CSS для ширины от 768px до 991px */
   .to-hide {
     display: none; }
+  .header-container .top-bar #tb-socials {
+    padding: 0; }
+    .header-container .top-bar #tb-socials > .row {
+      margin: 0; }
+      .header-container .top-bar #tb-socials > .row > a {
+        padding: 0; }
+  .header-container .top-bar a.nav-link.dropdown-toggle {
+    padding-left: 15px; }
   .header-container .top-bar .tb-menu-border {
     margin: 0; }
   .header-container .top-bar .tb-menu-logo {
@@ -1104,30 +1118,33 @@ body {
     padding: 30px 0;
     height: auto; }
     #news .news-caption {
-      margin: 0; }
-    #news .news-gi-image {
-      height: 160px; }
+      margin-top: 0;
+      margin-bottom: 40px; }
+    #news .news-grid > .row {
+      flex-wrap: nowrap;
+      overflow-x: hidden;
+      justify-content: flex-start;
+      -webkit-justify-content: flex-start;
+      -ms-flex-pack: start; }
+      #news .news-grid > .row .news-item {
+        max-width: none; }
+        #news .news-grid > .row .news-item .news-gi-image {
+          max-width: none;
+          height: 360px; }
     #news .news-gi-caption {
-      line-height: 16px;
-      font-size: 1em;
+      line-height: 30px;
+      font-size: 1.5em;
       min-height: 60px; }
     #news .news-gi-text {
-      line-height: 16px;
-      min-height: 115px;
-      font-size: .8em;
+      line-height: 20px;
+      min-height: 90px;
+      font-size: 1em;
       margin-top: 5px; }
     #news .news-gi-link {
-      height: 16px;
-      line-height: 16px;
-      font-size: .7em;
+      height: 20px;
+      line-height: 20px;
+      font-size: 1em;
       margin-top: 10px; }
-    #news .news-gi-arrow {
-      width: 18px;
-      height: 16px;
-      background: url(./public/images/arrow-473d65fe8b.png) no-repeat center;
-      background-size: 18px 12px;
-      margin-top: 10px;
-      margin-left: 15px; }
   #footer .footer-text {
     font-size: .7em;
     line-height: 24px; }
@@ -1154,7 +1171,129 @@ body {
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
-  /*fixed right panel ---------------------------*/
+  .header-container {
+    height: auto; }
+  #menu-container {
+    margin: 0; }
+    #menu-container .menu-row {
+      padding: 0 15px; }
+      #menu-container .menu-row .menu-logo {
+        background-size: contain;
+        height: 61px;
+        width: 115px;
+        margin: 0;
+        color: #fff;
+        font-size: 1em;
+        line-height: 24px; }
+      #menu-container .menu-row .menu-link {
+        padding: 0 7px; }
+  .carousel-div #header-carousel .item {
+    padding-top: 40%;
+    padding-bottom: 50%; }
+  .carousel-div #header-carousel .owl-dots {
+    position: relative;
+    top: -110px; }
+  .hs-item {
+    width: 570px; }
+  .hs-caption, .hs-content,
+  .hs-item-button {
+    color: #fff;
+    text-align: center; }
+  .hs-caption {
+    font-size: 3.5em;
+    line-height: 64px;
+    text-transform: uppercase;
+    letter-spacing: .75px; }
+  .hs-content {
+    padding-top: 40px;
+    line-height: 24px;
+    font-size: 1.25em; }
+  .hs-item-button {
+    width: 190px;
+    height: 56px;
+    margin-top: 60px; }
+    .hs-item-button:visited, .hs-item-button:link {
+      text-decoration: none; }
+  .hs-indicators {
+    position: relative;
+    top: -60px; }
+  #programms {
+    max-width: none !important; }
+    #programms .programms-grid-item {
+      height: auto; }
+    #programms .programms-caption {
+      font-size: 2em;
+      line-height: 30px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      height: auto;
+      width: auto; }
+    #programms .programms-grid-item {
+      margin-top: 0;
+      margin-bottom: 20px;
+      max-height: none; }
+      #programms .programms-grid-item .programms-gi-image {
+        height: 210px; }
+      #programms .programms-grid-item .programms-gi-text {
+        margin: 0;
+        line-height: 19px;
+        font-size: 1em; }
+      #programms .programms-grid-item .programms-gi-link {
+        margin: 0; }
+  #academy-carousel {
+    margin-top: 30px; }
+  .academy .academy-caption {
+    font-size: 2em;
+    line-height: 40px; }
+  .academy .academy-slr-item-caption {
+    font-size: 0.6em; }
+  #common-info {
+    padding: 30px 15px; }
+    #common-info .common-info-caption {
+      height: auto;
+      line-height: 40px;
+      font-size: 2.5em;
+      margin: 0;
+      padding-bottom: 30px; }
+    #common-info .common-info-vid {
+      height: 290px;
+      margin: 0;
+      width: 90%; }
+  #reviews .container {
+    max-width: none !important; }
+  #reviews .reviews-image {
+    height: 280px; }
+  #reviews .reviews-reviewer-proc {
+    min-height: 72px; }
+  #reviews .reviews-review {
+    min-height: 230px; }
+  #news {
+    padding: 30px 0;
+    height: auto; }
+    #news .news-caption {
+      font-size: 2em;
+      line-height: 40px;
+      margin-bottom: 0; }
+    #news .news-grid > .row .news-item {
+      padding-top: 20px; }
+      #news .news-grid > .row .news-item .news-gi-image {
+        height: 268px;
+        max-width: none; }
+    #news .news-btn {
+      height: 56px;
+      width: 290px;
+      margin: 30px 0 10px 0; }
+  #footer .footer-logo {
+    height: 62px; }
+  #footer .footer-site-map {
+    display: inline-block;
+    position: relative;
+    float: right; }
+  #footer .footer-bottom {
+    padding-top: 10px; } }
+
+/* xs-размер (<=575px) */
+@media (max-width: 575px) {
   .fixed-right-panel {
     position: fixed;
     width: 192px;
@@ -1222,7 +1361,6 @@ body {
       width: 48px;
       border-radius: 48px;
       background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
-  /*fixed right panel end -----------------------*/
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {
@@ -1245,13 +1383,6 @@ body {
     #menu-container .menu-row {
       padding: 0 15px; }
       #menu-container .menu-row .menu-logo {
-        background-size: contain;
-        height: 61px;
-        width: 167px;
-        margin: 0;
-        color: #fff;
-        font-size: 1em;
-        line-height: 24px;
         order: 1; }
       #menu-container .menu-row .menu-phone-block {
         order: 2; }
@@ -1363,104 +1494,14 @@ body {
             width: auto; }
             #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
               display: flex; }
-  #programms .programms-caption {
-    font-size: 2em;
-    line-height: 30px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    height: auto;
-    width: auto; }
-  #programms .programms-grid-item {
-    margin-top: 0;
-    margin-bottom: 20px;
-    max-height: none; }
-    #programms .programms-grid-item .programms-gi-image {
-      height: 304px; }
-    #programms .programms-grid-item .programms-gi-text {
-      margin: 0;
-      line-height: 19px;
-      font-size: 1em; }
-    #programms .programms-grid-item .programms-gi-link {
-      margin: 0; }
+  #programms .programms-grid-item .programms-gi-image {
+    height: 305px; }
   #programms .orange-btn {
     display: block;
     width: 345px;
     height: 48px;
     line-height: 48px;
     margin: 30px 0; }
-  #academy-carousel {
-    margin-top: 30px; }
-  .academy .academy-caption {
-    font-size: 2em;
-    line-height: 40px; }
-  .academy .academy-slr-item-caption {
-    font-size: 0.6em; }
-  #common-info {
-    padding: 30px 15px; }
-    #common-info .common-info-caption {
-      height: auto;
-      line-height: 40px;
-      font-size: 2.5em;
-      margin: 0;
-      padding-bottom: 30px; }
-    #common-info .common-info-vid {
-      height: 290px;
-      margin: 0;
-      width: 90%; }
-  #reviews .reviews-image {
-    height: 190px; }
-  #reviews .reviews-reviewer-proc {
-    min-height: 72px; }
-  #reviews .reviews-review {
-    min-height: 230px; }
-  #news {
-    padding: 30px 0;
-    height: auto; }
-    #news .news-caption {
-      font-size: 2em;
-      line-height: 40px; }
-    #news .news-item {
-      padding-top: 20px; }
-      #news .news-item .news-gi-image {
-        height: 385px;
-        max-width: none; }
-      #news .news-item .news-gi-caption {
-        line-height: 16px;
-        font-size: 1em;
-        min-height: 32px; }
-      #news .news-item .news-gi-text {
-        line-height: 16px;
-        min-height: unset;
-        font-size: .8em;
-        margin-top: 5px; }
-      #news .news-item .news-gi-link {
-        height: 16px;
-        line-height: 16px;
-        font-size: .7em;
-        margin-top: 10px; }
-      #news .news-item .news-gi-arrow {
-        width: 18px;
-        height: 16px;
-        background: url(./public/images/arrow-473d65fe8b.png) no-repeat center;
-        background-size: 18px 12px;
-        margin-top: 10px;
-        margin-left: 15px; }
-    #news .news-btn {
-      height: 56px;
-      width: 290px;
-      margin: 30px 0 10px 0; }
-  #footer .footer-logo {
-    height: 62px;
-    background-size: 120px 50px; }
-  #footer .footer-site-map {
-    display: inline-block;
-    position: relative;
-    float: right; }
-  #footer .footer-bottom {
-    padding-top: 10px; } }
-
-/* xs-размер (<=575px) */
-@media (max-width: 575px) {
   #process .process-img {
     width: 90px;
     height: 90px; }
@@ -1477,10 +1518,10 @@ body {
         padding-left: 0;
         padding-right: 0; }
     #reviews .reviews-image {
-      height: 261px; }
+      height: 387px; }
     #reviews .reviews-reviewer-proc, #reviews .reviews-review {
       width: auto;
-      min-height: auto; }
+      min-height: unset; }
     #reviews #reviews-carousel .owl-dots {
       padding-top: 0; }
     #reviews .reviews-caption {
@@ -1489,6 +1530,32 @@ body {
       font-size: 1.5em;
       margin: 0;
       padding-bottom: 20px; }
+  #news {
+    padding: 30px 0;
+    height: auto; }
+    #news .news-caption {
+      font-size: 2em;
+      line-height: 40px;
+      margin-bottom: 0; }
+    #news .news-grid > .row {
+      flex-wrap: wrap; }
+      #news .news-grid > .row .news-item {
+        padding-top: 20px; }
+        #news .news-grid > .row .news-item .news-gi-image {
+          height: 360px; }
+        #news .news-grid > .row .news-item .news-gi-caption {
+          min-height: unset; }
+        #news .news-grid > .row .news-item .news-gi-text {
+          min-height: unset; }
+        #news .news-grid > .row .news-item .news-gi-link {
+          height: 20px;
+          line-height: 20px;
+          font-size: 1em;
+          margin-top: 10px; }
+    #news .news-btn {
+      height: 56px;
+      width: 290px;
+      margin: 30px 0 10px 0; }
   #footer {
     height: auto;
     padding-bottom: 0; }
@@ -1496,9 +1563,6 @@ body {
       padding-bottom: 48px; }
       #footer .footer-wrapper .footer-block {
         padding-top: 17px; }
-        #footer .footer-wrapper .footer-block .footer-logo {
-          height: 62px;
-          background-size: 168px 62px; }
         #footer .footer-wrapper .footer-block .footer-item {
           width: 100%; }
           #footer .footer-wrapper .footer-block .footer-item:nth-child(1) {
@@ -1660,10 +1724,14 @@ body {
       margin: 0; }
     #process .process-btn {
       margin-top: 0; }
+  #reviews .reviews-image {
+    height: 280px; }
   #news .news-grid {
     padding-bottom: 30px; }
-    #news .news-grid .news-item .news-gi-image {
-      height: 250px; }
+    #news .news-grid > .row .news-item {
+      padding-top: 20px; }
+      #news .news-grid > .row .news-item .news-gi-image {
+        height: 268px; }
   #news .news-btn {
     height: 48px;
     line-height: 48px;
@@ -1678,9 +1746,6 @@ body {
       padding-bottom: 48px; }
       #footer .footer-wrapper .footer-block {
         padding-top: 17px; }
-        #footer .footer-wrapper .footer-block .footer-logo {
-          height: 62px;
-          background-size: 168px 62px; }
         #footer .footer-wrapper .footer-block .footer-item {
           width: 100%; }
           #footer .footer-wrapper .footer-block .footer-item:nth-child(1) {

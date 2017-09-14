@@ -1,6 +1,6 @@
 <?php ?>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row align-items-center no-gutters footer-bottom">
 		<div class="col-sm-6 col-md-3" id="footer-socials">
 			<!--footer-socials-->

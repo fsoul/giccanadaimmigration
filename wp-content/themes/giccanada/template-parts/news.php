@@ -4,9 +4,9 @@
     <h2 class="col news-caption">Новости</h2>
 </div>
 <div class="row justify-content-center no-gutters">
-    <div class="container news-grid">
+    <div class="container-fluid news-grid">
         <div class="row">
-            <div class="col-sm-12 col-md-4 col-lg news-item">
+            <div class="col-12 col-sm-6 col-lg-4 news-item">
                 <div class="row no-gutters">
                     <a href="#" class="col news-gi-image" id="news-pic1"></a>
                 </div>
@@ -23,7 +23,7 @@
                     <a href="#" class="col-auto news-gi-link">Подробнее</a>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg news-item">
+            <div class="col-12 col-sm-6 col-lg-4 news-item">
                 <div class="row no-gutters">
                     <a href="#" class="col news-gi-image" id="news-pic2"></a>
                 </div>
@@ -40,7 +40,7 @@
                     <a href="#" class="col-auto news-gi-link">Подробнее</a>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg news-item">
+            <div class="col-12 col-sm-6 col-lg-4 news-item">
                 <div class="row no-gutters">
                     <a href="#" class="col news-gi-image" id="news-pic3"></a>
                 </div>

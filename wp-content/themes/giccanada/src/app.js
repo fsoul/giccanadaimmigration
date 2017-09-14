@@ -22,15 +22,17 @@ $(document).ready(function () {
     });
 
     document.addEventListener('scroll', function () {
-        if (document.body.clientWidth <= 768) {
-            var wrapper = document.querySelector('.footer-wrapper');
-            var bottom = wrapper.offsetTop + wrapper.clientHeight;
-            var widget = document.querySelector('.fixed-right-panel');
+        var wrapper = document.querySelector('.footer-wrapper');
+        var bottom = wrapper.offsetTop + wrapper.clientHeight;
+        var widget = document.querySelector('.fixed-right-panel');
+        if (document.body.clientWidth <= 575) {
             if(window.pageYOffset + window.innerHeight >= bottom) {
                 widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
             } else {
                 widget.style.bottom = '0px';
             }
+        } else {
+            widget.removeAttribute('style');
         }
     });
 });

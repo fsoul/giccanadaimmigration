@@ -1,6 +1,20 @@
 $image-dir: '../images/';
 
 /*news--------------------------------------------*/
+
+
+.news-grid {
+  & > .row {
+    justify-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+  }
+}
+
+.news-item {
+  max-width: 370px;
+}
+
 .news-caption {
   height: 56px;
   text-align: center;

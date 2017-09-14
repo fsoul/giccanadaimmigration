@@ -1,6 +1,6 @@
 <?php ?>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row no-gutters align-items-start footer-block">
 		<div class="col-12 col-sm-3">
 			<a href="#" class="footer-logo"></a>

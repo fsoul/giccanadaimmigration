@@ -269,10 +269,6 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
     min-height: 170px;
   }
 
-  .news-gi-text {
-    min-height: 170px;
-  }
-
   .footer-logo {
     margin-right: 30px;
   }
@@ -316,7 +312,6 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
-  @import "./mobile/768/global@768px";
   @import "./mobile/768/header@768px";
   @import "./mobile/768/programms@768px";
   @import "./mobile/768/academy@768px";
@@ -328,8 +323,12 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
+  @import "./mobile/575/global@575px";
+  @import "mobile/575/header@575px";
+  @import "mobile/575/programms@575px";
   @import "mobile/575/process@575px";
   @import "mobile/575/reviews@575px";
+  @import "mobile/575/news@575px";
   @import "mobile/575/footer@575px";
 }
 
@@ -339,6 +338,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
   @import "mobile/375/academy@375px";
   @import "mobile/375/common-info@375px";
   @import "mobile/375/process@375px";
+  @import "mobile/375/reviews@375px";
   @import "mobile/375/news@375px";
   @import "mobile/375/footer@375px";
 }

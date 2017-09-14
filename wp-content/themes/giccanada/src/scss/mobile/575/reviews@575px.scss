@@ -18,12 +18,12 @@ $image-dir: '../images/';
     }
 
     .reviews-image {
-      height: 261px;
+      height: 387px;
     }
 
     .reviews-reviewer-proc, .reviews-review {
       width: auto;
-      min-height: auto;
+      min-height: unset;
     }
 
     #reviews-carousel {

@@ -1,13 +1,18 @@
-$image-dir: '../images/';
-
 #news {
 
   .news-grid {
+
     padding-bottom: 30px;
 
-    .news-item {
-      .news-gi-image {
-        height: 250px;
+    & > .row {
+
+      .news-item {
+
+        padding-top: 20px;
+
+        .news-gi-image {
+          height: 268px;
+        }
       }
     }
   }

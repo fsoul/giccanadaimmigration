@@ -1,5 +1,11 @@
 #programms {
 
+  max-width: none !important;
+
+  .programms-grid-item {
+    height: auto;
+  }
+
   .programms-caption {
     font-size: 2em;
     line-height: 30px;
@@ -15,7 +21,7 @@
     max-height: none;
 
     .programms-gi-image {
-      height: 304px;
+      height: 210px;
     }
 
     .programms-gi-text {
@@ -27,13 +33,5 @@
     .programms-gi-link {
       margin: 0;
     }
-  }
-
-  .orange-btn {
-    display: block;
-    width: 345px;
-    height: 48px;
-    line-height: 48px;
-    margin: 30px 0;
   }
 }

@@ -1,6 +1,11 @@
 #reviews {
+
+  .container {
+    max-width: none !important;
+  }
+
   .reviews-image {
-    height: 190px;
+    height: 280px;
   }
 
   .reviews-reviewer-proc {
