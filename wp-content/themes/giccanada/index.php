@@ -8,7 +8,7 @@
 	        <?php get_template_part( 'template-parts/header/header-slider'); ?>
         </div>
     </div> <!--header-container end-->
-    <div class="container-fluid" id="programms"> <!--programms-->
+    <div class="container" id="programms"> <!--programms-->
 	    <?php get_template_part( 'template-parts/programms/programms'); ?>
     </div> <!--programms end-->
     <div class="container-fluid" id="academy-container"><!--academy-->

@@ -1,4 +1,9 @@
 #reviews {
+
+  .container {
+    max-width: none !important;
+  }
+
   .reviews-image {
     height: 280px;
   }

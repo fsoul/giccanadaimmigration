@@ -3,7 +3,7 @@
     <h2 class="col reviews-caption">ОТЗЫВЫ</h2>
 </div>
 <div class="row justify-content-center">
-    <div class="container-fluid">
+    <div class="container">
         <div id="reviews-carousel" class="owl-carousel owl-theme">
             <div class="item">
                 <div class="d-block">

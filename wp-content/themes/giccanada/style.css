@@ -684,6 +684,14 @@ body {
 /*images end-----------------*/
 /*reviews end----------------------------------------*/
 /*news--------------------------------------------*/
+.news-grid > .row {
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center; }
+
+.news-item {
+  max-width: 370px; }
+
 .news-caption {
   height: 56px;
   text-align: center;
@@ -1114,10 +1122,15 @@ body {
       margin-bottom: 40px; }
     #news .news-grid > .row {
       flex-wrap: nowrap;
-      overflow-x: hidden; }
-      #news .news-grid > .row .news-item .news-gi-image {
-        max-width: none;
-        height: 360px; }
+      overflow-x: hidden;
+      justify-content: flex-start;
+      -webkit-justify-content: flex-start;
+      -ms-flex-pack: start; }
+      #news .news-grid > .row .news-item {
+        max-width: none; }
+        #news .news-grid > .row .news-item .news-gi-image {
+          max-width: none;
+          height: 360px; }
     #news .news-gi-caption {
       line-height: 30px;
       font-size: 1.5em;
@@ -1204,27 +1217,29 @@ body {
   .hs-indicators {
     position: relative;
     top: -60px; }
-  #programms .programms-grid-item {
-    height: auto; }
-  #programms .programms-caption {
-    font-size: 2em;
-    line-height: 30px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    height: auto;
-    width: auto; }
-  #programms .programms-grid-item {
-    margin-top: 0;
-    margin-bottom: 20px;
-    max-height: none; }
-    #programms .programms-grid-item .programms-gi-image {
-      height: 210px; }
-    #programms .programms-grid-item .programms-gi-text {
-      margin: 0;
-      line-height: 19px;
-      font-size: 1em; }
-    #programms .programms-grid-item .programms-gi-link {
-      margin: 0; }
+  #programms {
+    max-width: none !important; }
+    #programms .programms-grid-item {
+      height: auto; }
+    #programms .programms-caption {
+      font-size: 2em;
+      line-height: 30px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      height: auto;
+      width: auto; }
+    #programms .programms-grid-item {
+      margin-top: 0;
+      margin-bottom: 20px;
+      max-height: none; }
+      #programms .programms-grid-item .programms-gi-image {
+        height: 210px; }
+      #programms .programms-grid-item .programms-gi-text {
+        margin: 0;
+        line-height: 19px;
+        font-size: 1em; }
+      #programms .programms-grid-item .programms-gi-link {
+        margin: 0; }
   #academy-carousel {
     margin-top: 30px; }
   .academy .academy-caption {
@@ -1244,6 +1259,8 @@ body {
       height: 290px;
       margin: 0;
       width: 90%; }
+  #reviews .container {
+    max-width: none !important; }
   #reviews .reviews-image {
     height: 280px; }
   #reviews .reviews-reviewer-proc {
@@ -1477,6 +1494,8 @@ body {
             width: auto; }
             #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
               display: flex; }
+  #programms .programms-grid-item .programms-gi-image {
+    height: 305px; }
   #programms .orange-btn {
     display: block;
     width: 345px;

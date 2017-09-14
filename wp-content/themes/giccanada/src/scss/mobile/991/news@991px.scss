@@ -15,8 +15,13 @@ $image-dir: '../images/';
     & > .row {
       flex-wrap: nowrap;
       overflow-x: hidden;
+      justify-content: flex-start;
+      -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
 
       .news-item {
+        max-width: none;
+
         .news-gi-image {
           max-width: none;
           height: 360px;
