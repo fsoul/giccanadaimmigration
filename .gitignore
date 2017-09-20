@@ -3,3 +3,4 @@ wp-config.php
 node_modules
 npm-debug.log
 wp-content/languages
+wp-content/cache
