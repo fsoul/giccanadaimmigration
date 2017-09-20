@@ -4,3 +4,4 @@ node_modules
 npm-debug.log
 wp-content/languages
 wp-content/cache
+wp-content/plugins
