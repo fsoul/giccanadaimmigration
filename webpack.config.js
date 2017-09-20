@@ -2,9 +2,10 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 const themePath = 'wp-content/themes/giccanada';
+const isDev = false;
 
 module.exports = {
-    devtool: "source-map",
+    devtool: isDev ? "source-map" : false,
     entry: './' + themePath + '/src/app.js',
     output: {
         path: path.resolve(__dirname, themePath + '/public'),
@@ -15,14 +16,25 @@ module.exports = {
         ],
         publicPath: "./public/"
     },
+    watch: isDev,
     module: {
+
         rules: [
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
+                    use: [{
+                        loader : 'css-loader',
+                        options: {
+                            minimize: !isDev
+                        }
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
+
+
             },
             {
                 test: /\.png|\.jpg$/,
@@ -47,3 +59,23 @@ module.exports = {
         })
     ]
 };
+
+if (!isDev) {
+    module.exports.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            compress: {
+                warnings: false, // Suppress uglification warnings
+                pure_getters: true,
+                unsafe: true,
+                unsafe_comps: true,
+                screw_ie8: true
+            },
+            output: {
+                comments: false
+            },
+            sourceMap: true,
+            exclude: [/\.min\.js$/gi] // skip pre-minified libs
+        })
+    );
+}
