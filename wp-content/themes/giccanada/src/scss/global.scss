@@ -54,25 +54,31 @@ body {
   }
 }
 
-.owl-theme .owl-dots {
-  .owl-dot {
-    span {
-      background: #fff;
-      opacity: .5;
+.owl-theme {
 
-      &:hover {
-        background: #fff;
-        opacity: 1;
-      }
-    }
+  cursor: pointer;
 
-    &.active {
+  .owl-dots {
+    .owl-dot {
       span {
         background: #fff;
-        opacity: 1;
+        opacity: .5;
+
+        &:hover {
+          background: #fff;
+          opacity: 1;
+        }
+      }
+
+      &.active {
+        span {
+          background: #fff;
+          opacity: 1;
+        }
       }
     }
   }
+
 }
 
 /*fixed right panel ---------------------------*/
