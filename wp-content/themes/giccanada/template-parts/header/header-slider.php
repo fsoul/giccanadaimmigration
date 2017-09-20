@@ -67,14 +67,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $("#header-carousel").owlCarousel({
-                    autoPlay: true,
-                    loop: true,
-                    dots: true,
-                    items: 1
-                });
-            </script>
         </div>
 	</div>
 </div> <!--header slider-->

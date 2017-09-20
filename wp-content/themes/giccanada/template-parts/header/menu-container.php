@@ -128,14 +128,3 @@
         </div>
     </div>
 </div>
-<script>
-    $('#mobile-modal').on('hidden.bs.modal', function () {
-        var li = this.querySelectorAll('li.modal-item');
-        for (var i = 0; i < li.length; ++i) {
-            li[i].classList.remove('to-hide');
-            li[i].classList.remove('modal-inspected');
-        }
-        var backArrow = document.getElementById('modal-back-arrow');
-        backArrow.style.visibility = 'hidden';
-    });
-</script>
