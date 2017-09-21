@@ -1,5 +1,8 @@
 $image-dir: '../images/';
 
+@import '~bootstrap/dist/css/bootstrap';
+@import 'owl.carousel/owl.carousel';
+@import 'owl.carousel/owl.theme.default';
 @import "font-awesome/font-awesome";
 
 @font-face {

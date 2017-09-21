@@ -61,7 +61,7 @@ var header = header || {}; header["Window"] =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10366,131 +10366,18 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-var helper = __webpack_require__(1),
-    headerStickingStr = 'headerSticking',
-    headerNormalizeStr = 'headerNormalize';
-
-
-function ListenerElement() {
-    this.element = {};
-}
-
-
-function MenuLogo() {
-    var self = this;
-
-    function init() {
-        self.element = document.querySelector('.menu-logo');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
-        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-MenuLogo.prototype = Object.create(ListenerElement.prototype);
-MenuLogo.prototype.constructor = MenuLogo;
-
-MenuLogo.prototype.doUpdateMenuLogo = function (event) {
-    if (event.detail.isMobile) {
-        this.style.background = 'none';
-        this.style.height = '24px';
-        this.style.width = 'auto';
-        this.innerText = 'GIC Canada';
-    }
-};
-
-MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
-    if (event.detail.isMobile) {
-        this.removeAttribute('style');
-        this.innerText = '';
-    }
-};
-
-
-function MenuPhoneBlock() {
-    var self = this;
-
-    function init () {
-        self.element = document.querySelector('.menu-phone-block');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
-MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
-
-MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
-    if (event.detail.isMobile) {
-        helper.toggle(this);
-    }
-};
-
-
-function ButtonUp() {
-    var self = this;
-
-    function init () {
-        self.element = document.getElementById('mobile-btn-up');
-        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
-        self.element.addEventListener('click', self.doClick);
-    }
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-ButtonUp.prototype = Object.create(ListenerElement.prototype);
-ButtonUp.prototype.constructor = ButtonUp;
-
-ButtonUp.prototype.doUpdateButtonUp = function (event) {
-    if (event.detail.isMobile) {
-        helper.toggle(this);
-    }
-};
-
-ButtonUp.prototype.doClick = function (event) {
-    event.preventDefault();
-    var link = this.querySelector('a');
-    var id = link.getAttribute('href'),
-        top = document.querySelector(id).offsetTop;
-
-    var windowTop = window.pageYOffset;
-    var timerID = setInterval(function () {
-        if (windowTop <= top) {
-            clearInterval(timerID);
-        } else {
-            window.scrollTo(0, windowTop -=50);
-        }
-    }, 10);
-};
-
-module.exports = {
-    menuLogo: new MenuLogo(),
-    menuPhoneBlock: new MenuPhoneBlock(),
-    buttonUp: new ButtonUp()
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
+__webpack_require__(3);
 __webpack_require__(4);
-__webpack_require__(5);
 
 
-var StickyMenu = __webpack_require__(7);
+var StickyMenu = __webpack_require__(6);
 var stickMenu = new StickyMenu();
-var menuLogo = __webpack_require__(2).menuLogo;
-var menuPhoneBlock = __webpack_require__(2).menuPhoneBlock;
-var buttonUp = __webpack_require__(2).buttonUp;
+var listeners = __webpack_require__(7);
+var menuLogo = listeners.menuLogo;
+var menuPhoneBlock = listeners.menuPhoneBlock;
+var buttonUp = listeners.buttonUp;
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10500,6 +10387,42 @@ document.addEventListener('DOMContentLoaded', function () {
         loop: true,
         dots: true,
         items: 1
+    });
+
+    $("#academy-carousel").owlCarousel({
+        autoPlay: true,
+        dots: true,
+        loop: true,
+        margin: 15,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+
+    $("#reviews-carousel").owlCarousel({
+        autoPlay: true,
+        dots: true,
+        loop: true,
+        margin: 15,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 2
+            },
+            769: {
+                items: 3
+            }
+        }
     });
 
     $('#mobile-modal').on('hidden.bs.modal', function () {
@@ -10527,25 +10450,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('scroll', function () {
         var wrapper = document.querySelector('.footer-wrapper');
-        var bottom = wrapper.offsetTop + wrapper.clientHeight;
+        var windowHeight = document.documentElement.clientHeight;
+        var bottom = document.getElementById('footer').offsetTop + wrapper.offsetTop + wrapper.clientHeight;
         var widget = document.querySelector('.fixed-right-panel');
         if (document.body.clientWidth <= 575) {
-            if(window.pageYOffset + window.innerHeight >= bottom) {
-                widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
+            if(window.pageYOffset + windowHeight >= bottom) {
+                widget.style.bottom = window.pageYOffset + windowHeight - bottom - 48 +  'px';
             } else {
                 widget.style.bottom = '0px';
             }
         } else {
             widget.removeAttribute('style');
         }
-    }, {passive: true});
+    });
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"~owl.carousel/src/scss/owl.carousel.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"~owl.carousel/src/scss/owl.theme.default.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"~bootstrap/scss/bootstrap.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
 __webpack_require__(11);
 __webpack_require__(12);
 __webpack_require__(13);
@@ -10562,13 +10482,13 @@ __webpack_require__(20);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery, jQuery) {/**
- * Owl Carousel v2.2.0
- * Copyright 2013-2016 David Deutsch
- * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
+ * Owl Carousel v2.2.1
+ * Copyright 2013-2017 David Deutsch
+ * Licensed under  ()
  */
 /**
  * Owl carousel
@@ -10893,6 +10813,7 @@ __webpack_require__(20);
 			var clones = [],
 				items = this._items,
 				settings = this.settings,
+				// TODO: Should be computed from number of min width items in stage
 				view = Math.max(settings.items * 2, 4),
 				size = Math.ceil(items.length / 2) * 2,
 				repeat = settings.loop && items.length ? settings.rewind ? view : Math.max(view, size) : 0,
@@ -10902,6 +10823,7 @@ __webpack_require__(20);
 			repeat /= 2;
 
 			while (repeat--) {
+				// Switch to only using appended clones
 				clones.push(this.normalize(clones.length / 2, true));
 				append = append + items[clones[clones.length - 1]][0].outerHTML;
 				clones.push(this.normalize(items.length - 1 - (clones.length - 1) / 2, true));
@@ -11841,7 +11763,7 @@ __webpack_require__(20);
 		} else if (document.documentElement && document.documentElement.clientWidth) {
 			width = document.documentElement.clientWidth;
 		} else {
-			throw 'Can not detect viewport width.';
+			console.warn('Can not detect viewport width.');
 		}
 		return width;
 	};
@@ -12478,7 +12400,7 @@ __webpack_require__(20);
 				image = new Image();
 				image.onload = $.proxy(function() {
 					$element.css({
-						'background-image': 'url(' + url + ')',
+						'background-image': 'url("' + url + '")',
 						'opacity': '1'
 					});
 					this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
@@ -12878,7 +12800,7 @@ __webpack_require__(20);
 
 		if (video.type === 'youtube') {
 			html = '<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' +
-				video.id + '?autoplay=1&v=' + video.id + '" frameborder="0" allowfullscreen></iframe>';
+				video.id + '?autoplay=1&rel=0&v=' + video.id + '" frameborder="0" allowfullscreen></iframe>';
 		} else if (video.type === 'vimeo') {
 			html = '<iframe src="//player.vimeo.com/video/' + video.id +
 				'?autoplay=1" width="' + width + '" height="' + height +
@@ -13842,7 +13764,7 @@ __webpack_require__(20);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery, Tether) {/*!
@@ -17381,10 +17303,10 @@ var Popover = function ($) {
 
 }();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
@@ -19205,7 +19127,7 @@ return Tether;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19313,6 +19235,120 @@ StickyMenu.prototype.fire = function (eventName, isMobile) {
 
 module.exports = StickyMenu;
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(1),
+    headerStickingStr = 'headerSticking',
+    headerNormalizeStr = 'headerNormalize';
+
+
+function ListenerElement() {
+    this.element = {};
+}
+
+
+function MenuLogo() {
+    var self = this;
+
+    function init() {
+        self.element = document.querySelector('.menu-logo');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuLogo.prototype = Object.create(ListenerElement.prototype);
+MenuLogo.prototype.constructor = MenuLogo;
+
+MenuLogo.prototype.doUpdateMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.style.background = 'none';
+        this.style.height = '24px';
+        this.style.width = 'auto';
+        this.innerText = 'GIC Canada';
+    }
+};
+
+MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.removeAttribute('style');
+        this.innerText = '';
+    }
+};
+
+
+function MenuPhoneBlock() {
+    var self = this;
+
+    function init () {
+        self.element = document.querySelector('.menu-phone-block');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
+MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
+
+MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+
+function ButtonUp() {
+    var self = this;
+
+    function init () {
+        self.element = document.getElementById('mobile-btn-up');
+        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+        self.element.addEventListener('click', self.doClick);
+    }
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+ButtonUp.prototype = Object.create(ListenerElement.prototype);
+ButtonUp.prototype.constructor = ButtonUp;
+
+ButtonUp.prototype.doUpdateButtonUp = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+ButtonUp.prototype.doClick = function (event) {
+    event.preventDefault();
+    var link = this.querySelector('a');
+    var id = link.getAttribute('href'),
+        top = document.querySelector(id).offsetTop;
+
+    var windowTop = window.pageYOffset;
+    var timerID = setInterval(function () {
+        if (windowTop <= top) {
+            clearInterval(timerID);
+        } else {
+            window.scrollTo(0, windowTop -=50);
+        }
+    }, 10);
+};
+
+module.exports = {
+    menuLogo: new MenuLogo(),
+    menuPhoneBlock: new MenuPhoneBlock(),
+    buttonUp: new ButtonUp()
+};
 
 /***/ }),
 /* 8 */

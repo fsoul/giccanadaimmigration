@@ -1,14 +1,15 @@
 'use strict';
 
-require('owl.carousel');
+require('./js/vendor/owl.carousel/owl.carousel');
 require('bootstrap');
 
 
 var StickyMenu = require('./js/stickymenu');
 var stickMenu = new StickyMenu();
-var menuLogo = require('./js/listeners').menuLogo;
-var menuPhoneBlock = require('./js/listeners').menuPhoneBlock;
-var buttonUp = require('./js/listeners').buttonUp;
+var listeners = require('./js/listeners');
+var menuLogo = listeners.menuLogo;
+var menuPhoneBlock = listeners.menuPhoneBlock;
+var buttonUp = listeners.buttonUp;
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -18,6 +19,42 @@ document.addEventListener('DOMContentLoaded', function () {
         loop: true,
         dots: true,
         items: 1
+    });
+
+    $("#academy-carousel").owlCarousel({
+        autoPlay: true,
+        dots: true,
+        loop: true,
+        margin: 15,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+
+    $("#reviews-carousel").owlCarousel({
+        autoPlay: true,
+        dots: true,
+        loop: true,
+        margin: 15,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 2
+            },
+            769: {
+                items: 3
+            }
+        }
     });
 
     $('#mobile-modal').on('hidden.bs.modal', function () {
@@ -45,25 +82,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('scroll', function () {
         var wrapper = document.querySelector('.footer-wrapper');
-        var bottom = wrapper.offsetTop + wrapper.clientHeight;
+        var windowHeight = document.documentElement.clientHeight;
+        var bottom = document.getElementById('footer').offsetTop + wrapper.offsetTop + wrapper.clientHeight;
         var widget = document.querySelector('.fixed-right-panel');
         if (document.body.clientWidth <= 575) {
-            if(window.pageYOffset + window.innerHeight >= bottom) {
-                widget.style.bottom = window.pageYOffset + window.innerHeight - bottom + 'px';
+            if(window.pageYOffset + windowHeight >= bottom) {
+                widget.style.bottom = window.pageYOffset + windowHeight - bottom - 48 +  'px';
             } else {
                 widget.style.bottom = '0px';
             }
         } else {
             widget.removeAttribute('style');
         }
-    }, {passive: true});
+    });
 });
 
 //css/scss-------------------------------------------
-require('~owl.carousel/src/scss/owl.carousel.scss');
-require('~owl.carousel/src/scss/owl.theme.default.scss');
-require('~bootstrap/scss/bootstrap.scss');
-
 require('./scss/global.scss');
 require('./scss/header.scss');
 require('./scss/programms.scss');

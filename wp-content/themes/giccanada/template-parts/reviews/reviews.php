@@ -4,7 +4,7 @@
 </div>
 <div class="row justify-content-center">
     <div class="container">
-        <div id="reviews-carousel" class="owl-carousel owl-theme">
+        <div id="reviews-carousel" class="owl-carousel owl-theme owl-loaded owl-drag">
             <div class="item">
                 <div class="d-block">
                     <div class="container">
@@ -366,25 +366,6 @@
                 </div>
             </div>
         </div> <!--carousel-->
-        <script>
-            $("#reviews-carousel").owlCarousel({
-                autoPlay: true,
-                dots: true,
-                loop: true,
-                margin: 15,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    576: {
-                        items: 2
-                    },
-                    769: {
-                        items: 3
-                    }
-                }
-            });
-        </script>
     </div>
 </div>
 

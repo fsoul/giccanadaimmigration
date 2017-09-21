@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "owl.carousel": "^2.2.0",
-    "tether": "^1.4.0"
+    "tether": "^1.4.0",
+    "url-loader": "^0.5.9"
   }
 }

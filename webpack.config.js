@@ -16,31 +16,22 @@ module.exports = {
         ],
         publicPath: "./public/"
     },
-    watch: isDev,
     module: {
-
         rules: [
             {
                 test: /\.scss$/,
+
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [{
-                        loader : 'css-loader',
+                        loader: 'css-loader',
                         options: {
                             minimize: !isDev
                         }
                     }, {
-                        loader: 'sass-loader',
-                        options: {
-                            include: [
-                                path.resolve(__dirname, '/node_modules/bootstrap/scss'),
-                                path.resolve(__dirname, '/node_modules/owl.carousel/src/scss')
-                            ]
-                        }
+                        loader: 'sass-loader'
                     }]
                 })
-
-
             },
             {
                 test: /\.png|\.jpg|\.svg$/,
