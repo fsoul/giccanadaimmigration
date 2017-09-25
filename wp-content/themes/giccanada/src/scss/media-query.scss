@@ -12,7 +12,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
         background-size: cover;
       }
 
-      .contact-form {
+      #contact-form {
         background: url($image-dir + 'Contact-form@2x.png') no-repeat center;
         background-size: 32.4px 36px;
 
@@ -22,7 +22,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
         }
       }
 
-      .live-chat {
+      #live-chat {
         background: url($image-dir + 'Live-chat@2x.png') no-repeat center;
         background-size: 36px;
 
@@ -32,7 +32,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
         }
       }
 
-      .request-call {
+      #request-call {
         background: url($image-dir + 'Request-call@2x.png') no-repeat center;
         background-size: 32.4px;
 
@@ -42,7 +42,7 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
         }
       }
 
-      .open-case {
+      #open-case {
         background: url($image-dir + 'Open-case@2x.png') no-repeat center;
         background-size: 32.4px 36px;
 

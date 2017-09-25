@@ -46,10 +46,10 @@ $image-dir: '../images/';
       height: 48px;
     }
 
-    .contact-form,
-    .live-chat,
-    .request-call,
-    .open-case{
+    #contact-form,
+    #live-chat,
+    #request-call,
+    #open-case{
       background-size: 24px;
 
       &:hover {

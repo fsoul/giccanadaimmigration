@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 const themePath = 'wp-content/themes/giccanada';
-const isDev = false;
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
     devtool: isDev ? "source-map" : false,

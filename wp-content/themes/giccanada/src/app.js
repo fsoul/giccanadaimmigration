@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     require('./js/header');
+    require('./js/widget');
     require('./js/window');
     require('./js/modal-menu');
 
@@ -78,22 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('scroll', function () {
         stickMenu.updateHeaderMenuPos();
-    });
-
-    document.addEventListener('scroll', function () {
-        var wrapper = document.querySelector('.footer-wrapper');
-        var windowHeight = document.documentElement.clientHeight;
-        var bottom = document.getElementById('footer').offsetTop + wrapper.offsetTop + wrapper.clientHeight;
-        var widget = document.querySelector('.fixed-right-panel');
-        if (document.body.clientWidth <= 575) {
-            if(window.pageYOffset + windowHeight >= bottom) {
-                widget.style.bottom = window.pageYOffset + windowHeight - bottom - 48 +  'px';
-            } else {
-                widget.style.bottom = '0px';
-            }
-        } else {
-            widget.removeAttribute('style');
-        }
     });
 });
 
