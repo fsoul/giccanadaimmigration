@@ -1,5 +1,10 @@
 $image-dir: '../images/';
 
+@import '~bootstrap/dist/css/bootstrap';
+@import 'owl.carousel/owl.carousel';
+@import 'owl.carousel/owl.theme.default';
+@import "font-awesome/font-awesome";
+
 @font-face {
   font-family: 'Lato';
   src: url('../fonts/Lato-Regular.eot'); /* IE9 Compat Modes */
@@ -87,7 +92,7 @@ body {
   width: 72px;
   height: 288px;
   right: 0;
-  bottom: 15%;
+  bottom: 100px;
   margin-top: -144px;
   background: #fff;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
@@ -125,7 +130,7 @@ body {
       height: 72px;
     }
 
-    .contact-form {
+    #contact-form {
       background: url($image-dir + 'Contact-form.png') no-repeat center;
       background-size: 32.4px 36px;
 
@@ -134,7 +139,7 @@ body {
       }
     }
 
-    .live-chat {
+    #live-chat {
       background: url($image-dir + 'Live-chat.png') no-repeat center;
       background-size: 36px;
 
@@ -143,7 +148,7 @@ body {
       }
     }
 
-    .request-call {
+    #request-call {
       background: url($image-dir + 'Request-call.png') no-repeat center;
       background-size: 32.4px;
 
@@ -152,7 +157,7 @@ body {
       }
     }
 
-    .open-case {
+    #open-case {
       background: url($image-dir + 'Open-case.png') no-repeat center;
       background-size: 32.4px 36px;
 

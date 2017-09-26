@@ -62,7 +62,7 @@ StickyMenu.prototype.updateHeaderMenuPos =  function () {
         || document.body.clientWidth;
     var offset = window.pageYOffset;
     var distance = this._header.offsetTop - offset;
-    var isMobile = windowWidth <= 575;
+    var isMobile = windowWidth <= 667;
 
     if ((distance <= 0) && !this._stuck) {
         this.onHeaderSticking(isMobile);

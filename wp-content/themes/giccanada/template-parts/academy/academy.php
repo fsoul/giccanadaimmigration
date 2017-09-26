@@ -5,8 +5,8 @@
         <h2 class="col academy-caption">Учебные программы в Канаде</h2>
     </div>
     <div class="row justify-content-center no-gutters">
-        <div class="container-fluid">
-            <div id="academy-carousel" class="owl-carousel owl-theme">
+        <div class="container">
+            <div id="academy-carousel" class="owl-carousel owl-theme owl-loaded owl-drag">
                 <div class="item">
                     <div class="academy-slr-item-img academy-pic1">
                         <div class="academy-caption-wrapper">
@@ -144,25 +144,6 @@
                 <a href="#" class="academy-slr-item-btn orange-btn">Заполнить
                     анкету</a>
             </div>
-            <script>
-                $("#academy-carousel").owlCarousel({
-                    autoPlay: true,
-                    dots: true,
-                    loop: true,
-                    margin: 15,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        576: {
-                            items: 3
-                        },
-                        1200: {
-                            items: 4
-                        }
-                    }
-                });
-            </script>
         </div>
     </div>
 </div>

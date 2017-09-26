@@ -7,10 +7,6 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
-<filesmatch "\.(jpg|gif|png|css|js)$">
-    ExpiresActive on
-    ExpiresDefault "access plus 1 year"
-</filesmatch>
 </IfModule>
 
 # END WordPress

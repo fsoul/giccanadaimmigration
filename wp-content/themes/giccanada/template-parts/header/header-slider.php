@@ -26,7 +26,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-4 col-md-auto hs-item-button orange-btn">открыть
+                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -43,7 +43,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-4 col-md-auto hs-item-button orange-btn">открыть
+                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -60,21 +60,13 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-4 col-md-auto hs-item-button orange-btn">открыть
+                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <script>
-                $("#header-carousel").owlCarousel({
-                    autoPlay: true,
-                    loop: true,
-                    dots: true,
-                    items: 1
-                });
-            </script>
         </div>
 	</div>
 </div> <!--header slider-->

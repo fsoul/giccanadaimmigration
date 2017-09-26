@@ -3,3 +3,7 @@ wp-config.php
 node_modules
 npm-debug.log
 wp-content/languages
+wp-content/cache
+wp-content/plugins
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php

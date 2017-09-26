@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 const themePath = 'wp-content/themes/giccanada';
-const isDev = false;
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
     devtool: isDev ? "source-map" : false,
@@ -16,16 +16,15 @@ module.exports = {
         ],
         publicPath: "./public/"
     },
-    watch: isDev,
     module: {
-
         rules: [
             {
                 test: /\.scss$/,
+
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [{
-                        loader : 'css-loader',
+                        loader: 'css-loader',
                         options: {
                             minimize: !isDev
                         }
@@ -33,11 +32,9 @@ module.exports = {
                         loader: 'sass-loader'
                     }]
                 })
-
-
             },
             {
-                test: /\.png|\.jpg$/,
+                test: /\.png|\.jpg|\.svg$/,
                 use: [{
                     loader: "file-loader?name=images/[name]-[hash:10].[ext]"
                 }]
@@ -55,7 +52,9 @@ module.exports = {
         new ExtractTextPlugin('../style.css'),
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            'window.jQuery': "jquery",
+            Tether: "tether"
         })
     ]
 };

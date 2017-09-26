@@ -3,6 +3,12 @@
 }
 
 .academy {
+
+  .container {
+    max-width: none !important;
+    width: 100%;
+  }
+
   .academy-caption {
     font-size: 2em;
     line-height: 40px;
