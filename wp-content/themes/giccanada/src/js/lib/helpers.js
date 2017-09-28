@@ -1,5 +1,10 @@
 "use strict";
 
+(function() {
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+})();
+
 function throttle(type, name, obj) {
     obj = obj || window;
     var running = false;

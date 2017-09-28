@@ -87,18 +87,24 @@ ButtonUp.prototype.doUpdateButtonUp = function (event) {
 
 ButtonUp.prototype.doClick = function (event) {
     event.preventDefault();
-    var link = this.querySelector('a');
-    var id = link.getAttribute('href'),
-        top = document.querySelector(id).offsetTop;
 
-    var windowTop = window.pageYOffset;
-    var timerID = setInterval(function () {
-        if (windowTop <= top) {
-            clearInterval(timerID);
-        } else {
-            window.scrollTo(0, windowTop -=50);
+    var start = performance.now();
+    var top = 0;
+    var duration = 2000;
+
+    window.requestAnimationFrame(function step(timestamp) {
+        if (!start) start = timestamp;
+
+        var time = timestamp - start;
+        var percent = Math.min(time / duration, 1);
+        var y = window.pageYOffset * (1 - Math.abs(percent));
+
+        window.scrollTo(0, y);
+
+        if (time < duration && window.pageYOffset > top) {
+            window.requestAnimationFrame(step);
         }
-    }, 10);
+    })
 };
 
 module.exports = {

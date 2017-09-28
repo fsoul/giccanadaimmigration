@@ -1,4 +1,4 @@
-<?php ?>
+<?php get_template_part( 'template-parts/header/open-case');?>
 
 <div class="fixed-right-panel">
     <div>
@@ -18,3 +18,4 @@
         <div class="fixed-panel-button" id="open-case"></div>
     </div>
 </div>
+

@@ -1,6 +1,7 @@
 'use strict';
 
 require('./js/vendor/owl.carousel/owl.carousel');
+require('./js/vendor/select2/select2');
 require('bootstrap');
 
 
@@ -55,6 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 items: 3
             }
         }
+    });
+
+    $("#open-case-country").select2({
+        width: 'resolve'
+    });
+
+    $("#open-case-lang").select2({
+        width: 'resolve'
     });
 
     $('#mobile-modal').on('hidden.bs.modal', function () {
