@@ -258,7 +258,7 @@ $countries = array
         <div id="selection-block">
             <select name="country" id="open-case-country" style="width: 100%">
                 <?php foreach ($countries as $key => $value):?>
-                    <option <?= $key === $_COOKIE['iso'] ? 'selected="selected"': ''; ?> value="<?= $key; ?>"><?= $value;?></option>
+                    <option value="<?= $key; ?>"><?= $value;?></option>
                 <?php endforeach;?>
             </select>
             <select name="lang" id="open-case-lang" style="width: 100%">
