@@ -1,5 +1,7 @@
 'use strict';
 
+var helper = require('./lib/helpers');
+
 module.exports = (function () {
 
     function Widget() {
@@ -36,6 +38,9 @@ module.exports = (function () {
         window.addEventListener('click', function (e) {
             self.onWindowClick(e);
         });
+
+        var iso = helper.getCookie('iso');
+        $('#open-case-country').val(iso).trigger('change');
     }
 
     Widget.prototype.doScroll = function () {
