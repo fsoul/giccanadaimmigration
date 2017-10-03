@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<table style="border: 1px solid black; border-collapse: collapse;">
+    <caption style="padding-bottom: 15px"><strong>Feedback from <?= $form['firstName'];?>, <?= $form['country']; ?></strong></caption>
+    <tbody>
+    <tr>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>First name</strong></td>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['firstName']; ?></td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>Phone</strong></td>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['phone']; ?></td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>Email</strong></td>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['email']; ?></td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>Country</strong></td>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?=  $form['country']; ?></td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>Language</strong></td>
+        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['lang']; ?></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

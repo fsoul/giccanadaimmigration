@@ -18,3 +18,6 @@
 		</div>
 	</div>
 </div>
+<?php dynamic_sidebar( 'contact-sidebar' ); ?>
+<?php get_template_part( 'template-parts/header/fixed-right-panel'); ?>
+<?php get_template_part( 'template-parts/header/mobile-btn-up'); ?>

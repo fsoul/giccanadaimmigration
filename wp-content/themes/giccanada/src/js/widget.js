@@ -1,6 +1,7 @@
 'use strict';
 
 var helper = require('./lib/helpers');
+var OpenCaseForm = require('./open-case-form');
 
 module.exports = (function () {
 
@@ -11,6 +12,7 @@ module.exports = (function () {
         this.wrapper = document.querySelector('.footer-wrapper');
         this.footer = document.getElementById('footer');
         this.widget = document.querySelector('.fixed-right-panel');
+        this.openCaseForm = new OpenCaseForm();
         this.computedStyle =  window.getComputedStyle(this.widget, null);
         this.api = Tawk_API || {};
         this.api.onChatMaximized = function () {
@@ -91,11 +93,8 @@ module.exports = (function () {
     };
 
     Widget.prototype.doOpenCaseToggle = function () {
-        var form = document.getElementById('open-case-form'),
-            style = form.style;
-
-        style.display = style.display !== 'block' ? 'block': 'none';
-        this.toggle(form);
+        this.openCaseForm.toggle();
+        this.toggle(this.openCaseForm.form);
     };
 
     Widget.prototype.onWindowClick = function (e) {

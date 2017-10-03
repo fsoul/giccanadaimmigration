@@ -25,11 +25,6 @@ function setOpenCaseCountry() {
 		$countryName = $cookieCountryName;
 	}else{
 
-		$is_bot = preg_match(
-			"~(Google|Yahoo|Rambler|Bot|Yandex|Spider|Snoopy|Crawler|Finder|Mail|curl)~i",
-			$_SERVER['HTTP_USER_AGENT']
-		);
-
 		$isoCode = $SxGeo->getCountry($ip);
 
 		setcookie('userIp', $ip);
@@ -51,4 +46,70 @@ function giccanada_footer_scripts() {
 	wp_enqueue_style( 'style', get_theme_file_uri('/style.css'));
 }
 
-add_action('wp_footer', 'giccanada_footer_scripts'); ?>
+add_action('wp_footer', 'giccanada_footer_scripts');
+
+
+function send_open_case_form () {
+
+	add_filter( 'wp_mail_from', 'open_case_wp_mail_from' );
+	function open_case_wp_mail_from( $email_address ){
+		return 'noreply@giccanadaimmigration.com';
+	}
+
+	add_filter( 'wp_mail_from_name', 'open_case_wp_mail_from_name' );
+	function open_case_wp_mail_from_name( $email_from ){
+		return 'giccanadaimmigration.com';
+	}
+
+	add_filter( 'wp_mail_content_type', 'open_case_wp_mail_content_type' );
+	function open_case_wp_mail_content_type( $content_type ){
+		return 'text/html';
+	}
+
+	$subject = "New feedback";
+	$to = 'rogovoyalexandr94@gmail.com';
+	$form = $_POST['form'];
+	require_once get_template_directory() . '/inc/countries.php';
+	$form['country'] = getCountryByIso($form['country']) ? getCountryByIso($form['country']) : $form['country'];
+	ob_start();
+		include(get_template_directory() . '/inc/open-case-mail.phtml');
+		$message = ob_get_contents();
+	ob_end_clean();
+
+	$headers = array(
+		"From: noreply@giccanadaimmigration.com;",
+		"Return-Path: noreply@giccanadaimmigration.com;",
+		"MIME-Version: 1.0;",
+		"Content-Type: text/html; charset=UTF-8;"
+	);
+	wp_mail( $to, $subject, $message, $headers);
+	echo ($_POST['form']);
+	wp_die();
+}
+
+add_action( 'wp_ajax_send_open_case_form', 'send_open_case_form' );
+add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
+
+function register_wp_sidebars() {
+
+	/* В боковой колонке - первый сайдбар */
+	register_sidebar(
+		array(
+			'id' => 'contact-sidebar', // уникальный id
+			'name' => 'Contact Sidebar', // название сайдбара
+			'description' => 'Fixed widgets'// описание
+		)
+	);
+}
+
+add_action( 'widgets_init', 'register_wp_sidebars' );
+
+
+function register_wp_widgets() {
+
+	require get_template_directory() . '/inc/widgets.php';
+	/* В боковой колонке - первый сайдбар */
+	register_widget('OpenCaseWidget');
+}
+
+add_action( 'widgets_init', 'register_wp_widgets' );

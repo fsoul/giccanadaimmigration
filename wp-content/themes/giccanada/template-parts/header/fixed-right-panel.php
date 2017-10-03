@@ -1,5 +1,3 @@
-<?php get_template_part( 'template-parts/header/open-case');?>
-
 <div class="fixed-right-panel">
     <div>
         <span class="fixed-pnl-btn-hover">Заполнить анкету</span>
