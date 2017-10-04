@@ -1,21 +1,30 @@
-function OpenCaseForm() {
+function OpenCaseForm(renderFunc) {
 
+    if (typeof renderFunc !== 'function') {
+        throw new TypeError('Input parameter must be function!');
+    }
     var self = this;
 
+    this.render = renderFunc;
     this.form = document.getElementById('open-case-form');
     this.style = this.form.style;
     this.startTime = Date.now();
+
     this.timerInit(); //TODO Передавать время через которое включать таймер
-    //TODO перенести функцию позиционирования сюда
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
         self.sendForm();
     });
+
+    window.addEventListener('click', function (e) {
+        self.onWindowClick(e);
+    });
 }
 
 OpenCaseForm.prototype.formShow = function () {
     this.style.display = 'block';
+    this.render(this.form);
 };
 
 OpenCaseForm.prototype.formClose = function () {
@@ -28,20 +37,15 @@ OpenCaseForm.prototype.toggle = function () {
 
 
 OpenCaseForm.prototype.timerInit = function (timeToShow) {
-    timeToShow = timeToShow || 5;
+    timeToShow = timeToShow || 10;
     var self = this;
     var timerID = setInterval(function () {
         var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
-        console.log(currentTime);
         if (currentTime === timeToShow) {
             clearInterval(timerID);
             self.formShow();
         }
     }, 1000);
-};
-
-OpenCaseForm.prototype.validateForm = function () {
-
 };
 
 OpenCaseForm.prototype.sendForm = function () {
@@ -68,5 +72,16 @@ OpenCaseForm.prototype.sendForm = function () {
     });
 };
 
+OpenCaseForm.prototype.onWindowClick = function (e) {
+    var left = this.form.offsetLeft,
+        top =  window.pageYOffset + this.form.offsetTop,
+        right = left + this.form.offsetWidth,
+        bottom = top + this.form.offsetHeight ;
+
+    if( !e.target.matches('#open-case') &&
+        ( ( e.pageX < left || e.pageX > right ) || (e.pageY < top || e.pageY > bottom ) ) ) {
+        this.style.display = 'none';
+    }
+};
 
 module.exports = OpenCaseForm;

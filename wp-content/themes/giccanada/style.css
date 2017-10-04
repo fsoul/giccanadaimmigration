@@ -10617,7 +10617,7 @@ body {
   display: none;
   width: 400px;
   position: fixed;
-  z-index: 50;
+  z-index: 501;
   background: #fff;
   border-radius: 16px;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
@@ -11926,6 +11926,9 @@ body {
       width: 48px;
       border-radius: 48px;
       background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
+  #open-case-form {
+    width: 100%;
+    padding: 30px 20px; }
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {
