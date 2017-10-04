@@ -1,6 +1,7 @@
 'use strict';
 
 var helper = require('./lib/helpers');
+var OpenCaseForm = require('./open-case-form');
 
 module.exports = (function () {
 
@@ -11,7 +12,7 @@ module.exports = (function () {
         this.wrapper = document.querySelector('.footer-wrapper');
         this.footer = document.getElementById('footer');
         this.widget = document.querySelector('.fixed-right-panel');
-        this.computedStyle =  window.getComputedStyle(this.widget, null);
+        this.openCaseForm = new OpenCaseForm(this.toggle);
         this.api = Tawk_API || {};
         this.api.onChatMaximized = function () {
           self.doChatShow();
@@ -34,10 +35,6 @@ module.exports = (function () {
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
-
-        window.addEventListener('click', function (e) {
-            self.onWindowClick(e);
-        });
 
         var iso = helper.getCookie('iso');
         $('#open-case-country').val(iso).trigger('change');
@@ -70,15 +67,17 @@ module.exports = (function () {
     Widget.prototype.toggle = function (form) {
         var widgetBlock = form,
             style = widgetBlock.style,
-            widgetBottom = this.widget.style.bottom || this.computedStyle.getPropertyValue('bottom');
+            widget = document.querySelector('.fixed-right-panel'),
+            computedStyle =  window.getComputedStyle(widget, null),
+            widgetBottom = widget.style.bottom || computedStyle.getPropertyValue('bottom');
 
 
         if (parseInt(widgetBottom) > 80) {
             style.bottom = widgetBottom;
-            style.right = 10 + parseInt(this.computedStyle.getPropertyValue('width')) + 'px';
+            style.right = 10 + parseInt(computedStyle.getPropertyValue('width')) + 'px';
             style.marginRight = '';
         } else {
-            style.bottom = 10 + parseInt(this.computedStyle.getPropertyValue('height')) + 'px';
+            style.bottom = 10 + parseInt(computedStyle.getPropertyValue('height')) + 'px';
             style.right = '50%';
             style.marginRight = -(widgetBlock.offsetWidth / 2) + 'px';
 
@@ -91,25 +90,7 @@ module.exports = (function () {
     };
 
     Widget.prototype.doOpenCaseToggle = function () {
-        var form = document.getElementById('open-case-form'),
-            style = form.style;
-
-        style.display = style.display !== 'block' ? 'block': 'none';
-        this.toggle(form);
-    };
-
-    Widget.prototype.onWindowClick = function (e) {
-        var form = document.getElementById('open-case-form'),
-            style = form.style,
-            left = form.offsetLeft,
-            top =  window.pageYOffset + form.offsetTop,
-            right = left + form.offsetWidth,
-            bottom = top + form.offsetHeight ;
-
-        if( !e.target.matches('#open-case') &&
-            ( ( e.pageX < left || e.pageX > right ) || (e.pageY < top || e.pageY > bottom ) ) ) {
-            style.display = 'none';
-        }
+        this.openCaseForm.toggle();
     };
 
     return new Widget();
