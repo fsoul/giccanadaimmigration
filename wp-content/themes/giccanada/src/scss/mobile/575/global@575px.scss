@@ -83,5 +83,24 @@ $image-dir: '../images/';
 
 #open-case-form {
   width: 100%;
-  padding: 30px 20px;
+  height: 100%;
+  border-radius: 0;
+  padding: 20% 20px 0 20px;
+  overflow-y: scroll;
+
+  .close {
+    position: relative;
+    top: -10%;
+  }
+
+  form {
+
+    & > p {
+      padding-bottom: 20px;
+    }
+
+    & > input[type=submit] {
+      margin-top: 40px;
+    }
+  }
 }

@@ -25228,6 +25228,7 @@ module.exports = (function () {
         };
 
         this.buttons = [];
+        this.subscribers = [];
 
         this.widget.querySelectorAll('.fixed-panel-button').forEach(function (input) {
             self.buttons[input.id] = input;
@@ -25270,6 +25271,10 @@ module.exports = (function () {
     };
 
 
+    /**
+     *
+     * @param {Element} form
+     */
     Widget.prototype.toggle = function (form) {
         var widgetBlock = form,
             style = widgetBlock.style,
@@ -25281,13 +25286,29 @@ module.exports = (function () {
         if (parseInt(widgetBottom) > 80) {
             style.bottom = widgetBottom;
             style.right = 10 + parseInt(computedStyle.getPropertyValue('width')) + 'px';
-            style.marginRight = '';
         } else {
-            style.bottom = 10 + parseInt(computedStyle.getPropertyValue('height')) + 'px';
-            style.right = '50%';
-            style.marginRight = -(widgetBlock.offsetWidth / 2) + 'px';
-
+            style.bottom = '0';
+            style.right = '';
         }
+    };
+
+
+    /**
+     *
+     * @param {Element} input
+     */
+    Widget.prototype.subscribe = function (input) {
+        this.subscribers.push(input);
+    };
+
+    /**
+     *
+     * @param {string} eventName
+     */
+    Widget.prototype.fire = function (eventName) {
+        this.subscribers.forEach(function (input) {
+            input.dispatchEvent(new CustomEvent(eventName))
+        });
     };
 
     Widget.prototype.doChatShow = function () {
@@ -25324,11 +25345,16 @@ function OpenCaseForm(renderFunc) {
     this.style = this.form.style;
     this.startTime = Date.now();
     this.isMobile = window.innerWidth <= 575;
-    this.timerInit(); //TODO Передавать время через которое включать таймер
+    this.cancelButton = this.form.querySelector('.close');
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
         self.sendForm();
+    });
+
+    this.cancelButton.addEventListener('click', function (e) {
+       e.preventDefault();
+       self.formClose();
     });
 
     window.addEventListener('click', function (e) {
@@ -25347,6 +25373,8 @@ function OpenCaseForm(renderFunc) {
             width: 'resolve'
         });
     }
+
+    this.timerInit(); //TODO Передавать время через которое включать таймер
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -25400,13 +25428,16 @@ OpenCaseForm.prototype.sendForm = function () {
 };
 
 OpenCaseForm.prototype.onWindowClick = function (e) {
-    var left = this.form.offsetLeft,
-        top =  window.pageYOffset + this.form.offsetTop,
-        right = left + this.form.offsetWidth,
-        bottom = top + this.form.offsetHeight ;
 
-    if( !e.target.matches('#open-case') &&
-        ( ( e.pageX < left || e.pageX > right ) || (e.pageY < top || e.pageY > bottom ) ) ) {
+    function findParent(parentNode) {
+        if (parentNode.matches('#open-case-form')) {
+            return true;
+        } else {
+            return !parentNode.matches('body') ? findParent(parentNode.parentElement) : false;
+        }
+    }
+
+    if( !e.target.matches('#open-case') && !findParent(e.target)) {
         this.style.display = 'none';
     }
 };

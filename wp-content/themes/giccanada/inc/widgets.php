@@ -32,6 +32,7 @@ class OpenCaseWidget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
         ?>
         <div id="open-case-form">
+            <button class="close"><span>&times;</span></button>
             <form>
                 <h2><?= $title; ?></h2>
 <!--                <p>Оставьте свои контактные данные и мы свяжемся с Вами в ближайшее время</p>-->
