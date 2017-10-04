@@ -10553,6 +10553,9 @@ body {
     opacity: 1; }
 
 /*fixed right panel ---------------------------*/
+#mobile-btn-up {
+  display: none; }
+
 .fixed-right-panel {
   position: fixed;
   width: 72px;
@@ -10610,13 +10613,10 @@ body {
       .fixed-right-panel div #open-case:hover {
         background: url(./public/images/Open-case-hover-a35d7c32d0.png) no-repeat center; }
 
-#mobile-btn-up {
-  display: none; }
-
 #open-case-form {
   display: none;
   width: 400px;
-  position: fixed;
+  position: absolute;
   z-index: 501;
   background: #fff;
   border-radius: 16px;

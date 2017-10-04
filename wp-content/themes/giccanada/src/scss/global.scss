@@ -87,7 +87,12 @@ body {
 
 }
 
+
 /*fixed right panel ---------------------------*/
+#mobile-btn-up {
+  display: none;
+}
+
 .fixed-right-panel {
   position: fixed;
   width: 72px;
@@ -170,14 +175,10 @@ body {
 
 }
 
-#mobile-btn-up {
-  display: none;
-}
-
 #open-case-form {
   display: none;
   width: 400px;
-  position: fixed;
+  position: absolute;
   z-index: 501;
   background: #fff;
   border-radius: 16px;

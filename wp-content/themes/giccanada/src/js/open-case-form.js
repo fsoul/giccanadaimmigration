@@ -1,3 +1,7 @@
+'use strict';
+
+var helper = require('./lib/helpers');
+
 function OpenCaseForm(renderFunc) {
 
     if (typeof renderFunc !== 'function') {
@@ -9,7 +13,7 @@ function OpenCaseForm(renderFunc) {
     this.form = document.getElementById('open-case-form');
     this.style = this.form.style;
     this.startTime = Date.now();
-
+    this.isMobile = window.innerWidth <= 575;
     this.timerInit(); //TODO Передавать время через которое включать таймер
 
     this.form.addEventListener('submit', function (e) {
@@ -20,6 +24,19 @@ function OpenCaseForm(renderFunc) {
     window.addEventListener('click', function (e) {
         self.onWindowClick(e);
     });
+
+    var iso = helper.getCookie('iso');
+    $('#open-case-country').val(iso).trigger('change');
+
+    if (!this.isMobile) {
+        $("#open-case-country").select2({
+            width: 'resolve'
+        });
+
+        $("#open-case-lang").select2({
+            width: 'resolve'
+        });
+    }
 }
 
 OpenCaseForm.prototype.formShow = function () {

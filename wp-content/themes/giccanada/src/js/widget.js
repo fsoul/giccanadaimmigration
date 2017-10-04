@@ -1,6 +1,5 @@
 'use strict';
 
-var helper = require('./lib/helpers');
 var OpenCaseForm = require('./open-case-form');
 
 module.exports = (function () {
@@ -35,9 +34,6 @@ module.exports = (function () {
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
-
-        var iso = helper.getCookie('iso');
-        $('#open-case-country').val(iso).trigger('change');
     }
 
     Widget.prototype.doScroll = function () {

@@ -10455,14 +10455,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    $("#open-case-country").select2({
-        width: 'resolve'
-    });
-
-    $("#open-case-lang").select2({
-        width: 'resolve'
-    });
-
     $('#mobile-modal').on('hidden.bs.modal', function () {
         var li = this.querySelectorAll('li.modal-item');
         for (var i = 0; i < li.length; ++i) {
@@ -25216,9 +25208,8 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {
 
-var helper = __webpack_require__(1);
+
 var OpenCaseForm = __webpack_require__(11);
 
 module.exports = (function () {
@@ -25253,9 +25244,6 @@ module.exports = (function () {
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
-
-        var iso = helper.getCookie('iso');
-        $('#open-case-country').val(iso).trigger('change');
     }
 
     Widget.prototype.doScroll = function () {
@@ -25314,13 +25302,17 @@ module.exports = (function () {
     return new Widget();
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {function OpenCaseForm(renderFunc) {
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+var helper = __webpack_require__(1);
+
+function OpenCaseForm(renderFunc) {
 
     if (typeof renderFunc !== 'function') {
         throw new TypeError('Input parameter must be function!');
@@ -25331,7 +25323,7 @@ module.exports = (function () {
     this.form = document.getElementById('open-case-form');
     this.style = this.form.style;
     this.startTime = Date.now();
-
+    this.isMobile = window.innerWidth <= 575;
     this.timerInit(); //TODO Передавать время через которое включать таймер
 
     this.form.addEventListener('submit', function (e) {
@@ -25342,6 +25334,19 @@ module.exports = (function () {
     window.addEventListener('click', function (e) {
         self.onWindowClick(e);
     });
+
+    var iso = helper.getCookie('iso');
+    $('#open-case-country').val(iso).trigger('change');
+
+    if (!this.isMobile) {
+        $("#open-case-country").select2({
+            width: 'resolve'
+        });
+
+        $("#open-case-lang").select2({
+            width: 'resolve'
+        });
+    }
 }
 
 OpenCaseForm.prototype.formShow = function () {
