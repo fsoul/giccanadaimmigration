@@ -87,7 +87,12 @@ body {
 
 }
 
+
 /*fixed right panel ---------------------------*/
+#mobile-btn-up {
+  display: none;
+}
+
 .fixed-right-panel {
   position: fixed;
   width: 72px;
@@ -170,10 +175,6 @@ body {
 
 }
 
-#mobile-btn-up {
-  display: none;
-}
-
 #open-case-form {
   display: none;
   width: 400px;
@@ -220,7 +221,8 @@ body {
     #selection-block {
 
       .select2-container--default .select2-selection--single,
-      #open-case-lang {
+      #open-case-lang,
+      #open-case-country {
         background: none;
         border: 1px solid #2d2d2d;
         border-radius: 0;

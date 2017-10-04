@@ -1,3 +1,7 @@
+'use strict';
+
+var helper = require('./lib/helpers');
+
 function OpenCaseForm(renderFunc) {
 
     if (typeof renderFunc !== 'function') {
@@ -9,17 +13,37 @@ function OpenCaseForm(renderFunc) {
     this.form = document.getElementById('open-case-form');
     this.style = this.form.style;
     this.startTime = Date.now();
-
-    this.timerInit(); //TODO Передавать время через которое включать таймер
+    this.isMobile = window.innerWidth <= 575;
+    this.cancelButton = this.form.querySelector('.close');
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
         self.sendForm();
     });
 
+    this.cancelButton.addEventListener('click', function (e) {
+       e.preventDefault();
+       self.formClose();
+    });
+
     window.addEventListener('click', function (e) {
         self.onWindowClick(e);
     });
+
+    var iso = helper.getCookie('iso');
+    $('#open-case-country').val(iso).trigger('change');
+
+    if (!this.isMobile) {
+        $("#open-case-country").select2({
+            width: 'resolve'
+        });
+
+        $("#open-case-lang").select2({
+            width: 'resolve'
+        });
+    }
+
+    this.timerInit(); //TODO Передавать время через которое включать таймер
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -73,13 +97,16 @@ OpenCaseForm.prototype.sendForm = function () {
 };
 
 OpenCaseForm.prototype.onWindowClick = function (e) {
-    var left = this.form.offsetLeft,
-        top =  window.pageYOffset + this.form.offsetTop,
-        right = left + this.form.offsetWidth,
-        bottom = top + this.form.offsetHeight ;
 
-    if( !e.target.matches('#open-case') &&
-        ( ( e.pageX < left || e.pageX > right ) || (e.pageY < top || e.pageY > bottom ) ) ) {
+    function findParent(parentNode) {
+        if (parentNode.matches('#open-case-form')) {
+            return true;
+        } else {
+            return !parentNode.matches('body') ? findParent(parentNode.parentElement) : false;
+        }
+    }
+
+    if( !e.target.matches('#open-case') && !findParent(e.target)) {
         this.style.display = 'none';
     }
 };

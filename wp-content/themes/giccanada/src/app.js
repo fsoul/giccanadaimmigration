@@ -58,14 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    $("#open-case-country").select2({
-        width: 'resolve'
-    });
-
-    $("#open-case-lang").select2({
-        width: 'resolve'
-    });
-
     $('#mobile-modal').on('hidden.bs.modal', function () {
         var li = this.querySelectorAll('li.modal-item');
         for (var i = 0; i < li.length; ++i) {

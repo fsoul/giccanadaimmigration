@@ -10553,6 +10553,9 @@ body {
     opacity: 1; }
 
 /*fixed right panel ---------------------------*/
+#mobile-btn-up {
+  display: none; }
+
 .fixed-right-panel {
   position: fixed;
   width: 72px;
@@ -10610,9 +10613,6 @@ body {
       .fixed-right-panel div #open-case:hover {
         background: url(./public/images/Open-case-hover-a35d7c32d0.png) no-repeat center; }
 
-#mobile-btn-up {
-  display: none; }
-
 #open-case-form {
   display: none;
   width: 400px;
@@ -10648,7 +10648,8 @@ body {
       font-weight: bold;
       font-size: .9em; }
   #open-case-form form #selection-block .select2-container--default .select2-selection--single,
-  #open-case-form form #selection-block #open-case-lang {
+  #open-case-form form #selection-block #open-case-lang,
+  #open-case-form form #selection-block #open-case-country {
     background: none;
     border: 1px solid #2d2d2d;
     border-radius: 0;
@@ -10661,10 +10662,12 @@ body {
     line-height: 38px;
     font-family: "Lato"; }
     #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__rendered,
-    #open-case-form form #selection-block #open-case-lang .select2-selection__rendered {
+    #open-case-form form #selection-block #open-case-lang .select2-selection__rendered,
+    #open-case-form form #selection-block #open-case-country .select2-selection__rendered {
       line-height: inherit; }
     #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__arrow,
-    #open-case-form form #selection-block #open-case-lang .select2-selection__arrow {
+    #open-case-form form #selection-block #open-case-lang .select2-selection__arrow,
+    #open-case-form form #selection-block #open-case-country .select2-selection__arrow {
       height: inherit; }
   #open-case-form form > input[type=submit] {
     font-family: "Lato";
@@ -11928,7 +11931,17 @@ body {
       background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
   #open-case-form {
     width: 100%;
-    padding: 30px 20px; }
+    height: 100%;
+    border-radius: 0;
+    padding: 20% 20px 0 20px;
+    overflow-y: scroll; }
+    #open-case-form .close {
+      position: relative;
+      top: -10%; }
+    #open-case-form form > p {
+      padding-bottom: 20px; }
+    #open-case-form form > input[type=submit] {
+      margin-top: 40px; }
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {

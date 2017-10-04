@@ -1,6 +1,5 @@
 'use strict';
 
-var helper = require('./lib/helpers');
 var OpenCaseForm = require('./open-case-form');
 
 module.exports = (function () {
@@ -19,6 +18,7 @@ module.exports = (function () {
         };
 
         this.buttons = [];
+        this.subscribers = [];
 
         this.widget.querySelectorAll('.fixed-panel-button').forEach(function (input) {
             self.buttons[input.id] = input;
@@ -35,9 +35,6 @@ module.exports = (function () {
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
-
-        var iso = helper.getCookie('iso');
-        $('#open-case-country').val(iso).trigger('change');
     }
 
     Widget.prototype.doScroll = function () {
@@ -64,6 +61,10 @@ module.exports = (function () {
     };
 
 
+    /**
+     *
+     * @param {Element} form
+     */
     Widget.prototype.toggle = function (form) {
         var widgetBlock = form,
             style = widgetBlock.style,
@@ -75,13 +76,29 @@ module.exports = (function () {
         if (parseInt(widgetBottom) > 80) {
             style.bottom = widgetBottom;
             style.right = 10 + parseInt(computedStyle.getPropertyValue('width')) + 'px';
-            style.marginRight = '';
         } else {
-            style.bottom = 10 + parseInt(computedStyle.getPropertyValue('height')) + 'px';
-            style.right = '50%';
-            style.marginRight = -(widgetBlock.offsetWidth / 2) + 'px';
-
+            style.bottom = '0';
+            style.right = '';
         }
+    };
+
+
+    /**
+     *
+     * @param {Element} input
+     */
+    Widget.prototype.subscribe = function (input) {
+        this.subscribers.push(input);
+    };
+
+    /**
+     *
+     * @param {string} eventName
+     */
+    Widget.prototype.fire = function (eventName) {
+        this.subscribers.forEach(function (input) {
+            input.dispatchEvent(new CustomEvent(eventName))
+        });
     };
 
     Widget.prototype.doChatShow = function () {
