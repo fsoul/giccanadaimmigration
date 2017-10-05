@@ -7,6 +7,8 @@
     <?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <?php endif; ?>
+    <link rel="shortcut icon" href="<?= get_theme_file_uri('/favicon.ico'); ?>" type="image/x-icon"/>
+    <link rel="icon" href="<?= get_theme_file_uri('/favicon.ico'); ?> " type="image/x-icon"/>
 	<?php wp_head(); ?>
 </head>
 

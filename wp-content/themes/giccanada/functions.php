@@ -144,11 +144,13 @@ function send_open_case_form () {
 		"MIME-Version: 1.0;",
 		"Content-Type: text/html; charset=UTF-8;"
 	);
-	if ( wp_mail( $to, $subject, $message, $headers) ){
-		echo 'true';
-	} else {
-		echo 'false';
-	}
+
+	$isSuccess = wp_mail( $to, $subject, $message, $headers);
+
+	echo json_encode(array(
+		'isSuccess' => $isSuccess,
+		'message' => $isSuccess ? 'Form was sent successfully!' : 'Failed to send your message!'
+	));
 	wp_die();
 }
 

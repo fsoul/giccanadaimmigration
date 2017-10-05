@@ -10621,7 +10621,15 @@ body {
   background: #fff;
   border-radius: 16px;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
-  padding: 30px 50px; }
+  padding: 50px; }
+  #open-case-form .close {
+    position: relative;
+    top: -25px;
+    right: -20px; }
+    #open-case-form .close:active {
+      transform: translateY(4px); }
+    #open-case-form .close:focus {
+      outline: 0; }
   #open-case-form form > h2 {
     font-size: 1.5em;
     text-align: center;
@@ -10671,10 +10679,16 @@ body {
       height: inherit; }
   #open-case-form form > input[type=submit] {
     font-family: "Lato";
-    border: none;
     width: 100%;
     line-height: 40px;
-    margin-top: 15px; }
+    margin-top: 15px;
+    border: 2px solid transparent; }
+    #open-case-form form > input[type=submit]:hover {
+      border: 2px solid #FF6200; }
+    #open-case-form form > input[type=submit]:active {
+      transform: translateY(4px); }
+    #open-case-form form > input[type=submit]:focus {
+      outline: 0; }
 
 /*fixed right panel end -----------------------*/
 .header-container {
@@ -11937,11 +11951,12 @@ body {
     overflow-y: scroll; }
     #open-case-form .close {
       position: relative;
-      top: -10%; }
+      top: -10%;
+      right: 0; }
     #open-case-form form > p {
       padding-bottom: 20px; }
     #open-case-form form > input[type=submit] {
-      margin-top: 40px; }
+      margin-top: 20px; }
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {

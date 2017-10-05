@@ -36,7 +36,7 @@ module.exports = (function () {
             self.doScroll();
         }, {passive: true});
 
-        document.addEventListener('touchmove', function () {
+        document.addEventListener('touchend', function () {
             self.doScroll();
         }, {passive: true});
     }

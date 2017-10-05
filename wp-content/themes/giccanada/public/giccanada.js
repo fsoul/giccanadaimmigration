@@ -25246,7 +25246,7 @@ module.exports = (function () {
             self.doScroll();
         }, {passive: true});
 
-        document.addEventListener('touchmove', function () {
+        document.addEventListener('touchend', function () {
             self.doScroll();
         }, {passive: true});
     }
@@ -25350,6 +25350,7 @@ function OpenCaseForm(renderFunc) {
     this.startTime = Date.now();
     this.isMobile = window.innerWidth <= 575;
     this.cancelButton = this.form.querySelector('.close');
+    this.submitButton = this.form.querySelector('input[type=submit]');
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -25409,6 +25410,8 @@ OpenCaseForm.prototype.timerInit = function (timeToShow) {
 
 OpenCaseForm.prototype.sendForm = function () {
 
+    var self = this;
+
     var data = {
         'action': 'send_open_case_form',
         'form': {
@@ -25426,7 +25429,20 @@ OpenCaseForm.prototype.sendForm = function () {
         dataType: 'json',
         data: data,
         success: function (data) {
-            console.log(data);
+            var span = document.createElement('span'),
+                style = span.style;
+            span.innerText = data.message;
+            style.fontSize = '1em';
+            style.display = 'block';
+            style.textAlign = 'center';
+            if (!data.isSuccess) {
+                style.color = '#ce2029';
+            } else {
+                style.color = '#228b22';
+            }
+
+            self.submitButton.parentElement.insertBefore(span, self.submitButton);
+            self.submitButton.disabled = true;
         }
     });
 };

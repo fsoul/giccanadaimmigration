@@ -91,6 +91,7 @@ $image-dir: '../images/';
   .close {
     position: relative;
     top: -10%;
+    right: 0;
   }
 
   form {
@@ -100,7 +101,7 @@ $image-dir: '../images/';
     }
 
     & > input[type=submit] {
-      margin-top: 40px;
+      margin-top: 20px;
     }
   }
 }
