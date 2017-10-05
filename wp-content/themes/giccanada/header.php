@@ -11,5 +11,6 @@
     <link rel="icon" href="<?= get_theme_file_uri('/favicon.ico'); ?> " type="image/x-icon"/>
 	<?php wp_head(); ?>
 </head>
-
 <body <?php body_class(); ?>>
+
+<script src="http://10.16.1.47:8080/target/target-script-min.js#anonymous"></script>
