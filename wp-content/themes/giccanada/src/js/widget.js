@@ -35,6 +35,10 @@ module.exports = (function () {
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
+
+        document.addEventListener('touchmove', function () {
+            self.doScroll();
+        }, {passive: true});
     }
 
     Widget.prototype.doScroll = function () {
