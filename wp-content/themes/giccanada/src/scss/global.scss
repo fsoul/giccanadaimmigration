@@ -183,7 +183,21 @@ body {
   background: #fff;
   border-radius: 16px;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
-  padding: 30px 50px;
+  padding: 50px;
+
+  .close {
+    position: relative;
+    top: -25px;
+    right: -20px;
+
+    &:active {
+      transform: translateY(4px);
+    }
+
+    &:focus {
+      outline:0;
+    }
+  }
 
   form {
 
@@ -247,10 +261,22 @@ body {
 
     & > input[type=submit] {
       font-family: "Lato";
-      border: none;
       width: 100%;
       line-height: 40px;
       margin-top: 15px;
+      border: 2px solid transparent;
+
+      &:hover {
+        border: 2px solid #FF6200;
+      }
+
+      &:active {
+        transform: translateY(4px);
+      }
+
+      &:focus {
+        outline:0;
+      }
     }
   }
 }
