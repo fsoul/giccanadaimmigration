@@ -20,17 +20,20 @@ module.exports = (function () {
         this.buttons = [];
         this.subscribers = [];
 
-        this.widget.querySelectorAll('.fixed-panel-button').forEach(function (input) {
-            self.buttons[input.id] = input;
-        });
+        var buttons = document.querySelectorAll('.fixed-panel-button');
+        for (var i = 0; i < buttons.length; ++i) {
+            var key = buttons[i].id;
+            this.buttons[key] = buttons[i];
+        }
 
         this.buttons['live-chat'].addEventListener('click', function (e) {
             self.doChatToogle(e);
         });
 
         this.buttons['open-case'].addEventListener('click', function (e) {
-            self.doOpenCaseToggle(e);
+                self.doOpenCaseToggle(e);
         });
+
 
         document.addEventListener('scroll', function () {
             self.doScroll();

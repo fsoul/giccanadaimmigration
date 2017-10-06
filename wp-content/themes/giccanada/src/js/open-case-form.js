@@ -13,7 +13,7 @@ function OpenCaseForm(renderFunc) {
     this.form = document.getElementById('open-case-form');
     this.style = this.form.style;
     this.startTime = Date.now();
-    this.isMobile = window.innerWidth <= 575;
+    this.isMobile = helper.isMobile();
     this.cancelButton = this.form.querySelector('.close');
     this.submitButton = this.form.querySelector('input[type=submit]');
 
@@ -61,16 +61,30 @@ OpenCaseForm.prototype.toggle = function () {
 };
 
 
-OpenCaseForm.prototype.timerInit = function (timeToShow) {
-    timeToShow = timeToShow || 10;
+OpenCaseForm.prototype.timerInit = function () {
     var self = this;
-    var timerID = setInterval(function () {
-        var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
-        if (currentTime === timeToShow) {
-            clearInterval(timerID);
-            self.formShow();
+
+    function go(timeToShow) {
+        var timerID = setInterval(function () {
+            var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
+            if (currentTime === timeToShow) {
+                clearInterval(timerID);
+                self.formShow();
+            }
+        }, 1000);
+    }
+
+    $.ajax({
+        url: gic.ajaxurl,
+        type: "POST",
+        data: {'action': 'get_feedback_timer'},
+        success: function (second) {
+            go( parseInt(second) );
+        },
+        error:  function () {
+            go(10);
         }
-    }, 1000);
+    });
 };
 
 OpenCaseForm.prototype.sendForm = function () {

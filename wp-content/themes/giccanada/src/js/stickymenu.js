@@ -57,12 +57,9 @@ StickyMenu.prototype.doHeaderNormalize = function(event) {
 };
 
 StickyMenu.prototype.updateHeaderMenuPos =  function () {
-    var windowWidth = window.innerWidth
-        || document.documentElement.clientWidth
-        || document.body.clientWidth;
     var offset = window.pageYOffset;
     var distance = this._header.offsetTop - offset;
-    var isMobile = windowWidth <= 667;
+    var isMobile = helper.isMobile();
 
     if ((distance <= 0) && !this._stuck) {
         this.onHeaderSticking(isMobile);
