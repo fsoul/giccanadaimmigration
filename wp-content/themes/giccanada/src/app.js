@@ -1,5 +1,6 @@
 'use strict';
 
+require('./js/lib/polyfills');
 require('./js/vendor/owl.carousel/owl.carousel');
 require('./js/vendor/select2/select2');
 require('bootstrap');

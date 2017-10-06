@@ -10553,9 +10553,6 @@ body {
     opacity: 1; }
 
 /*fixed right panel ---------------------------*/
-#mobile-btn-up {
-  display: none; }
-
 .fixed-right-panel {
   position: fixed;
   width: 72px;
@@ -10613,6 +10610,9 @@ body {
       .fixed-right-panel div #open-case:hover {
         background: url(./public/images/Open-case-hover-a35d7c32d0.png) no-repeat center; }
 
+#mobile-btn-up {
+  display: none; }
+
 #open-case-form {
   display: none;
   width: 400px;
@@ -10624,71 +10624,73 @@ body {
   padding: 50px; }
   #open-case-form .close {
     position: relative;
-    top: -25px;
-    right: -20px; }
+    right: -20px;
+    top: -25px; }
     #open-case-form .close:active {
       transform: translateY(4px); }
     #open-case-form .close:focus {
       outline: 0; }
-  #open-case-form form > h2 {
-    font-size: 1.5em;
-    text-align: center;
-    font-weight: bold; }
-  #open-case-form form > p {
-    font-size: .85em;
-    text-align: center;
-    font-weight: bold; }
-  #open-case-form form > input[type=text],
-  #open-case-form form > input[type=tel],
-  #open-case-form form > input[type=email] {
-    width: 100%;
-    border: 1px solid #2d2d2d;
-    background: none;
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: .9em;
-    color: #2d2d2d;
-    padding: 10px 5px; }
-    #open-case-form form > input[type=text]::placeholder,
-    #open-case-form form > input[type=tel]::placeholder,
-    #open-case-form form > input[type=email]::placeholder {
-      color: #2d2d2d;
+  #open-case-form form {
+    padding-top: 20px; }
+    #open-case-form form > h2 {
+      font-size: 1.5em;
+      text-align: center;
+      font-weight: bold; }
+    #open-case-form form > p {
+      font-size: .85em;
+      text-align: center;
+      font-weight: bold; }
+    #open-case-form form > input[type=text],
+    #open-case-form form > input[type=tel],
+    #open-case-form form > input[type=email] {
+      width: 100%;
+      border: 1px solid #2d2d2d;
+      background: none;
+      margin-bottom: 10px;
       font-weight: bold;
-      font-size: .9em; }
-  #open-case-form form #selection-block .select2-container--default .select2-selection--single,
-  #open-case-form form #selection-block #open-case-lang,
-  #open-case-form form #selection-block #open-case-country {
-    background: none;
-    border: 1px solid #2d2d2d;
-    border-radius: 0;
-    color: #2d2d2d;
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: .85em;
-    height: 38px;
-    width: 100%;
-    line-height: 38px;
-    font-family: "Lato"; }
-    #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__rendered,
-    #open-case-form form #selection-block #open-case-lang .select2-selection__rendered,
-    #open-case-form form #selection-block #open-case-country .select2-selection__rendered {
-      line-height: inherit; }
-    #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__arrow,
-    #open-case-form form #selection-block #open-case-lang .select2-selection__arrow,
-    #open-case-form form #selection-block #open-case-country .select2-selection__arrow {
-      height: inherit; }
-  #open-case-form form > input[type=submit] {
-    font-family: "Lato";
-    width: 100%;
-    line-height: 40px;
-    margin-top: 15px;
-    border: 2px solid transparent; }
-    #open-case-form form > input[type=submit]:hover {
-      border: 2px solid #FF6200; }
-    #open-case-form form > input[type=submit]:active {
-      transform: translateY(4px); }
-    #open-case-form form > input[type=submit]:focus {
-      outline: 0; }
+      font-size: .9em;
+      color: #2d2d2d;
+      padding: 10px 5px; }
+      #open-case-form form > input[type=text]::placeholder,
+      #open-case-form form > input[type=tel]::placeholder,
+      #open-case-form form > input[type=email]::placeholder {
+        color: #2d2d2d;
+        font-weight: bold;
+        font-size: .9em; }
+    #open-case-form form #selection-block .select2-container--default .select2-selection--single,
+    #open-case-form form #selection-block #open-case-lang,
+    #open-case-form form #selection-block #open-case-country {
+      background: none;
+      border: 1px solid #2d2d2d;
+      border-radius: 0;
+      color: #2d2d2d;
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: .85em;
+      height: 38px;
+      width: 100%;
+      line-height: 38px;
+      font-family: "Lato"; }
+      #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__rendered,
+      #open-case-form form #selection-block #open-case-lang .select2-selection__rendered,
+      #open-case-form form #selection-block #open-case-country .select2-selection__rendered {
+        line-height: inherit; }
+      #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__arrow,
+      #open-case-form form #selection-block #open-case-lang .select2-selection__arrow,
+      #open-case-form form #selection-block #open-case-country .select2-selection__arrow {
+        height: inherit; }
+    #open-case-form form > input[type=submit] {
+      font-family: "Lato";
+      width: 100%;
+      line-height: 40px;
+      margin-top: 15px;
+      border: 2px solid transparent; }
+      #open-case-form form > input[type=submit]:hover {
+        border: 2px solid #FF6200; }
+      #open-case-form form > input[type=submit]:active {
+        transform: translateY(4px); }
+      #open-case-form form > input[type=submit]:focus {
+        outline: 0; }
 
 /*fixed right panel end -----------------------*/
 .header-container {
@@ -11561,6 +11563,205 @@ body {
     background: url(./public/images/7@2x-b3623f18aa.png) no-repeat center;
     background-size: contain; } }
 
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) {
+  .fixed-right-panel {
+    position: fixed;
+    width: 192px;
+    height: 48px;
+    bottom: 0;
+    background: #fff;
+    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
+    z-index: 500;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 0;
+    left: 50%;
+    margin-left: -96px; }
+    .fixed-right-panel div {
+      position: relative;
+      border-bottom: none;
+      border-right: 1px solid rgba(0, 0, 58, 0.1);
+      float: left; }
+      .fixed-right-panel div:last-child {
+        border-right: none; }
+      .fixed-right-panel div .fixed-pnl-btn-hover {
+        display: none;
+        background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
+        background-size: cover;
+        height: 32px;
+        min-width: 175px;
+        position: absolute;
+        right: 80px;
+        white-space: nowrap;
+        padding-right: 50px;
+        padding-left: 10px;
+        line-height: 32px;
+        font-size: 1em;
+        color: #fff;
+        top: 50%;
+        margin-top: -16px; }
+      .fixed-right-panel div .fixed-panel-button {
+        width: 47px;
+        height: 48px; }
+      .fixed-right-panel div #contact-form,
+      .fixed-right-panel div #live-chat,
+      .fixed-right-panel div #request-call,
+      .fixed-right-panel div #open-case {
+        background-size: 24px; }
+        .fixed-right-panel div #contact-form:hover,
+        .fixed-right-panel div #live-chat:hover,
+        .fixed-right-panel div #request-call:hover,
+        .fixed-right-panel div #open-case:hover {
+          background-size: 24px; }
+  #mobile-btn-up {
+    position: fixed;
+    right: 0;
+    bottom: 15%;
+    height: 68px;
+    width: 68px;
+    background: rgba(255, 255, 255, 0.2);
+    mix-blend-mode: normal;
+    border-radius: 68px;
+    padding: 10px;
+    z-index: 3; }
+    #mobile-btn-up a {
+      display: block;
+      height: 48px;
+      padding: 16px;
+      width: 48px;
+      border-radius: 48px;
+      background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
+  #open-case-form {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 40px 20px;
+    overflow-y: scroll; }
+    #open-case-form .close {
+      position: relative;
+      right: 0; }
+    #open-case-form form > p {
+      padding-bottom: 20px; }
+    #open-case-form form > input[type=submit] {
+      margin-top: 20px; }
+  #menu-container {
+    margin: 0; }
+    #menu-container .menu-row {
+      padding: 0 15px; }
+      #menu-container .menu-row .menu-logo {
+        order: 1; }
+      #menu-container .menu-row .menu-phone-block {
+        order: 2; }
+      #menu-container .menu-row .mobile-menu-button {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url(./public/images/Hamburger-3e76654d79.png) transparent no-repeat center;
+        background-size: 18px 12px;
+        border: none;
+        order: 3; }
+        #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
+          outline: none; }
+    #menu-container div.menu {
+      display: none; }
+  .carousel-div {
+    display: none; }
+  .header-mobile-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 155px;
+    background: url(./public/images/Hero-image_3m-b6bcb901c5.jpg) no-repeat center;
+    background-size: cover;
+    height: 616px; }
+    .header-mobile-content .row {
+      width: 90%;
+      max-width: 345px; }
+    .header-mobile-content .hs-caption {
+      font-size: 2.5em;
+      letter-spacing: 1px;
+      line-height: normal; }
+    .header-mobile-content .hs-content {
+      line-height: 20px;
+      font-size: 1em;
+      padding-top: 20px;
+      padding-bottom: 40px; }
+    .header-mobile-content a.hs-item-button {
+      margin: 0;
+      height: 48px;
+      line-height: 48px;
+      min-width: initial;
+      width: initial; }
+  .modal-backdrop {
+    display: none; }
+  #mobile-modal {
+    margin-top: 44px; }
+    #mobile-modal .modal-dialog {
+      margin: 0;
+      max-width: none;
+      width: 100%;
+      height: 100%; }
+      #mobile-modal .modal-dialog .modal-content {
+        background: linear-gradient(150.41deg, #3023AE, #C86DD7);
+        height: 100%;
+        overflow-y: auto; }
+        #mobile-modal .modal-dialog .modal-content .modal-header {
+          justify-content: space-between;
+          border-bottom: none; }
+          #mobile-modal .modal-dialog .modal-content .modal-header .close {
+            font-size: 2em;
+            color: #fff;
+            text-shadow: 0 1px 0 #fff;
+            font-weight: normal;
+            opacity: 1; }
+          #mobile-modal .modal-dialog .modal-content .modal-header #modal-back-arrow {
+            font-size: 1.5em;
+            visibility: hidden; }
+        #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list {
+          padding: 0;
+          margin: 0;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center; }
+          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item {
+            text-transform: uppercase;
+            list-style-type: none;
+            color: #fff;
+            font-size: 1em;
+            line-height: 44px;
+            min-width: 173px; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item:nth-child(n+7) {
+              padding-top: 40px; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul {
+              padding-left: 40px;
+              -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+              flex-direction: column;
+              -webkit-align-items: flex-start;
+              -ms-flex-align: start;
+              align-items: flex-start;
+              display: none; }
+              #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li {
+                text-transform: none;
+                list-style-type: none; }
+                #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a {
+                  font-size: 1em;
+                  color: #fff;
+                  text-decoration: none;
+                  white-space: nowrap;
+                  line-height: 44px; }
+                  #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:visited, #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:link {
+                    text-decoration: none; }
+          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected {
+            width: auto; }
+            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
+              display: flex; } }
+
 /* lg-размер (<=1199px) */
 @media (max-width: 1199px) {
   /* CSS для ширины от 992px до 1199px */
@@ -11876,87 +12077,6 @@ body {
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
-  .fixed-right-panel {
-    position: fixed;
-    width: 192px;
-    height: 48px;
-    bottom: 0;
-    background: #fff;
-    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
-    z-index: 500;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-bottom-left-radius: 0;
-    left: 50%;
-    margin-left: -96px; }
-    .fixed-right-panel div {
-      position: relative;
-      border-bottom: none;
-      border-right: 1px solid rgba(0, 0, 58, 0.1);
-      float: left; }
-      .fixed-right-panel div:last-child {
-        border-right: none; }
-      .fixed-right-panel div .fixed-pnl-btn-hover {
-        display: none;
-        background: url(./public/images/fxd-btn-hover-text-539e33d552.png);
-        background-size: cover;
-        height: 32px;
-        min-width: 175px;
-        position: absolute;
-        right: 80px;
-        white-space: nowrap;
-        padding-right: 50px;
-        padding-left: 10px;
-        line-height: 32px;
-        font-size: 1em;
-        color: #fff;
-        top: 50%;
-        margin-top: -16px; }
-      .fixed-right-panel div .fixed-panel-button {
-        width: 47px;
-        height: 48px; }
-      .fixed-right-panel div #contact-form,
-      .fixed-right-panel div #live-chat,
-      .fixed-right-panel div #request-call,
-      .fixed-right-panel div #open-case {
-        background-size: 24px; }
-        .fixed-right-panel div #contact-form:hover,
-        .fixed-right-panel div #live-chat:hover,
-        .fixed-right-panel div #request-call:hover,
-        .fixed-right-panel div #open-case:hover {
-          background-size: 24px; }
-  #mobile-btn-up {
-    position: fixed;
-    right: 0;
-    bottom: 15%;
-    height: 68px;
-    width: 68px;
-    background: rgba(255, 255, 255, 0.2);
-    mix-blend-mode: normal;
-    border-radius: 68px;
-    padding: 10px;
-    z-index: 3; }
-    #mobile-btn-up a {
-      display: block;
-      height: 48px;
-      padding: 16px;
-      width: 48px;
-      border-radius: 48px;
-      background: linear-gradient(47.3deg, #FFDB30 -2.39%, #1B6CFD 1.28%, #50A5F6 49.27%, #86E0F0 98.93%, #90EBEE 108.36%, #9FFCEC 121.98%, #FFFC29 122.09%); }
-  #open-case-form {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    padding: 20% 20px 0 20px;
-    overflow-y: scroll; }
-    #open-case-form .close {
-      position: relative;
-      top: -10%;
-      right: 0; }
-    #open-case-form form > p {
-      padding-bottom: 20px; }
-    #open-case-form form > input[type=submit] {
-      margin-top: 20px; }
   .header-container {
     height: auto; }
     .header-container .top-bar #desktop-top-bar {
@@ -11974,122 +12094,6 @@ body {
       height: 20px;
       width: 22px;
       background-size: contain; }
-  #menu-container {
-    margin: 0; }
-    #menu-container .menu-row {
-      padding: 0 15px; }
-      #menu-container .menu-row .menu-logo {
-        order: 1; }
-      #menu-container .menu-row .menu-phone-block {
-        order: 2; }
-      #menu-container .menu-row .mobile-menu-button {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        background: url(./public/images/Hamburger-3e76654d79.png) transparent no-repeat center;
-        background-size: 18px 12px;
-        border: none;
-        order: 3; }
-        #menu-container .menu-row .mobile-menu-button:active, #menu-container .menu-row .mobile-menu-button:focus {
-          outline: none; }
-    #menu-container div.menu {
-      display: none; }
-  .carousel-div {
-    display: none; }
-  .header-mobile-content {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 155px;
-    background: url(./public/images/Hero-image_3m-b6bcb901c5.jpg) no-repeat center;
-    background-size: cover;
-    height: 616px; }
-    .header-mobile-content .row {
-      width: 90%;
-      max-width: 345px; }
-    .header-mobile-content .hs-caption {
-      font-size: 2.5em;
-      letter-spacing: 1px;
-      line-height: normal; }
-    .header-mobile-content .hs-content {
-      line-height: 20px;
-      font-size: 1em;
-      padding-top: 20px;
-      padding-bottom: 40px; }
-    .header-mobile-content a.hs-item-button {
-      margin: 0;
-      height: 48px;
-      line-height: 48px;
-      min-width: initial;
-      width: initial; }
-  .modal-backdrop {
-    display: none; }
-  #mobile-modal {
-    margin-top: 44px; }
-    #mobile-modal .modal-dialog {
-      margin: 0;
-      max-width: none;
-      width: 100%;
-      height: 100%; }
-      #mobile-modal .modal-dialog .modal-content {
-        background: linear-gradient(150.41deg, #3023AE, #C86DD7);
-        height: 100%;
-        overflow-y: auto; }
-        #mobile-modal .modal-dialog .modal-content .modal-header {
-          justify-content: space-between;
-          border-bottom: none; }
-          #mobile-modal .modal-dialog .modal-content .modal-header .close {
-            font-size: 2em;
-            color: #fff;
-            text-shadow: 0 1px 0 #fff;
-            font-weight: normal;
-            opacity: 1; }
-          #mobile-modal .modal-dialog .modal-content .modal-header #modal-back-arrow {
-            font-size: 1.5em;
-            visibility: hidden; }
-        #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list {
-          padding: 0;
-          margin: 0;
-          -webkit-flex-direction: column;
-          -ms-flex-direction: column;
-          flex-direction: column;
-          -webkit-align-items: center;
-          -ms-flex-align: center;
-          align-items: center; }
-          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item {
-            text-transform: uppercase;
-            list-style-type: none;
-            color: #fff;
-            font-size: 1em;
-            line-height: 44px;
-            min-width: 173px; }
-            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item:nth-child(n+7) {
-              padding-top: 40px; }
-            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul {
-              padding-left: 40px;
-              -webkit-flex-direction: column;
-              -ms-flex-direction: column;
-              flex-direction: column;
-              -webkit-align-items: flex-start;
-              -ms-flex-align: start;
-              align-items: flex-start;
-              display: none; }
-              #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li {
-                text-transform: none;
-                list-style-type: none; }
-                #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a {
-                  font-size: 1em;
-                  color: #fff;
-                  text-decoration: none;
-                  white-space: nowrap;
-                  line-height: 44px; }
-                  #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:visited, #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-item ul li a:link {
-                    text-decoration: none; }
-          #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected {
-            width: auto; }
-            #mobile-modal .modal-dialog .modal-content .modal-body #modal-menu-list .modal-inspected ul {
-              display: flex; }
   #programms .programms-grid-item .programms-gi-image {
     height: 305px; }
   #programms .orange-btn {
