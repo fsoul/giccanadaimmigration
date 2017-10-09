@@ -10520,7 +10520,8 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 28px;
   line-height: 56px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  cursor: pointer; }
   .orange-btn:hover {
     background: #fff;
     border: 2px solid #FF6200;
@@ -11437,6 +11438,373 @@ body {
 
 /*images end---------*/
 /*footer end -------------------------------------*/
+#assessment-modal .modal-header {
+  border: none; }
+  #assessment-modal .modal-header .modal-title {
+    width: 807px;
+    height: 56px;
+    text-align: center;
+    line-height: 56px;
+    font-size: 3em;
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+    color: #FF8200;
+    font-weight: 900; }
+
+#assessment-modal .modal-body {
+  padding: 60px 15px; }
+  #assessment-modal .modal-body #ass-step-init {
+    text-align: center; }
+    #assessment-modal .modal-body #ass-step-init .ass-photo {
+      display: inline-block;
+      height: 100px;
+      width: 100px;
+      background: url(./public/images/ass-photo-69388f311b.png) no-repeat;
+      background-size: contain; }
+    #assessment-modal .modal-body #ass-step-init p span {
+      padding-bottom: 40px;
+      display: inline-block; }
+    #assessment-modal .modal-body #ass-step-init p span:first-child {
+      font-weight: bold;
+      line-height: 30px;
+      font-size: 1.5em;
+      color: #0076FF;
+      text-align: center;
+      padding-top: 40px; }
+    #assessment-modal .modal-body #ass-step-init p span:nth-child(n+2) {
+      line-height: 18px;
+      font-size: 1.063em;
+      text-align: center;
+      color: #000; }
+    #assessment-modal .modal-body #ass-step-init button {
+      font-family: "Lato";
+      width: 290px;
+      line-height: 40px;
+      margin-top: 15px;
+      border: 2px solid transparent; }
+      #assessment-modal .modal-body #ass-step-init button:hover {
+        border: 2px solid #FF6200; }
+      #assessment-modal .modal-body #ass-step-init button:active {
+        transform: translateY(4px); }
+      #assessment-modal .modal-body #ass-step-init button:focus {
+        outline: 0; }
+  #assessment-modal .modal-body #assessment-form, #assessment-modal .modal-body #ass-step-init {
+    max-width: 570px;
+    margin: 0 auto; }
+  #assessment-modal .modal-body #assessment-form {
+    display: none; }
+    #assessment-modal .modal-body #assessment-form .assessment-step section {
+      padding-bottom: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section label, #assessment-modal .modal-body #assessment-form .assessment-step section input {
+        width: 100%;
+        font-family: Lato; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section label {
+        font-weight: bold;
+        line-height: normal;
+        font-size: .875em;
+        color: #000; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section select {
+        font-family: Lato;
+        line-height: 18px;
+        font-size: 1em;
+        letter-spacing: 1px;
+        color: #9B9B9B; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text], #assessment-modal .modal-body #assessment-form .assessment-step section select {
+        height: 48px;
+        padding-left: 15px;
+        background: #fff;
+        border: 1px solid #CFCFCF; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text]::placeholder, #assessment-modal .modal-body #assessment-form .assessment-step section select::placeholder {
+          line-height: 18px;
+          font-size: 1em;
+          letter-spacing: 1px;
+          color: #9B9B9B; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section {
+        padding-bottom: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section:first-of-type .ass-radio + label {
+          border-top: 1px solid #cfcfcf; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:checked, #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:not(:checked) {
+          position: absolute;
+          left: -9999px; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio + label {
+          letter-spacing: 1px;
+          cursor: pointer;
+          padding: 11px 0 11px 50px;
+          margin: 0;
+          line-height: 18px;
+          font-size: .875em;
+          font-weight: normal;
+          color: #000;
+          border-bottom: 1px solid #cfcfcf; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:checked + label:before,
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:not(:checked) + label:before {
+          content: '';
+          position: absolute;
+          left: 15px;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          box-sizing: border-box;
+          background: #fff; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:not(:checked) + label:before {
+          border: 2px solid #000; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:checked + label:before {
+          border: 2px solid #ff8200;
+          background: url(./public/images/radio_checked-1fd7e48840.png) no-repeat center;
+          background-size: cover; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select {
+        width: 30%;
+        margin-right: 4%; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select:last-child {
+          margin-right: 0; }
+  #assessment-modal .modal-body .hide-text {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0; }
+  #assessment-modal .modal-body .input-block-level {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  #assessment-modal .modal-body .wizard,
+  #assessment-modal .modal-body .tabcontrol {
+    display: block;
+    width: 100%;
+    overflow: hidden; }
+  #assessment-modal .modal-body .wizard a,
+  #assessment-modal .modal-body .tabcontrol a {
+    outline: 0; }
+  #assessment-modal .modal-body .wizard ul,
+  #assessment-modal .modal-body .tabcontrol ul {
+    list-style: none !important;
+    padding: 0;
+    margin: 0; }
+  #assessment-modal .modal-body .wizard ul > li,
+  #assessment-modal .modal-body .tabcontrol ul > li {
+    display: block;
+    padding: 0; }
+  #assessment-modal .modal-body .wizard > .steps .current-info,
+  #assessment-modal .modal-body .tabcontrol > .steps .current-info {
+    position: absolute;
+    left: -999em; }
+  #assessment-modal .modal-body .wizard > .content > .title,
+  #assessment-modal .modal-body .tabcontrol > .content > .title {
+    position: absolute;
+    left: -999em; }
+  #assessment-modal .modal-body .wizard > .steps {
+    position: relative;
+    display: block;
+    width: 100%; }
+  #assessment-modal .modal-body .wizard.vertical > .steps {
+    display: inline;
+    float: left;
+    width: 30%; }
+  #assessment-modal .modal-body .wizard > .steps .number {
+    display: none; }
+  #assessment-modal .modal-body .wizard > .steps > ul > li {
+    width: 100%; }
+  #assessment-modal .modal-body .wizard > .steps > ul > li,
+  #assessment-modal .modal-body .wizard > .actions > ul > li {
+    float: left; }
+  #assessment-modal .modal-body .wizard.vertical > .steps > ul > li {
+    float: none;
+    width: 100%; }
+  #assessment-modal .modal-body .wizard > .steps a,
+  #assessment-modal .modal-body .wizard > .steps a:hover,
+  #assessment-modal .modal-body .wizard > .steps a:active {
+    display: none;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 1.5em;
+    color: #0076FF;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    text-decoration: none; }
+  #assessment-modal .modal-body .wizard > .steps .disabled a,
+  #assessment-modal .modal-body .wizard > .steps .disabled a:hover,
+  #assessment-modal .modal-body .wizard > .steps .disabled a:active {
+    background: #eee;
+    color: #aaa;
+    cursor: default; }
+  #assessment-modal .modal-body .wizard > .steps .current a,
+  #assessment-modal .modal-body .wizard > .steps .current a:hover,
+  #assessment-modal .modal-body .wizard > .steps .current a:active {
+    color: #0076FF;
+    cursor: default;
+    display: block;
+    border-bottom: 2px solid #0076FF; }
+  #assessment-modal .modal-body .wizard > .steps .done a,
+  #assessment-modal .modal-body .wizard > .steps .done a:hover,
+  #assessment-modal .modal-body .wizard > .steps .done a:active {
+    background: #9dc8e2;
+    color: #fff; }
+  #assessment-modal .modal-body .wizard > .steps .error a,
+  #assessment-modal .modal-body .wizard > .steps .error a:hover,
+  #assessment-modal .modal-body .wizard > .steps .error a:active {
+    background: #ff3111;
+    color: #fff; }
+  #assessment-modal .modal-body .wizard > .content {
+    display: block;
+    margin: .5em;
+    min-height: 35em;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
+  #assessment-modal .modal-body .wizard.vertical > .content {
+    display: inline;
+    float: left;
+    margin: 0 2.5% .5em 2.5%;
+    width: 65%; }
+  #assessment-modal .modal-body .wizard > .content > .body {
+    float: left;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    padding: 2.5%; }
+  #assessment-modal .modal-body .wizard > .content > .body ul {
+    list-style: disc !important; }
+  #assessment-modal .modal-body .wizard > .content > .body ul > li {
+    display: list-item; }
+  #assessment-modal .modal-body .wizard > .content > .body > iframe {
+    border: 0 none;
+    width: 100%;
+    height: 100%; }
+  #assessment-modal .modal-body .wizard > .content > .body input {
+    display: block;
+    border: 1px solid #ccc; }
+  #assessment-modal .modal-body .wizard > .content > .body input[type="checkbox"] {
+    display: inline-block; }
+  #assessment-modal .modal-body .wizard > .content > .body input.error {
+    background: #fbe3e4;
+    border: 1px solid #fbc2c4;
+    color: #8a1f11; }
+  #assessment-modal .modal-body .wizard > .content > .body label {
+    display: inline-block;
+    margin-bottom: .5em; }
+  #assessment-modal .modal-body .wizard > .content > .body label.error {
+    color: #8a1f11;
+    display: inline-block;
+    margin-left: 1.5em; }
+  #assessment-modal .modal-body .wizard > .actions {
+    position: relative;
+    display: block;
+    text-align: right;
+    width: 100%; }
+  #assessment-modal .modal-body .wizard.vertical > .actions {
+    display: inline;
+    float: right;
+    margin: 0 2.5%;
+    width: 95%; }
+  #assessment-modal .modal-body .wizard > .actions > ul {
+    display: inline-block;
+    text-align: right; }
+  #assessment-modal .modal-body .wizard > .actions > ul > li {
+    margin: 0 .5em; }
+  #assessment-modal .modal-body .wizard > .actions > ul > li.disabled {
+    display: none; }
+  #assessment-modal .modal-body .wizard.vertical > .actions > ul > li {
+    margin: 0 0 0 1em; }
+  #assessment-modal .modal-body .wizard > .actions a,
+  #assessment-modal .modal-body .wizard > .actions a:hover,
+  #assessment-modal .modal-body .wizard > .actions a:active {
+    background: #2184be;
+    color: #fff;
+    display: block;
+    padding: .5em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
+  #assessment-modal .modal-body .wizard > .actions .disabled a,
+  #assessment-modal .modal-body .wizard > .actions .disabled a:hover,
+  #assessment-modal .modal-body .wizard > .actions .disabled a:active {
+    background: #eee;
+    color: #aaa; }
+  #assessment-modal .modal-body .tabcontrol > .steps {
+    position: relative;
+    display: block;
+    width: 100%; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul {
+    position: relative;
+    margin: 6px 0 0 0;
+    top: 1px;
+    z-index: 1; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li {
+    float: left;
+    margin: 5px 2px 0 0;
+    padding: 1px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li:hover {
+    background: #edecec;
+    border: 1px solid #bbb;
+    padding: 0; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li.current {
+    background: #fff;
+    border: 1px solid #bbb;
+    border-bottom: 0 none;
+    padding: 0 0 1px 0;
+    margin-top: 0; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li > a {
+    color: #5f5f5f;
+    display: inline-block;
+    border: 0 none;
+    margin: 0;
+    padding: 10px 30px;
+    text-decoration: none; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li > a:hover {
+    text-decoration: none; }
+  #assessment-modal .modal-body .tabcontrol > .steps > ul > li.current > a {
+    padding: 15px 30px 10px 30px; }
+  #assessment-modal .modal-body .tabcontrol > .content {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 35em;
+    overflow: hidden;
+    border-top: 1px solid #bbb;
+    padding-top: 20px; }
+  #assessment-modal .modal-body .tabcontrol > .content > .body {
+    float: left;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    padding: 2.5%; }
+  #assessment-modal .modal-body .tabcontrol > .content > .body ul {
+    list-style: disc !important; }
+  #assessment-modal .modal-body .tabcontrol > .content > .body ul > li {
+    display: list-item; }
+  @media (max-width: 600px) {
+    #assessment-modal .modal-body .wizard > .steps > ul > li {
+      width: 50%; }
+    #assessment-modal .modal-body .wizard > .steps a,
+    #assessment-modal .modal-body .wizard > .steps a:hover,
+    #assessment-modal .modal-body .wizard > .steps a:active {
+      margin-top: .5em; }
+    #assessment-modal .modal-body .wizard.vertical > .steps,
+    #assessment-modal .modal-body .wizard.vertical > .actions {
+      display: block;
+      float: none;
+      width: 100%; }
+    #assessment-modal .modal-body .wizard.vertical > .content {
+      display: block;
+      float: none;
+      margin: 0 .5em .5em;
+      width: auto; } }
+  @media (max-width: 480px) {
+    #assessment-modal .modal-body .wizard > .steps > ul > li {
+      width: 100%; } }
 @charset "UTF-8";
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .fixed-right-panel div .fixed-pnl-btn-hover {
