@@ -17,11 +17,21 @@
                     </div>
                     <button class="orange-btn" id="ass-init-btn">Заполнить форму</button>
                 </div>
+                <div class="progress-container">
+                    <p class="progress-cation">Шаг <span class="progress-current-step"></span> из <span class="progress-steps-count"></span></p>
+                    <div class="progressbar">
+                        <div></div>
+                    </div>
+                </div>
                 <form id="assessment-form">
                     <h5>Личные данные</h5>
                     <fieldset class="assessment-step -step1"></fieldset>
-                    <h5>Личные данные</h5>
+                    <h5>Семейное положение</h5>
                     <fieldset class="assessment-step -step2"></fieldset>
+                    <h5>TODO</h5>
+                    <fieldset class="assessment-step -step3"></fieldset>
+                    <h5>Личные данные</h5>
+                    <fieldset class="assessment-step -step4"></fieldset>
                 </form>
             </div>
         </div>

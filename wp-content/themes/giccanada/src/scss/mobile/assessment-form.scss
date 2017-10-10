@@ -2,103 +2,52 @@ $image-dir: '../images/';
 
 #assessment-modal {
 
-  .modal-content {
-    padding: 60px 0;
+  .modal-dialog {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
   }
+
+   .modal-content {
+     padding: 20px 0;
+     border: 0;
+     min-height: 100%;
+   }
 
   .modal-header {
 
-    border: none;
-
     .modal-title {
-      width: 100%;
-      height: 56px;
-      text-align: center;
-      line-height: 56px;
-      font-size: 3em;
-      letter-spacing: 0.42px;
-      text-transform: uppercase;
-      color: #FF8200;
-      font-weight: 900;
+      font-size: 1.5em;
+      line-height: 30px;
+      height: 30px;
     }
   }
 
   .modal-body {
-    padding: 50px 15px 0 15px;
+    padding: 0 15px;
 
     .progress-container {
-      display: none;
-      max-width: 570px;
-      margin: 0 auto;
-      font-weight: bold;
-      line-height: normal;
-      font-size: 1.25em;
-      color: #4a4a4a;
-
-      .progressbar {
-        width: 100%;
-        height: 24px;
-        background: linear-gradient(180deg, #EEEEEE 0%, #AFAFAF 100%);
-        border-radius: 4px;
-        div {
-          height: inherit;
-          width: 0;
-          left: 435px;
-          background: linear-gradient(66.11deg, #FF8200 34.28%, #FF3400 167.85%);
-        }
-      }
+      text-align: center;
     }
 
-    #ass-step-init {
-      text-align: center;
 
-      .ass-photo {
-        display: inline-block;
-        height: 100px;
-        width: 100px;
-        background: url($image-dir + "ass-photo.png") no-repeat;
-        background-size: contain;
-      }
+    #ass-step-init {
 
       p span {
-        padding-bottom: 40px;
-        display: inline-block;
+        padding-bottom: 20px;
       }
 
       p span:first-child {
-        font-weight: bold;
-        line-height: 30px;
-        font-size: 1.5em;
-        color: #0076FF;
-        text-align: center;
-        padding-top: 40px;
+        padding-top: 20px;
       }
 
       p span:nth-child(n+2) {
-        line-height: 18px;
-        font-size: 1.063em;
-        text-align: center;
-        color: #000;
+        font-size: 1em;
       }
 
       button {
-        font-family: "Lato";
-        width: 290px;
-        line-height: 40px;
-        margin-top: 15px;
-        border: 2px solid transparent;
-
-        &:hover {
-          border: 2px solid #FF6200;
-        }
-
-        &:active {
-          transform: translateY(4px);
-        }
-
-        &:focus {
-          outline: 0;
-        }
+        margin-top: 0;
       }
     }
 
@@ -115,7 +64,7 @@ $image-dir: '../images/';
         section {
           padding-bottom: 15px;
 
-          label, input, select {
+          label, input {
             width: 100%;
             font-family: Lato;
           }
@@ -165,7 +114,7 @@ $image-dir: '../images/';
                   left: -9999px;
                 }
 
-                & + label {
+                &  + label {
                   letter-spacing: 1px;
                   cursor: pointer;
                   padding: 11px 0 11px 50px;
@@ -204,25 +153,31 @@ $image-dir: '../images/';
           }
           &.combine-date {
             select {
-              width: 30%;
-              margin-right: 4%;
+              width: 100%;
+              margin-bottom: 15px;
+              margin-right: 0;
 
               &:last-child {
-                margin-right: 0;
+                margin-bottom: 0;
               }
             }
+          }
+        }
+        &.-step1 {
+          & > p {
+            font-size: .85em;
           }
         }
 
         &.-step4 {
           .ass-country {
             section{
-              width: 30%;
-              float: left;
+              width: 100%;
+              float: none;
             }
             section:first-of-type {
-              width: 65%;
-              margin-right: 5%;
+              width: 100%;
+              margin-right: 0;
             }
           }
         }
@@ -246,48 +201,54 @@ $image-dir: '../images/';
       box-sizing: border-box
     }
 
-    .wizard{
+    .wizard,
+    .tabcontrol {
       display: block;
       width: 100%;
       overflow: hidden
     }
 
-    .wizard a {
+    .wizard a,
+    .tabcontrol a {
       outline: 0
     }
 
-    .wizard ul {
+    .wizard ul,
+    .tabcontrol ul {
       list-style: none !important;
       padding: 0;
-      margin: 0
+      margin: 0;
     }
 
-    .wizard ul > li {
+    .wizard ul > li,
+    .tabcontrol ul > li {
       display: block;
-      padding: 0
+      padding: 0;
     }
 
-    .wizard > .steps .current-info{
+    .wizard > .steps .current-info,
+    .tabcontrol > .steps .current-info {
       position: absolute;
-      left: -999em
+      left: -999em;
     }
 
-    .wizard > .content > .title {
+    .wizard > .content > .title,
+    .tabcontrol > .content > .title {
       position: absolute;
-      left: -999em
+      left: -999em;
     }
 
     .wizard > .steps {
-      padding-top: 30px;
       position: relative;
       display: block;
-      width: 100%
+      width: 100%;
+      padding-top: 30px
     }
 
     .wizard.vertical > .steps {
       display: inline;
       float: left;
-      width: 30%
+      width: 30%;
     }
 
     .wizard > .steps .number {
@@ -363,10 +324,15 @@ $image-dir: '../images/';
       border-radius: 5px
     }
 
-    .wizard > .content > .body {
+    .wizard.vertical > .content {
+      display: inline;
       float: left;
-      position: relative;
-      width: 100%;
+      margin: 0 2.5% .5em 2.5%;
+      width: 65%
+    }
+
+    .wizard > .content > .body {
+
     }
 
     .wizard > .content > .body ul {
@@ -416,78 +382,35 @@ $image-dir: '../images/';
       width: 100%
     }
 
-    .wizard > .actions > ul {
-      display: inline-block;
-      text-align: center;
-      width: 100%;
-    }
-
     .wizard > .actions > ul > li {
-      padding: 0 15px;
-      width: 50%;
+      padding: 0 7px;
     }
-
-    .wizard > .actions > ul > li.disabled {
-      display: none;
-    }
-
 
     .wizard > .actions a[href='#next'],
     .wizard > .actions a[href='#finish']{
-      color: #fff;
-      text-align: center;
-      font-size: 1em;
-      text-transform: uppercase;
-      background: linear-gradient(82.05deg, #FF8200 54.81%, #FF3400 190%);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-      border-radius: 28px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      text-decoration: none;
 
       &:hover {
-        line-height: 56px;
-        background: #fff;
-        border: 2px solid #FF6200;
-        color: #FF8200;
-        text-decoration: none;
-      }
-
-      &:active {
-        transform: translateY(4px);
-        text-decoration: none;
+        line-height: 40px;
       }
     }
 
     .wizard > .actions a[href='#previous'] {
-      color: #000;
-      text-align: center;
-      font-size: 1em;
-      text-transform: uppercase;
-      border-radius: 28px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      background: linear-gradient(180deg, #eee 0%, #afafaf 100%);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
       &:hover {
-        line-height: 56px;
-        background: #fff;
-        border: 2px solid #959595;
-        text-decoration: none;
+        line-height: 40px;
       }
 
-      &:active {
-        transform: translateY(4px);
-        text-decoration: none;
-      }
     }
 
 
     .wizard > .actions a {
-      display: block;
-      line-height: 58px;
-      text-decoration: none;
+      line-height: 42px;
+    }
+
+    .wizard > .actions a,
+    .wizard > .actions a:hover,
+    .wizard > .actions a:active {
+
     }
 
     .wizard > .loading {
