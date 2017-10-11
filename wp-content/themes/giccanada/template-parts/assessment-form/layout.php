@@ -28,10 +28,24 @@
                     <fieldset class="assessment-step -step1"></fieldset>
                     <h5>Семейное положение</h5>
                     <fieldset class="assessment-step -step2"></fieldset>
-                    <h5>TODO</h5>
+                    <h5>Ваша фотография</h5>
                     <fieldset class="assessment-step -step3"></fieldset>
                     <h5>Личные данные</h5>
                     <fieldset class="assessment-step -step4"></fieldset>
+                    <h5>Паспортные данные</h5>
+                    <fieldset class="assessment-step -step5"></fieldset>
+                    <h5>Контактные данные</h5>
+                    <fieldset class="assessment-step -step6"></fieldset>
+                    <h5>Английский язык</h5>
+                    <fieldset class="assessment-step -step7"></fieldset>
+                    <h5>Французский язык</h5>
+                    <fieldset class="assessment-step -step8"></fieldset>
+                    <h5>Родственники в Канаде</h5>
+                    <fieldset class="assessment-step -step9"></fieldset>
+                    <h5>Где вы намереваетесь жить в Канаде?</h5>
+                    <fieldset class="assessment-step -step10"></fieldset>
+                    <h5>Образование</h5>
+                    <fieldset class="assessment-step -step11"></fieldset>
                 </form>
             </div>
         </div>

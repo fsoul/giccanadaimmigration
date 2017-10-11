@@ -64,9 +64,8 @@ var header = header || {}; header["Window"] =
 /******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10326,8 +10325,7 @@ return jQuery;
 
 
 /***/ }),
-
-/***/ 1:
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10402,807 +10400,7 @@ module.exports = {
 };
 
 /***/ }),
-
-/***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var helper = __webpack_require__(1),
-    headerStickingStr = 'headerSticking',
-    headerNormalizeStr = 'headerNormalize';
-
-
-function ListenerElement() {
-    this.element = {};
-}
-
-
-function MenuLogo() {
-    var self = this;
-
-    function init() {
-        self.element = document.querySelector('.menu-logo');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
-        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-MenuLogo.prototype = Object.create(ListenerElement.prototype);
-MenuLogo.prototype.constructor = MenuLogo;
-
-MenuLogo.prototype.doUpdateMenuLogo = function (event) {
-    if (event.detail.isMobile) {
-        this.style.background = 'none';
-        this.style.height = '24px';
-        this.style.width = 'auto';
-        this.innerText = 'GIC Canada';
-    }
-};
-
-MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
-    if (event.detail.isMobile) {
-        this.removeAttribute('style');
-        this.innerText = '';
-    }
-};
-
-
-function MenuPhoneBlock() {
-    var self = this;
-
-    function init () {
-        self.element = document.querySelector('.menu-phone-block');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
-MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
-
-MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
-    if (event.detail.isMobile) {
-        helper.toggle(this);
-    }
-};
-
-
-function ButtonUp() {
-    var self = this;
-
-    function init () {
-        self.element = document.getElementById('mobile-btn-up');
-        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
-        self.element.addEventListener('click', self.doClick);
-    }
-    document.addEventListener('DOMContentLoaded', init);
-}
-
-ButtonUp.prototype = Object.create(ListenerElement.prototype);
-ButtonUp.prototype.constructor = ButtonUp;
-
-ButtonUp.prototype.doUpdateButtonUp = function (event) {
-    if (event.detail.isMobile) {
-        helper.toggle(this);
-    }
-};
-
-ButtonUp.prototype.doClick = function (event) {
-    event.preventDefault();
-
-    var start = performance.now();
-    var top = 0;
-    var duration = 2000;
-
-    window.requestAnimationFrame(function step(timestamp) {
-        if (!start) start = timestamp;
-
-        var time = timestamp - start;
-        var percent = Math.min(time / duration, 1);
-        var y = window.pageYOffset * (1 - Math.abs(percent));
-
-        window.scrollTo(0, y);
-
-        if (time < duration && window.pageYOffset > top) {
-            window.requestAnimationFrame(step);
-        }
-    })
-};
-
-module.exports = {
-    menuLogo: new MenuLogo(),
-    menuPhoneBlock: new MenuPhoneBlock(),
-    buttonUp: new ButtonUp()
-};
-
-/***/ }),
-
-/***/ 11:
-/***/ (function(module, exports) {
-
-module.exports =
-    (function () {
-        var throttle = function(type, name, obj) {
-            obj = obj || window;
-            var running = false;
-            var func = function() {
-                if (running) { return; }
-                running = true;
-                requestAnimationFrame(function() {
-                    obj.dispatchEvent(new CustomEvent(name));
-                    running = false;
-                });
-            };
-            obj.addEventListener(type, func);
-        };
-
-        var btnDropdown = document.querySelector('button.dropbtn');
-        var fixedButton = document.getElementsByClassName("fixed-panel-button");
-
-        function onFixedButtonHover() {
-            var windowWidth = window.innerWidth
-                || document.documentElement.clientWidth
-                || document.body.clientWidth;
-            var btnHoverText = this.parentElement.querySelector('.fixed-pnl-btn-hover');
-            if (
-                (
-                    btnHoverText.style.display === 'none' ||
-                    btnHoverText.style.display === ''
-                ) &&
-                windowWidth > 768
-            )
-                btnHoverText.style.display = 'inline-block';
-            else
-                btnHoverText.style.display = 'none';
-        }
-
-
-        // Close the dropdown menu if the user clicks outside of it
-        function onWindowClick(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show-dropdown-content')) {
-                        openDropdown.classList.remove('show-dropdown-content');
-                    }
-                }
-            }
-        }
-
-        function toggleMenu() {
-            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
-        }
-
-        /* init - you can init any event */
-        throttle("click", "toggleMenu", btnDropdown);
-        throttle("click", "windowClick");
-        throttle("resize", "windowResize");
-
-        // handle event
-        for (var i = 0; i < fixedButton.length; i++) {
-            throttle("mouseover", "fixedButtonHover", fixedButton[i]);
-            throttle("mouseout", "fixedButtonHover", fixedButton[i]);
-            fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
-            fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
-        }
-
-        btnDropdown.addEventListener("toggleMenu", toggleMenu);
-        window.addEventListener('click', onWindowClick);
-    })();
-
-
-/***/ }),
-
-/***/ 12:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var OpenCaseForm = __webpack_require__(13);
-
-module.exports = (function () {
-
-    function Widget() {
-
-        var self = this;
-
-        this.wrapper = document.querySelector('.footer-wrapper');
-        this.footer = document.getElementById('footer');
-        this.widget = document.querySelector('.fixed-right-panel');
-        this.openCaseForm = new OpenCaseForm(this.toggle);
-        this.api = Tawk_API || {};
-        this.api.onChatMaximized = function () {
-          self.doChatShow();
-        };
-
-        this.buttons = [];
-        this.subscribers = [];
-
-        var buttons = document.querySelectorAll('.fixed-panel-button');
-        for (var i = 0; i < buttons.length; ++i) {
-            var key = buttons[i].id;
-            this.buttons[key] = buttons[i];
-        }
-
-        this.buttons['live-chat'].addEventListener('click', function (e) {
-            self.doChatToogle(e);
-        });
-
-        this.buttons['open-case'].addEventListener('click', function (e) {
-                self.doOpenCaseToggle(e);
-        });
-
-        document.addEventListener('scroll', function () {
-            self.doScroll();
-        }, {passive: true});
-
-        document.addEventListener('touchend', function () {
-            self.doScroll();
-        }, {passive: true});
-    }
-
-    Widget.prototype.doScroll = function () {
-        var wrapperBottom = this.footer.offsetTop + this.wrapper.offsetTop + this.wrapper.clientHeight,
-            windowHeight = document.documentElement.offsetHeight,
-            scrollHeight = document.documentElement.scrollHeight,
-            scrollTop = document.documentElement.scrollTop,
-            clientHeight = document.documentElement.clientHeight;
-
-        if (document.body.clientWidth <= 575) {
-            if (scrollHeight - scrollTop - clientHeight <= windowHeight - wrapperBottom) {
-                this.widget.style.bottom = windowHeight - wrapperBottom - (scrollHeight - scrollTop - clientHeight) + 'px';
-            } else {
-                this.widget.style.bottom = '0px';
-            }
-        } else {
-            this.widget.removeAttribute('style');
-        }
-    };
-
-    Widget.prototype.doChatToogle = function (e) {
-        e.preventDefault();
-        this.api.toggle();
-    };
-
-
-    /**
-     *
-     * @param {Element} form
-     */
-    Widget.prototype.toggle = function (form) {
-        var widgetBlock = form,
-            style = widgetBlock.style,
-            widget = document.querySelector('.fixed-right-panel'),
-            computedStyle =  window.getComputedStyle(widget, null),
-            widgetBottom = widget.style.bottom || computedStyle.getPropertyValue('bottom');
-
-
-        if (parseInt(widgetBottom) > 80) {
-            style.bottom = widgetBottom;
-            style.right = 10 + parseInt(computedStyle.getPropertyValue('width')) + 'px';
-        } else {
-            style.bottom = '0';
-            style.right = '';
-        }
-    };
-
-
-    /**
-     *
-     * @param {Element} input
-     */
-    Widget.prototype.subscribe = function (input) {
-        this.subscribers.push(input);
-    };
-
-    /**
-     *
-     * @param {string} eventName
-     */
-    Widget.prototype.fire = function (eventName) {
-        this.subscribers.forEach(function (input) {
-            input.dispatchEvent(new CustomEvent(eventName))
-        });
-    };
-
-    Widget.prototype.doChatShow = function () {
-        var widgetBlock = document.querySelector('iframe[title=\'chat widget\']').parentNode;
-        this.toggle(widgetBlock);
-    };
-
-    Widget.prototype.doOpenCaseToggle = function () {
-        this.openCaseForm.toggle();
-    };
-
-    return new Widget();
-})();
-
-
-/***/ }),
-
-/***/ 13:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var helper = __webpack_require__(1);
-
-function OpenCaseForm(renderFunc) {
-
-    if (typeof renderFunc !== 'function') {
-        throw new TypeError('Input parameter must be function!');
-    }
-    var self = this;
-
-    this.render = renderFunc;
-    this.form = document.getElementById('open-case-form');
-    this.style = this.form.style;
-    this.startTime = Date.now();
-    this.isMobile = helper.isMobile();
-    this.cancelButton = this.form.querySelector('.close');
-    this.submitButton = this.form.querySelector('input[type=submit]');
-
-    this.form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        self.sendForm();
-    });
-
-    this.cancelButton.addEventListener('click', function (e) {
-       e.preventDefault();
-       self.formClose();
-    });
-
-    window.addEventListener('click', function (e) {
-        self.onWindowClick(e);
-    });
-
-    var iso = helper.getCookie('iso');
-    $('#open-case-country').val(iso).trigger('change');
-
-    if (!this.isMobile) {
-        $("#open-case-country").select2({
-            width: 'resolve'
-        });
-
-        $("#open-case-lang").select2({
-            width: 'resolve'
-        });
-    }
-
-    this.timerInit(); //TODO Передавать время через которое включать таймер
-}
-
-OpenCaseForm.prototype.formShow = function () {
-    this.style.display = 'block';
-    this.render(this.form);
-};
-
-OpenCaseForm.prototype.formClose = function () {
-    this.style.display = 'none';
-};
-
-OpenCaseForm.prototype.toggle = function () {
-    this.style.display = this.style.display !== 'block' ?  this.formShow() : this.formClose();
-};
-
-
-OpenCaseForm.prototype.timerInit = function () {
-    var self = this;
-
-    function go(timeToShow) {
-        var timerID = setInterval(function () {
-            var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
-            if (currentTime === timeToShow) {
-                clearInterval(timerID);
-                self.formShow();
-            }
-        }, 1000);
-    }
-
-    $.ajax({
-        url: gic.ajaxurl,
-        type: "POST",
-        data: {'action': 'get_feedback_timer'},
-        success: function (second) {
-            go( parseInt(second) );
-        },
-        error:  function () {
-            go(10);
-        }
-    });
-};
-
-OpenCaseForm.prototype.sendForm = function () {
-
-    var self = this;
-
-    var data = {
-        'action': 'send_open_case_form',
-        'form': {
-            firstName: this.form.querySelector('input[name=first_name]').value,
-            phone: this.form.querySelector('input[name=phone]').value,
-            email: this.form.querySelector('input[name=email]').value,
-            country: this.form.querySelector('select[name=country]').value,
-            lang: this.form.querySelector('select[name=lang]').value
-        }
-    };
-
-    $.ajax({
-        url: gic.ajaxurl,
-        type: "POST",
-        dataType: 'json',
-        data: data,
-        success: function (data) {
-            var span = document.createElement('span'),
-                style = span.style;
-            span.innerText = data.message;
-            style.fontSize = '1em';
-            style.display = 'block';
-            style.textAlign = 'center';
-            if (!data.isSuccess) {
-                style.color = '#ce2029';
-            } else {
-                style.color = '#228b22';
-            }
-
-            self.submitButton.parentElement.insertBefore(span, self.submitButton);
-            self.submitButton.disabled = true;
-        }
-    });
-};
-
-OpenCaseForm.prototype.onWindowClick = function (e) {
-
-    function findParent(parentNode) {
-        if (parentNode.matches('#open-case-form')) {
-            return true;
-        } else {
-            return !parentNode.matches('body') ? findParent(parentNode.parentElement) : false;
-        }
-    }
-
-    if( !e.target.matches('#open-case') && !findParent(e.target)) {
-        this.style.display = 'none';
-    }
-};
-
-module.exports = OpenCaseForm;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 14:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports =  (function() {
-    var helper = __webpack_require__(1);
-
-    function onWindowLoadResize () {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var isMobile = helper.isMobile();
-
-        var programmsItems = document.getElementsByClassName('programms-grid-item');
-        var i;
-        for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && isMobile) {
-                programmsItems[i].style.display = 'none';
-            } else {
-                programmsItems[i].style.display = 'block';
-            }
-        }
-
-        var newsItems = document.getElementsByClassName('news-item');
-        for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && isMobile) {
-                newsItems[i].style.display = 'none';
-            } else {
-                newsItems[i].style.display = 'block';
-            }
-        }
-        var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
-    }
-
-    /* init - you can init any event */
-    helper.throttle("resize", "optimizedResize");
-
-    // handle event
-    window.addEventListener("optimizedResize", onWindowLoadResize);
-
-    //on document load
-    onWindowLoadResize();
-})();
-
-/***/ }),
-
-/***/ 143:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var defaultOptions = {
-  steps: 1,
-  duration: 2000
-};
-
-/**
- * @param {Element|string} elem - DOM Element | selector
- * @param {Object} options
- * @throws {TypeError} Parameter 'elem' is required
- * @constructor
- */
-function ProgressBar(elem, options) {
-    options = options || defaultOptions;
-    if (!elem) {
-        throw new TypeError('Parameter \'elem\' is required');
-    }
-
-    this.steps = options.steps;
-    this.oneStep = 1 / this.steps;
-    this.currentPos = this.oneStep;
-    this.duration = options.duration;
-    this.container = typeof elem === 'string' || elem instanceof String ?
-        document.querySelector(elem) : elem;
-
-    var self = this;
-    var style = this.container.style;
-    style.width = this.getStepWidth() + 'px';
-
-    this.setDuration(this.duration);
-
-    window.addEventListener('resize', function() {
-        style.width = self.getStepWidth() + 'px';
-    });
-
-}
-
-/**
- * @param {number} duration Duration of an animation in ms
- */
-ProgressBar.prototype.setDuration = function(duration) {
-    var style = this.container.style;
-    style.webkitTransition = 'width ' + duration / 1000 + 's';
-    style.mozTransition = 'width ' + duration / 1000 + 's';
-    style.oTransition = 'width ' + duration / 1000 + 's';
-    style.transition = 'width ' + duration / 1000 + 's';
-};
-
-ProgressBar.prototype.getStepWidth = function (){
-    return Math.round(this.container.parentElement.clientWidth * this.currentPos);
-};
-
-ProgressBar.prototype.nextStep = function (){
-    this.currentPos += this.oneStep;
-    var width = this.getStepWidth(),
-        style =  this.container.style;
-    style.width = width + 'px';
-};
-
-ProgressBar.prototype.prevStep = function () {
-    this.currentPos -= this.oneStep;
-    var width = this.getStepWidth(),
-        style =  this.container.style;
-    style.width = width + 'px';
-};
-
-
-module.exports = ProgressBar;
-
-/***/ }),
-
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var helper = __webpack_require__(1);
-
-module.exports =  (function () {
-
-    function MobileModalMenu() {
-        this._modal = document.getElementById('mobile-modal');
-        this._list = this._modal.querySelector('#modal-menu-list');
-        var li = this._list.querySelectorAll('li.modal-item');
-        var backArrow = document.getElementById('modal-back-arrow');
-
-        for (var i = 0; i < li.length; ++i) {
-            helper.throttle('', 'onHideItem', li[i]);
-            helper.throttle('click', 'itemClick', li[i]);
-            li[i].addEventListener('onHideItem', this.doHideItem);
-            li[i].addEventListener('itemClick', this.doItemClick);
-        }
-
-        helper.throttle('', 'onHideItems', this._list);
-        this._list.addEventListener('onHideItems', this.doFireHideItems);
-        backArrow.addEventListener('click', function (e) {
-            e.preventDefault();
-            for (var i = 0; i < li.length; ++i) {
-                li[i].classList.remove('to-hide');
-                li[i].classList.remove('modal-inspected');
-            }
-            backArrow.style.visibility = 'hidden';
-        });
-    }
-
-
-    MobileModalMenu.prototype.doItemClick = function () {
-        if (this.children.length > 0) {
-            this.classList.add('modal-inspected');
-            this.parentElement.dispatchEvent(new CustomEvent('onHideItems'));
-        }
-    };
-
-    MobileModalMenu.prototype.doFireHideItems = function () {
-        var items = this.querySelectorAll('li.modal-item');
-        for (var i = 0; i < items.length; ++i) {
-            items[i].dispatchEvent(new CustomEvent('onHideItem'));
-        }
-
-        var backArrow = document.getElementById('modal-back-arrow');
-        backArrow.style.visibility = 'initial';
-    };
-
-    MobileModalMenu.prototype.doHideItem = function () {
-        if (!this.classList.contains('modal-inspected')) {
-            this.classList.add('to-hide');
-        }
-    };
-    return new MobileModalMenu();
-})();
-
-
-/***/ }),
-
-/***/ 16:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-(function () {
-    var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(143);
-
-        function AssessmentProgressBar(elem, options) {
-            var caption = document.querySelector('#assessment-modal .progress-container');
-            caption.style.display = !caption.style.display ? 'block' : caption.style.display;
-            ProgressBar.apply(this, arguments);
-        }
-
-        AssessmentProgressBar.prototype = Object.create(ProgressBar.prototype);
-        AssessmentProgressBar.prototype.constructor = AssessmentProgressBar;
-
-        AssessmentProgressBar.prototype.udpateCaption = function (newIndex, count) {
-            var caption = document.querySelector('#assessment-modal .progress-container'),
-                currentStep = caption.querySelector('.progress-current-step'),
-                stepsCount = caption.querySelector('.progress-steps-count');
-            currentStep.innerHTML = newIndex;
-            stepsCount.innerHTML = count;
-        };
-
-        return AssessmentProgressBar;
-    })();
-
-    var AssessmentForm = (function () {
-        function AssessmentForm() {
-            this.form = $('#assessment-form');
-            this.isInited = false;
-            this.steps = [];
-            var self = this;
-
-            var initBtn = document.getElementById('ass-init-btn');
-            initBtn.addEventListener('click', function () {
-                self._init();
-            });
-        }
-
-        AssessmentForm.prototype._init = function () {
-            var self = this;
-            if (!this.isInited) {
-                this.form.steps({
-                    headerTag: "h5",
-                    bodyTag: "fieldset",
-                    transitionEffect: "slideLeft",
-                    onStepChanging: function (event, currentIndex, newIndex) {
-                        self.loadFormByStepIndex(newIndex + 1);
-                        return true;
-                    },
-                    onStepChanged: function (event, currentIndex, priorIndex) {
-                        self.progressBar.udpateCaption(++currentIndex, self.steps.length);
-
-                        if (currentIndex > priorIndex) {
-                            self.progressBar.nextStep();
-                        } else {
-                            self.progressBar.prevStep();
-                        }
-                    },
-                    onInit: function (event, currentIndex) {
-                        var stepInit = document.getElementById('ass-step-init');
-                        stepInit.style.display = 'none';
-                        self.steps = document.querySelectorAll('.assessment-step');
-                        self.loadFormByStepIndex(currentIndex + 1);
-                        self.form.show();
-                        self.progressBar = new AssessmentProgressBar('.progressbar div', {
-                            steps: self.steps.length,
-                            duration: 2000
-                        });
-                        self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
-                    }
-                });
-            }
-        };
-
-
-        AssessmentForm.prototype.loadFormByStepIndex = function (index) {
-            var stepClass = '-step' + index;
-            var step = [].filter.call(this.steps, (function (s) {
-                return s.classList.contains(stepClass);
-            }))[0];
-            if (step && !step.innerHTML) {
-                $.ajax({
-                    url: gic.ajaxurl,
-                    type: "POST",
-                    data: {
-                        'action': 'get_step_by_index',
-                        'index': index
-                    },
-                    dataType: 'html',
-                    success: function (html) {
-                        step.innerHTML = html;
-                    }
-                });
-            }
-        };
-
-        return AssessmentForm;
-    })();
-
-    var form = new AssessmentForm();
-})();
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 17:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 2:
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11295,7 +10493,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(17);
 __webpack_require__(18);
 __webpack_require__(19);
 __webpack_require__(20);
@@ -11305,71 +10502,15 @@ __webpack_require__(23);
 __webpack_require__(24);
 __webpack_require__(25);
 __webpack_require__(26);
-
-
 __webpack_require__(27);
+
+
+__webpack_require__(28);
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ 20:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 21:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 22:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 23:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 24:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 26:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 27:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 3:
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11447,8 +10588,7 @@ __webpack_require__(27);
 })();
 
 /***/ }),
-
-/***/ 4:
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery, jQuery) {/**
@@ -14730,8 +13870,7 @@ __webpack_require__(27);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(0)))
 
 /***/ }),
-
-/***/ 5:
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -20487,8 +19626,7 @@ S2.define('jquery.select2',[
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ 6:
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*! 
@@ -22536,8 +21674,7 @@ var defaults = $.fn.steps.defaults = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ 7:
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery, Tether) {/*!
@@ -26079,8 +25216,7 @@ var Popover = function ($) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(8)))
 
 /***/ }),
-
-/***/ 8:
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
@@ -27901,8 +27037,7 @@ return Tether;
 
 
 /***/ }),
-
-/***/ 9:
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28008,7 +27143,842 @@ StickyMenu.prototype.fire = function (eventName, isMobile) {
 module.exports = StickyMenu;
 
 
-/***/ })
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/******/ });
+"use strict";
+
+
+var helper = __webpack_require__(1),
+    headerStickingStr = 'headerSticking',
+    headerNormalizeStr = 'headerNormalize';
+
+
+function ListenerElement() {
+    this.element = {};
+}
+
+
+function MenuLogo() {
+    var self = this;
+
+    function init() {
+        self.element = document.querySelector('.menu-logo');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuLogo.prototype = Object.create(ListenerElement.prototype);
+MenuLogo.prototype.constructor = MenuLogo;
+
+MenuLogo.prototype.doUpdateMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.style.background = 'none';
+        this.style.height = '24px';
+        this.style.width = 'auto';
+        this.innerText = 'GIC Canada';
+    }
+};
+
+MenuLogo.prototype.doNormalizeMenuLogo = function (event) {
+    if (event.detail.isMobile) {
+        this.removeAttribute('style');
+        this.innerText = '';
+    }
+};
+
+
+function MenuPhoneBlock() {
+    var self = this;
+
+    function init () {
+        self.element = document.querySelector('.menu-phone-block');
+        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+MenuPhoneBlock.prototype = Object.create(ListenerElement.prototype);
+MenuPhoneBlock.prototype.constructor = MenuPhoneBlock;
+
+MenuPhoneBlock.prototype.doUpdateMenuPhoneBlock = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+
+function ButtonUp() {
+    var self = this;
+
+    function init () {
+        self.element = document.getElementById('mobile-btn-up');
+        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+        self.element.addEventListener('click', self.doClick);
+    }
+    document.addEventListener('DOMContentLoaded', init);
+}
+
+ButtonUp.prototype = Object.create(ListenerElement.prototype);
+ButtonUp.prototype.constructor = ButtonUp;
+
+ButtonUp.prototype.doUpdateButtonUp = function (event) {
+    if (event.detail.isMobile) {
+        helper.toggle(this);
+    }
+};
+
+ButtonUp.prototype.doClick = function (event) {
+    event.preventDefault();
+
+    var start = performance.now();
+    var top = 0;
+    var duration = 2000;
+
+    window.requestAnimationFrame(function step(timestamp) {
+        if (!start) start = timestamp;
+
+        var time = timestamp - start;
+        var percent = Math.min(time / duration, 1);
+        var y = window.pageYOffset * (1 - Math.abs(percent));
+
+        window.scrollTo(0, y);
+
+        if (time < duration && window.pageYOffset > top) {
+            window.requestAnimationFrame(step);
+        }
+    })
+};
+
+module.exports = {
+    menuLogo: new MenuLogo(),
+    menuPhoneBlock: new MenuPhoneBlock(),
+    buttonUp: new ButtonUp()
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports =
+    (function () {
+        var throttle = function(type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function() {
+                if (running) { return; }
+                running = true;
+                requestAnimationFrame(function() {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
+        };
+
+        var btnDropdown = document.querySelector('button.dropbtn');
+        var fixedButton = document.getElementsByClassName("fixed-panel-button");
+
+        function onFixedButtonHover() {
+            var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            var btnHoverText = this.parentElement.querySelector('.fixed-pnl-btn-hover');
+            if (
+                (
+                    btnHoverText.style.display === 'none' ||
+                    btnHoverText.style.display === ''
+                ) &&
+                windowWidth > 768
+            )
+                btnHoverText.style.display = 'inline-block';
+            else
+                btnHoverText.style.display = 'none';
+        }
+
+
+        // Close the dropdown menu if the user clicks outside of it
+        function onWindowClick(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show-dropdown-content')) {
+                        openDropdown.classList.remove('show-dropdown-content');
+                    }
+                }
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
+        }
+
+        /* init - you can init any event */
+        throttle("click", "toggleMenu", btnDropdown);
+        throttle("click", "windowClick");
+        throttle("resize", "windowResize");
+
+        // handle event
+        for (var i = 0; i < fixedButton.length; i++) {
+            throttle("mouseover", "fixedButtonHover", fixedButton[i]);
+            throttle("mouseout", "fixedButtonHover", fixedButton[i]);
+            fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
+            fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
+        }
+
+        btnDropdown.addEventListener("toggleMenu", toggleMenu);
+        window.addEventListener('click', onWindowClick);
+    })();
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var OpenCaseForm = __webpack_require__(13);
+
+module.exports = (function () {
+
+    function Widget() {
+
+        var self = this;
+
+        this.wrapper = document.querySelector('.footer-wrapper');
+        this.footer = document.getElementById('footer');
+        this.widget = document.querySelector('.fixed-right-panel');
+        this.openCaseForm = new OpenCaseForm(this.toggle);
+        this.api = Tawk_API || {};
+        this.api.onChatMaximized = function () {
+          self.doChatShow();
+        };
+
+        this.buttons = [];
+        this.subscribers = [];
+
+        var buttons = document.querySelectorAll('.fixed-panel-button');
+        for (var i = 0; i < buttons.length; ++i) {
+            var key = buttons[i].id;
+            this.buttons[key] = buttons[i];
+        }
+
+        this.buttons['live-chat'].addEventListener('click', function (e) {
+            self.doChatToogle(e);
+        });
+
+        this.buttons['open-case'].addEventListener('click', function (e) {
+                self.doOpenCaseToggle(e);
+        });
+
+        document.addEventListener('scroll', function () {
+            self.doScroll();
+        }, {passive: true});
+
+        document.addEventListener('touchend', function () {
+            self.doScroll();
+        }, {passive: true});
+    }
+
+    Widget.prototype.doScroll = function () {
+        var wrapperBottom = this.footer.offsetTop + this.wrapper.offsetTop + this.wrapper.clientHeight,
+            windowHeight = document.documentElement.offsetHeight,
+            scrollHeight = document.documentElement.scrollHeight,
+            scrollTop = document.documentElement.scrollTop,
+            clientHeight = document.documentElement.clientHeight;
+
+        if (document.body.clientWidth <= 575) {
+            if (scrollHeight - scrollTop - clientHeight <= windowHeight - wrapperBottom) {
+                this.widget.style.bottom = windowHeight - wrapperBottom - (scrollHeight - scrollTop - clientHeight) + 'px';
+            } else {
+                this.widget.style.bottom = '0px';
+            }
+        } else {
+            this.widget.removeAttribute('style');
+        }
+    };
+
+    Widget.prototype.doChatToogle = function (e) {
+        e.preventDefault();
+        this.api.toggle();
+    };
+
+
+    /**
+     *
+     * @param {Element} form
+     */
+    Widget.prototype.toggle = function (form) {
+        var widgetBlock = form,
+            style = widgetBlock.style,
+            widget = document.querySelector('.fixed-right-panel'),
+            computedStyle =  window.getComputedStyle(widget, null),
+            widgetBottom = widget.style.bottom || computedStyle.getPropertyValue('bottom');
+
+
+        if (parseInt(widgetBottom) > 80) {
+            style.bottom = widgetBottom;
+            style.right = 10 + parseInt(computedStyle.getPropertyValue('width')) + 'px';
+        } else {
+            style.bottom = '0';
+            style.right = '';
+        }
+    };
+
+
+    /**
+     *
+     * @param {Element} input
+     */
+    Widget.prototype.subscribe = function (input) {
+        this.subscribers.push(input);
+    };
+
+    /**
+     *
+     * @param {string} eventName
+     */
+    Widget.prototype.fire = function (eventName) {
+        this.subscribers.forEach(function (input) {
+            input.dispatchEvent(new CustomEvent(eventName))
+        });
+    };
+
+    Widget.prototype.doChatShow = function () {
+        var widgetBlock = document.querySelector('iframe[title=\'chat widget\']').parentNode;
+        this.toggle(widgetBlock);
+    };
+
+    Widget.prototype.doOpenCaseToggle = function () {
+        this.openCaseForm.toggle();
+    };
+
+    return new Widget();
+})();
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+var helper = __webpack_require__(1);
+
+function OpenCaseForm(renderFunc) {
+
+    if (typeof renderFunc !== 'function') {
+        throw new TypeError('Input parameter must be function!');
+    }
+    var self = this;
+
+    this.render = renderFunc;
+    this.form = document.getElementById('open-case-form');
+    this.style = this.form.style;
+    this.startTime = Date.now();
+    this.isMobile = helper.isMobile();
+    this.cancelButton = this.form.querySelector('.close');
+    this.submitButton = this.form.querySelector('input[type=submit]');
+
+    this.form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        self.sendForm();
+    });
+
+    this.cancelButton.addEventListener('click', function (e) {
+       e.preventDefault();
+       self.formClose();
+    });
+
+    window.addEventListener('click', function (e) {
+        self.onWindowClick(e);
+    });
+
+    var iso = helper.getCookie('iso');
+    $('#open-case-country').val(iso).trigger('change');
+
+    if (!this.isMobile) {
+        $("#open-case-country").select2({
+            width: 'resolve'
+        });
+
+        $("#open-case-lang").select2({
+            width: 'resolve'
+        });
+    }
+
+    this.timerInit(); //TODO Передавать время через которое включать таймер
+}
+
+OpenCaseForm.prototype.formShow = function () {
+    this.style.display = 'block';
+    this.render(this.form);
+};
+
+OpenCaseForm.prototype.formClose = function () {
+    this.style.display = 'none';
+};
+
+OpenCaseForm.prototype.toggle = function () {
+    this.style.display = this.style.display !== 'block' ?  this.formShow() : this.formClose();
+};
+
+
+OpenCaseForm.prototype.timerInit = function () {
+    var self = this;
+
+    function go(timeToShow) {
+        var timerID = setInterval(function () {
+            var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
+            if (currentTime === timeToShow) {
+                clearInterval(timerID);
+                self.formShow();
+            }
+        }, 1000);
+    }
+
+    $.ajax({
+        url: gic.ajaxurl,
+        type: "POST",
+        data: {'action': 'get_feedback_timer'},
+        success: function (second) {
+            go( parseInt(second) );
+        },
+        error:  function () {
+            go(10);
+        }
+    });
+};
+
+OpenCaseForm.prototype.sendForm = function () {
+
+    var self = this;
+
+    var data = {
+        'action': 'send_open_case_form',
+        'form': {
+            firstName: this.form.querySelector('input[name=first_name]').value,
+            phone: this.form.querySelector('input[name=phone]').value,
+            email: this.form.querySelector('input[name=email]').value,
+            country: this.form.querySelector('select[name=country]').value,
+            lang: this.form.querySelector('select[name=lang]').value
+        }
+    };
+
+    $.ajax({
+        url: gic.ajaxurl,
+        type: "POST",
+        dataType: 'json',
+        data: data,
+        success: function (data) {
+            var span = document.createElement('span'),
+                style = span.style;
+            span.innerText = data.message;
+            style.fontSize = '1em';
+            style.display = 'block';
+            style.textAlign = 'center';
+            if (!data.isSuccess) {
+                style.color = '#ce2029';
+            } else {
+                style.color = '#228b22';
+            }
+
+            self.submitButton.parentElement.insertBefore(span, self.submitButton);
+            self.submitButton.disabled = true;
+        }
+    });
+};
+
+OpenCaseForm.prototype.onWindowClick = function (e) {
+
+    function findParent(parentNode) {
+        if (parentNode.matches('#open-case-form')) {
+            return true;
+        } else {
+            return !parentNode.matches('body') ? findParent(parentNode.parentElement) : false;
+        }
+    }
+
+    if( !e.target.matches('#open-case') && !findParent(e.target)) {
+        this.style.display = 'none';
+    }
+};
+
+module.exports = OpenCaseForm;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports =  (function() {
+    var helper = __webpack_require__(1);
+
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        var isMobile = helper.isMobile();
+
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        var i;
+        for (i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && isMobile) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
+
+        var newsItems = document.getElementsByClassName('news-item');
+        for (i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && isMobile) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
+
+    /* init - you can init any event */
+    helper.throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
+})();
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(1);
+
+module.exports =  (function () {
+
+    function MobileModalMenu() {
+        this._modal = document.getElementById('mobile-modal');
+        this._list = this._modal.querySelector('#modal-menu-list');
+        var li = this._list.querySelectorAll('li.modal-item');
+        var backArrow = document.getElementById('modal-back-arrow');
+
+        for (var i = 0; i < li.length; ++i) {
+            helper.throttle('', 'onHideItem', li[i]);
+            helper.throttle('click', 'itemClick', li[i]);
+            li[i].addEventListener('onHideItem', this.doHideItem);
+            li[i].addEventListener('itemClick', this.doItemClick);
+        }
+
+        helper.throttle('', 'onHideItems', this._list);
+        this._list.addEventListener('onHideItems', this.doFireHideItems);
+        backArrow.addEventListener('click', function (e) {
+            e.preventDefault();
+            for (var i = 0; i < li.length; ++i) {
+                li[i].classList.remove('to-hide');
+                li[i].classList.remove('modal-inspected');
+            }
+            backArrow.style.visibility = 'hidden';
+        });
+    }
+
+
+    MobileModalMenu.prototype.doItemClick = function () {
+        if (this.children.length > 0) {
+            this.classList.add('modal-inspected');
+            this.parentElement.dispatchEvent(new CustomEvent('onHideItems'));
+        }
+    };
+
+    MobileModalMenu.prototype.doFireHideItems = function () {
+        var items = this.querySelectorAll('li.modal-item');
+        for (var i = 0; i < items.length; ++i) {
+            items[i].dispatchEvent(new CustomEvent('onHideItem'));
+        }
+
+        var backArrow = document.getElementById('modal-back-arrow');
+        backArrow.style.visibility = 'initial';
+    };
+
+    MobileModalMenu.prototype.doHideItem = function () {
+        if (!this.classList.contains('modal-inspected')) {
+            this.classList.add('to-hide');
+        }
+    };
+    return new MobileModalMenu();
+})();
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+(function () {
+    var AssessmentProgressBar = (function () {
+        var ProgressBar = __webpack_require__(17);
+
+        function AssessmentProgressBar(elem, options) {
+            var caption = document.querySelector('#assessment-modal .progress-container');
+            caption.style.display = !caption.style.display ? 'block' : caption.style.display;
+            ProgressBar.apply(this, arguments);
+        }
+
+        AssessmentProgressBar.prototype = Object.create(ProgressBar.prototype);
+        AssessmentProgressBar.prototype.constructor = AssessmentProgressBar;
+
+        AssessmentProgressBar.prototype.udpateCaption = function (newIndex, count) {
+            var caption = document.querySelector('#assessment-modal .progress-container'),
+                currentStep = caption.querySelector('.progress-current-step'),
+                stepsCount = caption.querySelector('.progress-steps-count');
+            currentStep.innerHTML = newIndex;
+            stepsCount.innerHTML = count;
+        };
+
+        return AssessmentProgressBar;
+    })();
+
+    var AssessmentForm = (function () {
+        function AssessmentForm() {
+            this.form = $('#assessment-form');
+            this.isInited = false;
+            this.steps = [];
+            var self = this;
+
+            var initBtn = document.getElementById('ass-init-btn');
+            initBtn.addEventListener('click', function () {
+                self._init();
+            });
+        }
+
+        AssessmentForm.prototype._init = function () {
+            var self = this;
+            if (!this.isInited) {
+                this.form.steps({
+                    headerTag: "h5",
+                    bodyTag: "fieldset",
+                    transitionEffect: "slideLeft",
+                    onStepChanging: function (event, currentIndex, newIndex) {
+                        self.loadFormByStepIndex(newIndex + 1);
+                        return true;
+                    },
+                    onStepChanged: function (event, currentIndex, priorIndex) {
+                        self.progressBar.udpateCaption(++currentIndex, self.steps.length);
+
+                        if (currentIndex > priorIndex) {
+                            self.progressBar.nextStep();
+                        } else {
+                            self.progressBar.prevStep();
+                        }
+                    },
+                    onInit: function (event, currentIndex) {
+                        var stepInit = document.getElementById('ass-step-init');
+                        stepInit.style.display = 'none';
+                        self.steps = document.querySelectorAll('.assessment-step');
+                        self.loadFormByStepIndex(currentIndex + 1);
+                        self.form.show();
+                        self.progressBar = new AssessmentProgressBar('.progressbar div', {
+                            steps: self.steps.length,
+                            duration: 2000
+                        });
+                        self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                    }
+                });
+            }
+        };
+
+
+        AssessmentForm.prototype.loadFormByStepIndex = function (index) {
+            var stepClass = '-step' + index;
+            var step = [].filter.call(this.steps, (function (s) {
+                return s.classList.contains(stepClass);
+            }))[0];
+            if (step && !step.innerHTML) {
+                $.ajax({
+                    url: gic.ajaxurl,
+                    type: "POST",
+                    data: {
+                        'action': 'get_step_by_index',
+                        'index': index
+                    },
+                    dataType: 'html',
+                    success: function (html) {
+                        step.innerHTML = html;
+                    }
+                });
+            }
+        };
+
+        return AssessmentForm;
+    })();
+
+    var form = new AssessmentForm();
+})();
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var defaultOptions = {
+  steps: 1,
+  duration: 2000
+};
+
+/**
+ * @param {Element|string} elem - DOM Element | selector
+ * @param {Object} options
+ * @throws {TypeError} Parameter 'elem' is required
+ * @constructor
+ */
+function ProgressBar(elem, options) {
+    options = options || defaultOptions;
+    if (!elem) {
+        throw new TypeError('Parameter \'elem\' is required');
+    }
+
+    this.steps = options.steps;
+    this.oneStep = 1 / this.steps;
+    this.currentPos = this.oneStep;
+    this.duration = options.duration;
+    this.container = typeof elem === 'string' || elem instanceof String ?
+        document.querySelector(elem) : elem;
+
+    var self = this;
+    var style = this.container.style;
+    style.width = this.getStepWidth() + 'px';
+
+    this.setDuration(this.duration);
+
+    window.addEventListener('resize', function() {
+        style.width = self.getStepWidth() + 'px';
+    });
+
+}
+
+/**
+ * @param {number} duration Duration of an animation in ms
+ */
+ProgressBar.prototype.setDuration = function(duration) {
+    var style = this.container.style;
+    style.webkitTransition = 'width ' + duration / 1000 + 's';
+    style.mozTransition = 'width ' + duration / 1000 + 's';
+    style.oTransition = 'width ' + duration / 1000 + 's';
+    style.transition = 'width ' + duration / 1000 + 's';
+};
+
+ProgressBar.prototype.getStepWidth = function (){
+    return Math.round(this.container.parentElement.clientWidth * this.currentPos);
+};
+
+ProgressBar.prototype.nextStep = function (){
+    this.currentPos += this.oneStep;
+    var width = this.getStepWidth(),
+        style =  this.container.style;
+    style.width = width + 'px';
+};
+
+ProgressBar.prototype.prevStep = function () {
+    this.currentPos -= this.oneStep;
+    var width = this.getStepWidth(),
+        style =  this.container.style;
+    style.width = width + 'px';
+};
+
+
+module.exports = ProgressBar;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ })
+/******/ ]);
 //# sourceMappingURL=giccanada.js.map

@@ -11530,12 +11530,18 @@ body {
         font-size: 1em;
         letter-spacing: 1px;
         color: #9B9B9B; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text], #assessment-modal .modal-body #assessment-form .assessment-step section select {
+      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text],
+      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel],
+      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email],
+      #assessment-modal .modal-body #assessment-form .assessment-step section select {
         height: 48px;
         padding-left: 15px;
         background: #fff;
         border: 1px solid #CFCFCF; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text]::placeholder, #assessment-modal .modal-body #assessment-form .assessment-step section select::placeholder {
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text]::placeholder,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel]::placeholder,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email]::placeholder,
+        #assessment-modal .modal-body #assessment-form .assessment-step section select::placeholder {
           line-height: 18px;
           font-size: 1em;
           letter-spacing: 1px;
@@ -11709,7 +11715,7 @@ body {
   #assessment-modal .modal-body .wizard > .actions {
     position: relative;
     display: block;
-    text-align: right;
+    text-align: center;
     width: 100%; }
   #assessment-modal .modal-body .wizard > .actions > ul {
     display: inline-block;
@@ -12332,11 +12338,6 @@ body {
       color: #8a1f11;
       display: inline-block;
       margin-left: 1.5em; }
-    #assessment-modal .modal-body .wizard > .actions {
-      position: relative;
-      display: block;
-      text-align: right;
-      width: 100%; }
     #assessment-modal .modal-body .wizard > .actions > ul > li {
       padding: 0 7px; }
     #assessment-modal .modal-body .wizard > .actions a[href='#next']:hover,

@@ -135,7 +135,10 @@ $image-dir: '../images/';
             color: #9B9B9B;
           }
 
-          input[type=text], select {
+          input[type=text],
+          input[type=tel],
+          input[type=email],
+          select {
             height: 48px;
             padding-left: 15px;
             background: #fff;
@@ -412,7 +415,7 @@ $image-dir: '../images/';
     .wizard > .actions {
       position: relative;
       display: block;
-      text-align: right;
+      text-align: center;
       width: 100%
     }
 
