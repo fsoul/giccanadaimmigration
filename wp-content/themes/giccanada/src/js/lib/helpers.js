@@ -59,11 +59,32 @@ function isMobileOrTablet() {
     return check;
 }
 
+function scrollToPos(duration, to) {
+    var start = window.performance.now();
+    to = to || 0;
+    duration = duration || 2000;
+
+    requestAnimationFrame(function step(timestamp) {
+        if (!start) start = timestamp;
+
+        var time = timestamp - start;
+        var percent = Math.min(time / duration, 1);
+        var y = window.pageYOffset * (1 - Math.abs(percent));
+
+        window.scrollTo(0, y);
+
+        if (time < duration && window.pageYOffset > to) {
+            requestAnimationFrame(step);
+        }
+    })
+}
+
 module.exports = {
     throttle: throttle,
     toggle: toggle,
     getCookie: getCookie,
     setCookie: setCookie,
     isMobile: isMobile,
-    isMobileOrTablet: isMobileOrTablet
+    isMobileOrTablet: isMobileOrTablet,
+    scrollToPos: scrollToPos
 };

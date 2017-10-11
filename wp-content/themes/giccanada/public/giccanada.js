@@ -10390,13 +10390,34 @@ function isMobileOrTablet() {
     return check;
 }
 
+function scrollToPos(duration, to) {
+    var start = window.performance.now();
+    to = to || 0;
+    duration = duration || 2000;
+
+    requestAnimationFrame(function step(timestamp) {
+        if (!start) start = timestamp;
+
+        var time = timestamp - start;
+        var percent = Math.min(time / duration, 1);
+        var y = window.pageYOffset * (1 - Math.abs(percent));
+
+        window.scrollTo(0, y);
+
+        if (time < duration && window.pageYOffset > to) {
+            requestAnimationFrame(step);
+        }
+    })
+}
+
 module.exports = {
     throttle: throttle,
     toggle: toggle,
     getCookie: getCookie,
     setCookie: setCookie,
     isMobile: isMobile,
-    isMobileOrTablet: isMobileOrTablet
+    isMobileOrTablet: isMobileOrTablet,
+    scrollToPos: scrollToPos
 };
 
 /***/ }),
@@ -27240,24 +27261,9 @@ ButtonUp.prototype.doUpdateButtonUp = function (event) {
 
 ButtonUp.prototype.doClick = function (event) {
     event.preventDefault();
-
-    var start = performance.now();
     var top = 0;
     var duration = 2000;
-
-    window.requestAnimationFrame(function step(timestamp) {
-        if (!start) start = timestamp;
-
-        var time = timestamp - start;
-        var percent = Math.min(time / duration, 1);
-        var y = window.pageYOffset * (1 - Math.abs(percent));
-
-        window.scrollTo(0, y);
-
-        if (time < duration && window.pageYOffset > top) {
-            window.requestAnimationFrame(step);
-        }
-    })
+    helper.scrollToPos(duration, top);
 };
 
 module.exports = {
@@ -27990,6 +27996,8 @@ module.exports = ProgressBar;
 "use strict";
 
 
+var helper = __webpack_require__(1);
+
 /**
  * Function copies div.multiplication-container on click event
  * @see <div class="multiplication-container">
@@ -28009,7 +28017,7 @@ var copyMultiplicationContainer = function (event) {
                 if (child.nodeType === Node.ELEMENT_NODE &&
                     child.classList.contains('multiplication-container')) {
                     res = child;
-                    break
+                    break;
                 }
             }
             return res;
@@ -28018,14 +28026,54 @@ var copyMultiplicationContainer = function (event) {
         }
     }
 
+
+    /**
+     * @param {string} id
+     * @param {number} newId
+     * @return {string} If matches then will return incremented 'id'
+     * @throws {TypeError}
+     */
+    function getNewId(id, newId) {
+        var changed = id.replace(/(-\d+)$/, function(){
+            return '-' + newId;
+        });
+        if (id === changed) {
+            throw new TypeError('Wrong item id');
+        }
+        return changed;
+    }
+
+
+
     /**
      * @param {Node} node
      * @return {Node} Returns new node
      */
     function copyNode(node) {
-        var newNode = node.cloneNode(true);
+        var newNode = node.cloneNode(true),
+            copyCount = node.parentNode.querySelectorAll('.copied').length;
+
         newNode.classList.remove('multiplication-container');
         newNode.classList.add('copied');
+        newNode.classList.add('-copy' + (copyCount + 1));
+
+        var changeIdList = newNode.querySelectorAll('.to-change-id');
+
+        for (var i = 0; i < changeIdList.length; ++i) {
+            var item = changeIdList.item(i);
+            switch (item.nodeName.toLowerCase()) {
+                case 'input':
+                case 'select':
+                    item.id = getNewId(item.id, copyCount + 1);
+                    break;
+                case 'label':
+                    item.htmlFor = getNewId(item.getAttribute('for'), copyCount + 1);
+                    break;
+                default:
+                    throw new TypeError('Item must be instance of input/select/label');
+            }
+        }
+
         return newNode;
     }
 
@@ -28034,7 +28082,10 @@ var copyMultiplicationContainer = function (event) {
         event.preventDefault();
         var copyBtn = event.currentTarget,
             mContainer = findMContainer(copyBtn);
-        mContainer.parentNode.insertBefore(copyNode(mContainer), mContainer.nextSibling);
+
+        var newNode = copyNode(mContainer);
+        mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
+        newNode.scrollIntoView(true);
     }
 };
 

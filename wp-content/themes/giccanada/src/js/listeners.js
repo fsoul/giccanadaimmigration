@@ -87,24 +87,9 @@ ButtonUp.prototype.doUpdateButtonUp = function (event) {
 
 ButtonUp.prototype.doClick = function (event) {
     event.preventDefault();
-
-    var start = performance.now();
     var top = 0;
     var duration = 2000;
-
-    window.requestAnimationFrame(function step(timestamp) {
-        if (!start) start = timestamp;
-
-        var time = timestamp - start;
-        var percent = Math.min(time / duration, 1);
-        var y = window.pageYOffset * (1 - Math.abs(percent));
-
-        window.scrollTo(0, y);
-
-        if (time < duration && window.pageYOffset > top) {
-            window.requestAnimationFrame(step);
-        }
-    })
+    helper.scrollToPos(duration, top);
 };
 
 module.exports = {
