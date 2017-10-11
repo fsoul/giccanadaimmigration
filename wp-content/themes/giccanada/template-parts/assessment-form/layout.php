@@ -45,7 +45,7 @@
                     <h5>Где вы намереваетесь жить в Канаде?</h5>
                     <fieldset class="assessment-step -step10"></fieldset>
                     <h5>Образование</h5>
-                    <fieldset class="assessment-step -step11"></fieldset>
+                    <fieldset class="assessment-step -step11 education"></fieldset>
                 </form>
             </div>
         </div>

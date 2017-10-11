@@ -10,10 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, themePath + '/public'),
         filename: 'giccanada.js',
-        library: [
-            'header',
-            'Window'
-        ],
+        library: 'app',
         publicPath: "./public/"
     },
     module: {

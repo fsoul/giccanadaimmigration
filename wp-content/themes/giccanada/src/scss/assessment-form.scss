@@ -112,6 +112,11 @@ $image-dir: '../images/';
 
       .assessment-step {
 
+        .copied {
+          border-top: 1px solid #CFCFCF;
+          padding-top: 15px;
+        }
+
         section {
           padding-bottom: 15px;
 
@@ -202,6 +207,7 @@ $image-dir: '../images/';
                   background-size: cover;
                 }
               }
+
             }
 
           }
@@ -215,11 +221,76 @@ $image-dir: '../images/';
               }
             }
           }
+          &.period-date {
+
+            .from-date,
+            .to-date {
+              float: left;
+
+              select {
+                width: 50%;
+                float: left;
+                margin-right: 5%;
+
+                &:last-of-type {
+                  width: 45%;
+                  margin-right: 0;
+                }
+              }
+            }
+
+            .from-date {
+              width: 45%;
+              margin-right: 5%;
+            }
+
+            .to-date {
+              width: 50%;
+            }
+          }
+        }
+
+        .ass-add-button {
+          width: 100%;
+          height: 48px;
+          border: 1px solid #CFCFCF;
+          line-height: 18px;
+          font-size: 1.075em;
+          letter-spacing: 1px;
+          color: #000;
+          cursor: pointer;
+          background: transparent;
+
+          &:active {
+            transform: translateY(4px);
+          }
+
+          &:focus {
+            outline: 0;
+          }
+
+          span {
+            display: inline-block;
+
+            &::before {
+              content: '';
+              display: inline-block;
+              float: left;
+              height: 20px;
+              width: 20px;
+              margin-right: 10px;
+              background: url($image-dir + "ass-add-icon.png") no-repeat center;
+              background-size: cover;
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+            }
+          }
         }
 
         &.-step4 {
           .ass-country {
-            section{
+            section {
               width: 30%;
               float: left;
             }
@@ -249,7 +320,7 @@ $image-dir: '../images/';
       box-sizing: border-box
     }
 
-    .wizard{
+    .wizard {
       display: block;
       width: 100%;
       overflow: hidden
@@ -270,7 +341,7 @@ $image-dir: '../images/';
       padding: 0
     }
 
-    .wizard > .steps .current-info{
+    .wizard > .steps .current-info {
       position: absolute;
       left: -999em
     }
@@ -434,9 +505,8 @@ $image-dir: '../images/';
       display: none;
     }
 
-
     .wizard > .actions a[href='#next'],
-    .wizard > .actions a[href='#finish']{
+    .wizard > .actions a[href='#finish'] {
       color: #fff;
       text-align: center;
       font-size: 1em;
@@ -485,7 +555,6 @@ $image-dir: '../images/';
         text-decoration: none;
       }
     }
-
 
     .wizard > .actions a {
       display: block;

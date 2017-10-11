@@ -1,4 +1,4 @@
-var header = header || {}; header["Window"] =
+var app =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -10507,6 +10507,9 @@ __webpack_require__(27);
 
 __webpack_require__(28);
 
+module.exports = {
+    func: __webpack_require__(29)
+};
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -27779,8 +27782,9 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
+                    startIndex: 10, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
-                        self.loadFormByStepIndex(newIndex + 1);
+                        self._loadFormByStepIndex(newIndex + 1);
                         return true;
                     },
                     onStepChanged: function (event, currentIndex, priorIndex) {
@@ -27796,7 +27800,7 @@ module.exports =  (function () {
                         var stepInit = document.getElementById('ass-step-init');
                         stepInit.style.display = 'none';
                         self.steps = document.querySelectorAll('.assessment-step');
-                        self.loadFormByStepIndex(currentIndex + 1);
+                        self._loadFormByStepIndex(currentIndex + 1);
                         self.form.show();
                         self.progressBar = new AssessmentProgressBar('.progressbar div', {
                             steps: self.steps.length,
@@ -27809,7 +27813,7 @@ module.exports =  (function () {
         };
 
 
-        AssessmentForm.prototype.loadFormByStepIndex = function (index) {
+        AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var stepClass = '-step' + index;
             var step = [].filter.call(this.steps, (function (s) {
                 return s.classList.contains(stepClass);
@@ -27978,6 +27982,67 @@ module.exports = ProgressBar;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Function copies div.multiplication-container on click event
+ * @see <div class="multiplication-container">
+ * @param {MouseEvent} event
+ */
+var copyMultiplicationContainer = function (event) {
+
+    /** Button must be inside selector '.assessment-step'
+     * @param {EventTarget|Node} node button.ass-add-button
+     * @return {Node} Returns div.multiplication-container
+     */
+    function findMContainer(node) {
+        if (node.classList.contains('assessment-step')) {
+            var res;
+            for (var i = 0; i < node.childNodes.length; ++i) {
+                var child = node.childNodes[i];
+                if (child.nodeType === Node.ELEMENT_NODE &&
+                    child.classList.contains('multiplication-container')) {
+                    res = child;
+                    break
+                }
+            }
+            return res;
+        } else {
+            return findMContainer(node.parentNode);
+        }
+    }
+
+    /**
+     * @param {Node} node
+     * @return {Node} Returns new node
+     */
+    function copyNode(node) {
+        var newNode = node.cloneNode(true);
+        newNode.classList.remove('multiplication-container');
+        newNode.classList.add('copied');
+        return newNode;
+    }
+
+
+    if (event && event instanceof MouseEvent) {
+        event.preventDefault();
+        var copyBtn = event.currentTarget,
+            mContainer = findMContainer(copyBtn);
+        mContainer.parentNode.insertBefore(copyNode(mContainer), mContainer.nextSibling);
+    }
+};
+
+
+
+module.exports = {
+    copyMultiplicationContainer: copyMultiplicationContainer
+};
 
 /***/ })
 /******/ ]);

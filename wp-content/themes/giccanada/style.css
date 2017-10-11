@@ -11514,6 +11514,9 @@ body {
     margin: 0 auto; }
   #assessment-modal .modal-body #assessment-form {
     display: none; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .copied {
+      border-top: 1px solid #CFCFCF;
+      padding-top: 15px; }
     #assessment-modal .modal-body #assessment-form .assessment-step section {
       padding-bottom: 15px; }
       #assessment-modal .modal-body #assessment-form .assessment-step section label, #assessment-modal .modal-body #assessment-form .assessment-step section input, #assessment-modal .modal-body #assessment-form .assessment-step section select {
@@ -11584,6 +11587,51 @@ body {
         margin-right: 4%; }
         #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select:last-child {
           margin-right: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date,
+      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
+        float: left; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date select,
+        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date select {
+          width: 50%;
+          float: left;
+          margin-right: 5%; }
+          #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date select:last-of-type,
+          #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date select:last-of-type {
+            width: 45%;
+            margin-right: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date {
+        width: 45%;
+        margin-right: 5%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
+        width: 50%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #CFCFCF;
+      line-height: 18px;
+      font-size: 1.075em;
+      letter-spacing: 1px;
+      color: #000;
+      cursor: pointer;
+      background: transparent; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button:active {
+        transform: translateY(4px); }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button:focus {
+        outline: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button span {
+        display: inline-block; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button span::before {
+          content: '';
+          display: inline-block;
+          float: left;
+          height: 20px;
+          width: 20px;
+          margin-right: 10px;
+          background: url(./public/images/ass-add-icon-99274ac554.png) no-repeat center;
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover; }
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section {
       width: 30%;
       float: left; }
@@ -12120,7 +12168,7 @@ body {
     line-height: 30px;
     height: 30px; }
   #assessment-modal .modal-body {
-    padding: 0 15px; }
+    padding: 0 7px; }
     #assessment-modal .modal-body .progress-container {
       text-align: center; }
     #assessment-modal .modal-body #ass-step-init p span {
@@ -12201,6 +12249,12 @@ body {
           margin-right: 0; }
           #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select:last-child {
             margin-bottom: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date,
+        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
+          float: none;
+          width: 100%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button {
+        font-size: .875em; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step1 > p {
         font-size: .85em; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section {

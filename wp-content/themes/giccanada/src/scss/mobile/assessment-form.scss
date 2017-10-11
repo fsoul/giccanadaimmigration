@@ -25,7 +25,7 @@ $image-dir: '../images/';
   }
 
   .modal-body {
-    padding: 0 15px;
+    padding: 0 7px;
 
     .progress-container {
       text-align: center;
@@ -162,7 +162,20 @@ $image-dir: '../images/';
               }
             }
           }
+          &.period-date {
+
+            .from-date,
+            .to-date {
+              float: none;
+              width: 100%;
+            }
+          }
         }
+
+        .ass-add-button {
+          font-size: .875em;
+        }
+
         &.-step1 {
           & > p {
             font-size: .85em;

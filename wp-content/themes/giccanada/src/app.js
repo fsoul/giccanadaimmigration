@@ -100,3 +100,7 @@ require('./scss/assessment-form.scss');
 
 
 require('./scss/media-query.scss');
+
+module.exports = {
+    func: require('./js/functions')
+};

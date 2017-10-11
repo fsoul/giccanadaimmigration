@@ -44,8 +44,9 @@
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
+                    startIndex: 10, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
-                        self.loadFormByStepIndex(newIndex + 1);
+                        self._loadFormByStepIndex(newIndex + 1);
                         return true;
                     },
                     onStepChanged: function (event, currentIndex, priorIndex) {
@@ -61,7 +62,7 @@
                         var stepInit = document.getElementById('ass-step-init');
                         stepInit.style.display = 'none';
                         self.steps = document.querySelectorAll('.assessment-step');
-                        self.loadFormByStepIndex(currentIndex + 1);
+                        self._loadFormByStepIndex(currentIndex + 1);
                         self.form.show();
                         self.progressBar = new AssessmentProgressBar('.progressbar div', {
                             steps: self.steps.length,
@@ -74,7 +75,7 @@
         };
 
 
-        AssessmentForm.prototype.loadFormByStepIndex = function (index) {
+        AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var stepClass = '-step' + index;
             var step = [].filter.call(this.steps, (function (s) {
                 return s.classList.contains(stepClass);
