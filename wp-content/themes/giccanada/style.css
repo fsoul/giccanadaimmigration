@@ -11604,6 +11604,66 @@ body {
         margin-right: 5%; }
       #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
         width: 50%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container {
+      padding: 20px 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container input[type=file] {
+        position: absolute;
+        left: -99999px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input-label {
+        display: inline-block;
+        height: 48px;
+        width: 40%;
+        margin-right: 14%;
+        padding-top: 12px;
+        float: left; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #CFCFCF;
+        line-height: 18px;
+        font-size: 1.075em;
+        letter-spacing: 1px;
+        color: #000;
+        cursor: pointer;
+        background: transparent;
+        width: 46%;
+        text-align: center; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input:active {
+          transform: translateY(4px); }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input:focus {
+          outline: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span {
+          display: inline-block; }
+          #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span::before {
+            content: '';
+            display: inline-block;
+            float: left;
+            height: 22px;
+            width: 22px;
+            margin-right: 10px;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span {
+          line-height: 48px; }
+          #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span::before {
+            background: url(./public/images/file-plus-069c442692.png) no-repeat center;
+            height: 43px; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .added-file-name {
+      display: inline-block;
+      width: 100%;
+      line-height: 48px;
+      border-top: 1px solid #CFCFCF;
+      padding-left: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .added-file-name:last-child {
+        border-bottom: 1px solid #CFCFCF; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .added-file-name .added-file-delete {
+        color: #ff0000;
+        position: absolute;
+        right: 15px;
+        cursor: pointer;
+        font-size: 1.2em; }
     #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button {
       width: 100%;
       height: 48px;
@@ -11624,14 +11684,15 @@ body {
           content: '';
           display: inline-block;
           float: left;
-          height: 20px;
-          width: 20px;
+          height: 22px;
+          width: 22px;
           margin-right: 10px;
-          background: url(./public/images/ass-add-icon-99274ac554.png) no-repeat center;
           background-size: cover;
           -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button span::before {
+        background: url(./public/images/ass-add-icon-99274ac554.png) no-repeat center; }
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section {
       width: 30%;
       float: left; }
@@ -12253,6 +12314,18 @@ body {
         #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
           float: none;
           width: 100%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input-label {
+        width: 70%;
+        margin-right: 5%;
+        font-size: .85em; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input {
+        width: 25%;
+        font-size: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span {
+          line-height: 0;
+          width: 22px; }
+          #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span::before {
+            margin: 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button {
         font-size: .875em; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step1 > p {

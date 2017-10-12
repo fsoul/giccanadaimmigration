@@ -27526,7 +27526,7 @@ function OpenCaseForm(renderFunc) {
         });
     }
 
-    this.timerInit(); //TODO Передавать время через которое включать таймер
+    this.timerInit();
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -27611,6 +27611,8 @@ OpenCaseForm.prototype.sendForm = function () {
 OpenCaseForm.prototype.onWindowClick = function (e) {
 
     function findParent(parentNode) {
+        if (!parentNode) return false;
+
         if (parentNode.matches('#open-case-form')) {
             return true;
         } else {
@@ -27788,7 +27790,7 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 10, //FOR TEST!!
+                    startIndex: 11, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
@@ -27996,8 +27998,6 @@ module.exports = ProgressBar;
 "use strict";
 
 
-var helper = __webpack_require__(1);
-
 /**
  * Function copies div.multiplication-container on click event
  * @see <div class="multiplication-container">
@@ -28090,9 +28090,54 @@ var copyMultiplicationContainer = function (event) {
 };
 
 
+/**
+ * @param {MouseEvent} e
+ * @param {string} id Container's id
+ * @param {Node} child The node that must be deleted.
+ */
+var deleteFileFromList = function (e, id, child) {
+    e.preventDefault();
+    var addContainer = document.getElementById(id).querySelector('.added-files');
+    addContainer.removeChild(child);
+};
+
+
+/**
+ * @param input input[type=file]
+ * @param {string} id Container's id
+ */
+var addFileToList = function (input, id) {
+    /**
+     * @type {FileList}
+     */
+    var fList = input.files;
+
+    var addContainer = document.getElementById(id).querySelector('.added-files');
+
+    for (var i = 0; i < fList.length; ++i) {
+        /**
+         * @type {File}
+         */
+        var file = fList[i];
+        var s = document.createElement('span');
+        s.classList.add('added-file-name');
+        s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
+
+        s.querySelector('.added-file-delete').onclick = function(e) {
+            deleteFileFromList(e, id, this.parentNode);
+        };
+
+        //TODO Load file to server
+
+        addContainer.insertBefore(s, null);
+
+        input.innerHTML = input.innerHTML;
+    }
+};
 
 module.exports = {
-    copyMultiplicationContainer: copyMultiplicationContainer
+    copyMultiplicationContainer: copyMultiplicationContainer,
+    addFileToList: addFileToList
 };
 
 /***/ })

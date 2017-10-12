@@ -9,11 +9,11 @@ $image-dir: '../images/';
     height: 100%;
   }
 
-   .modal-content {
-     padding: 20px 0;
-     border: 0;
-     min-height: 100%;
-   }
+  .modal-content {
+    padding: 20px 0;
+    border: 0;
+    min-height: 100%;
+  }
 
   .modal-header {
 
@@ -30,7 +30,6 @@ $image-dir: '../images/';
     .progress-container {
       text-align: center;
     }
-
 
     #ass-step-init {
 
@@ -114,7 +113,7 @@ $image-dir: '../images/';
                   left: -9999px;
                 }
 
-                &  + label {
+                & + label {
                   letter-spacing: 1px;
                   cursor: pointer;
                   padding: 11px 0 11px 50px;
@@ -172,6 +171,31 @@ $image-dir: '../images/';
           }
         }
 
+        .file-upload-container {
+          .file-upload-button-container {
+
+            .ass-file-input-label {
+              width: 70%;
+              margin-right: 5%;
+              font-size: .85em;
+            }
+
+            .ass-file-input {
+
+              width: 25%;
+              font-size: 0;
+              span {
+                line-height: 0;
+                width: 22px;
+
+                &::before {
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+
         .ass-add-button {
           font-size: .875em;
         }
@@ -184,7 +208,7 @@ $image-dir: '../images/';
 
         &.-step4 {
           .ass-country {
-            section{
+            section {
               width: 100%;
               float: none;
             }
@@ -396,7 +420,7 @@ $image-dir: '../images/';
     }
 
     .wizard > .actions a[href='#next'],
-    .wizard > .actions a[href='#finish']{
+    .wizard > .actions a[href='#finish'] {
 
       &:hover {
         line-height: 40px;
@@ -410,7 +434,6 @@ $image-dir: '../images/';
       }
 
     }
-
 
     .wizard > .actions a {
       line-height: 42px;

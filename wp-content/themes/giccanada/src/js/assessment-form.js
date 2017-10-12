@@ -44,7 +44,7 @@
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 10, //FOR TEST!!
+                    startIndex: 11, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;

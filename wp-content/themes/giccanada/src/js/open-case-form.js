@@ -44,7 +44,7 @@ function OpenCaseForm(renderFunc) {
         });
     }
 
-    this.timerInit(); //TODO Передавать время через которое включать таймер
+    this.timerInit();
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -129,6 +129,8 @@ OpenCaseForm.prototype.sendForm = function () {
 OpenCaseForm.prototype.onWindowClick = function (e) {
 
     function findParent(parentNode) {
+        if (!parentNode) return false;
+
         if (parentNode.matches('#open-case-form')) {
             return true;
         } else {
