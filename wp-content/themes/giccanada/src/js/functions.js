@@ -66,7 +66,9 @@ var copyMultiplicationContainer = function (event) {
             switch (item.nodeName.toLowerCase()) {
                 case 'input':
                 case 'select':
+                case 'textarea':
                     item.id = getNewId(item.id, copyCount + 1);
+                    item.setAttribute('name',  getNewId(item.getAttribute('name'), copyCount + 1) );
                     break;
                 case 'label':
                     item.htmlFor = getNewId(item.getAttribute('for'), copyCount + 1);

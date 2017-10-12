@@ -120,7 +120,7 @@ $image-dir: '../images/';
         section {
           padding-bottom: 15px;
 
-          label, input, select {
+          label, input, select, textarea {
             width: 100%;
             font-family: Lato;
           }
@@ -140,10 +140,15 @@ $image-dir: '../images/';
             color: #9B9B9B;
           }
 
+          textarea {
+            line-height: 16px;
+          }
+
           input[type=text],
           input[type=tel],
           input[type=email],
-          select {
+          select,
+          textarea {
             height: 48px;
             padding-left: 15px;
             background: #fff;

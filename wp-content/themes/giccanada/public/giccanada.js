@@ -27790,7 +27790,7 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 11, //FOR TEST!!
+                    startIndex: 12, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
@@ -28064,7 +28064,9 @@ var copyMultiplicationContainer = function (event) {
             switch (item.nodeName.toLowerCase()) {
                 case 'input':
                 case 'select':
+                case 'textarea':
                     item.id = getNewId(item.id, copyCount + 1);
+                    item.setAttribute('name',  getNewId(item.getAttribute('name'), copyCount + 1) );
                     break;
                 case 'label':
                     item.htmlFor = getNewId(item.getAttribute('for'), copyCount + 1);

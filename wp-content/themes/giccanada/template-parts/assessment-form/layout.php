@@ -48,6 +48,8 @@
                     <fieldset class="assessment-step -step11 education"></fieldset>
                     <h5>Образование в Канаде</h5>
                     <fieldset class="assessment-step -step12"></fieldset>
+                    <h5>Опыт работы</h5>
+                    <fieldset class="assessment-step -step13 work"></fieldset>
                 </form>
             </div>
         </div>
