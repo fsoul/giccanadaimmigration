@@ -5,6 +5,7 @@ require('./js/vendor/owl.carousel/owl.carousel');
 require('./js/vendor/select2/select2');
 require('./js/vendor/jquery.steps');
 require('bootstrap');
+require('croppie');
 
 
 var StickyMenu = require('./js/stickymenu');

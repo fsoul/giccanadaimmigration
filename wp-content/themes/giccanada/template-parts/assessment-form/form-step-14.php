@@ -11,7 +11,7 @@
 </section>
 <section class="file-upload-container clearfix" id="canadian-work-files">
     <div class="file-upload-button-container">
-        <!--    <input type="file" onchange="app.func.addFileToList(this);" id="ass-studied-files" multiple accept="application/pdf, image/*">-->
+        <!--    <input type="file" onchange="app.func.addFileToList(this);" id="ass-worked-files" multiple accept="application/pdf, image/*">-->
         <input type="file" onchange="app.func.addFileToList(this, 'canadian-work-files');" id="ass-worked-files" multiple>
         <label class="ass-file-input-label">Приложите подтверждающие документы</label>
         <label class="ass-file-input" for="ass-worked-files"><span>Загрузить файл</span></label>
