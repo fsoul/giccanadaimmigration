@@ -1,7 +1,7 @@
 <div class="fixed-right-panel">
     <div>
         <span class="fixed-pnl-btn-hover">Заполнить анкету</span>
-        <div class="fixed-panel-button" id="contact-form"></div>
+        <div class="fixed-panel-button" data-toggle="modal" data-target="#assessment-modal" id="contact-form"></div>
     </div>
     <div>
         <span class="fixed-pnl-btn-hover">Чат</span>

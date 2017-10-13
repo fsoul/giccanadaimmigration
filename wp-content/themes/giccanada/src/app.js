@@ -3,6 +3,7 @@
 require('./js/lib/polyfills');
 require('./js/vendor/owl.carousel/owl.carousel');
 require('./js/vendor/select2/select2');
+require('./js/vendor/jquery.steps');
 require('bootstrap');
 
 
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     require('./js/widget');
     require('./js/window');
     require('./js/modal-menu');
+    require('./js/assessment-form');
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
@@ -94,6 +96,11 @@ require('./scss/process.scss');
 require('./scss/reviews.scss');
 require('./scss/news.scss');
 require('./scss/footer.scss');
+require('./scss/assessment-form.scss');
 
 
 require('./scss/media-query.scss');
+
+module.exports = {
+    func: require('./js/functions')
+};

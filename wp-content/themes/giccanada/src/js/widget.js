@@ -34,7 +34,6 @@ module.exports = (function () {
                 self.doOpenCaseToggle(e);
         });
 
-
         document.addEventListener('scroll', function () {
             self.doScroll();
         }, {passive: true});
