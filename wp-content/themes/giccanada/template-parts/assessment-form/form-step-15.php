@@ -171,5 +171,5 @@
     </section>
 </div>
 <section>
-    <button class="ass-add-button" onclick="app.func.copyMultiplicationContainer(event);"><span>Добавить место работы</span></button>
+    <button class="ass-add-button" onclick="app.func.copyMultiplicationContainer(event);"><span>Добавить члена семьи</span></button>
 </section>

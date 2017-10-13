@@ -137,12 +137,11 @@ $image-dir: '../images/';
             line-height: 18px;
             font-size: 1em;
             letter-spacing: 1px;
+            color: #000;
 
             &[disabled] {
               color: #9B9B9B;
             }
-
-
           }
 
           textarea {
@@ -152,6 +151,7 @@ $image-dir: '../images/';
           input[type=text],
           input[type=tel],
           input[type=email],
+          input[type=password],
           select,
           textarea {
             height: 48px;
@@ -172,8 +172,8 @@ $image-dir: '../images/';
             section {
               padding-bottom: 0;
 
-              &:first-of-type .ass-radio + label {
-                border-top: 1px solid #cfcfcf;
+              &:last-of-type .ass-radio + label {
+                border-bottom: 1px solid #cfcfcf;
               }
 
               .ass-radio {
@@ -192,7 +192,7 @@ $image-dir: '../images/';
                   font-size: .875em;
                   font-weight: normal;
                   color: #000;
-                  border-bottom: 1px solid #cfcfcf;
+                  border-top: 1px solid #cfcfcf;
                 }
 
                 &:checked + label:before,
@@ -343,13 +343,13 @@ $image-dir: '../images/';
               border-bottom: 1px solid #CFCFCF;
             }
 
-           .added-file-delete {
-             color: #ff0000;
-             position: absolute;
-             right: 15px;
-             cursor: pointer;
-             font-size: 1.2em;
-           }
+            .added-file-delete {
+              color: #ff0000;
+              position: absolute;
+              right: 15px;
+              cursor: pointer;
+              font-size: 1.2em;
+            }
           }
         }
 
@@ -372,6 +372,96 @@ $image-dir: '../images/';
             section:first-of-type {
               width: 65%;
               margin-right: 5%;
+            }
+          }
+        }
+
+        &.-step16 {
+
+          label {
+            .payment-type-logo {
+              display: inline-block;
+              position: absolute;
+              right: 15px;
+
+              #visa-logo,
+              #master-logo,
+              #maestro-logo
+              {
+                height: 18px;
+                width: 30px;
+                display: inline-block;
+              }
+              #visa-logo {
+                margin-right: 5px;
+                background: url($image-dir + "Visa-dark.png") no-repeat center;
+                background-size: cover;
+              }
+
+              #master-logo {
+                margin-right: 5px;
+                background: url($image-dir + "MasterCard-dark.png") no-repeat center;
+                background-size: cover;
+              }
+
+              #maestro-logo {
+                background: url($image-dir + "Maestro-dark.png") no-repeat center;
+                background-size: cover;
+              }
+
+              #paypal-logo {
+                height: 18px;
+                width: 64px;
+                display: inline-block;
+                background: url($image-dir + "Paypal-light.png") no-repeat center;
+                background-size: cover;
+              }
+            }
+
+          }
+
+          .payment-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            -webkit-transition: max-height 0.3s ease-out;
+            -moz-transition: max-height 0.3s ease-out;
+            -o-transition: max-height 0.3s ease-out;
+
+            & > section {
+              padding-bottom: 15px;
+
+              &:first-of-type {
+                padding-top: 15px;
+              }
+            }
+
+            .expiration-date {
+              width: 70%;
+              float: left;
+
+              select {
+                width: 45%;
+                float: left;
+                margin-right: 5%;
+              }
+            }
+
+            #holder-cvc-container {
+              float: left;
+              width: 30%;
+            }
+
+            .payment-bank-info {
+              display: inline-block;
+              width: 100%;
+              line-height: 48px;
+              border-top: 1px solid #CFCFCF;
+
+              &:last-child {
+                border-bottom: 1px solid #CFCFCF;
+              }
+
             }
           }
         }

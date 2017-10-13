@@ -75,14 +75,6 @@ $image-dir: '../images/';
             color: #000;
           }
 
-          select {
-            font-family: Lato;
-            line-height: 18px;
-            font-size: 1em;
-            letter-spacing: 1px;
-            color: #9B9B9B;
-          }
-
           input[type=text], select {
             height: 48px;
             padding-left: 15px;
@@ -215,6 +207,40 @@ $image-dir: '../images/';
             section:first-of-type {
               width: 100%;
               margin-right: 0;
+            }
+          }
+        }
+
+        &.-step16 {
+
+          label {
+            .payment-type-logo {
+              right: 0;
+            }
+          }
+
+          .payment-panel {
+
+            .expiration-date {
+              width: 100%;
+              float: left;
+              padding-bottom: 15px;
+
+              select {
+                width: 50%;
+                float: left;
+                margin-right: 5%;
+
+                &:last-child {
+                  margin-right: 0;
+                  width: 45%;
+                }
+              }
+            }
+
+            #holder-cvc-container {
+              float: none;
+              width: 45%;
             }
           }
         }

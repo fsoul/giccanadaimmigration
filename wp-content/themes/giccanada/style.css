@@ -11531,7 +11531,8 @@ body {
         font-family: Lato;
         line-height: 18px;
         font-size: 1em;
-        letter-spacing: 1px; }
+        letter-spacing: 1px;
+        color: #000; }
         #assessment-modal .modal-body #assessment-form .assessment-step section select[disabled] {
           color: #9B9B9B; }
       #assessment-modal .modal-body #assessment-form .assessment-step section textarea {
@@ -11539,6 +11540,7 @@ body {
       #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text],
       #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel],
       #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email],
+      #assessment-modal .modal-body #assessment-form .assessment-step section input[type=password],
       #assessment-modal .modal-body #assessment-form .assessment-step section select,
       #assessment-modal .modal-body #assessment-form .assessment-step section textarea {
         height: 48px;
@@ -11548,6 +11550,7 @@ body {
         #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text]::placeholder,
         #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel]::placeholder,
         #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email]::placeholder,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=password]::placeholder,
         #assessment-modal .modal-body #assessment-form .assessment-step section select::placeholder,
         #assessment-modal .modal-body #assessment-form .assessment-step section textarea::placeholder {
           line-height: 18px;
@@ -11556,8 +11559,8 @@ body {
           color: #9B9B9B; }
       #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section {
         padding-bottom: 0; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section:first-of-type .ass-radio + label {
-          border-top: 1px solid #cfcfcf; }
+        #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section:last-of-type .ass-radio + label {
+          border-bottom: 1px solid #cfcfcf; }
         #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:checked, #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:not(:checked) {
           position: absolute;
           left: -9999px; }
@@ -11570,7 +11573,7 @@ body {
           font-size: .875em;
           font-weight: normal;
           color: #000;
-          border-bottom: 1px solid #cfcfcf; }
+          border-top: 1px solid #cfcfcf; }
         #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:checked + label:before,
         #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section .ass-radio:not(:checked) + label:before {
           content: '';
@@ -11704,6 +11707,61 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section:first-of-type {
       width: 65%;
       margin-right: 5%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo {
+      display: inline-block;
+      position: absolute;
+      right: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #visa-logo,
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #master-logo,
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #maestro-logo {
+        height: 18px;
+        width: 30px;
+        display: inline-block; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #visa-logo {
+        margin-right: 5px;
+        background: url(./public/images/Visa-dark-b574726efb.png) no-repeat center;
+        background-size: cover; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #master-logo {
+        margin-right: 5px;
+        background: url(./public/images/MasterCard-dark-586fd5d7d7.png) no-repeat center;
+        background-size: cover; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #maestro-logo {
+        background: url(./public/images/Maestro-dark-a0d9ffcafe.png) no-repeat center;
+        background-size: cover; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #paypal-logo {
+        height: 18px;
+        width: 64px;
+        display: inline-block;
+        background: url(./public/images/Paypal-light-4d2e8cf9fd.png) no-repeat center;
+        background-size: cover; }
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      -webkit-transition: max-height 0.3s ease-out;
+      -moz-transition: max-height 0.3s ease-out;
+      -o-transition: max-height 0.3s ease-out; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel > section {
+        padding-bottom: 15px; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel > section:first-of-type {
+          padding-top: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date {
+        width: 70%;
+        float: left; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select {
+          width: 45%;
+          float: left;
+          margin-right: 5%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
+        float: left;
+        width: 30%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .payment-bank-info {
+        display: inline-block;
+        width: 100%;
+        line-height: 48px;
+        border-top: 1px solid #CFCFCF; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .payment-bank-info:last-child {
+          border-bottom: 1px solid #CFCFCF; }
   #assessment-modal .modal-body .hide-text {
     font: 0/0 a;
     color: transparent;
@@ -12260,12 +12318,6 @@ body {
           line-height: normal;
           font-size: .875em;
           color: #000; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section select {
-          font-family: Lato;
-          line-height: 18px;
-          font-size: 1em;
-          letter-spacing: 1px;
-          color: #9B9B9B; }
         #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text], #assessment-modal .modal-body #assessment-form .assessment-step section select {
           height: 48px;
           padding-left: 15px;
@@ -12341,6 +12393,22 @@ body {
       #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section:first-of-type {
         width: 100%;
         margin-right: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo {
+        right: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date {
+        width: 100%;
+        float: left;
+        padding-bottom: 15px; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select {
+          width: 50%;
+          float: left;
+          margin-right: 5%; }
+          #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select:last-child {
+            margin-right: 0;
+            width: 45%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
+        float: none;
+        width: 45%; }
     #assessment-modal .modal-body .hide-text {
       font: 0/0 a;
       color: transparent;

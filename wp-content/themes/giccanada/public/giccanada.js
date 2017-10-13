@@ -27790,7 +27790,6 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 14, //FOR TEST!!
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
@@ -27998,6 +27997,8 @@ module.exports = ProgressBar;
 "use strict";
 
 
+var helper =__webpack_require__(1);
+
 /**
  * Function copies div.multiplication-container on click event
  * @see <div class="multiplication-container">
@@ -28137,9 +28138,28 @@ var addFileToList = function (input, id) {
     }
 };
 
+var paymentMethodClick = function (e) {
+    var target = e.target;
+    var activePanel = target.nextElementSibling;
+    var buttons = document.querySelectorAll('.payment-method input[type=radio] + label');
+
+    for (var i = 0; i < buttons.length; ++i) {
+        if (buttons[i].classList.contains('active')) {
+            buttons[i].classList.remove('active');
+            var next = buttons[i].nextElementSibling;
+            if (next && next.classList.contains('payment-panel'))
+                next.style.maxHeight = null;
+        }
+    }
+    target.classList.toggle('active');
+    if (activePanel && activePanel.classList.contains('payment-panel'))
+        activePanel.style.maxHeight = activePanel.scrollHeight + "px";
+};
+
 module.exports = {
     copyMultiplicationContainer: copyMultiplicationContainer,
-    addFileToList: addFileToList
+    addFileToList: addFileToList,
+    paymentMethodClick: paymentMethodClick
 };
 
 /***/ })
