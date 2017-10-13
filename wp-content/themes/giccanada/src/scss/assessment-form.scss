@@ -137,7 +137,12 @@ $image-dir: '../images/';
             line-height: 18px;
             font-size: 1em;
             letter-spacing: 1px;
-            color: #9B9B9B;
+
+            &[disabled] {
+              color: #9B9B9B;
+            }
+
+
           }
 
           textarea {

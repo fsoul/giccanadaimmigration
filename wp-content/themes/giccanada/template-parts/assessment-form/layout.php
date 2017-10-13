@@ -52,6 +52,8 @@
                     <fieldset class="assessment-step -step13 work"></fieldset>
                     <h5>Опыт работы в Канаде</h5>
                     <fieldset class="assessment-step -step14 work"></fieldset>
+                    <h5>Информация о семье</h5>
+                    <fieldset class="assessment-step -step15 family-members"></fieldset>
                 </form>
             </div>
         </div>
