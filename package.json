@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "croppie": "^2.5.0",
     "tether": "^1.4.0",
     "url-loader": "^0.5.9"
   }

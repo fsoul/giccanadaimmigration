@@ -44,12 +44,13 @@
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
+                    startIndex: 2,
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
                     },
                     onStepChanged: function (event, currentIndex, priorIndex) {
-                        self.progressBar.udpateCaption(++currentIndex, self.steps.length);
+                        self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
 
                         if (currentIndex > priorIndex) {
                             self.progressBar.nextStep();
