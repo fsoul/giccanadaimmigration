@@ -10434,13 +10434,14 @@ __webpack_require__(6);
 __webpack_require__(7);
 __webpack_require__(9);
 
-
-var StickyMenu = __webpack_require__(14);
-var stickMenu = new StickyMenu();
-var listeners = __webpack_require__(15);
-var menuLogo = listeners.menuLogo;
-var menuPhoneBlock = listeners.menuPhoneBlock;
-var buttonUp = listeners.buttonUp;
+var StickyMenu = __webpack_require__(14),
+    stickMenu = new StickyMenu();
+var listeners = __webpack_require__(15),
+    menuLogo = listeners.menuLogo,
+    menuPhoneBlock = listeners.menuPhoneBlock,
+    buttonUp = listeners.buttonUp;
+var CroppiePhoto = __webpack_require__(16),
+    croppie = new CroppiePhoto();
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10498,11 +10499,11 @@ document.addEventListener('DOMContentLoaded', function () {
         backArrow.style.visibility = 'hidden';
     });
 
-    __webpack_require__(16);
     __webpack_require__(17);
-    __webpack_require__(19);
+    __webpack_require__(18);
     __webpack_require__(20);
     __webpack_require__(21);
+    __webpack_require__(22);
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
@@ -10515,7 +10516,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(23);
 __webpack_require__(24);
 __webpack_require__(25);
 __webpack_require__(26);
@@ -10525,12 +10525,14 @@ __webpack_require__(29);
 __webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
-
-
 __webpack_require__(33);
 
+
+__webpack_require__(34);
+
 module.exports = {
-    func: __webpack_require__(34)
+    func: __webpack_require__(35),
+    croppie: croppie
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -10608,6 +10610,14 @@ module.exports = {
                 k++;
             }
             // 8. return undefined.
+        };
+    }
+})();
+
+(function () {
+    if (!Array.isArray) {
+        Array.isArray = function(arg) {
+            return Object.prototype.toString.call(arg) === '[object Array]';
         };
     }
 })();
@@ -29325,6 +29335,57 @@ module.exports = {
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function CroppieAssPhoto() {
+    this.options = {
+        viewport: {width: 200, height: 250},
+        boundary: {width: 266, height: 266}
+    };
+}
+
+CroppieAssPhoto.prototype._init = function () {
+    if (!this.croppie)
+        this.croppie = new Croppie(document.getElementById('added-photo'), this.options);
+};
+
+CroppieAssPhoto.prototype.croppieLoadImage = function (imgUrl) {
+    this._init();
+    imgUrl = imgUrl || 'http://giccanadaimmigration.lo/wp-content/themes/giccanada/public/images/Review2-f94bca7e14.jpg';
+    this.croppie.bind({
+        url: imgUrl
+    });
+};
+
+CroppieAssPhoto.prototype.saveCroppedBlob = function () {
+    this.croppie.result('blob').then(function (blob) {
+
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            var base64 = reader.result;
+            var link = document.createElement("a");
+
+            link.setAttribute("href", base64);
+            link.setAttribute("download", 'test');
+            link.click();
+        };
+
+        reader.readAsDataURL(blob);
+
+        // window.URL.createObjectURL(blob)
+    });
+};
+
+
+module.exports =  CroppieAssPhoto;
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -29400,13 +29461,13 @@ module.exports =
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var OpenCaseForm = __webpack_require__(18);
+var OpenCaseForm = __webpack_require__(19);
 
 module.exports = (function () {
 
@@ -29527,7 +29588,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29680,7 +29741,7 @@ module.exports = OpenCaseForm;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29728,7 +29789,7 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29791,7 +29852,7 @@ module.exports =  (function () {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29799,7 +29860,7 @@ module.exports =  (function () {
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(22);
+        var ProgressBar = __webpack_require__(23);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -29841,7 +29902,7 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 2,
+                    startIndex: 9,
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
@@ -29902,7 +29963,7 @@ module.exports =  (function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29977,12 +30038,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
@@ -30044,10 +30099,16 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 34 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 var helper =__webpack_require__(1);
 
@@ -30208,55 +30269,49 @@ var paymentMethodClick = function (e) {
         activePanel.style.maxHeight = activePanel.scrollHeight + "px";
 };
 
-var CroppieAssPhoto = (function () {
-    function CroppieAssPhoto() {
-        this.options = {
-            viewport: { width: 200, height: 250 },
-            boundary: { width: 266, height: 266 }
-        };
-    }
 
-    CroppieAssPhoto.prototype._init = function () {
-        if (!this.croppie)
-            this.croppie = new Croppie(document.getElementById('added-photo'), this.options);
-    };
+/**
+ * @param {string} code Selected province code is in upper case.
+ * @param {string} selector Selector of Element in which cities have to be changed. Must be ID.
+ */
+var onProvinceChanged = function (code, selector) {
 
-    CroppieAssPhoto.prototype.croppieLoadImage = function (imgUrl) {
-        this._init();
-        imgUrl = imgUrl || 'http://giccanadaimmigration.lo/wp-content/themes/giccanada/public/images/Review2-f94bca7e14.jpg';
-        this.croppie.bind({
-            url: imgUrl
-        });
-    };
+    $.ajax({
+        url: gic.ajaxurl,
+        type: "POST",
+        data: {
+            'action': 'get_cities_list_by_province',
+            'code': code
+        },
+        dataType: 'json',
+        success: function (cities) {
+            var select = document.getElementById(selector);
+            if (Array.isArray(cities)) {
 
-    CroppieAssPhoto.prototype.saveCroppedBlob = function () {
-        this.croppie.result('blob').then(function(blob) {
+                var i;
+                for(i = 0; i < select.options.length; ++i) {
+                    select.remove(i);
+                }
 
-            var reader = new FileReader();
+                for (i = 0; i < cities.length; ++i) {
+                    var option = document.createElement('option');
+                    option.value = cities[i];
+                    option.text = cities[i];
+                    select.add(option);
+                }
+            }
+        }
+    });
+};
 
-            reader.onloadend = function () {
-                var base64 = reader.result ;
-                var link = document.createElement("a");
-
-                link.setAttribute("href", base64);
-                link.setAttribute("download", 'test');
-                link.click();
-            };
-
-            reader.readAsDataURL(blob);
-
-            // window.URL.createObjectURL(blob)
-        });
-    };
-    return new CroppieAssPhoto();
-})();
 
 module.exports = {
     copyMultiplicationContainer: copyMultiplicationContainer,
     addFileToList: addFileToList,
     paymentMethodClick: paymentMethodClick,
-    CroppieAssPhoto: CroppieAssPhoto
+    onProvinceChanged: onProvinceChanged
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

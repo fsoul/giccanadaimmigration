@@ -159,52 +159,45 @@ var paymentMethodClick = function (e) {
         activePanel.style.maxHeight = activePanel.scrollHeight + "px";
 };
 
-var CroppieAssPhoto = (function () {
-    function CroppieAssPhoto() {
-        this.options = {
-            viewport: { width: 200, height: 250 },
-            boundary: { width: 266, height: 266 }
-        };
-    }
 
-    CroppieAssPhoto.prototype._init = function () {
-        if (!this.croppie)
-            this.croppie = new Croppie(document.getElementById('added-photo'), this.options);
-    };
+/**
+ * @param {string} code Selected province code is in upper case.
+ * @param {string} selector Selector of Element in which cities have to be changed. Must be ID.
+ */
+var onProvinceChanged = function (code, selector) {
 
-    CroppieAssPhoto.prototype.croppieLoadImage = function (imgUrl) {
-        this._init();
-        imgUrl = imgUrl || 'http://giccanadaimmigration.lo/wp-content/themes/giccanada/public/images/Review2-f94bca7e14.jpg';
-        this.croppie.bind({
-            url: imgUrl
-        });
-    };
+    $.ajax({
+        url: gic.ajaxurl,
+        type: "POST",
+        data: {
+            'action': 'get_cities_list_by_province',
+            'code': code
+        },
+        dataType: 'json',
+        success: function (cities) {
+            var select = document.getElementById(selector);
+            if (Array.isArray(cities)) {
 
-    CroppieAssPhoto.prototype.saveCroppedBlob = function () {
-        this.croppie.result('blob').then(function(blob) {
+                var i;
+                for(i = 0; i < select.options.length; ++i) {
+                    select.remove(i);
+                }
 
-            var reader = new FileReader();
+                for (i = 0; i < cities.length; ++i) {
+                    var option = document.createElement('option');
+                    option.value = cities[i];
+                    option.text = cities[i];
+                    select.add(option);
+                }
+            }
+        }
+    });
+};
 
-            reader.onloadend = function () {
-                var base64 = reader.result ;
-                var link = document.createElement("a");
-
-                link.setAttribute("href", base64);
-                link.setAttribute("download", 'test');
-                link.click();
-            };
-
-            reader.readAsDataURL(blob);
-
-            // window.URL.createObjectURL(blob)
-        });
-    };
-    return new CroppieAssPhoto();
-})();
 
 module.exports = {
     copyMultiplicationContainer: copyMultiplicationContainer,
     addFileToList: addFileToList,
     paymentMethodClick: paymentMethodClick,
-    CroppieAssPhoto: CroppieAssPhoto
+    onProvinceChanged: onProvinceChanged
 };

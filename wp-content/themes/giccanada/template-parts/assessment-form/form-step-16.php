@@ -18,37 +18,37 @@
                     <label>Срок действия</label>
                     <select title="" id="card-expiration-date-m" name="card-expiration-date-m" class="month"
                             required>
-                        <option value="" disabled selected>Месяц</option>
-                        <option value="1">Январь</option>
-                        <option value="2">Февраль</option>
-                        <option value="3">Март</option>
-                        <option value="4">Апрель</option>
-                        <option value="5">Май</option>
-                        <option value="6">Июнь</option>
-                        <option value="7">Июль</option>
-                        <option value="8">Август</option>
-                        <option value="9">Сентябрь</option>
-                        <option value="10">Октябрь</option>
-                        <option value="11">Ноябрь</option>
-                        <option value="12">Декабрь</option>
+                        <option value="" disabled selected>Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
                     </select>
 
                     <select title="" id="card-expiration-date-y" name="card-expiration-date-y" class="year"
                             required>
-                        <option value="" disabled selected>Год</option>
-                        <option value="">2017</option>
-                        <option value="">2016</option>
-                        <option value="">2015</option>
-                        <option value="">2014</option>
-                        <option value="">2013</option>
-                        <option value="">2012</option>
-                        <option value="">2011</option>
-                        <option value="">2010</option>
-                        <option value="">2009</option>
-                        <option value="">2008</option>
-                        <option value="">2007</option>
-                        <option value="">2006</option>
-                        <option value="">2005</option>
+                        <option value="" disabled selected>Year</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
                     </select>
                 </div>
                 <section id="holder-cvc-container">
