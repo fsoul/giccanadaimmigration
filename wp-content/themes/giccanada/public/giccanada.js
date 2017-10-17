@@ -29902,7 +29902,7 @@ module.exports =  (function () {
                     headerTag: "h5",
                     bodyTag: "fieldset",
                     transitionEffect: "slideLeft",
-                    startIndex: 9,
+                    // startIndex: 9,
                     onStepChanging: function (event, currentIndex, newIndex) {
                         self._loadFormByStepIndex(newIndex + 1);
                         return true;
