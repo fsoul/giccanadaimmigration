@@ -209,6 +209,7 @@ function getCountries() {
 		'ES' => 'Spain',
 		'LK' => 'Sri Lanka',
 		'SD' => 'Sudan',
+		'SS' => 'South Sudan',
 		'SR' => 'Suriname',
 		'SJ' => 'Svalbard And Jan Mayen',
 		'SZ' => 'Swaziland',
@@ -246,7 +247,7 @@ function getCountries() {
 		'EH' => 'Western Sahara',
 		'YE' => 'Yemen',
 		'ZM' => 'Zambia',
-		'ZW' => 'Zimbabwe',
+		'ZW' => 'Zimbabwe'
 	);
 }
 

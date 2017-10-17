@@ -70,3 +70,14 @@ function get_step_by_index() {
 add_action( 'wp_ajax_get_step_by_index', 'get_step_by_index' );
 add_action( 'wp_ajax_nopriv_get_step_by_index', 'get_step_by_index' );
 
+function get_cities_list_by_province() {
+	$code = $_POST['code'];
+	require_once get_template_directory() . '/inc/provinces.php';
+	$cities = getCitiesByProvince($code);
+	echo json_encode($cities);
+	wp_die();
+}
+
+add_action( 'wp_ajax_get_cities_list_by_province', 'get_cities_list_by_province' );
+add_action( 'wp_ajax_nopriv_get_cities_list_by_province', 'get_cities_list_by_province' );
+

@@ -16,50 +16,71 @@
     <section class="combine-date birth-date">
         <label>Дата рождения</label>
         <select title="" name="member-birth-date-0" class="date to-change-id" id="member-birth-date-0" required>
-            <option value="" disabled selected>День</option>
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
+            <option value="" disabled selected>Day</option>
+            <option value="01"></option>
+            <option value="02"></option>
+            <option value="03"></option>
+            <option value="04"></option>
+            <option value="05"></option>
+            <option value="06"></option>
+            <option value="07"></option>
+            <option value="08"></option>
+            <option value="09"></option>
+            <option value="10"></option>
+            <option value="11"></option>
+            <option value="12"></option>
+            <option value="13"></option>
+            <option value="14"></option>
+            <option value="15"></option>
+            <option value="16"></option>
+            <option value="17"></option>
+            <option value="18"></option>
+            <option value="19"></option>
+            <option value="20"></option>
+            <option value="21"></option>
+            <option value="22"></option>
+            <option value="23"></option>
+            <option value="24"></option>
+            <option value="25"></option>
+            <option value="26"></option>
+            <option value="27"></option>
+            <option value="28"></option>
+            <option value="29"></option>
+            <option value="30"></option>
+            <option value="31"></option>
         </select>
 
         <select title="" name="member-birth-month-0" class="month to-change-id" id="member-birth-month-0" required>
-            <option value="" disabled selected>Месяц</option>
-            <option value="1">Январь</option>
-            <option value="2">Февраль</option>
-            <option value="3">Март</option>
-            <option value="4">Апрель</option>
-            <option value="5">Май</option>
-            <option value="6">Июнь</option>
-            <option value="7">Июль</option>
-            <option value="8">Август</option>
-            <option value="9">Сентябрь</option>
-            <option value="10">Октябрь</option>
-            <option value="11">Ноябрь</option>
-            <option value="12">Декабрь</option>
+            <option value="" disabled selected>Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
         </select>
 
         <select title="" name="member-birth-year-0" class="year to-change-id" id="member-birth-year-0" required>
-            <option value="" disabled selected>Год</option>
-            <option value="">2017</option>
-            <option value="">2016</option>
-            <option value="">2015</option>
-            <option value="">2014</option>
-            <option value="">2013</option>
-            <option value="">2012</option>
-            <option value="">2011</option>
-            <option value="">2010</option>
-            <option value="">2009</option>
-            <option value="">2008</option>
-            <option value="">2007</option>
-            <option value="">2006</option>
-            <option value="">2005</option>
+            <option value="" disabled selected>Year</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2007">2007</option>
+            <option value="2006">2006</option>
+            <option value="2005">2005</option>
         </select>
     </section>
     <section class="radio-block">
@@ -100,71 +121,71 @@
             <div class="from-date clearfix">
                 <label>Отношения, с</label>
                 <select title="" class="month to-change-id" name="member-relation-from-m-0" id="member-relation-from-m-0" required>
-                    <option value="" disabled selected>Месяц</option>
-                    <option value="1">Январь</option>
-                    <option value="2">Февраль</option>
-                    <option value="3">Март</option>
-                    <option value="4">Апрель</option>
-                    <option value="5">Май</option>
-                    <option value="6">Июнь</option>
-                    <option value="7">Июль</option>
-                    <option value="8">Август</option>
-                    <option value="9">Сентябрь</option>
-                    <option value="10">Октябрь</option>
-                    <option value="11">Ноябрь</option>
-                    <option value="12">Декабрь</option>
+                    <option value="" disabled selected>Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
                 </select>
 
                 <select title="" class="year to-change-id" name="member-relation-from-y-0" id="member-relation-from-y-0" required>
-                    <option value="" disabled selected>Год</option>
-                    <option value="">2017</option>
-                    <option value="">2016</option>
-                    <option value="">2015</option>
-                    <option value="">2014</option>
-                    <option value="">2013</option>
-                    <option value="">2012</option>
-                    <option value="">2011</option>
-                    <option value="">2010</option>
-                    <option value="">2009</option>
-                    <option value="">2008</option>
-                    <option value="">2007</option>
-                    <option value="">2006</option>
-                    <option value="">2005</option>
+                    <option value="" disabled selected>Year</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="2009">2009</option>
+                    <option value="2008">2008</option>
+                    <option value="2007">2007</option>
+                    <option value="2006">2006</option>
+                    <option value="2005">2005</option>
                 </select>
             </div>
             <div class="to-date clearfix">
                 <label >по</label>
                 <select title="" id="member-relation-to-m-0" name="member-relation-to-m-0" class="month to-change-id" required>
-                    <option value="" disabled selected>Месяц</option>
-                    <option value="1">Январь</option>
-                    <option value="2">Февраль</option>
-                    <option value="3">Март</option>
-                    <option value="4">Апрель</option>
-                    <option value="5">Май</option>
-                    <option value="6">Июнь</option>
-                    <option value="7">Июль</option>
-                    <option value="8">Август</option>
-                    <option value="9">Сентябрь</option>
-                    <option value="10">Октябрь</option>
-                    <option value="11">Ноябрь</option>
-                    <option value="12">Декабрь</option>
+                    <option value="" disabled selected>Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
                 </select>
 
                 <select title="" id="member-relation-to-y-0" name="member-relation-to-y-0" class="year to-change-id" required>
-                    <option value="" disabled selected>Год</option>
-                    <option value="">2017</option>
-                    <option value="">2016</option>
-                    <option value="">2015</option>
-                    <option value="">2014</option>
-                    <option value="">2013</option>
-                    <option value="">2012</option>
-                    <option value="">2011</option>
-                    <option value="">2010</option>
-                    <option value="">2009</option>
-                    <option value="">2008</option>
-                    <option value="">2007</option>
-                    <option value="">2006</option>
-                    <option value="">2005</option>
+                    <option value="" disabled selected>Year</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="2009">2009</option>
+                    <option value="2008">2008</option>
+                    <option value="2007">2007</option>
+                    <option value="2006">2006</option>
+                    <option value="2005">2005</option>
                 </select>
             </div>
         </section>
