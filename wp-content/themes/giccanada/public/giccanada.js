@@ -10516,7 +10516,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(24);
 __webpack_require__(25);
 __webpack_require__(26);
 __webpack_require__(27);
@@ -10526,12 +10525,13 @@ __webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
 __webpack_require__(33);
-
-
 __webpack_require__(34);
 
+
+__webpack_require__(35);
+
 module.exports = {
-    func: __webpack_require__(35),
+    func: __webpack_require__(36),
     croppie: croppie
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -29858,9 +29858,11 @@ module.exports =  (function () {
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
+var validation = __webpack_require__(23);
+
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(23);
+        var ProgressBar = __webpack_require__(24);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -29891,49 +29893,49 @@ module.exports =  (function () {
 
             var initBtn = document.getElementById('ass-init-btn');
             initBtn.addEventListener('click', function () {
-                self._init();
+                if (!self.isInited)
+                    self._init();
             });
         }
 
         AssessmentForm.prototype._init = function () {
             var self = this;
-            if (!this.isInited) {
-                this.form.steps({
-                    headerTag: "h5",
-                    bodyTag: "fieldset",
-                    transitionEffect: "slideLeft",
-                    // startIndex: 9,
-                    onStepChanging: function (event, currentIndex, newIndex) {
-                        self._loadFormByStepIndex(newIndex + 1);
-                        return true;
-                    },
-                    onStepChanged: function (event, currentIndex, priorIndex) {
-                        self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+            this.form.steps({
+                headerTag: "h5",
+                bodyTag: "fieldset",
+                transitionEffect: "slideLeft",
+                // startIndex: 9,
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    self._loadFormByStepIndex(newIndex + 1);
+                    return true;
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
 
-                        if (currentIndex > priorIndex) {
-                            self.progressBar.nextStep();
-                        } else {
-                            self.progressBar.prevStep();
-                        }
-                    },
-                    onInit: function (event, currentIndex) {
-                        var stepInit = document.getElementById('ass-step-init');
-                        stepInit.style.display = 'none';
-                        self.steps = document.querySelectorAll('.assessment-step');
-                        self._loadFormByStepIndex(currentIndex + 1);
-                        self.form.show();
-                        self.progressBar = new AssessmentProgressBar('.progressbar div', {
-                            steps: self.steps.length,
-                            duration: 2000
-                        });
-                        self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                    if (currentIndex > priorIndex) {
+                        self.progressBar.nextStep();
+                    } else {
+                        self.progressBar.prevStep();
                     }
-                });
-            }
+                },
+                onInit: function (event, currentIndex) {
+                    var stepInit = document.getElementById('ass-step-init');
+                    stepInit.style.display = 'none';
+                    self.steps = document.querySelectorAll('.assessment-step');
+                    self._loadFormByStepIndex(currentIndex + 1);
+                    self.form.show();
+                    self.progressBar = new AssessmentProgressBar('.progressbar div', {
+                        steps: self.steps.length,
+                        duration: 2000
+                    });
+                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                }
+            });
         };
 
 
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
+            var self = this;
             var stepClass = '-step' + index;
             var step = [].filter.call(this.steps, (function (s) {
                 return s.classList.contains(stepClass);
@@ -29949,8 +29951,21 @@ module.exports =  (function () {
                     dataType: 'html',
                     success: function (html) {
                         step.innerHTML = html;
+                        self.initInputsValidation(index - 1);
                     }
                 });
+            }
+        };
+
+        AssessmentForm.prototype._getPageInputs = function (pageIndex) {
+            var page = this.steps[pageIndex];
+            return page.querySelectorAll('input, select');
+        };
+
+        AssessmentForm.prototype.initInputsValidation = function(pageIndex) {
+            var inputs = this._getPageInputs(pageIndex);
+            for (var i = 0; i < inputs.length; ++i) {
+                validation.initByInput(inputs[i]);
             }
         };
 
@@ -29964,6 +29979,241 @@ module.exports =  (function () {
 
 /***/ }),
 /* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var DefaultInput = (function () {
+
+    function DefaultInput(lang, input) {
+        this.lang = lang;
+        this.input = input;
+        this.errorMsg = document.getElementById('error-' + input.id);
+        this.subscribers = [];
+        var self = this;
+
+        this.input.addEventListener('focusout', function () {
+            self.input.dispatchEvent(new CustomEvent('onValidate'));
+        });
+
+        this.input.addEventListener('input', function () {
+            self.input.dispatchEvent(new CustomEvent('onValidate'));
+        });
+
+        this.input.addEventListener('onValidate', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input.addEventListener('onValidateError', function (e) {
+            self.doValidateError(e);
+        });
+
+        this.input.addEventListener('onNormalize', function (e) {
+            self.doNormalize(e);
+        });
+    }
+
+    DefaultInput.prototype.getErrorMessage = function () {
+        return {
+            'en-US': 'This field is required.',
+            'ru-RU': 'Вы пропустили это поле.'
+        }[this.lang];
+    };
+
+    DefaultInput.prototype.doValidate = function () {
+        if (!this.input.value) {
+            this.input.dispatchEvent(new CustomEvent('onValidateError'));
+        } else {
+            this.input.dispatchEvent(new CustomEvent('onNormalize'));
+        }
+    };
+
+    DefaultInput.prototype.doValidateError = function () {
+        this.input.classList.toggle('validation');
+        this.errorMsg.classList.toggle('validationError');
+        this.errorMsg.innerText = this.getErrorMessage();
+        this.fire('onValidateError');
+    };
+
+    DefaultInput.prototype.doNormalize = function () {
+        this.input.classList.toggle('validation');
+        this.errorMsg.classList.toggle('validationError');
+        this.errorMsg.innerText = '';
+        this.fire('onNormalize');
+    };
+
+    DefaultInput.prototype.subscribe = function (input) {
+        this.subscribers.push(input);
+    };
+
+    DefaultInput.prototype.fire = function (eventName) {
+        this.subscribers.forEach(function (el) {
+            el.dispatchEvent(new CustomEvent(eventName));
+        });
+    };
+
+    return DefaultInput;
+})();
+
+
+var DefaultTextInput = (function () {
+
+    var STATES = {
+        valid: 'valid-text-input',
+        invalid: 'invalid-text-input'
+    };
+
+    function DefaultTextInput(lang, input) {
+        DefaultInput.apply(this, arguments);
+        this.state = STATES.normal;
+    }
+
+    DefaultTextInput.prototype = Object.create(DefaultInput.prototype);
+    DefaultTextInput.prototype.constructor = DefaultTextInput;
+
+    DefaultTextInput.prototype.doValidateError = function () {
+        if (this.state !== STATES.invalid) {
+            this.input.classList.remove(this.state);
+            this.state = STATES.invalid;
+            this.input.classList.add(this.state);
+        }
+        DefaultInput.prototype.doValidateError.apply(this);
+    };
+
+    DefaultTextInput.prototype.doNormalize = function () {
+        if (this.state !== STATES.valid) {
+            this.input.classList.remove(this.state);
+            this.state = STATES.valid;
+            this.input.classList.add(this.state);
+        }
+        DefaultInput.prototype.doNormalize.apply(this);
+    };
+
+    return DefaultTextInput;
+})();
+
+var EmailInput = (function () {
+
+    function EmailInput(lang, input) {
+        DefaultTextInput.apply(this, arguments);
+    }
+
+    EmailInput.prototype = Object.create(DefaultTextInput.prototype);
+    EmailInput.prototype.constructor = EmailInput;
+
+    EmailInput.prototype.getErrorMessage = function () {
+        return {
+            'en-US': 'Enter valid email.',
+            'ru-RU': 'Введите валидный адрес электронной почты.'
+        }[this.lang];
+    };
+
+    EmailInput.prototype.doValidate = function () {
+        var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (!this.input.value || !this.input.value.match(mailPattern)) {
+            this.input.dispatchEvent(new CustomEvent('onValidateError'));
+        } else {
+            this.input.dispatchEvent(new CustomEvent('onNormalize'));
+        }
+    };
+
+    return EmailInput;
+})();
+
+var SelectInput = (function () {
+
+    function SelectInput(lang, input) {
+        DefaultInput.apply(this, arguments);
+        this.id = input.id;
+        var self = this;
+
+        this.input.onchange = function (e) {
+            self.doValidate(e);
+        };
+
+        this.input.addEventListener('click', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input.addEventListener('onValidate', function (e) {
+            self.doValidate(e);
+        });
+    }
+
+    SelectInput.prototype = Object.create(DefaultInput.prototype);
+    SelectInput.prototype.constructor = SelectInput;
+
+    SelectInput.prototype.getErrorMessage = function () {
+        return {
+            'en-US': 'Choose one of the list items.',
+            'ru-RU': 'Выберите один из пунктов списка.'
+        }[this.lang];
+    };
+
+    return SelectInput;
+})();
+
+var TelInput = (function () {
+
+    function TelInput(lang, input) {
+        DefaultTextInput.apply(this, arguments);
+        var self = this;
+        this.input.addEventListener('keydown', function () {
+            self.doValidate();
+        })
+    }
+
+    TelInput.prototype = Object.create(DefaultTextInput.prototype);
+    TelInput.prototype.constructor = TelInput;
+
+    return TelInput;
+})();
+
+var InputsFactory = (function () {
+
+    function InputsFactory() {
+        this.inputClass = DefaultInput;
+    }
+
+    InputsFactory.prototype.createInput = function (lang, input) {
+        switch (input.type) {
+            case 'text':
+                this.inputClass = DefaultTextInput;
+                break;
+            case 'email':
+                this.inputClass = EmailInput;
+                break;
+            case 'tel':
+                this.inputClass = TelInput;
+                break;
+            // case 'select-one': //select input
+            //     this.inputClass = input.id === 'birth_country' ? BirthSelectInput : FlagSelectInput;
+            //     break;
+            default:
+                this.inputClass = DefaultInput;
+        }
+
+        return new this.inputClass(lang, input);
+    };
+
+    return InputsFactory;
+})();
+
+
+function initByInput(el) {
+    var lang = 'ru-RU'; //TODO
+    var factory = new InputsFactory();
+    factory.createInput(lang, el);
+}
+
+module.exports = {
+    initByInput: initByInput
+};
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30038,12 +30288,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
@@ -30105,6 +30349,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30303,7 +30553,6 @@ var onProvinceChanged = function (code, selector) {
         }
     });
 };
-
 
 module.exports = {
     copyMultiplicationContainer: copyMultiplicationContainer,

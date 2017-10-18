@@ -1,15 +1,18 @@
 <p>Ваше полное имя как в загранпаспорте</p>
 <section>
-    <label for="last_name">Фамилия</label>
-    <input type="text" name="last_name" id="last_name" placeholder="Введите свою фамилию">
+    <label for="last-name">Фамилия</label>
+    <input type="text" name="last-name" id="last-name" placeholder="Введите свою фамилию">
+    <span class="error-text" id="error-last-name"></span>
 </section>
 <section>
-    <label for="first_name">Имя</label>
-    <input type="text" name="first_name" id="first_name" placeholder="Введите свое имя">
+    <label for="first-name">Имя</label>
+    <input type="text" name="first-name" id="first-name" placeholder="Введите свое имя">
+    <span class="error-text" id="error-first-name"></span>
 </section>
 <section>
-    <label for="middle_name">Отчество</label>
-    <input type="text" name="middle_name" id="middle_name" placeholder="Введите свое отчетство">
+    <label for="middle-name">Отчество</label>
+    <input type="text" name="middle-name" id="middle-name" placeholder="Введите свое отчетство">
+    <span class="error-text" id="error-middle-name"></span>
 </section>
 <section class="combine-date birth-date">
     <label>Дата рождения</label>
@@ -37,6 +40,7 @@
 	    <?php endfor;?>
     </select>
 </section>
+<span class="error-text" id="error-birth-date"></span>
 <section class="radio-block">
     <label>Пол</label>
     <section>
@@ -48,3 +52,4 @@
         <label for="ass-sex-f">Женский</label>
     </section>
 </section>
+

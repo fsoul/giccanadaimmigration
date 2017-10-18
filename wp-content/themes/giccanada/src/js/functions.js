@@ -194,7 +194,6 @@ var onProvinceChanged = function (code, selector) {
     });
 };
 
-
 module.exports = {
     copyMultiplicationContainer: copyMultiplicationContainer,
     addFileToList: addFileToList,
