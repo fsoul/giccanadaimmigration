@@ -165,6 +165,19 @@ $image-dir: '../images/';
               letter-spacing: 1px;
               color: #9B9B9B;
             }
+
+            &.invalid-text-input {
+              border: 1px solid #ff0000;
+              outline: none;
+            }
+          }
+
+          .error-text {
+            font-style: normal;
+            font-weight: normal;
+            line-height: normal;
+            font-size: 0.813em;
+            color: #F54B5E;
           }
 
           &.radio-block {

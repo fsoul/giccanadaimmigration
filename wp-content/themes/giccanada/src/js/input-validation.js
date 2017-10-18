@@ -138,6 +138,22 @@ var EmailInput = (function () {
     return EmailInput;
 })();
 
+var TelInput = (function () {
+
+    function TelInput(lang, input) {
+        DefaultTextInput.apply(this, arguments);
+        var self = this;
+        this.input.addEventListener('keydown', function () {
+            self.doValidate();
+        })
+    }
+
+    TelInput.prototype = Object.create(DefaultTextInput.prototype);
+    TelInput.prototype.constructor = TelInput;
+
+    return TelInput;
+})();
+
 var SelectInput = (function () {
 
     function SelectInput(lang, input) {
@@ -171,20 +187,59 @@ var SelectInput = (function () {
     return SelectInput;
 })();
 
-var TelInput = (function () {
 
-    function TelInput(lang, input) {
-        DefaultTextInput.apply(this, arguments);
+var CombineDateSelect = (function () {
+
+    function CombineDateSelect(lang, input) {
+        SelectInput.apply(this, arguments);
+        this.id = input.id;
+        this.errorMsg = document.getElementById('error-' + input.getAttribute('data-class'));
         var self = this;
-        this.input.addEventListener('keydown', function () {
-            self.doValidate();
-        })
+
+        this.input.onchange = function (e) {
+            self.doValidate(e);
+        };
+
+        this.input.addEventListener('click', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input.addEventListener('onValidate', function (e) {
+            self.doValidate(e);
+        });
     }
 
-    TelInput.prototype = Object.create(DefaultTextInput.prototype);
-    TelInput.prototype.constructor = TelInput;
+    CombineDateSelect.prototype = Object.create(SelectInput.prototype);
+    CombineDateSelect.prototype.constructor = CombineDateSelect;
 
-    return TelInput;
+    CombineDateSelect.prototype.getErrorMessage = function () {
+        return {
+            'en-US': 'Choose one of the list items.',
+            'ru-RU': 'Выберите один из пунктов списка.'
+        }[this.lang];
+    };
+
+    return CombineDateSelect;
+})();
+
+var SelectFactory = (function(){
+
+    function SelectFactory() {
+        this.select = SelectInput;
+    }
+
+    SelectFactory.prototype.createSelect = function (lang, select) {
+        var type = select.getAttribute('data-type');
+        switch (type) {
+            case 'combine-date-select':
+                this.select = CombineDateSelect;
+                break;
+            default:
+                this.select = SelectInput;
+        }
+        return this.select;
+    };
+    return SelectFactory;
 })();
 
 var InputsFactory = (function () {
@@ -194,6 +249,7 @@ var InputsFactory = (function () {
     }
 
     InputsFactory.prototype.createInput = function (lang, input) {
+        var selectFactory = new SelectFactory();
         switch (input.type) {
             case 'text':
                 this.inputClass = DefaultTextInput;
@@ -204,9 +260,10 @@ var InputsFactory = (function () {
             case 'tel':
                 this.inputClass = TelInput;
                 break;
-            // case 'select-one': //select input
-            //     this.inputClass = input.id === 'birth_country' ? BirthSelectInput : FlagSelectInput;
-            //     break;
+            case 'select-one': //select input
+            case 'select-multiple':
+                this.inputClass = selectFactory.createSelect(lang, input);
+                break;
             default:
                 this.inputClass = DefaultInput;
         }
