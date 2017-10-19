@@ -29906,6 +29906,9 @@ var validation = __webpack_require__(23);
                 transitionEffect: "slideLeft",
                 // startIndex: 9,
                 onStepChanging: function (event, currentIndex, newIndex) {
+                    if (!self.stepValidation(currentIndex))
+                        return false;
+
                     self._loadFormByStepIndex(newIndex + 1);
                     return true;
                 },
@@ -29921,7 +29924,16 @@ var validation = __webpack_require__(23);
                 onInit: function (event, currentIndex) {
                     var stepInit = document.getElementById('ass-step-init');
                     stepInit.style.display = 'none';
-                    self.steps = document.querySelectorAll('.assessment-step');
+
+                    var assSteps = document.querySelectorAll('.assessment-step');
+                    for (var i = 0; i < assSteps.length; ++i) {
+                        self.steps.push({
+                            step: assSteps[i],
+                            isLoaded: false,
+                            inputs: []
+                        });
+                    }
+
                     self._loadFormByStepIndex(currentIndex + 1);
                     self.form.show();
                     self.progressBar = new AssessmentProgressBar('.progressbar div', {
@@ -29937,10 +29949,11 @@ var validation = __webpack_require__(23);
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var self = this;
             var stepClass = '-step' + index;
-            var step = [].filter.call(this.steps, (function (s) {
-                return s.classList.contains(stepClass);
+            var page = [].filter.call(this.steps, (function (s) {
+                return s.step.classList.contains(stepClass);
             }))[0];
-            if (step && !step.innerHTML) {
+            var stepIndex = self.steps.indexOf(page);
+            if (page && !page.isLoaded) {
                 $.ajax({
                     url: gic.ajaxurl,
                     type: "POST",
@@ -29950,23 +29963,37 @@ var validation = __webpack_require__(23);
                     },
                     dataType: 'html',
                     success: function (html) {
-                        step.innerHTML = html;
+                        page.step.innerHTML = html;
                         self.initInputsValidation(index - 1);
+                        self.steps[stepIndex].isLoaded = true;
                     }
                 });
             }
         };
 
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
-            var page = this.steps[pageIndex];
+            var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function(pageIndex) {
-            var inputs = this._getPageInputs(pageIndex);
-            for (var i = 0; i < inputs.length; ++i) {
-                validation.initByInput(inputs[i]);
+            if (!this.steps[pageIndex].isLoaded) {
+                var inputs = this._getPageInputs(pageIndex);
+                for (var i = 0; i < inputs.length; ++i) {
+                    this.steps[pageIndex].inputs.push( validation.initByInput(inputs[i]) );
+                }
             }
+        };
+
+        AssessmentForm.prototype.stepValidation = function(pageIndex) {
+            var page = this.steps[pageIndex];
+            var result = true;
+            for(var i = 0; i < page.inputs.length; ++i) {
+                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                    result = false;
+                }
+            }
+            return result;
         };
 
         return AssessmentForm;
@@ -29984,6 +30011,12 @@ var validation = __webpack_require__(23);
 "use strict";
 
 
+var STATES = {
+    valid: 'valid-input',
+    invalid: 'invalid-input',
+    normal: 'normal'
+};
+
 var DefaultInput = (function () {
 
     function DefaultInput(lang, input) {
@@ -29991,27 +30024,7 @@ var DefaultInput = (function () {
         this.input = input;
         this.errorMsg = document.getElementById('error-' + input.id);
         this.subscribers = [];
-        var self = this;
-
-        this.input.addEventListener('focusout', function () {
-            self.input.dispatchEvent(new CustomEvent('onValidate'));
-        });
-
-        this.input.addEventListener('input', function () {
-            self.input.dispatchEvent(new CustomEvent('onValidate'));
-        });
-
-        this.input.addEventListener('onValidate', function (e) {
-            self.doValidate(e);
-        });
-
-        this.input.addEventListener('onValidateError', function (e) {
-            self.doValidateError(e);
-        });
-
-        this.input.addEventListener('onNormalize', function (e) {
-            self.doNormalize(e);
-        });
+        this.state = STATES.normal;
     }
 
     DefaultInput.prototype.getErrorMessage = function () {
@@ -30021,26 +30034,39 @@ var DefaultInput = (function () {
         }[this.lang];
     };
 
+    DefaultInput.prototype.setState = function (newState) {
+        if (this.input && this.state !== newState) {
+            this.input.classList.remove(this.state);
+            this.state = newState;
+            this.input.classList.add(this.state);
+        }
+    };
+
+    DefaultInput.prototype.setErrorText = function (text) {
+        if (this.errorMsg)
+            this.errorMsg.innerText = text;
+    };
+
     DefaultInput.prototype.doValidate = function () {
         if (!this.input.value) {
-            this.input.dispatchEvent(new CustomEvent('onValidateError'));
+           return this.doValidateError();
         } else {
-            this.input.dispatchEvent(new CustomEvent('onNormalize'));
+           return this.doNormalize();
         }
     };
 
     DefaultInput.prototype.doValidateError = function () {
-        this.input.classList.toggle('validation');
-        this.errorMsg.classList.toggle('validationError');
-        this.errorMsg.innerText = this.getErrorMessage();
+        this.setState(STATES.invalid);
+        this.setErrorText( this.getErrorMessage() );
         this.fire('onValidateError');
+        return false;
     };
 
     DefaultInput.prototype.doNormalize = function () {
-        this.input.classList.toggle('validation');
-        this.errorMsg.classList.toggle('validationError');
-        this.errorMsg.innerText = '';
+        this.setState(STATES.valid);
+        this.setErrorText('');
         this.fire('onNormalize');
+        return true;
     };
 
     DefaultInput.prototype.subscribe = function (input) {
@@ -30056,50 +30082,33 @@ var DefaultInput = (function () {
     return DefaultInput;
 })();
 
-
-var DefaultTextInput = (function () {
-
-    var STATES = {
-        valid: 'valid-text-input',
-        invalid: 'invalid-text-input'
-    };
-
-    function DefaultTextInput(lang, input) {
+var TextInput = (function () {
+    function TextInput(lang, input) {
         DefaultInput.apply(this, arguments);
-        this.state = STATES.normal;
+        var self = this;
+
+        this.input.addEventListener('focusout', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input.addEventListener('input', function (e) {
+            self.doValidate(e);
+        });
     }
 
-    DefaultTextInput.prototype = Object.create(DefaultInput.prototype);
-    DefaultTextInput.prototype.constructor = DefaultTextInput;
+    TextInput.prototype = Object.create(DefaultInput.prototype);
+    TextInput.prototype.constructor = TextInput;
 
-    DefaultTextInput.prototype.doValidateError = function () {
-        if (this.state !== STATES.invalid) {
-            this.input.classList.remove(this.state);
-            this.state = STATES.invalid;
-            this.input.classList.add(this.state);
-        }
-        DefaultInput.prototype.doValidateError.apply(this);
-    };
-
-    DefaultTextInput.prototype.doNormalize = function () {
-        if (this.state !== STATES.valid) {
-            this.input.classList.remove(this.state);
-            this.state = STATES.valid;
-            this.input.classList.add(this.state);
-        }
-        DefaultInput.prototype.doNormalize.apply(this);
-    };
-
-    return DefaultTextInput;
+    return TextInput;
 })();
 
 var EmailInput = (function () {
 
     function EmailInput(lang, input) {
-        DefaultTextInput.apply(this, arguments);
+        TextInput.apply(this, arguments);
     }
 
-    EmailInput.prototype = Object.create(DefaultTextInput.prototype);
+    EmailInput.prototype = Object.create(TextInput.prototype);
     EmailInput.prototype.constructor = EmailInput;
 
     EmailInput.prototype.getErrorMessage = function () {
@@ -30113,9 +30122,9 @@ var EmailInput = (function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!this.input.value || !this.input.value.match(mailPattern)) {
-            this.input.dispatchEvent(new CustomEvent('onValidateError'));
+            this.doValidateError();
         } else {
-            this.input.dispatchEvent(new CustomEvent('onNormalize'));
+            this.doNormalize();
         }
     };
 
@@ -30125,14 +30134,14 @@ var EmailInput = (function () {
 var TelInput = (function () {
 
     function TelInput(lang, input) {
-        DefaultTextInput.apply(this, arguments);
+        TextInput.apply(this, arguments);
         var self = this;
         this.input.addEventListener('keydown', function () {
             self.doValidate();
         })
     }
 
-    TelInput.prototype = Object.create(DefaultTextInput.prototype);
+    TelInput.prototype = Object.create(TextInput.prototype);
     TelInput.prototype.constructor = TelInput;
 
     return TelInput;
@@ -30143,19 +30152,6 @@ var SelectInput = (function () {
     function SelectInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.id = input.id;
-        var self = this;
-
-        this.input.onchange = function (e) {
-            self.doValidate(e);
-        };
-
-        this.input.addEventListener('click', function (e) {
-            self.doValidate(e);
-        });
-
-        this.input.addEventListener('onValidate', function (e) {
-            self.doValidate(e);
-        });
     }
 
     SelectInput.prototype = Object.create(DefaultInput.prototype);
@@ -30178,29 +30174,54 @@ var CombineDateSelect = (function () {
         SelectInput.apply(this, arguments);
         this.id = input.id;
         this.errorMsg = document.getElementById('error-' + input.getAttribute('data-class'));
-        var self = this;
-
-        this.input.onchange = function (e) {
-            self.doValidate(e);
-        };
-
-        this.input.addEventListener('click', function (e) {
-            self.doValidate(e);
-        });
-
-        this.input.addEventListener('onValidate', function (e) {
-            self.doValidate(e);
-        });
+        this.dateParts = [];
+        this.dataClass = this.input.getAttribute('data-class');
+        this._initCombine();
     }
 
     CombineDateSelect.prototype = Object.create(SelectInput.prototype);
     CombineDateSelect.prototype.constructor = CombineDateSelect;
 
-    CombineDateSelect.prototype.getErrorMessage = function () {
-        return {
-            'en-US': 'Choose one of the list items.',
-            'ru-RU': 'Выберите один из пунктов списка.'
-        }[this.lang];
+
+    CombineDateSelect.prototype._initCombine = function () {
+        var selects = this.input.parentNode
+            .querySelectorAll('select[data-class=' + this.dataClass + ']');
+
+        for(var i = 0; i < selects.length; ++i) {
+            this.dateParts[selects[i].className] = new SelectInput(this.lang, selects[i]);
+        }
+    };
+
+    CombineDateSelect.prototype.getErrorMessage = function (errorType) {
+        switch (errorType) {
+            case 'empty':
+                return SelectInput.prototype.getErrorMessage.call(this);
+                break;
+            case 'invalid':
+                return { //TODO
+                    'en-US': 'Choose one of the list items.',
+                    'ru-RU': 'Укажите правильную дату.'
+                }[this.lang];
+        }
+    };
+
+    CombineDateSelect.prototype.doValidate = function (e) {
+        var date = this.dateParts['date'].input.value,
+            month = this.dateParts['month'].input.value,
+            year = this.dateParts['year'].input.value;
+        var fullDate = [date, month, year].join('.');
+        if ( isNaN( Date.parse(fullDate) ) ) {
+            this.doValidateError();
+        } else {
+            SelectInput.prototype.doValidate.apply(this);
+        }
+    };
+
+    CombineDateSelect.prototype.doValidateError = function () {
+        for (var key in this.dateParts) {
+            this.dateParts[key].setState(STATES.invalid);
+        }
+        this.setErrorText( this.getErrorMessage('invalid') );
     };
 
     return CombineDateSelect;
@@ -30236,7 +30257,7 @@ var InputsFactory = (function () {
         var selectFactory = new SelectFactory();
         switch (input.type) {
             case 'text':
-                this.inputClass = DefaultTextInput;
+                this.inputClass = TextInput;
                 break;
             case 'email':
                 this.inputClass = EmailInput;
@@ -30262,7 +30283,7 @@ var InputsFactory = (function () {
 function initByInput(el) {
     var lang = 'ru-RU'; //TODO
     var factory = new InputsFactory();
-    factory.createInput(lang, el);
+    return factory.createInput(lang, el);
 }
 
 module.exports = {

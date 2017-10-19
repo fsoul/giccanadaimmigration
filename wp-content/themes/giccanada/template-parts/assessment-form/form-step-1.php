@@ -16,31 +16,33 @@
 </section>
 <section class="combine-date birth-date">
     <label>Дата рождения</label>
-    <select title="" name="birth-date-d" class="date" required data-type="combine-date-select" data-class="birth-date">
-        <option value="" disabled selected>Day</option>
-        <?php for($i = 1; $i <= 31; ++$i):?>
-            <?php $date = $i < 10 ? '0'.$i : $i;?>
-            <option value="<?= $date;?>"><?= $date;?></option>
-        <?php endfor;?>
-    </select>
+    <div>
+        <select title="" name="birth-date-d" class="date" required data-class="birth-date">
+            <option value="" disabled selected>Day</option>
+		    <?php for($i = 1; $i <= 31; ++$i):?>
+			    <?php $date = $i < 10 ? '0'.$i : $i;?>
+                <option value="<?= $date;?>"><?= $date;?></option>
+		    <?php endfor;?>
+        </select>
 
-    <select title="" name="birth-date-m" class="month" required data-type="combine-date-select" data-class="birth-date">
-        <option value="" disabled selected>Month</option>
-        <?php $months = array('January', 'February', 'March','April',
-	        'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');?>
-	    <?php for($i = 1; $i <= count($months); ++$i):?>
-            <option value="<?= $i;?>"><?= $months[$i - 1];?></option>
-	    <?php endfor;?>
-    </select>
+        <select title="" name="birth-date-m" class="month" required data-class="birth-date">
+            <option value="" disabled selected>Month</option>
+		    <?php $months = array('January', 'February', 'March','April',
+			    'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');?>
+		    <?php for($i = 1; $i <= count($months); ++$i):?>
+                <option value="<?= $i;?>"><?= $months[$i - 1];?></option>
+		    <?php endfor;?>
+        </select>
 
-    <select title="" name="birth-date-y" class="year" required data-type="combine-date-select" data-class="birth-date">
-        <option value="" disabled selected>Year</option>
-	    <?php for($i = date('Y'); $i >= 1930; --$i):?>
-            <option value="<?= $i;?>"><?= $i;?></option>
-	    <?php endfor;?>
-    </select>
+        <select title="" name="birth-date-y" class="year" required data-type="combine-date-select" data-class="birth-date">
+            <option value="" disabled selected>Year</option>
+		    <?php for($i = date('Y'); $i >= 1930; --$i):?>
+                <option value="<?= $i;?>"><?= $i;?></option>
+		    <?php endfor;?>
+        </select>
+    </div>
+    <span class="error-text" id="error-birth-date"></span>
 </section>
-<span class="error-text" id="error-birth-date"></span>
 <section class="radio-block">
     <label>Пол</label>
     <section>

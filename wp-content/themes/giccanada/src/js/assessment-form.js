@@ -48,6 +48,9 @@ var validation = require('./input-validation');
                 transitionEffect: "slideLeft",
                 // startIndex: 9,
                 onStepChanging: function (event, currentIndex, newIndex) {
+                    if (!self.stepValidation(currentIndex))
+                        return false;
+
                     self._loadFormByStepIndex(newIndex + 1);
                     return true;
                 },
@@ -63,7 +66,16 @@ var validation = require('./input-validation');
                 onInit: function (event, currentIndex) {
                     var stepInit = document.getElementById('ass-step-init');
                     stepInit.style.display = 'none';
-                    self.steps = document.querySelectorAll('.assessment-step');
+
+                    var assSteps = document.querySelectorAll('.assessment-step');
+                    for (var i = 0; i < assSteps.length; ++i) {
+                        self.steps.push({
+                            step: assSteps[i],
+                            isLoaded: false,
+                            inputs: []
+                        });
+                    }
+
                     self._loadFormByStepIndex(currentIndex + 1);
                     self.form.show();
                     self.progressBar = new AssessmentProgressBar('.progressbar div', {
@@ -79,10 +91,11 @@ var validation = require('./input-validation');
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var self = this;
             var stepClass = '-step' + index;
-            var step = [].filter.call(this.steps, (function (s) {
-                return s.classList.contains(stepClass);
+            var page = [].filter.call(this.steps, (function (s) {
+                return s.step.classList.contains(stepClass);
             }))[0];
-            if (step && !step.innerHTML) {
+            var stepIndex = self.steps.indexOf(page);
+            if (page && !page.isLoaded) {
                 $.ajax({
                     url: gic.ajaxurl,
                     type: "POST",
@@ -92,23 +105,37 @@ var validation = require('./input-validation');
                     },
                     dataType: 'html',
                     success: function (html) {
-                        step.innerHTML = html;
+                        page.step.innerHTML = html;
                         self.initInputsValidation(index - 1);
+                        self.steps[stepIndex].isLoaded = true;
                     }
                 });
             }
         };
 
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
-            var page = this.steps[pageIndex];
+            var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function(pageIndex) {
-            var inputs = this._getPageInputs(pageIndex);
-            for (var i = 0; i < inputs.length; ++i) {
-                validation.initByInput(inputs[i]);
+            if (!this.steps[pageIndex].isLoaded) {
+                var inputs = this._getPageInputs(pageIndex);
+                for (var i = 0; i < inputs.length; ++i) {
+                    this.steps[pageIndex].inputs.push( validation.initByInput(inputs[i]) );
+                }
             }
+        };
+
+        AssessmentForm.prototype.stepValidation = function(pageIndex) {
+            var page = this.steps[pageIndex];
+            var result = true;
+            for(var i = 0; i < page.inputs.length; ++i) {
+                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                    result = false;
+                }
+            }
+            return result;
         };
 
         return AssessmentForm;

@@ -11740,6 +11740,12 @@ body {
     margin: 0 auto; }
   #assessment-modal .modal-body #assessment-form {
     display: none; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .error-text {
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      font-size: 0.813em;
+      color: #F54B5E; }
     #assessment-modal .modal-body #assessment-form .assessment-step .copied {
       border-top: 1px solid #CFCFCF;
       padding-top: 15px; }
@@ -11783,14 +11789,17 @@ body {
           font-size: 1em;
           letter-spacing: 1px;
           color: #9B9B9B; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text].invalid-text-input,
-        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel].invalid-text-input,
-        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email].invalid-text-input,
-        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=password].invalid-text-input,
-        #assessment-modal .modal-body #assessment-form .assessment-step section select.invalid-text-input,
-        #assessment-modal .modal-body #assessment-form .assessment-step section textarea.invalid-text-input {
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=text].invalid-input,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=tel].invalid-input,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=email].invalid-input,
+        #assessment-modal .modal-body #assessment-form .assessment-step section input[type=password].invalid-input,
+        #assessment-modal .modal-body #assessment-form .assessment-step section select.invalid-input,
+        #assessment-modal .modal-body #assessment-form .assessment-step section textarea.invalid-input {
           border: 1px solid #ff0000;
           outline: none; }
+      #assessment-modal .modal-body #assessment-form .assessment-step section .invalid-input {
+        border: 1px solid #ff0000;
+        outline: none; }
       #assessment-modal .modal-body #assessment-form .assessment-step section .error-text {
         font-style: normal;
         font-weight: normal;

@@ -1,5 +1,55 @@
 $image-dir: '../images/';
 
+@mixin invalid-input {
+  border: 1px solid #ff0000;
+  outline: none;
+}
+
+@mixin error-text {
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 0.813em;
+  color: #F54B5E;
+}
+
+@mixin ass-button {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #CFCFCF;
+  line-height: 18px;
+  font-size: 1.075em;
+  letter-spacing: 1px;
+  color: #000;
+  cursor: pointer;
+  background: transparent;
+
+  &:active {
+    transform: translateY(4px);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  span {
+    display: inline-block;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      float: left;
+      height: 22px;
+      width: 22px;
+      margin-right: 10px;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+    }
+  }
+}
+
 #assessment-modal {
 
   .modal-content {
@@ -112,6 +162,10 @@ $image-dir: '../images/';
 
       .assessment-step {
 
+        .error-text {
+          @include error-text;
+        }
+
         .copied {
           border-top: 1px solid #CFCFCF;
           padding-top: 15px;
@@ -166,18 +220,17 @@ $image-dir: '../images/';
               color: #9B9B9B;
             }
 
-            &.invalid-text-input {
-              border: 1px solid #ff0000;
-              outline: none;
+            &.invalid-input {
+              @include invalid-input;
             }
           }
 
+          .invalid-input {
+            @include invalid-input;
+          }
+
           .error-text {
-            font-style: normal;
-            font-weight: normal;
-            line-height: normal;
-            font-size: 0.813em;
-            color: #F54B5E;
+            @include error-text;
           }
 
           &.radio-block {
@@ -269,43 +322,6 @@ $image-dir: '../images/';
 
             .to-date {
               width: 50%;
-            }
-          }
-        }
-
-        @mixin ass-button {
-          width: 100%;
-          height: 48px;
-          border: 1px solid #CFCFCF;
-          line-height: 18px;
-          font-size: 1.075em;
-          letter-spacing: 1px;
-          color: #000;
-          cursor: pointer;
-          background: transparent;
-
-          &:active {
-            transform: translateY(4px);
-          }
-
-          &:focus {
-            outline: 0;
-          }
-
-          span {
-            display: inline-block;
-
-            &::before {
-              content: '';
-              display: inline-block;
-              float: left;
-              height: 22px;
-              width: 22px;
-              margin-right: 10px;
-              background-size: cover;
-              -webkit-background-size: cover;
-              -moz-background-size: cover;
-              -o-background-size: cover;
             }
           }
         }
