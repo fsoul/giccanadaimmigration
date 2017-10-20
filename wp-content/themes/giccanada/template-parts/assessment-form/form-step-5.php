@@ -1,36 +1,31 @@
 <section>
-    <label for="passport_num">Номер паспорта</label>
-    <input type="text" name="passport_num" id="passport_num">
+    <label for="passport-num">Номер паспорта</label>
+    <input type="text" name="passport-num" id="passport-num">
+    <span class="error-text" id="error-passport-num"></span>
 </section>
 <section class="combine-date passport-expiration-date">
     <label>Действителен до</label>
-    <select title="" name="passport-expiration-date-d" class="date" required>
-        <option value="" disabled selected>Day</option>
-	    <?php for($i = 1; $i <= 31; ++$i):?>
-		    <?php $date = $i < 10 ? '0'.$i : $i;?>
-            <option value="<?= $date;?>"><?= $date;?></option>
-	    <?php endfor;?>
-    </select>
+    <div>
+        <select title="" name="passport-expiration-date-d" class="date" required data-class="passport-expiration-date">
+            <option value="" disabled selected>Day</option>
+	        <?= getDateOptions();?>
+        </select>
 
-    <select title="" name="passport-expiration-date-m" class="month" required>
-        <option value="" disabled selected>Month</option>
-	    <?php $months = array('January', 'February', 'March','April',
-		    'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');?>
-	    <?php for($i = 1; $i <= count($months); ++$i):?>
-            <option value="<?= $i;?>"><?= $months[$i - 1];?></option>
-	    <?php endfor;?>
-    </select>
+        <select title="" name="passport-expiration-date-m" class="month" required data-class="passport-expiration-date">
+            <option value="" disabled selected>Month</option>
+            <?= getMonthOptions();?>
+        </select>
 
-    <select title="" name="passport-expiration-y" class="year" required>
-        <option value="" disabled selected>Year</option>
-	    <?php for($i = date('Y'); $i >= 1930; --$i):?>
-            <option value="<?= $i;?>"><?= $i;?></option>
-	    <?php endfor;?>
-    </select>
+        <select title="" name="passport-expiration-y" class="year" required data-type="combine-date-select" data-class="passport-expiration-date">
+            <option value="" disabled selected>Year</option>
+            <?= getYearOptions();?>
+        </select>
+    </div>
+    <span class="error-text" id="error-passport-expiration-date"></span>
 </section>
 <section>
-    <label for="passport_country">Страна выдачи паспорта</label>
-    <select id="passport_country" name="passport_country">
+    <label for="passport-country">Страна выдачи паспорта</label>
+    <select id="passport-country" name="passport-country">
         <option value="AO">Angola</option>
         <option value="AF">Afghanistan</option>
         <option value="BJ">Benin</option>
@@ -78,4 +73,5 @@
         <option value="SS">South Sudan</option>
         <option value="JM">Jamaica</option>
     </select>
+    <span class="error-text" id="error-passport-country"></span>
 </section>
