@@ -146,6 +146,16 @@ var SelectInput = (function () {
     function SelectInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.id = input.id;
+
+        var self = this;
+
+        this.input.addEventListener('change', function () {
+            self.doValidate();
+        });
+
+        this.input.addEventListener('click', function () {
+            self.doValidate();
+        });
     }
 
     SelectInput.prototype = Object.create(DefaultInput.prototype);
