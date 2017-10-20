@@ -11846,7 +11846,8 @@ body {
           margin-right: 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date,
       #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
-        float: left; }
+        float: left;
+        font-size: .9em; }
         #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date select,
         #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date select {
           width: 50%;

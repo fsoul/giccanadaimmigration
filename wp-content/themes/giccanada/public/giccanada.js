@@ -29884,6 +29884,121 @@ var validation = __webpack_require__(23);
         return AssessmentProgressBar;
     })();
 
+
+    var AssessmentCopyButton = (function(){
+
+        function AssessmentCopyButton(el) {
+            this.button = el;
+            var self = this;
+            this.button.addEventListener('click', function(e) {
+                self.copyContainer(e);
+            })
+        }
+
+
+        /** Button must be inside selector '.assessment-step'
+         * @param {EventTarget|Node} node button.ass-add-button
+         * @return {Node} Returns div.multiplication-container
+         */
+        AssessmentCopyButton.prototype.findMContainer = function (node) {
+            if (node.classList.contains('assessment-step')) {
+                var res;
+                for (var i = 0; i < node.childNodes.length; ++i) {
+                    var child = node.childNodes[i];
+                    if (child.nodeType === Node.ELEMENT_NODE &&
+                        child.classList.contains('multiplication-container')) {
+                        res = child;
+                        break;
+                    }
+                }
+                return res;
+            } else {
+                return this.findMContainer(node.parentNode);
+            }
+        };
+
+        /**
+         * @param {string} id
+         * @param {number} newId
+         * @return {string} If matches then will return incremented 'id'
+         * @throws {TypeError}
+         */
+        AssessmentCopyButton.prototype.getNewId = function (id, newId) {
+            var changed = id.replace(/(-\d+)$/, function(){
+                return '-' + newId;
+            });
+            if (id === changed) {
+                throw new TypeError('Wrong item id');
+            }
+            return changed;
+        };
+
+        /**
+         * @param {Node} node
+         * @return {Node} Returns new node
+         */
+        AssessmentCopyButton.prototype.copyNode = function(node) {
+            var newNode = node.cloneNode(true),
+                copyCount = node.parentNode.querySelectorAll('.copied').length;
+
+            newNode.classList.remove('multiplication-container');
+            newNode.classList.add('copied');
+            newNode.classList.add('-copy' + (copyCount + 1));
+
+            var changeIdList = newNode.querySelectorAll('.to-change-id');
+
+            for (var i = 0; i < changeIdList.length; ++i) {
+                var item = changeIdList.item(i);
+                var newId = this.getNewId(item.id, copyCount + 1);
+                switch (item.nodeName.toLowerCase()) {
+                    case 'input':
+                    case 'select':
+                    case 'textarea':
+                        item.id = newId;
+                        item.setAttribute('name',  this.getNewId(item.getAttribute('name'), copyCount + 1) );
+                        item.value = '';
+                        item.classList.remove('invalid-input');
+                        break;
+                    case 'div':
+                    case 'section':
+                        item.id = newId;
+                        break;
+                    case 'span':
+                        item.id = newId;
+                        item.innerText = '';
+                        break;
+                    case 'label':
+                        item.htmlFor = this.getNewId(item.getAttribute('for'), copyCount + 1);
+                        break;
+                    default:
+                        throw new TypeError('Item must be instance of input/select/label/div/section/span');
+                }
+            }
+
+            return newNode;
+        };
+
+        /**
+         * Function copies div.multiplication-container on click event
+         * @see <div class="multiplication-container">
+         * @param {MouseEvent} event
+         */
+        AssessmentCopyButton.prototype.copyContainer = function (event) {
+            if (event) {
+                event.preventDefault();
+                var copyBtn = this.button,
+                    mContainer = this.findMContainer(copyBtn);
+
+                var newNode = this.copyNode(mContainer);
+                mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
+                newNode.scrollIntoView(true);
+            }
+        };
+
+        return AssessmentCopyButton;
+    })();
+
+
     var AssessmentForm = (function () {
         function AssessmentForm() {
             this.form = $('#assessment-form');
@@ -29904,7 +30019,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 9,
+                startIndex: 10,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -29931,7 +30046,8 @@ var validation = __webpack_require__(23);
                         self.steps.push({
                             step: assSteps[i],
                             isLoaded: false,
-                            inputs: []
+                            inputs: [],
+                            copyButton: null
                         });
                     }
 
@@ -29966,6 +30082,10 @@ var validation = __webpack_require__(23);
                     success: function (html) {
                         page.step.innerHTML = html;
                         self.initInputsValidation(index - 1);
+                        var copy = page.step.querySelector('ass-add-button');
+                        if (copy) {
+                            page.step.copyButton = new AssessmentCopyButton(copy);
+                        }
                         self.steps[stepIndex].isLoaded = true;
                     }
                 });
@@ -30065,14 +30185,14 @@ var DefaultInput = (function () {
     DefaultInput.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
-        this.fire('onValidateError');
+        this.fire(new CustomEvent('onValidateError'));
         return false;
     };
 
     DefaultInput.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-        this.fire('onNormalize');
+        this.fire(new CustomEvent('onNormalize'));
         return true;
     };
 
@@ -30080,9 +30200,12 @@ var DefaultInput = (function () {
         this.subscribers.push(input);
     };
 
-    DefaultInput.prototype.fire = function (eventName) {
+    /**
+     * @param {CustomEvent} event
+     */
+    DefaultInput.prototype.fire = function (event) {
         this.subscribers.forEach(function (el) {
-            el.dispatchEvent(new CustomEvent(eventName));
+            el.dispatchEvent(event);
         });
     };
 
@@ -30169,6 +30292,10 @@ var SelectInput = (function () {
         this.input.addEventListener('click', function () {
             self.doValidate();
         });
+
+        this.input.addEventListener('onSetState', function (e) {
+            self.setState(e.detail.state);
+        });
     }
 
     SelectInput.prototype = Object.create(DefaultInput.prototype);
@@ -30205,29 +30332,20 @@ var CombineDateSelect = (function () {
             .querySelectorAll('select[data-class=' + this.dataClass + ']');
 
         for (var i = 0; i < selects.length; ++i) {
-            this.dateParts[selects[i].className] = new SelectInput(this.lang, selects[i]);
+            this.dateParts[selects[i].className] = selects[i];
+            this.subscribe(selects[i]);
         }
     };
 
-    CombineDateSelect.prototype.getErrorMessage = function (errorType) {
-        switch (errorType) {
-            case 'empty':
-                return SelectInput.prototype.getErrorMessage.call(this);
-                break;
-            case 'invalid':
-                return { //TODO
-                    'en-US': 'Choose one of the list items.',
-                    'ru-RU': 'Укажите правильную дату.'
-                }[this.lang];
-        }
+    CombineDateSelect.prototype.getErrorMessage = function () {
+        return { //TODO
+            'en-US': 'Choose one of the list items.',
+            'ru-RU': 'Укажите правильную дату.'
+        }[this.lang];
     };
 
     CombineDateSelect.prototype.doValidate = function () {
-        var date = this.dateParts['date'].input.value,
-            month = this.dateParts['month'].input.value,
-            year = this.dateParts['year'].input.value;
-        var d = new Date([year, month, date].join('-'));
-        if (isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date) {
+        if (this.checkDate()) {
             return this.doValidateError();
         } else {
             return SelectInput.prototype.doValidate.apply(this);
@@ -30235,14 +30353,126 @@ var CombineDateSelect = (function () {
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
-        for (var key in this.dateParts) {
-            this.dateParts[key].setState(STATES.invalid);
-        }
-        this.setErrorText(this.getErrorMessage('invalid'));
+        this.fire(new CustomEvent('onSetState', {
+            detail: {
+                state: STATES.invalid
+            }
+        }));
+        this.setErrorText(this.getErrorMessage());
         return false;
     };
 
+    CombineDateSelect.prototype.checkDate = function ( ) {
+        var date = this.dateParts['date'].value,
+            month = this.dateParts['month'].value,
+            year = this.dateParts['year'].value;
+        var d = new Date(year, month - 1, date);
+        return isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date;
+    };
+
     return CombineDateSelect;
+})();
+
+var PeriodDateSelect = (function () {
+
+    function PeriodDateSelect(lang, input) {
+        SelectInput.apply(this, arguments);
+        this.id = input.id;
+        this.dateParts = {
+            from: {
+                month: null,
+                year: null
+            },
+            to: {
+                month: null,
+                year: null
+            }
+        };
+        this.dataClass = this.input.getAttribute('data-class');
+        this._initPeriod();
+    }
+
+    PeriodDateSelect.prototype = Object.create(SelectInput.prototype);
+    PeriodDateSelect.prototype.constructor = PeriodDateSelect;
+
+
+    PeriodDateSelect.prototype._initPeriod = function () {
+
+        function findContainer(node) {
+            return node.classList.contains('period-date') ? node : findContainer(node.parentNode);
+        }
+        this.container = findContainer(this.input);
+        this.errorMsg = document.getElementById('error-' + this.container.id);
+
+        var selects =  this.container.querySelectorAll('select[data-class=' + this.dataClass + ']');
+
+        for (var i = 0; i < selects.length; ++i) {
+            this.subscribe(selects[i]);
+            if (selects[i].parentNode.classList.contains('from-date')){
+                if (selects[i].classList.contains('month')) {
+                    this.dateParts.from.month = selects[i];
+                } else {
+                    this.dateParts.from.year = selects[i];
+                }
+            } else {
+                if (selects[i].classList.contains('month')) {
+                    this.dateParts.to.month = selects[i];
+                } else {
+                    this.dateParts.to.year = selects[i];
+                }
+            }
+        }
+    };
+
+    PeriodDateSelect.prototype.getErrorMessage = function () {
+        return { //TODO
+            'en-US': 'Choose one of the list items.',
+            'ru-RU': 'Укажите правильную дату.'
+        }[this.lang];
+    };
+
+    PeriodDateSelect.prototype.doValidate = function () {
+        if (this.checkDate() ){
+            return this.doValidateError();
+        } else {
+            return SelectInput.prototype.doValidate.apply(this);
+        }
+    };
+
+    PeriodDateSelect.prototype.checkDate = function ( ) {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+
+        var dateF = new Date(f.year.value, f.month.value, 1),
+            dateT = new Date(t.year.value, t.month.value, 1);
+
+        var dateFIsCorrect = dateF.getFullYear() == f.year.value && dateF.getMonth() == f.month.value,
+            dateTIsCorrect = dateT.getFullYear() == t.year.value && dateT.getMonth() == t.month.value;
+
+        return isNaN(dateF) || isNaN(dateT) || !dateFIsCorrect || !dateTIsCorrect || dateT < dateF;
+    };
+
+    PeriodDateSelect.prototype.doValidateError = function () {
+        this.fire(new CustomEvent('onSetState', {
+            detail: {
+                state: STATES.invalid
+            }
+        }));
+        this.setErrorText(this.getErrorMessage());
+        return false;
+    };
+
+    PeriodDateSelect.prototype.doNormalize = function () {
+        this.fire(new CustomEvent('onSetState', {
+            detail: {
+                state: STATES.valid
+            }
+        }));
+        this.setErrorText('');
+        return true;
+    };
+
+    return PeriodDateSelect;
 })();
 
 var SelectFactory = (function () {
@@ -30256,6 +30486,9 @@ var SelectFactory = (function () {
         switch (type) {
             case 'combine-date-select':
                 this.select = CombineDateSelect;
+                break;
+            case 'period-date-select':
+                this.select = PeriodDateSelect;
                 break;
             default:
                 this.select = SelectInput;
@@ -30287,8 +30520,6 @@ var InputsFactory = (function () {
             case 'select-multiple':
                 this.inputClass = selectFactory.createSelect(lang, input);
                 break;
-            default:
-                this.inputClass = DefaultInput;
         }
 
         return new this.inputClass(lang, input);
@@ -30457,100 +30688,6 @@ module.exports = ProgressBar;
 /* WEBPACK VAR INJECTION */(function($) {
 
 var helper =__webpack_require__(1);
-
-/**
- * Function copies div.multiplication-container on click event
- * @see <div class="multiplication-container">
- * @param {MouseEvent} event
- */
-var copyMultiplicationContainer = function (event) {
-
-    /** Button must be inside selector '.assessment-step'
-     * @param {EventTarget|Node} node button.ass-add-button
-     * @return {Node} Returns div.multiplication-container
-     */
-    function findMContainer(node) {
-        if (node.classList.contains('assessment-step')) {
-            var res;
-            for (var i = 0; i < node.childNodes.length; ++i) {
-                var child = node.childNodes[i];
-                if (child.nodeType === Node.ELEMENT_NODE &&
-                    child.classList.contains('multiplication-container')) {
-                    res = child;
-                    break;
-                }
-            }
-            return res;
-        } else {
-            return findMContainer(node.parentNode);
-        }
-    }
-
-
-    /**
-     * @param {string} id
-     * @param {number} newId
-     * @return {string} If matches then will return incremented 'id'
-     * @throws {TypeError}
-     */
-    function getNewId(id, newId) {
-        var changed = id.replace(/(-\d+)$/, function(){
-            return '-' + newId;
-        });
-        if (id === changed) {
-            throw new TypeError('Wrong item id');
-        }
-        return changed;
-    }
-
-
-
-    /**
-     * @param {Node} node
-     * @return {Node} Returns new node
-     */
-    function copyNode(node) {
-        var newNode = node.cloneNode(true),
-            copyCount = node.parentNode.querySelectorAll('.copied').length;
-
-        newNode.classList.remove('multiplication-container');
-        newNode.classList.add('copied');
-        newNode.classList.add('-copy' + (copyCount + 1));
-
-        var changeIdList = newNode.querySelectorAll('.to-change-id');
-
-        for (var i = 0; i < changeIdList.length; ++i) {
-            var item = changeIdList.item(i);
-            switch (item.nodeName.toLowerCase()) {
-                case 'input':
-                case 'select':
-                case 'textarea':
-                    item.id = getNewId(item.id, copyCount + 1);
-                    item.setAttribute('name',  getNewId(item.getAttribute('name'), copyCount + 1) );
-                    break;
-                case 'label':
-                    item.htmlFor = getNewId(item.getAttribute('for'), copyCount + 1);
-                    break;
-                default:
-                    throw new TypeError('Item must be instance of input/select/label');
-            }
-        }
-
-        return newNode;
-    }
-
-
-    if (event && event instanceof MouseEvent) {
-        event.preventDefault();
-        var copyBtn = event.currentTarget,
-            mContainer = findMContainer(copyBtn);
-
-        var newNode = copyNode(mContainer);
-        mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
-        newNode.scrollIntoView(true);
-    }
-};
-
 
 /**
  * @param {MouseEvent} e

@@ -26,6 +26,121 @@ var validation = require('./input-validation');
         return AssessmentProgressBar;
     })();
 
+
+    var AssessmentCopyButton = (function(){
+
+        function AssessmentCopyButton(el) {
+            this.button = el;
+            var self = this;
+            this.button.addEventListener('click', function(e) {
+                self.copyContainer(e);
+            })
+        }
+
+
+        /** Button must be inside selector '.assessment-step'
+         * @param {EventTarget|Node} node button.ass-add-button
+         * @return {Node} Returns div.multiplication-container
+         */
+        AssessmentCopyButton.prototype.findMContainer = function (node) {
+            if (node.classList.contains('assessment-step')) {
+                var res;
+                for (var i = 0; i < node.childNodes.length; ++i) {
+                    var child = node.childNodes[i];
+                    if (child.nodeType === Node.ELEMENT_NODE &&
+                        child.classList.contains('multiplication-container')) {
+                        res = child;
+                        break;
+                    }
+                }
+                return res;
+            } else {
+                return this.findMContainer(node.parentNode);
+            }
+        };
+
+        /**
+         * @param {string} id
+         * @param {number} newId
+         * @return {string} If matches then will return incremented 'id'
+         * @throws {TypeError}
+         */
+        AssessmentCopyButton.prototype.getNewId = function (id, newId) {
+            var changed = id.replace(/(-\d+)$/, function(){
+                return '-' + newId;
+            });
+            if (id === changed) {
+                throw new TypeError('Wrong item id');
+            }
+            return changed;
+        };
+
+        /**
+         * @param {Node} node
+         * @return {Node} Returns new node
+         */
+        AssessmentCopyButton.prototype.copyNode = function(node) {
+            var newNode = node.cloneNode(true),
+                copyCount = node.parentNode.querySelectorAll('.copied').length;
+
+            newNode.classList.remove('multiplication-container');
+            newNode.classList.add('copied');
+            newNode.classList.add('-copy' + (copyCount + 1));
+
+            var changeIdList = newNode.querySelectorAll('.to-change-id');
+
+            for (var i = 0; i < changeIdList.length; ++i) {
+                var item = changeIdList.item(i);
+                var newId = this.getNewId(item.id, copyCount + 1);
+                switch (item.nodeName.toLowerCase()) {
+                    case 'input':
+                    case 'select':
+                    case 'textarea':
+                        item.id = newId;
+                        item.setAttribute('name',  this.getNewId(item.getAttribute('name'), copyCount + 1) );
+                        item.value = '';
+                        item.classList.remove('invalid-input');
+                        break;
+                    case 'div':
+                    case 'section':
+                        item.id = newId;
+                        break;
+                    case 'span':
+                        item.id = newId;
+                        item.innerText = '';
+                        break;
+                    case 'label':
+                        item.htmlFor = this.getNewId(item.getAttribute('for'), copyCount + 1);
+                        break;
+                    default:
+                        throw new TypeError('Item must be instance of input/select/label/div/section/span');
+                }
+            }
+
+            return newNode;
+        };
+
+        /**
+         * Function copies div.multiplication-container on click event
+         * @see <div class="multiplication-container">
+         * @param {MouseEvent} event
+         */
+        AssessmentCopyButton.prototype.copyContainer = function (event) {
+            if (event) {
+                event.preventDefault();
+                var copyBtn = this.button,
+                    mContainer = this.findMContainer(copyBtn);
+
+                var newNode = this.copyNode(mContainer);
+                mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
+                newNode.scrollIntoView(true);
+            }
+        };
+
+        return AssessmentCopyButton;
+    })();
+
+
     var AssessmentForm = (function () {
         function AssessmentForm() {
             this.form = $('#assessment-form');
@@ -46,7 +161,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 9,
+                startIndex: 10,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -73,7 +188,8 @@ var validation = require('./input-validation');
                         self.steps.push({
                             step: assSteps[i],
                             isLoaded: false,
-                            inputs: []
+                            inputs: [],
+                            copyButton: null
                         });
                     }
 
@@ -108,6 +224,10 @@ var validation = require('./input-validation');
                     success: function (html) {
                         page.step.innerHTML = html;
                         self.initInputsValidation(index - 1);
+                        var copy = page.step.querySelector('ass-add-button');
+                        if (copy) {
+                            page.step.copyButton = new AssessmentCopyButton(copy);
+                        }
                         self.steps[stepIndex].isLoaded = true;
                     }
                 });
