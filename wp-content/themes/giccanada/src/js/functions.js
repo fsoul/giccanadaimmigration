@@ -189,6 +189,13 @@ var onProvinceChanged = function (code, selector) {
                     option.text = cities[i];
                     select.add(option);
                 }
+
+                if (select.length) {
+                    select.classList.remove('invalid-input');
+                    var errMsg = document.getElementById('error-' + select.id);
+                    if (errMsg)
+                        errMsg.innerText = '';
+                }
             }
         }
     });

@@ -29904,7 +29904,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 8,
+                startIndex: 9,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -30644,6 +30644,13 @@ var onProvinceChanged = function (code, selector) {
                     option.value = cities[i];
                     option.text = cities[i];
                     select.add(option);
+                }
+
+                if (select.length) {
+                    select.classList.remove('invalid-input');
+                    var errMsg = document.getElementById('error-' + select.id);
+                    if (errMsg)
+                        errMsg.innerText = '';
                 }
             }
         }
