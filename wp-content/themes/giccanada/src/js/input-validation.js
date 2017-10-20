@@ -13,7 +13,6 @@ var DefaultInput = (function () {
         this.input = input;
         this.errorMsg = document.getElementById('error-' + input.id);
         this.subscribers = [];
-        this.state = STATES.normal;
     }
 
     DefaultInput.prototype.getErrorMessage = function () {
@@ -24,11 +23,17 @@ var DefaultInput = (function () {
     };
 
     DefaultInput.prototype.setState = function (newState) {
-        if (this.input && this.state !== newState) {
-            this.input.classList.remove(this.state);
-            this.state = newState;
-            this.input.classList.add(this.state);
+        var curState = this.getState();
+        if (this.input && curState !== newState) {
+            this.input.classList.remove(curState);
+            this.input.classList.add(newState);
         }
+    };
+
+    DefaultInput.prototype.getState = function () {
+        var cl = this.input.classList;
+        return cl.contains(STATES.invalid) ? STATES.invalid :
+            cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
     };
 
     DefaultInput.prototype.setErrorText = function (text) {
@@ -38,15 +43,15 @@ var DefaultInput = (function () {
 
     DefaultInput.prototype.doValidate = function () {
         if (!this.input.value) {
-           return this.doValidateError();
+            return this.doValidateError();
         } else {
-           return this.doNormalize();
+            return this.doNormalize();
         }
     };
 
     DefaultInput.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
-        this.setErrorText( this.getErrorMessage() );
+        this.setErrorText(this.getErrorMessage());
         this.fire('onValidateError');
         return false;
     };
@@ -176,7 +181,7 @@ var CombineDateSelect = (function () {
         var selects = this.input.parentNode
             .querySelectorAll('select[data-class=' + this.dataClass + ']');
 
-        for(var i = 0; i < selects.length; ++i) {
+        for (var i = 0; i < selects.length; ++i) {
             this.dateParts[selects[i].className] = new SelectInput(this.lang, selects[i]);
         }
     };
@@ -194,15 +199,15 @@ var CombineDateSelect = (function () {
         }
     };
 
-    CombineDateSelect.prototype.doValidate = function (e) {
+    CombineDateSelect.prototype.doValidate = function () {
         var date = this.dateParts['date'].input.value,
             month = this.dateParts['month'].input.value,
             year = this.dateParts['year'].input.value;
-        var fullDate = [date, month, year].join('.');
-        if ( isNaN( Date.parse(fullDate) ) ) {
-            this.doValidateError();
+        var d = new Date([year, month, date].join('-'));
+        if (isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date) {
+            return this.doValidateError();
         } else {
-            SelectInput.prototype.doValidate.apply(this);
+            return SelectInput.prototype.doValidate.apply(this);
         }
     };
 
@@ -210,13 +215,14 @@ var CombineDateSelect = (function () {
         for (var key in this.dateParts) {
             this.dateParts[key].setState(STATES.invalid);
         }
-        this.setErrorText( this.getErrorMessage('invalid') );
+        this.setErrorText(this.getErrorMessage('invalid'));
+        return false;
     };
 
     return CombineDateSelect;
 })();
 
-var SelectFactory = (function(){
+var SelectFactory = (function () {
 
     function SelectFactory() {
         this.select = SelectInput;

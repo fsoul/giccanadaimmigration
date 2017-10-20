@@ -12186,16 +12186,6 @@ body {
     cursor: default;
     display: block;
     border-bottom: 2px solid #0076FF; }
-  #assessment-modal .modal-body .wizard > .steps .done a,
-  #assessment-modal .modal-body .wizard > .steps .done a:hover,
-  #assessment-modal .modal-body .wizard > .steps .done a:active {
-    background: #9dc8e2;
-    color: #fff; }
-  #assessment-modal .modal-body .wizard > .steps .error a,
-  #assessment-modal .modal-body .wizard > .steps .error a:hover,
-  #assessment-modal .modal-body .wizard > .steps .error a:active {
-    background: #ff3111;
-    color: #fff; }
   #assessment-modal .modal-body .wizard > .content {
     display: block;
     margin: .5em;

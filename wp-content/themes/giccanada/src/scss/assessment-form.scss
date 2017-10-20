@@ -730,20 +730,6 @@ $image-dir: '../images/';
       border-bottom: 2px solid #0076FF;
     }
 
-    .wizard > .steps .done a,
-    .wizard > .steps .done a:hover,
-    .wizard > .steps .done a:active {
-      background: #9dc8e2;
-      color: #fff
-    }
-
-    .wizard > .steps .error a,
-    .wizard > .steps .error a:hover,
-    .wizard > .steps .error a:active {
-      background: #ff3111;
-      color: #fff
-    }
-
     .wizard > .content {
       display: block;
       margin: .5em;

@@ -115,7 +115,8 @@ var validation = require('./input-validation');
 
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
-            return page.querySelectorAll('input, select');
+            return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
+                'textarea, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function(pageIndex) {
