@@ -46,9 +46,10 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 9,
+                startIndex: 3,
                 onStepChanging: function (event, currentIndex, newIndex) {
-                    if (!self.stepValidation(currentIndex))
+
+                    if (newIndex > currentIndex && !self.stepValidation(currentIndex))
                         return false;
 
                     self._loadFormByStepIndex(newIndex + 1);

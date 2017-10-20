@@ -1,19 +1,12 @@
 <section>
     <label for="citizenship">Гражданство</label>
     <input type="text" name="citizenship" id="citizenship">
-</section>
-<section>
-    <label for="first_name">Имя</label>
-    <input type="text" name="first_name" id="first_name" placeholder="Введите свое имя">
-</section>
-<section>
-    <label for="middle_name">Отчество</label>
-    <input type="text" name="middle_name" id="middle_name" placeholder="Введите свое отчетство">
+    <span class="error-text" id="error-citizenship"></span>
 </section>
 <section class="ass-country">
     <section>
-        <label for="country_residence">Страна проживания</label>
-        <select id="country_residence" name="country_residence">
+        <label for="country-residence">Страна проживания</label>
+        <select id="country-residence" name="country-residence">
             <option value="AO">Angola</option>
             <option value="AF">Afghanistan</option>
             <option value="BJ">Benin</option>
@@ -61,24 +54,26 @@
             <option value="SS">South Sudan</option>
             <option value="JM">Jamaica</option>
         </select>
+        <span class="error-text" id="error-country-residence"></span>
     </section>
     <section>
-        <label for="country_residence_from">C (Г/М)</label>
-        <select id="country_residence_from" name="country_residence_from" class="year" required>
+        <label for="country-residence-from">C (Г/М)</label>
+        <select id="country-residence-from" name="country-residence-from" class="year" required>
             <option value="" disabled selected>Year</option>
-	        <?php for($i = date('Y'); $i >= 1930; --$i):?>
-                <option value="<?= $i;?>"><?= $i;?></option>
-	        <?php endfor;?>
+	        <?= getYearOptions();?>
         </select>
+        <span class="error-text" id="error-country-residence-from"></span>
     </section>
 </section>
 <section>
     <label>Статус в стране проживания</label>
-    <select title="" id="status_residence" name="status_residence">
+    <select title="" id="status-residence" name="status-residence">
         <option value="resident" selected>Резидент</option>
     </select>
+    <span class="error-text" id="error-status-residence"></span>
 </section>
 <section>
-    <label for="native_lang">Родной язык</label>
-    <input type="text" name="native_lang" id="native_lang">
+    <label for="native-lang">Родной язык</label>
+    <input type="text" name="native-lang" id="native-lang">
+    <span class="error-text" id="error-native-lang"></span>
 </section>

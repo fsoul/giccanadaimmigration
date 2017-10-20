@@ -11887,6 +11887,8 @@ body {
         text-align: center; }
         #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input:active {
           transform: translateY(4px); }
+        #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input:hover {
+          border: 1px solid #ff8200; }
         #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input:focus {
           outline: 0; }
         #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input span {
@@ -11933,6 +11935,8 @@ body {
       background: transparent; }
       #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button:active {
         transform: translateY(4px); }
+      #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button:hover {
+        border: 1px solid #ff8200; }
       #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button:focus {
         outline: 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step .ass-add-button span {

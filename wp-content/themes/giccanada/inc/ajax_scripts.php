@@ -60,8 +60,8 @@ add_action( 'wp_ajax_nopriv_get_feedback_timer', 'get_feedback_timer' );
 function get_step_by_index() {
 	$index = $_POST['index'];
 	ob_start();
-	include(get_template_directory() . '/inc/get-select-options.php');
-	include(get_template_directory() . "/template-parts/assessment-form/form-step-$index.php");
+	require_once(get_template_directory() . '/inc/get-select-options.php');
+	require_once(get_template_directory() . "/template-parts/assessment-form/form-step-$index.php");
 	$message = ob_get_contents();
 	ob_end_clean();
 	echo $message;

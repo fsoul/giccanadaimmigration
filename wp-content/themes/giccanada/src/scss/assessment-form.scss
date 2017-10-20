@@ -28,6 +28,10 @@ $image-dir: '../images/';
     transform: translateY(4px);
   }
 
+  &:hover {
+    border: 1px solid #ff8200;
+  }
+
   &:focus {
     outline: 0;
   }
