@@ -1,5 +1,7 @@
 <?php
 
+require_once get_template_directory() . '/inc/provinces.php';
+
 function getDateOptions() {
 	$options = '';
 	for ( $i = 1; $i <= 31; ++ $i ) {
@@ -44,4 +46,14 @@ function getYearOptions() {
 
 	return $options;
 
+}
+
+function getProvinceOptions() {
+	$provinces = getProvinces();
+	$options = '';
+	foreach ( $provinces as $key => $value ) {
+		$options .= '<option value="' . $key . '">' . $value . '</option>';
+	}
+
+	return $options;
 }
