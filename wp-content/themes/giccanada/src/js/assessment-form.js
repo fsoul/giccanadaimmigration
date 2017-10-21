@@ -33,6 +33,7 @@ var validation = require('./input-validation');
             this.button = el;
             var self = this;
             this.button.addEventListener('click', function(e) {
+                e.preventDefault();
                 self.copyContainer(e);
             })
         }
@@ -91,22 +92,21 @@ var validation = require('./input-validation');
 
             for (var i = 0; i < changeIdList.length; ++i) {
                 var item = changeIdList.item(i);
-                var newId = this.getNewId(item.id, copyCount + 1);
                 switch (item.nodeName.toLowerCase()) {
                     case 'input':
                     case 'select':
                     case 'textarea':
-                        item.id = newId;
+                        item.id = this.getNewId(item.id, copyCount + 1);
                         item.setAttribute('name',  this.getNewId(item.getAttribute('name'), copyCount + 1) );
                         item.value = '';
                         item.classList.remove('invalid-input');
                         break;
                     case 'div':
                     case 'section':
-                        item.id = newId;
+                        item.id = this.getNewId(item.id, copyCount + 1);
                         break;
                     case 'span':
-                        item.id = newId;
+                        item.id = this.getNewId(item.id, copyCount + 1);
                         item.innerText = '';
                         break;
                     case 'label':
@@ -132,6 +132,7 @@ var validation = require('./input-validation');
                     mContainer = this.findMContainer(copyBtn);
 
                 var newNode = this.copyNode(mContainer);
+                //TODO trigger 'onCopyInputs' event
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
                 newNode.scrollIntoView(true);
             }
@@ -224,9 +225,12 @@ var validation = require('./input-validation');
                     success: function (html) {
                         page.step.innerHTML = html;
                         self.initInputsValidation(index - 1);
-                        var copy = page.step.querySelector('ass-add-button');
+                        var copy = page.step.querySelector('.ass-add-button');
                         if (copy) {
-                            page.step.copyButton = new AssessmentCopyButton(copy);
+                            self.steps[stepIndex].copyButton = new AssessmentCopyButton(copy);
+                            self.steps[stepIndex].step.addEventListener('onCopyInputs', function(e){
+
+                            })
                         }
                         self.steps[stepIndex].isLoaded = true;
                     }
