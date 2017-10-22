@@ -6,9 +6,9 @@
 <section class="combine-date passport-expiration-date">
     <label>Действителен до</label>
     <div>
-        <select title="" name="passport-expiration-date-d" class="date" required data-class="passport-expiration-date">
+        <select title="" name="passport-expiration-date-d" class="day" required data-class="passport-expiration-date">
             <option value="" disabled selected>Day</option>
-	        <?= getDateOptions();?>
+	        <?= getDayOptions();?>
         </select>
 
         <select title="" name="passport-expiration-date-m" class="month" required data-class="passport-expiration-date">

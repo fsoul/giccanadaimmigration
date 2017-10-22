@@ -199,7 +199,12 @@ var CombineDateSelect = (function () {
             .querySelectorAll('select[data-class=' + this.dataClass + ']');
 
         for (var i = 0; i < selects.length; ++i) {
-            this.dateParts[selects[i].className] = selects[i];
+            if (selects[i].classList.contains('day'))
+                this.dateParts['day'] = selects[i];
+            else if (selects[i].classList.contains('month'))
+                this.dateParts['month'] = selects[i];
+            else
+                this.dateParts['year'] = selects[i];
             this.subscribe(selects[i]);
         }
     };
@@ -230,7 +235,7 @@ var CombineDateSelect = (function () {
     };
 
     CombineDateSelect.prototype.checkDate = function ( ) {
-        var date = this.dateParts['date'].value,
+        var date = this.dateParts['day'].value,
             month = this.dateParts['month'].value,
             year = this.dateParts['year'].value;
         var d = new Date(year, month - 1, date);

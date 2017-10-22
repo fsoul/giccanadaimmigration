@@ -17,9 +17,9 @@
 <section class="combine-date birth-date">
     <label>Дата рождения</label>
     <div>
-        <select title="" name="birth-date-d" class="date" required data-class="birth-date">
+        <select title="" name="birth-date-d" class="day" required data-class="birth-date">
             <option value="" disabled selected>Day</option>
-		    <?= getDateOptions();?>
+		    <?= getDayOptions();?>
         </select>
 
         <select title="" name="birth-date-m" class="month" required data-class="birth-date">

@@ -2,7 +2,7 @@
 
 require_once get_template_directory() . '/inc/provinces.php';
 
-function getDateOptions() {
+function getDayOptions() {
 	$options = '';
 	for ( $i = 1; $i <= 31; ++ $i ) {
 		$date    = $i < 10 ? '0' . $i : $i;

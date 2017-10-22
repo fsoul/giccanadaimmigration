@@ -27,12 +27,12 @@ var validation = require('./input-validation');
     })();
 
 
-    var AssessmentCopyButton = (function(){
+    var AssessmentCopyButton = (function () {
 
         function AssessmentCopyButton(el) {
             this.button = el;
             var self = this;
-            this.button.addEventListener('click', function(e) {
+            this.button.addEventListener('click', function (e) {
                 e.preventDefault();
                 self.copyContainer(e);
             })
@@ -67,7 +67,7 @@ var validation = require('./input-validation');
          * @throws {TypeError}
          */
         AssessmentCopyButton.prototype.getNewId = function (id, newId) {
-            var changed = id.replace(/(-\d+)$/, function(){
+            var changed = id.replace(/(-\d+)$/, function () {
                 return '-' + newId;
             });
             if (id === changed) {
@@ -80,7 +80,7 @@ var validation = require('./input-validation');
          * @param {Node} node
          * @return {Node} Returns new node
          */
-        AssessmentCopyButton.prototype.copyNode = function(node) {
+        AssessmentCopyButton.prototype.copyNode = function (node) {
             var newNode = node.cloneNode(true),
                 copyCount = node.parentNode.querySelectorAll('.copied').length;
 
@@ -97,9 +97,12 @@ var validation = require('./input-validation');
                     case 'select':
                     case 'textarea':
                         item.id = this.getNewId(item.id, copyCount + 1);
-                        item.setAttribute('name',  this.getNewId(item.getAttribute('name'), copyCount + 1) );
+                        item.setAttribute('name', this.getNewId(item.getAttribute('name'), copyCount + 1));
                         item.value = '';
                         item.classList.remove('invalid-input');
+                        if (item.hasAttribute('data-class'))
+                            item.setAttribute('data-class',
+                                this.getNewId(item.getAttribute('data-class'), copyCount + 1));
                         break;
                     case 'div':
                     case 'section':
@@ -169,7 +172,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 12,
+                startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -235,7 +238,7 @@ var validation = require('./input-validation');
                         var copy = page.step.querySelector('.ass-add-button');
                         if (copy) {
                             self.steps[stepIndex].copyButton = new AssessmentCopyButton(copy);
-                            self.steps[stepIndex].step.addEventListener('onCopyInputs', function(e){
+                            self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
                                 self.doCopyInputs(e, stepIndex);
                             })
                         }
@@ -257,17 +260,17 @@ var validation = require('./input-validation');
                 'textarea, select');
         };
 
-        AssessmentForm.prototype.initInputsValidation = function(pageIndex, inputs) {
+        AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
             for (var i = 0; i < inputs.length; ++i) {
                 if (this.steps[pageIndex].inputs.indexOf(inputs[i]) === -1)
-                    this.steps[pageIndex].inputs.push( validation.initByInput(inputs[i]) );
+                    this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]));
             }
         };
 
-        AssessmentForm.prototype.stepValidation = function(pageIndex) {
+        AssessmentForm.prototype.stepValidation = function (pageIndex) {
             var page = this.steps[pageIndex];
             var result = true;
-            for(var i = 0; i < page.inputs.length; ++i) {
+            for (var i = 0; i < page.inputs.length; ++i) {
                 if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
