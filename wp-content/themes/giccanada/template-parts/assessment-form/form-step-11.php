@@ -1,7 +1,7 @@
 <p>Напишите подробно обо всех, полученных вами образованиях (школа, училище, институт, курсы) в хронологическом
     порядке.</p>
 
-<div class="multiplication-container">
+<div class="multiplication-container" data-parent="education">
     <section>
         <label for="education-name-0">Наименование учебного заведения</label>
         <input type="text" name="education-name-0" id="education-name-0" class="to-change-id">

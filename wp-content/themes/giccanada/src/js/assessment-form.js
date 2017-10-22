@@ -132,8 +132,15 @@ var validation = require('./input-validation');
                     mContainer = this.findMContainer(copyBtn);
 
                 var newNode = this.copyNode(mContainer);
-                //TODO trigger 'onCopyInputs' event
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
+                var page = document.querySelector('fieldset.' + mContainer.getAttribute('data-parent'));
+                var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
+                    'input[type=email], textarea, select');
+                page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                    detail: {
+                        inputs: insertedInputs
+                    }
+                }));
                 newNode.scrollIntoView(true);
             }
         };
@@ -224,12 +231,12 @@ var validation = require('./input-validation');
                     dataType: 'html',
                     success: function (html) {
                         page.step.innerHTML = html;
-                        self.initInputsValidation(index - 1);
+                        self.initInputsValidation(index - 1, self._getPageInputs(stepIndex));
                         var copy = page.step.querySelector('.ass-add-button');
                         if (copy) {
                             self.steps[stepIndex].copyButton = new AssessmentCopyButton(copy);
                             self.steps[stepIndex].step.addEventListener('onCopyInputs', function(e){
-
+                                self.doCopyInputs(e, stepIndex);
                             })
                         }
                         self.steps[stepIndex].isLoaded = true;
@@ -238,18 +245,22 @@ var validation = require('./input-validation');
             }
         };
 
+
+        AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
+            var inputs = e.detail.inputs;
+            this.initInputsValidation(stepIndex, inputs);
+        };
+
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
                 'textarea, select');
         };
 
-        AssessmentForm.prototype.initInputsValidation = function(pageIndex) {
-            if (!this.steps[pageIndex].isLoaded) {
-                var inputs = this._getPageInputs(pageIndex);
-                for (var i = 0; i < inputs.length; ++i) {
+        AssessmentForm.prototype.initInputsValidation = function(pageIndex, inputs) {
+            for (var i = 0; i < inputs.length; ++i) {
+                if (this.steps[pageIndex].inputs.indexOf(inputs[i]) === -1)
                     this.steps[pageIndex].inputs.push( validation.initByInput(inputs[i]) );
-                }
             }
         };
 
