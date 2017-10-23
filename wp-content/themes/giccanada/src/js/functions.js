@@ -60,7 +60,7 @@ var paymentMethodClick = function (e) {
     }
     target.classList.toggle('active');
     if (activePanel && activePanel.classList.contains('payment-panel'))
-        activePanel.style.maxHeight = activePanel.scrollHeight + "px";
+        activePanel.style.maxHeight = 20*4 + activePanel.scrollHeight + "px";
 };
 
 

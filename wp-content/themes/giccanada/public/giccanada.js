@@ -61,7 +61,7 @@ var app =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10422,6 +10422,92 @@ module.exports = {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var STATES = {
+    valid: 'valid-input',
+    invalid: 'invalid-input',
+    normal: 'normal'
+};
+
+function DefaultInput(lang, input) {
+    this.lang = lang;
+    this.input = input;
+    this.errorMsg = document.getElementById('error-' + input.id);
+    this.subscribers = [];
+}
+
+DefaultInput.prototype.getErrorMessage = function () {
+    return {
+        'en-US': 'This field is required.',
+        'ru-RU': 'Вы пропустили это поле.'
+    }[this.lang];
+};
+
+DefaultInput.prototype.setState = function (newState) {
+    var curState = this.getState();
+    if (this.input && curState !== newState) {
+        this.input.classList.remove(curState);
+        this.input.classList.add(newState);
+    }
+};
+
+DefaultInput.prototype.getState = function () {
+    var cl = this.input.classList;
+    return cl.contains(STATES.invalid) ? STATES.invalid :
+        cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
+};
+
+DefaultInput.prototype.setErrorText = function (text) {
+    if (this.errorMsg)
+        this.errorMsg.innerText = text;
+};
+
+DefaultInput.prototype.doValidate = function () {
+    if (!this.input.value) {
+        return this.doValidateError();
+    } else {
+        return this.doNormalize();
+    }
+};
+
+DefaultInput.prototype.doValidateError = function () {
+    this.setState(STATES.invalid);
+    this.setErrorText(this.getErrorMessage());
+    this.fire(new CustomEvent('onValidateError'));
+    return false;
+};
+
+DefaultInput.prototype.doNormalize = function () {
+    this.setState(STATES.valid);
+    this.setErrorText('');
+    this.fire(new CustomEvent('onNormalize'));
+    return true;
+};
+
+DefaultInput.prototype.subscribe = function (input) {
+    this.subscribers.push(input);
+};
+
+/**
+ * @param {CustomEvent} event
+ */
+DefaultInput.prototype.fire = function (event) {
+    this.subscribers.forEach(function (el) {
+        el.dispatchEvent(event);
+    });
+};
+
+module.exports = {
+    DefaultInput: DefaultInput,
+    STATES: STATES
+};
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -10448,26 +10534,26 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-__webpack_require__(4);
 __webpack_require__(5);
 __webpack_require__(6);
 __webpack_require__(7);
 __webpack_require__(8);
-__webpack_require__(10);
+__webpack_require__(9);
+__webpack_require__(11);
 
-var StickyMenu = __webpack_require__(14),
+var StickyMenu = __webpack_require__(15),
     stickMenu = new StickyMenu();
-var listeners = __webpack_require__(15),
+var listeners = __webpack_require__(16),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
     buttonUp = listeners.buttonUp;
-var CroppiePhoto = __webpack_require__(16),
+var CroppiePhoto = __webpack_require__(17),
     croppie = new CroppiePhoto();
 
 
@@ -10526,11 +10612,11 @@ document.addEventListener('DOMContentLoaded', function () {
         backArrow.style.visibility = 'hidden';
     });
 
-    __webpack_require__(17);
     __webpack_require__(18);
-    __webpack_require__(20);
+    __webpack_require__(19);
     __webpack_require__(21);
     __webpack_require__(22);
+    __webpack_require__(23);
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
@@ -10543,9 +10629,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(25);
-__webpack_require__(26);
-__webpack_require__(27);
 __webpack_require__(28);
 __webpack_require__(29);
 __webpack_require__(30);
@@ -10553,18 +10636,21 @@ __webpack_require__(31);
 __webpack_require__(32);
 __webpack_require__(33);
 __webpack_require__(34);
-
-
 __webpack_require__(35);
+__webpack_require__(36);
+__webpack_require__(37);
+
+
+__webpack_require__(38);
 
 module.exports = {
-    func: __webpack_require__(36),
+    func: __webpack_require__(39),
     croppie: croppie
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10650,7 +10736,7 @@ module.exports = {
 })();
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery, jQuery) {/**
@@ -13932,7 +14018,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(0)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -19688,7 +19774,7 @@ S2.define('jquery.select2',[
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*! 
@@ -21736,7 +21822,7 @@ var defaults = $.fn.steps.defaults = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($, Popper) {/*!
@@ -25590,17 +25676,17 @@ return exports;
 }({},$,Popper));
 //# sourceMappingURL=bootstrap.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(10)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.5
+ * @version 1.12.6
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -25622,22 +25708,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-var nativeHints = ['native code', '[object MutationObserverConstructor]'];
-
-/**
- * Determine if a function is implemented natively (as opposed to a polyfill).
- * @method
- * @memberof Popper.Utils
- * @argument {Function | undefined} fn the function to check
- * @returns {Boolean}
- */
-var isNative = (function (fn) {
-  return nativeHints.some(function (hint) {
-    return (fn || '').toString().indexOf(hint) > -1;
-  });
-});
-
-var isBrowser = typeof window !== 'undefined';
+var isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
 var timeoutDuration = 0;
 for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
@@ -25648,26 +25719,16 @@ for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
 }
 
 function microtaskDebounce(fn) {
-  var scheduled = false;
-  var i = 0;
-  var elem = document.createElement('span');
-
-  // MutationObserver provides a mechanism for scheduling microtasks, which
-  // are scheduled *before* the next task. This gives us a way to debounce
-  // a function but ensure it's called *before* the next paint.
-  var observer = new MutationObserver(function () {
-    fn();
-    scheduled = false;
-  });
-
-  observer.observe(elem, { attributes: true });
-
+  var called = false;
   return function () {
-    if (!scheduled) {
-      scheduled = true;
-      elem.setAttribute('x-index', i);
-      i = i + 1; // don't use compund (+=) because it doesn't get optimized in V8
+    if (called) {
+      return;
     }
+    called = true;
+    Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
   };
 }
 
@@ -25684,11 +25745,7 @@ function taskDebounce(fn) {
   };
 }
 
-// It's common for MutationObserver polyfills to be seen in the wild, however
-// these rely on Mutation Events which only occur when an element is connected
-// to the DOM. The algorithm used in this module does not use a connected element,
-// and so we must ensure that a *native* MutationObserver is available.
-var supportsNativeMutationObserver = isBrowser && isNative(window.MutationObserver);
+var supportsMicroTasks = isBrowser && window.Promise;
 
 /**
 * Create a debounced version of a method, that's asynchronously deferred
@@ -25699,7 +25756,7 @@ var supportsNativeMutationObserver = isBrowser && isNative(window.MutationObserv
 * @argument {Function} fn
 * @returns {Function}
 */
-var debounce = supportsNativeMutationObserver ? microtaskDebounce : taskDebounce;
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
 
 /**
  * Check if the given variable is a function
@@ -25752,8 +25809,16 @@ function getParentNode(element) {
  */
 function getScrollParent(element) {
   // Return body, `getScroll` will take care to get the correct `scrollTop` from it
-  if (!element || ['HTML', 'BODY', '#document'].indexOf(element.nodeName) !== -1) {
+  if (!element) {
     return window.document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+    case '#document':
+      return element.body;
   }
 
   // Firefox want us to check `-x` and `-y` variations as well
@@ -25783,6 +25848,10 @@ function getOffsetParent(element) {
   var nodeName = offsetParent && offsetParent.nodeName;
 
   if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    if (element) {
+      return element.ownerDocument.documentElement;
+    }
+
     return window.document.documentElement;
   }
 
@@ -25878,8 +25947,8 @@ function getScroll(element) {
   var nodeName = element.nodeName;
 
   if (nodeName === 'BODY' || nodeName === 'HTML') {
-    var html = window.document.documentElement;
-    var scrollingElement = window.document.scrollingElement || html;
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
     return scrollingElement[upperSide];
   }
 
@@ -26128,7 +26197,7 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
 }
 
 function getViewportOffsetRectRelativeToArtbitraryNode(element) {
-  var html = window.document.documentElement;
+  var html = element.ownerDocument.documentElement;
   var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
   var width = Math.max(html.clientWidth, window.innerWidth || 0);
   var height = Math.max(html.clientHeight, window.innerHeight || 0);
@@ -26189,10 +26258,10 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
     if (boundariesElement === 'scrollParent') {
       boundariesNode = getScrollParent(getParentNode(popper));
       if (boundariesNode.nodeName === 'BODY') {
-        boundariesNode = window.document.documentElement;
+        boundariesNode = popper.ownerDocument.documentElement;
       }
     } else if (boundariesElement === 'window') {
-      boundariesNode = window.document.documentElement;
+      boundariesNode = popper.ownerDocument.documentElement;
     } else {
       boundariesNode = boundariesElement;
     }
@@ -26433,10 +26502,11 @@ function runModifiers(modifiers, data, ends) {
   var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
 
   modifiersToRun.forEach(function (modifier) {
-    if (modifier.function) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
       console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
     }
-    var fn = modifier.function || modifier.fn;
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
     if (modifier.enabled && isFunction(fn)) {
       // Add properties to offsets to make them a complete clientRect object
       // we do this before each modifier to make sure the previous one doesn't
@@ -26563,9 +26633,19 @@ function destroy() {
   return this;
 }
 
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
 function attachToScrollParents(scrollParent, event, callback, scrollParents) {
   var isBody = scrollParent.nodeName === 'BODY';
-  var target = isBody ? window : scrollParent;
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
   target.addEventListener(event, callback, { passive: true });
 
   if (!isBody) {
@@ -26583,7 +26663,7 @@ function attachToScrollParents(scrollParent, event, callback, scrollParents) {
 function setupEventListeners(reference, options, state, updateBound) {
   // Resize event listener on window
   state.updateBound = updateBound;
-  window.addEventListener('resize', state.updateBound, { passive: true });
+  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
 
   // Scroll event listener on scroll parents
   var scrollElement = getScrollParent(reference);
@@ -26614,7 +26694,7 @@ function enableEventListeners() {
  */
 function removeEventListeners(reference, state) {
   // Remove resize event listener on window
-  window.removeEventListener('resize', state.updateBound);
+  getWindow(reference).removeEventListener('resize', state.updateBound);
 
   // Remove scroll event listener on scroll parents
   state.scrollParents.forEach(function (target) {
@@ -27916,8 +27996,8 @@ var Popper = function () {
     };
 
     // get reference and popper elements (allow jQuery wrappers)
-    this.reference = reference.jquery ? reference[0] : reference;
-    this.popper = popper.jquery ? popper[0] : popper;
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper;
 
     // Deep merge modifiers options
     this.options.modifiers = {};
@@ -28039,10 +28119,10 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, __webpack_provided_window_dot_jQuery) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -29637,10 +29717,10 @@ Popper.Defaults = Defaults;
     }
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11).setImmediate, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12).setImmediate, __webpack_require__(0)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -29693,13 +29773,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(12);
+__webpack_require__(13);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -29889,10 +29969,10 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(14)))
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -30082,7 +30162,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30189,7 +30269,7 @@ module.exports = StickyMenu;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30294,7 +30374,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30345,7 +30425,7 @@ module.exports =  CroppieAssPhoto;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -30421,13 +30501,13 @@ module.exports =
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var OpenCaseForm = __webpack_require__(19);
+var OpenCaseForm = __webpack_require__(20);
 
 module.exports = (function () {
 
@@ -30548,7 +30628,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30701,7 +30781,7 @@ module.exports = OpenCaseForm;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30749,7 +30829,7 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30812,17 +30892,17 @@ module.exports =  (function () {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-var validation = __webpack_require__(23);
+var validation = __webpack_require__(24);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(24);
+        var ProgressBar = __webpack_require__(27);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -30956,7 +31036,7 @@ var validation = __webpack_require__(23);
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
                 var page = document.querySelector('fieldset.' + mContainer.getAttribute('data-parent'));
                 var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
-                    'input[type=email], textarea, select');
+                    'input[type=email], input[type=password], textarea, select');
                 page.dispatchEvent(new CustomEvent('onCopyInputs', {
                     detail: {
                         inputs: insertedInputs
@@ -31075,7 +31155,7 @@ var validation = __webpack_require__(23);
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
-                'textarea, select');
+                'input[type=password], textarea, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
@@ -31105,90 +31185,124 @@ var validation = __webpack_require__(23);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var STATES = {
-    valid: 'valid-input',
-    invalid: 'invalid-input',
-    normal: 'normal'
-};
+var DefaultInput = __webpack_require__(2).DefaultInput;
 
-var DefaultInput = (function () {
+var text = __webpack_require__(25);
+var select = __webpack_require__(26);
 
-    function DefaultInput(lang, input) {
-        this.lang = lang;
-        this.input = input;
-        this.errorMsg = document.getElementById('error-' + input.id);
-        this.subscribers = [];
+var TextInput = text.TextInput;
+var EmailInput = text.EmailInput;
+var TelInput = text.TelInput;
+var CardNumberInput = text.CardNumberInput;
+var CVCInput = text.CVCInput;
+
+var SelectInput = select.SelectInput;
+var CombineDateSelect = select.CombineDateSelect;
+var PeriodDateSelect = select.PeriodDateSelect;
+
+var TextFactory = (function () {
+
+    function TextFactory() {
+        this.class = TextInput;
     }
 
-    DefaultInput.prototype.getErrorMessage = function () {
-        return {
-            'en-US': 'This field is required.',
-            'ru-RU': 'Вы пропустили это поле.'
-        }[this.lang];
-    };
-
-    DefaultInput.prototype.setState = function (newState) {
-        var curState = this.getState();
-        if (this.input && curState !== newState) {
-            this.input.classList.remove(curState);
-            this.input.classList.add(newState);
+    TextFactory.prototype.create = function (lang, el) {
+        var type = el.getAttribute('data-type');
+        switch (type) {
+            case 'card-number-text':
+                this.class = CardNumberInput;
+                break;
+            case 'cvc-code-text':
+                this.class = CVCInput;
+                break;
         }
+        return this.class;
     };
-
-    DefaultInput.prototype.getState = function () {
-        var cl = this.input.classList;
-        return cl.contains(STATES.invalid) ? STATES.invalid :
-            cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
-    };
-
-    DefaultInput.prototype.setErrorText = function (text) {
-        if (this.errorMsg)
-            this.errorMsg.innerText = text;
-    };
-
-    DefaultInput.prototype.doValidate = function () {
-        if (!this.input.value) {
-            return this.doValidateError();
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    DefaultInput.prototype.doValidateError = function () {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage());
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-    DefaultInput.prototype.doNormalize = function () {
-        this.setState(STATES.valid);
-        this.setErrorText('');
-        this.fire(new CustomEvent('onNormalize'));
-        return true;
-    };
-
-    DefaultInput.prototype.subscribe = function (input) {
-        this.subscribers.push(input);
-    };
-
-    /**
-     * @param {CustomEvent} event
-     */
-    DefaultInput.prototype.fire = function (event) {
-        this.subscribers.forEach(function (el) {
-            el.dispatchEvent(event);
-        });
-    };
-
-    return DefaultInput;
+    return TextFactory;
 })();
+
+var SelectFactory = (function () {
+
+    function SelectFactory() {
+        this.select = SelectInput;
+    }
+
+    SelectFactory.prototype.createSelect = function (lang, select) {
+        var type = select.getAttribute('data-type');
+        switch (type) {
+            case 'combine-date-select':
+                this.select = CombineDateSelect;
+                break;
+            case 'period-date-select':
+                this.select = PeriodDateSelect;
+                break;
+            default:
+                this.select = SelectInput;
+        }
+        return this.select;
+    };
+    return SelectFactory;
+})();
+
+var InputsFactory = (function () {
+
+    function InputsFactory() {
+        this.inputClass = DefaultInput;
+    }
+
+    InputsFactory.prototype.createInput = function (lang, input) {
+        var selectFactory = new SelectFactory(),
+            textFactory = new TextFactory();
+        switch (input.type) {
+            case 'text':
+            case 'password':
+                this.inputClass = textFactory.create(lang, input);
+                break;
+            case 'email':
+                this.inputClass = EmailInput;
+                break;
+            case 'tel':
+                this.inputClass = TelInput;
+                break;
+            case 'select-one': //select input
+            case 'select-multiple':
+                this.inputClass = selectFactory.createSelect(lang, input);
+                break;
+        }
+
+        return new this.inputClass(lang, input);
+    };
+
+    return InputsFactory;
+})();
+
+
+function initByInput(el) {
+    var lang = 'ru-RU'; //TODO
+    var factory = new InputsFactory();
+    return factory.createInput(lang, el);
+}
+
+module.exports = {
+    initByInput: initByInput
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var d = __webpack_require__(2);
+var DefaultInput = d.DefaultInput;
+var STATES = d.STATES;
 
 var TextInput = (function () {
     function TextInput(lang, input) {
@@ -31230,9 +31344,9 @@ var EmailInput = (function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!this.input.value || !this.input.value.match(mailPattern)) {
-            this.doValidateError();
+            return this.doValidateError();
         } else {
-            this.doNormalize();
+            return this.doNormalize();
         }
     };
 
@@ -31243,10 +31357,6 @@ var TelInput = (function () {
 
     function TelInput(lang, input) {
         TextInput.apply(this, arguments);
-        var self = this;
-        this.input.addEventListener('keydown', function () {
-            self.doValidate();
-        })
     }
 
     TelInput.prototype = Object.create(TextInput.prototype);
@@ -31254,6 +31364,154 @@ var TelInput = (function () {
 
     return TelInput;
 })();
+
+var CardNumberInput = (function () {
+
+    function CardNumberInput(lang, input) {
+        TextInput.apply(this, arguments);
+        var self = this;
+
+        this.input.addEventListener('keypress', function (e) {
+            self.doKeyPress(e);
+        });
+
+        this.input.addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CardNumberInput.prototype = Object.create(TextInput.prototype);
+    CardNumberInput.prototype.constructor = CardNumberInput;
+
+    CardNumberInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct card number.',
+                'empty': TextInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный номер карты.',
+                'empty': TextInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    CardNumberInput.prototype.doValidate = function () {
+        var val = this.input.value.replace(/\s/g, '');
+
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CardNumberInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+
+    CardNumberInput.prototype.doKeyPress = function (e) {
+        var val = this.input.value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
+            this.input.value += ' ';
+    };
+
+    CardNumberInput.prototype.doKeyDown = function (e) {
+        var val = this.input.value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CardNumberInput;
+})();
+
+var CVCInput = (function () {
+
+    function CVCInput(lang, input) {
+        TextInput.apply(this, arguments);
+        var self = this;
+
+        this.input.addEventListener('keypress', function (e) {
+            self.doKeyPress(e);
+        });
+
+        this.input.addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CVCInput.prototype = Object.create(TextInput.prototype);
+    CVCInput.prototype.constructor = CVCInput;
+
+    CVCInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct CVV2/CVC2.',
+                'empty': TextInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный CVV2/CVC2.',
+                'empty': TextInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    CVCInput.prototype.doValidate = function () {
+        var val = this.input.value;
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CVCInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    CVCInput.prototype.doKeyDown = function (e) {
+        var val = this.input.value;
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CVCInput;
+})();
+
+module.exports = {
+    TextInput: TextInput,
+    EmailInput: EmailInput,
+    TelInput: TelInput,
+    CardNumberInput: CardNumberInput,
+    CVCInput: CVCInput
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var d = __webpack_require__(2);
+var DefaultInput = d.DefaultInput;
+var STATES = d.STATES;
 
 var SelectInput = (function () {
 
@@ -31288,7 +31546,6 @@ var SelectInput = (function () {
 
     return SelectInput;
 })();
-
 
 var CombineDateSelect = (function () {
 
@@ -31345,7 +31602,7 @@ var CombineDateSelect = (function () {
         return false;
     };
 
-    CombineDateSelect.prototype.checkDate = function ( ) {
+    CombineDateSelect.prototype.checkDate = function () {
         var date = this.dateParts['day'].value,
             month = this.dateParts['month'].value,
             year = this.dateParts['year'].value;
@@ -31384,14 +31641,15 @@ var PeriodDateSelect = (function () {
         function findContainer(node) {
             return node.classList.contains('period-date') ? node : findContainer(node.parentNode);
         }
+
         this.container = findContainer(this.input);
         this.errorMsg = document.getElementById('error-' + this.container.id);
 
-        var selects =  this.container.querySelectorAll('select[data-class=' + this.dataClass + ']');
+        var selects = this.container.querySelectorAll('select[data-class=' + this.dataClass + ']');
 
         for (var i = 0; i < selects.length; ++i) {
             this.subscribe(selects[i]);
-            if (selects[i].parentNode.classList.contains('from-date')){
+            if (selects[i].parentNode.classList.contains('from-date')) {
                 if (selects[i].classList.contains('month')) {
                     this.dateParts.from.month = selects[i];
                 } else {
@@ -31415,14 +31673,14 @@ var PeriodDateSelect = (function () {
     };
 
     PeriodDateSelect.prototype.doValidate = function () {
-        if (this.checkDate() ){
+        if (this.checkDate()) {
             return this.doValidateError();
         } else {
             return SelectInput.prototype.doValidate.apply(this);
         }
     };
 
-    PeriodDateSelect.prototype.checkDate = function ( ) {
+    PeriodDateSelect.prototype.checkDate = function () {
         var f = this.dateParts.from,
             t = this.dateParts.to;
 
@@ -31458,72 +31716,14 @@ var PeriodDateSelect = (function () {
     return PeriodDateSelect;
 })();
 
-var SelectFactory = (function () {
-
-    function SelectFactory() {
-        this.select = SelectInput;
-    }
-
-    SelectFactory.prototype.createSelect = function (lang, select) {
-        var type = select.getAttribute('data-type');
-        switch (type) {
-            case 'combine-date-select':
-                this.select = CombineDateSelect;
-                break;
-            case 'period-date-select':
-                this.select = PeriodDateSelect;
-                break;
-            default:
-                this.select = SelectInput;
-        }
-        return this.select;
-    };
-    return SelectFactory;
-})();
-
-var InputsFactory = (function () {
-
-    function InputsFactory() {
-        this.inputClass = DefaultInput;
-    }
-
-    InputsFactory.prototype.createInput = function (lang, input) {
-        var selectFactory = new SelectFactory();
-        switch (input.type) {
-            case 'text':
-                this.inputClass = TextInput;
-                break;
-            case 'email':
-                this.inputClass = EmailInput;
-                break;
-            case 'tel':
-                this.inputClass = TelInput;
-                break;
-            case 'select-one': //select input
-            case 'select-multiple':
-                this.inputClass = selectFactory.createSelect(lang, input);
-                break;
-        }
-
-        return new this.inputClass(lang, input);
-    };
-
-    return InputsFactory;
-})();
-
-
-function initByInput(el) {
-    var lang = 'ru-RU'; //TODO
-    var factory = new InputsFactory();
-    return factory.createInput(lang, el);
-}
-
 module.exports = {
-    initByInput: initByInput
+    SelectInput: SelectInput,
+    CombineDateSelect: CombineDateSelect,
+    PeriodDateSelect: PeriodDateSelect
 };
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31598,24 +31798,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
@@ -31665,6 +31847,24 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 36 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31730,7 +31930,7 @@ var paymentMethodClick = function (e) {
     }
     target.classList.toggle('active');
     if (activePanel && activePanel.classList.contains('payment-panel'))
-        activePanel.style.maxHeight = activePanel.scrollHeight + "px";
+        activePanel.style.maxHeight = 20*4 + activePanel.scrollHeight + "px";
 };
 
 

@@ -8,10 +8,12 @@
             <section>
                 <label for="holder-full-name">Имя и фамилия держателя карты</label>
                 <input type="text" name="holder-full-name" id="holder-full-name" placeholder="Card Holder">
+                <span class="error-text" id="error-holder-full-name"></span>
             </section>
             <section>
                 <label for="holder-card-num">Номер карты</label>
-                <input type="text" name="holder-card-num" id="holder-card-num" placeholder="XXXX - XXXX - XXXX - XXXX">
+                <input type="text" name="holder-card-num" id="holder-card-num" placeholder="XXXX - XXXX - XXXX - XXXX" data-type="card-number-text">
+                <span class="error-text" id="error-holder-card-num"></span>
             </section>
             <section class="clearfix">
                 <div class="expiration-date clearfix">
@@ -19,24 +21,21 @@
                     <select title="" id="card-expiration-date-m" name="card-expiration-date-m" class="month"
                             required>
                         <option value="" disabled selected>Month</option>
-	                    <?php $months = array('January', 'February', 'March','April',
-		                    'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');?>
-	                    <?php for($i = 1; $i <= count($months); ++$i):?>
-                            <option value="<?= $i;?>"><?= $months[$i - 1];?></option>
-	                    <?php endfor;?>
+	                    <?= getMonthOptions(); ?>
                     </select>
+                    <span class="error-text" id="error-card-expiration-date-m"></span>
 
                     <select title="" id="card-expiration-date-y" name="card-expiration-date-y" class="year"
                             required>
                         <option value="" disabled selected>Year</option>
-	                    <?php for($i = date('Y'); $i >= 1930; --$i):?>
-                            <option value="<?= $i;?>"><?= $i;?></option>
-	                    <?php endfor;?>
+	                    <?= getYearOptions(); ?>
                     </select>
+                    <span class="error-text" id="error-card-expiration-date-y"></span>
                 </div>
                 <section id="holder-cvc-container">
                     <label for="holder-cvc">CVV2/CVC2</label>
-                    <input type="password" name="holder-cvc" id="holder-cvc" placeholder="***" maxlength="3">
+                    <input type="password" name="holder-cvc" id="holder-cvc" placeholder="***" maxlength="3" data-type="cvc-code-text">
+                    <span class="error-text" id="error-holder-cvc"></span>
                 </section>
             </section>
         </div>
