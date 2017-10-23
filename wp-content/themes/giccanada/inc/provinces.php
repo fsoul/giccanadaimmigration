@@ -466,7 +466,26 @@ function getCities() {
 	);
 }
 
+function getProvinces() {
+	return array(
+		'ON' => 'Ontario',
+		'QC' => 'Quebec',
+		'NS' => 'Nova Scotia',
+		'NB' => 'New Brunswick',
+		'MB' => 'Manitoba',
+		'BC' => 'British Columbia',
+		'PE' => 'Prince Edward Island',
+		'SK' => 'Saskatchewan',
+		'AB' => 'Alberta',
+		'NL' => 'Newfoundland and Labrador'
+	);
+}
+
 function getCitiesByProvince($code){
 	return  getCities()[$code];
+}
+
+function getProvinceByCode($code){
+	return  getProvinces()[$code];
 }
 

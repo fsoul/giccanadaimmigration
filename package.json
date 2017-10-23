@@ -28,6 +28,7 @@
     "webpack": "^3.5.5"
   },
   "dependencies": {
+    "popper.js": "^1.12.5",
     "bootstrap": "^4.0.0-alpha.6",
     "croppie": "^2.5.0",
     "tether": "^1.4.0",

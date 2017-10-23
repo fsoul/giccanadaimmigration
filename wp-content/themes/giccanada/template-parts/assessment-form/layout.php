@@ -61,3 +61,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    var form = document.getElementById('assessment-form');
+    form.addEventListener('onValidate', function (e) {
+        alert(e);
+        debugger;
+    });
+</script>
