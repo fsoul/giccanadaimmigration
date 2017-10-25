@@ -9969,7 +9969,7 @@ background: #ccc;
   text-rendering: optimizeLegibility; }
 
 body {
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: normal; }
 
@@ -10134,7 +10134,7 @@ body {
       height: 38px;
       width: 100%;
       line-height: 38px;
-      font-family: "Lato"; }
+      font-family: "Lato",sans-serif; }
       #open-case-form form #selection-block .select2-container--default .select2-selection--single .select2-selection__rendered,
       #open-case-form form #selection-block #open-case-lang .select2-selection__rendered,
       #open-case-form form #selection-block #open-case-country .select2-selection__rendered {
@@ -10144,7 +10144,7 @@ body {
       #open-case-form form #selection-block #open-case-country .select2-selection__arrow {
         height: inherit; }
     #open-case-form form > input[type=submit] {
-      font-family: "Lato";
+      font-family: "Lato",sans-serif;
       width: 100%;
       line-height: 40px;
       margin-top: 15px;
@@ -10960,7 +10960,7 @@ body {
       text-align: center;
       color: #000; }
     #assessment-modal .modal-body #ass-step-init button {
-      font-family: "Lato";
+      font-family: "Lato", sans-serif;
       width: 290px;
       line-height: 40px;
       margin-top: 15px;

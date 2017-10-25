@@ -30728,7 +30728,7 @@ OpenCaseForm.prototype.sendForm = function () {
     var data = {
         'action': 'send_open_case_form',
         'form': {
-            firstName: this.form.querySelector('input[name=first_name]').value,
+            first_name: this.form.querySelector('input[name=first_name]').value,
             phone: this.form.querySelector('input[name=phone]').value,
             email: this.form.querySelector('input[name=email]').value,
             country: this.form.querySelector('select[name=country]').value,

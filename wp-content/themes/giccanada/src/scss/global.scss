@@ -20,7 +20,7 @@ $image-dir: '../images/';
 }
 
 body {
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: normal;
 }
@@ -172,7 +172,7 @@ body {
         height: 38px;
         width: 100%;
         line-height: 38px;
-        font-family: "Lato";
+        font-family: "Lato",sans-serif;
 
         .select2-selection__rendered {
           line-height: inherit;
@@ -185,7 +185,7 @@ body {
     }
 
     & > input[type=submit] {
-      font-family: "Lato";
+      font-family: "Lato",sans-serif;
       width: 100%;
       line-height: 40px;
       margin-top: 15px;
