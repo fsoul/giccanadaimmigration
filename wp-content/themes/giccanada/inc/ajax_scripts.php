@@ -17,21 +17,21 @@ function send_open_case_form() {
 			$form['email']
 		) ) > 0;
 
-	if ( $is_email_sent ) {
+	if ($is_email_sent ) {
 		$ans_msg   = 'This email is already subscribed!';
 		$isSuccess = false;
 	} else {
-		$wpdb->insert( 'wp_open_case', array(
-			'open_case_name'    => $form['first_name'],
-			'open_case_phone'   => $form['phone'],
-			'open_case_email'   => $form['email'],
-			'open_case_country' => $form['country'],
-			'open_case_lang'    => $form['lang']
-		) );
+//		$wpdb->insert( 'wp_open_case', array(
+//			'open_case_name'    => $form['first_name'],
+//			'open_case_phone'   => $form['phone'],
+//			'open_case_email'   => $form['email'],
+//			'open_case_country' => $form['country'],
+//			'open_case_lang'    => $form['lang']
+//		) );
 
-		if ( $wpdb->insert_id ) {
+		if (true || $wpdb->insert_id ) {
 			require_once( get_template_directory() . '/inc/mails.php' );
-			$isSuccess = send_open_case_admin_mail( $form );
+			$isSuccess = send_open_case_admin_mail( $form ) && send_open_case_user_mail($form);
 		} else {
 			$isSuccess = false;
 		}

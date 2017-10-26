@@ -1,3 +1,5 @@
+<?php $imageURI = get_template_directory_uri() . '/public/images/mails/;' ?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html lang="en">
 <head>
@@ -5,38 +7,296 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
-<body>
-<table style="border: 1px solid black; border-collapse: collapse;">
-    <caption style="padding-bottom: 15px"><strong>Feedback from <?= $form['firstName']; ?>
-            , <?= $form['country']; ?></strong></caption>
+<body style="margin:0;font-family:'Lato',sans-serif;color:#fff;font-style:normal;line-height:normal;">
+<table style="width:100%;background:linear-gradient(165.02deg, #3023AE, #C86DD7);border-spacing:0;border-collapse:collapse;">
     <tbody>
     <tr>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><strong>First
-                name</strong></td>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['first_name']; ?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;">
-            <strong>Phone</strong></td>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['phone']; ?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;">
-            <strong>Email</strong></td>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['email']; ?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;">
-            <strong>Country</strong></td>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['country']; ?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;">
-            <strong>Language</strong></td>
-        <td style="border: 1px solid black; border-collapse: collapse; padding: 15px 50px 15px 15px;"><?= $form['lang']; ?></td>
+        <td></td>
+        <td style="max-width:768px;margin:0 auto;padding:0;display:block;clear:both;">
+            <div>
+                <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+                    <tbody>
+                    <tr style="text-align: right">
+                        <td></td>
+                        <td><img src="<?= $imageURI; ?>Logo.png" alt="Logo"
+                                 style="height:auto;width:184px;padding:20px 0;"></td>
+                        <td style="font-weight:bold;padding:20px 0;font-size:0.875em;line-height:20px;">
+                            <span style="display:block">Звоните!</span>
+                            <a style="display:block;color:#fff;text-decoration:none"
+                               href="tel:+03-6738333">03-6738333</a>
+                            <a style="display:block;color:#fff;text-decoration:none"
+                               href="tel:+054-3319797">054-3319797</a>
+                            <a style="display:block;color:#fff;text-decoration:none" href="tel:+16475584910">+16475584910</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0; margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-1.jpg" alt="image-1-1"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    <tr style="background: #fff">
+                        <td colspan="3">
+                            <table style="max-width:490px;margin:0 auto;border-spacing:0;border-collapse:collapse;">
+                                <tbody>
+                                <tr style="text-align: center;max-width:490px">
+                                    <td>
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;color:#FF8200;display:block;padding-top:20px">
+                                            Вас приветствует</span>
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;color:#FF8200;display:block;">
+                                            GIC Canada Global immigration corp</span>
+                                        <span style="font-weight:bold;line-height:20px;font-size:1.25em;color:#00003A;display:block;padding-top:10px;padding-bottom:20px">
+                                            Мы рады что вы обратились в нашу компанию и сделаем все что бы осуществить вашу мечту!</span>
+                                        <span style="line-height:20px;font-size:0.875em;color:#00003A;display:block;padding-bottom:40px">
+                                            Наша компания работает со всеми иммиграционными программами по Канаде и предлагает сервис по всем направлениям: учебные программы,
+                                            семейная иммиграция, провинциальные и пилотные программы, иммиграция через Express Entry, и более шестидесяти других программ.</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0; margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-2.jpg" alt="image-1-2"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background: linear-gradient(53.56deg, #852EF6, #00FFD4)">
+                            <table style="border-spacing:0;border-collapse:collapse;max-width:580px;margin:0 auto;">
+                                <tbody>
+                                <tr style="text-align:left;">
+                                    <td style="max-width:490px;margin:0 auto;display:block">
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;display:block;padding-top:20px;padding-bottom:20px">
+                                            Почему Канада?</span>
+                                        <div style="padding-bottom:40px;">
+                                            <p style="line-height:20px;font-size:0.875em;margin-top:0">
+                                                Канада это одна из лучших стран в мире по уровню жизни. Каждый год она
+                                                принимает более 300 тыс. новых иммигрантов, потому что выделяет самые
+                                                большие квоты на иммиграцию среди всех развитых стран.
+                                            </p>
+                                            <p style="line-height:20px;font-size:0.875em;">
+                                                Канада вторая по величине страна в мире, богатая запасами пресной воды и
+                                                природными ресурсами. В этой стране высокий уровень социальной защиты, и
+                                                низкий уровень преступности. Грамотная иммиграционная политика все эти
+                                                годы
+                                                позволяла привлекать в Канаду лучших специалистов различных
+                                                специальностей
+                                                из всех стран мира, каждый из новых иммигрантов очень быстро проходит
+                                                адаптационный период и всегда гордо говорит, что он Канадец!
+                                            </p>
+                                            <p style="line-height:20px;font-size:0.875em;margin-bottom:0">
+                                                В Канаде одна из лучших систем образования, множество Колледжей и
+                                                университетов позволят вам не только получить Канадское образование, но
+                                                и
+                                                дают возможность получить статус Резидента, а также подать на постоянное
+                                                место жительство. Канада предлагает множество программ изучения
+                                                Английского
+                                                языка, курсы повышения квалификации, курсы получения специальности с
+                                                возможностью работать параллельно.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0;margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-3.jpg" alt="image-1-3"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    <tr style="background: #fff">
+                        <td colspan="3">
+                            <table style="max-width:490px;margin:0 auto;border-spacing:0;border-collapse:collapse;">
+                                <tbody>
+                                <tr style="text-align:left;max-width:490px">
+                                    <td>
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;color:#0076FF;display:block;padding-top:20px">
+                                            Учеба, как возможность иммиграции и повышении квалификации</span>
+
+                                        <p style="line-height:20px;font-size:0.875em;color:#00003A;display:block;padding-bottom:40px">
+                                            Наша компания работает со всеми иммиграционными программами по Канаде и
+                                            предлагает сервис по всем направлениям: учебные программы,
+                                            семейная иммиграция, провинциальные и пилотные программы, иммиграция через
+                                            Express Entry, и более шестидесяти других программ.</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0;margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-4.jpg" alt="image-1-4"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    <tr style="background: #fff">
+                        <td colspan="3">
+                            <table style="max-width:490px;margin:0 auto;border-spacing:0;border-collapse:collapse;">
+                                <tbody>
+                                <tr style="text-align:left;max-width:490px">
+                                    <td>
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;color:#0076FF;display:block;padding-top:20px">
+                                            Иммиграция с Express Entry</span>
+
+                                        <p style="line-height:20px;font-size:0.875em;color:#00003A;display:block;padding-bottom:40px">
+                                            Команда GIC Global Immigration Corp подаст за вас документы в течении 7
+                                            рабочих дней, все что вам нужно это сотрудничать и кооперировать с нами.
+                                            Каждая операция проводиться в кратчайший срок, за этим строго следят в
+                                            отделе контроля качества.</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0;margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-5.jpg" alt="image-1-5"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    <tr style="background: #fff">
+                        <td colspan="3">
+                            <table style="max-width:490px;margin:0 auto;border-spacing:0;border-collapse:collapse;">
+                                <tbody>
+                                <tr style="text-align:left;max-width:490px">
+                                    <td>
+                                        <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;color:#0076FF;display:block;padding-top:20px">
+                                            Адаптироваться просто</span>
+
+                                        <p style="line-height:20px;font-size:0.875em;color:#00003A;display:block;padding-bottom:40px">
+                                            С нами, вы легко и быстро пройдете адаптацию в Канаде. Мы поможем вам
+                                            открыть счет в банке,
+                                            оформить детей в садики и школы, оформить медицинскую и социальную
+                                            страховку.</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:0;margin:0;">
+                            <img src="<?= $imageURI; ?>image-1-6.jpg" alt="image-1-6"
+                                 style="height:auto;width:100%;">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+        <td></td>
     </tr>
     </tbody>
 </table>
+<div style="background:#001733;padding-bottom:150px">
+    <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+        <tbody>
+        <tr>
+            <td></td>
+            <td style="max-width:768px;margin:0 auto;padding:0;display:block;clear:both;">
+                <div>
+                    <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+                        <tbody>
+                        <tr>
+                            <td colspan="3" style="background: linear-gradient(53.56deg, #852EF6, #00FFD4)">
+                                <table style="border-spacing:0;border-collapse:collapse;max-width:580px;margin:0 auto;">
+                                    <tbody>
+                                    <tr style="text-align:left;">
+                                        <td style="max-width:490px;margin:0 auto;">
+                                            <div style="padding-bottom:40px;padding-top:20px;">
+                                            <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;display:block;padding-bottom:20px">
+                                            Мы поможем достичь цели!</span>
+
+                                                <p style="line-height:20px;font-size:0.875em;margin-top:0">
+                                                    GIC Global Immigration Corp сделает анализ ваших данных для подбора
+                                                    лучшей программы иммиграции для вас и вашей семьи.
+                                                </p>
+                                                <p style="line-height:20px;font-size:0.875em;">
+                                                    Мы всегда открыты с нашими клиентами. Предлагаем лучшие цены на
+                                                    рынке
+                                                    иммиграционных услуг. Каждое открытое иммиграционное дело уникальное
+                                                    и
+                                                    индивидуальное, а также строго выверено по часам работы наших
+                                                    сотрудников и таким образом оплата поступает за конкретно
+                                                    проделанную
+                                                    работу и результат.
+                                                </p>
+                                                <p style="line-height:20px;font-size:0.875em;margin-bottom:0">
+                                                    Наша компания имеет сеть офисов в разных странах мира, отделы
+                                                    делопроизводства и поддержку 24/часа, где на каждый вопрос вам
+                                                    ответит
+                                                    обученный и компетентный сотрудник в кратчайшие сроки.
+                                                </p>
+
+                                                <p style="line-height:20px;font-size:0.875em;margin-bottom:0">
+                                                <span style="font-weight:900;line-height:24px;font-size:1.25em;text-transform:uppercase;display:block;padding-bottom:20px">
+                                                GIC Canada Global immigration corp</span>
+                                                    Международная Иммиграционная Корпорация
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+                        <tbody>
+                        <tr style="font-weight:bold;font-size:.85em;">
+                            <td style="padding-top:20px;">
+                                <p style="margin:0;">Остались вопросы? Звоните!</p>
+                                <p style="margin:0;padding-bottom:20px">
+                                    <a style="color:#fff;text-decoration:none"
+                                       href="tel:+03-6738333">03-6738333</a>
+                                    <a style="color:#fff;text-decoration:none"
+                                       href="tel:+054-3319797">054-3319797</a>
+                                    <a style="color:#fff;text-decoration:none" href="tel:+16475584910">+16475584910</a>
+                                </p>
+
+                                <p style="margin:0;">Отдел продаж:</p>
+                                <a href="mailto:Info@giccanadaimmigration.com"
+                                   style="margin:0;padding-bottom:20px;display:block;color:#fff;text-decoration:none">Info@giccanadaimmigration.com</a>
+
+                                <p style="margin:0;">Отдел обслуживания:</p>
+                                <a href="mailto:development.gic@gmail.com"
+                                   style="margin:0;display:block;color:#fff;text-decoration:none">development.gic@gmail.com</a>
+                                <a href="mailto:gicinfocenter2@gmail.com"
+                                   style="margin:0;display:block;color:#fff;text-decoration:none">gicinfocenter2@gmail.com</a>
+                            </td>
+                            <td style="padding-top:20px;vertical-align: top;">
+                                <a style="margin:0;display:block;color:#fff;text-decoration:none"">714а, ул.Антоновича 172, Киев, Украина</a>
+                                <p style="margin:0;padding-bottom:20px">Бизнес центр Палладиум, 7 этаж офис, 719а</p>
+
+                                <p style="margin:0;">Тель-Авив, ул.Нирим 3, Правый Лифт, 3-ий этаж</p>
+                                <p style="margin:0;padding-bottom:20px">(Здание Канадского Посольства)</p>
+
+                                <p style="margin:0;">Aventura, FL 33180 APT 1410, USA</p>
+                            </td>
+                        </tr>
+                        <tr style="font-weight:bold;font-size:.85em;line-height:16px">
+                            <td colspan="2" style="padding-top:20px;">
+                                <p style="margin:0;">&copy; 2017 GIC Global Immigration Corp. Все права защищены</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
