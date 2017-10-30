@@ -1,4 +1,28 @@
 <?php ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    function sendAssMail () {
+        var data = {
+            'action': 'send_assessment_form',
+            'form': {
+                'ass-email': 'a.rogovoy@macc.com.ua'
+            }
+        };
+
+        $.ajax({
+            url: gic.ajaxurl,
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            success: function (response) {
+                console.log( response.message);
+            }
+        });
+    }
+</script>
+
+
+<button onclick="sendAssMail()">SEND ASS MAIL</button>
 <div class="top-bar" id="top">
 	<ul class="nav justify-content-center flex-nowrap" id='desktop-top-bar'>
 		<li class="nav-item nav-link tb-menu-item">

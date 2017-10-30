@@ -49,6 +49,28 @@ function send_open_case_form() {
 add_action( 'wp_ajax_send_open_case_form', 'send_open_case_form' );
 add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 
+
+function send_assessment_form() {
+
+	$form = $_POST['form'];
+	foreach ( $form as $key => $value ) {
+		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+	}
+
+	require_once( get_template_directory() . '/inc/mails.php' );
+	$isSuccess = send_assessment_user_mail( $form );
+	$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+
+	echo json_encode( array(
+		'isSuccess' => $isSuccess,
+		'message'   => $ans_msg
+	) );
+	wp_die();
+}
+
+add_action( 'wp_ajax_send_assessment_form', 'send_assessment_form' );
+add_action( 'wp_ajax_nopriv_send_assessment_form', 'send_assessment_form' );
+
 function get_feedback_timer() {
 	echo intval( get_option( 'feedback_timer' ) ? get_option( 'feedback_timer' ) : 10 );
 	wp_die();
