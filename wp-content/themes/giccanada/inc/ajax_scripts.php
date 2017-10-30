@@ -12,26 +12,25 @@ function send_open_case_form() {
 	$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
 												SELECT COUNT(*) 
 												FROM wp_open_case 
-												WHERE open_case_email = %s
-											",
+												WHERE open_case_email = %s",
 			$form['email']
 		) ) > 0;
-
-	if ($is_email_sent ) {
+	//Проверка была ли подписка
+	if ( $is_email_sent ) {
 		$ans_msg   = 'This email is already subscribed!';
 		$isSuccess = false;
 	} else {
-//		$wpdb->insert( 'wp_open_case', array(
-//			'open_case_name'    => $form['first_name'],
-//			'open_case_phone'   => $form['phone'],
-//			'open_case_email'   => $form['email'],
-//			'open_case_country' => $form['country'],
-//			'open_case_lang'    => $form['lang']
-//		) );
+		$wpdb->insert( 'wp_open_case', array(
+			'open_case_name'    => $form['first_name'],
+			'open_case_phone'   => $form['phone'],
+			'open_case_email'   => $form['email'],
+			'open_case_country' => $form['country'],
+			'open_case_lang'    => $form['lang']
+		) );
 
-		if (true || $wpdb->insert_id ) {
+		if ( $wpdb->insert_id ) {
 			require_once( get_template_directory() . '/inc/mails.php' );
-			$isSuccess = send_open_case_admin_mail( $form ) && send_open_case_user_mail($form);
+			$isSuccess = send_open_case_admin_mail( $form ) && send_open_case_user_mail( $form );
 		} else {
 			$isSuccess = false;
 		}
@@ -59,7 +58,7 @@ function send_assessment_form() {
 
 	require_once( get_template_directory() . '/inc/mails.php' );
 	$isSuccess = send_assessment_user_mail( $form );
-	$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 
 	echo json_encode( array(
 		'isSuccess' => $isSuccess,
@@ -70,6 +69,27 @@ function send_assessment_form() {
 
 add_action( 'wp_ajax_send_assessment_form', 'send_assessment_form' );
 add_action( 'wp_ajax_nopriv_send_assessment_form', 'send_assessment_form' );
+
+function send_start_work_mail() {
+
+	$form = $_POST['form'];
+	foreach ( $form as $key => $value ) {
+		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+	}
+
+	require_once( get_template_directory() . '/inc/mails.php' );
+	$isSuccess = send_start_work_user_mail( $form );
+	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+
+	echo json_encode( array(
+		'isSuccess' => $isSuccess,
+		'message'   => $ans_msg
+	) );
+	wp_die();
+}
+
+add_action( 'wp_ajax_send_start_work_mail', 'send_start_work_mail' );
+add_action( 'wp_ajax_nopriv_send_start_work_mail', 'send_start_work_mail' );
 
 function get_feedback_timer() {
 	echo intval( get_option( 'feedback_timer' ) ? get_option( 'feedback_timer' ) : 10 );
