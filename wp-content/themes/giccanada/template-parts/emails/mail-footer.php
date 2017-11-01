@@ -35,7 +35,7 @@
 	</tr>
 	<tr style="font-weight:bold;font-size:.85em;line-height:16px">
 		<td colspan="2" style="font-family:'Lato',sans-serif;padding-top:20px;">
-			<p style="margin:0;">&copy; 2017 GIC Global Immigration Corp. Все права защищены</p>
+			<p style="margin:0;">&copy; <?= date("Y");?> GIC Global Immigration Corp. Все права защищены</p>
 		</td>
 	</tr>
 	</tbody>

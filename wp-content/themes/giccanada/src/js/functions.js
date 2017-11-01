@@ -1,34 +1,18 @@
 'use strict';
-
-/**
- * @param {MouseEvent} e
- * @param {string} id Container's id
- * @param {Node} child The node that must be deleted.
- */
-var deleteFileFromList = function (e, id, child) {
-    e.preventDefault();
-    var addContainer = document.getElementById(id).querySelector('.added-files');
-    addContainer.removeChild(child);
-};
-
-
 /**
  * @param input input[type=file]
  * @param {string} id Container's id
  */
 var addFileToList = function (input, id) {
-    /**
-     * @type {FileList}
-     */
+
+
     var fList = input.files;
 
     var addContainer = document.getElementById(id).querySelector('.added-files');
 
     for (var i = 0; i < fList.length; ++i) {
-        /**
-         * @type {File}
-         */
         var file = fList[i];
+        validate(file);
         var s = document.createElement('span');
         s.classList.add('added-file-name');
         s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
@@ -43,6 +27,7 @@ var addFileToList = function (input, id) {
 
         input.innerHTML = input.innerHTML;
     }
+
 };
 
 var paymentMethodClick = function (e) {

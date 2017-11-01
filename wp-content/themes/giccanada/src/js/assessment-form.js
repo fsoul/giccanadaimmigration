@@ -138,7 +138,7 @@ var validation = require('./input-validation');
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
                 var page = document.querySelector('fieldset.' + mContainer.getAttribute('data-parent'));
                 var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
-                    'input[type=email], input[type=password], textarea, select');
+                    'input[type=email], input[type=file], input[type=password], textarea, select');
                 page.dispatchEvent(new CustomEvent('onCopyInputs', {
                     detail: {
                         inputs: insertedInputs
@@ -172,7 +172,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 15,
+                startIndex: 11,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -257,7 +257,7 @@ var validation = require('./input-validation');
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
-                'input[type=password], textarea, select');
+                'input[type=password], input[type=file], textarea, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
@@ -275,6 +275,7 @@ var validation = require('./input-validation');
                     result = false;
                 }
             }
+
             return result;
         };
 

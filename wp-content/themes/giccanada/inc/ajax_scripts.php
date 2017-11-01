@@ -125,3 +125,23 @@ function get_cities_list_by_province() {
 add_action( 'wp_ajax_get_cities_list_by_province', 'get_cities_list_by_province' );
 add_action( 'wp_ajax_nopriv_get_cities_list_by_province', 'get_cities_list_by_province' );
 
+function upload_file() {
+
+	if (isset($_FILES['file'])) {
+		require_once get_template_directory() . '/inc/upload.php';
+
+		try {
+			$file = upload('file');
+
+			echo json_encode( array( 'new_path' => $file ) );
+			wp_die();
+
+		} catch (Exception $e) {
+			echo json_encode( array( 'error' => $e->getMessage() ) );
+			wp_die();
+		}
+	}
+}
+
+add_action( 'wp_ajax_upload_file', 'upload_file' );
+add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );

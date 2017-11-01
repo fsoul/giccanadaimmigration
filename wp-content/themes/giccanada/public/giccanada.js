@@ -10629,7 +10629,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(28);
 __webpack_require__(29);
 __webpack_require__(30);
 __webpack_require__(31);
@@ -10639,12 +10638,13 @@ __webpack_require__(34);
 __webpack_require__(35);
 __webpack_require__(36);
 __webpack_require__(37);
-
-
 __webpack_require__(38);
 
+
+__webpack_require__(39);
+
 module.exports = {
-    func: __webpack_require__(39),
+    func: __webpack_require__(40),
     croppie: croppie
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -30902,7 +30902,7 @@ var validation = __webpack_require__(24);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(27);
+        var ProgressBar = __webpack_require__(28);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -31036,7 +31036,7 @@ var validation = __webpack_require__(24);
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
                 var page = document.querySelector('fieldset.' + mContainer.getAttribute('data-parent'));
                 var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
-                    'input[type=email], input[type=password], textarea, select');
+                    'input[type=email], input[type=file], input[type=password], textarea, select');
                 page.dispatchEvent(new CustomEvent('onCopyInputs', {
                     detail: {
                         inputs: insertedInputs
@@ -31070,7 +31070,7 @@ var validation = __webpack_require__(24);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 15,
+                startIndex: 11,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31155,7 +31155,7 @@ var validation = __webpack_require__(24);
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
-                'input[type=password], textarea, select');
+                'input[type=password], input[type=file], textarea, select');
         };
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
@@ -31173,6 +31173,7 @@ var validation = __webpack_require__(24);
                     result = false;
                 }
             }
+
             return result;
         };
 
@@ -31195,6 +31196,7 @@ var DefaultInput = __webpack_require__(2).DefaultInput;
 
 var text = __webpack_require__(25);
 var select = __webpack_require__(26);
+var file = __webpack_require__(27);
 
 var TextInput = text.TextInput;
 var EmailInput = text.EmailInput;
@@ -31205,6 +31207,9 @@ var CVCInput = text.CVCInput;
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
 var PeriodDateSelect = select.PeriodDateSelect;
+
+var FileInput = file.FileInput;
+var MultipleFileInput = file.MultipleFileInput;
 
 var TextFactory = (function () {
 
@@ -31250,6 +31255,25 @@ var SelectFactory = (function () {
     return SelectFactory;
 })();
 
+var FileFactory = (function () {
+
+    function FileFactory() {
+        this.select = FileInput;
+    }
+
+    FileFactory.prototype.createSelect = function (lang, file) {
+        var type = file.getAttribute('data-type');
+        switch (type) {
+            case 'multiple':
+                this.file = MultipleFileInput;
+                break;
+        }
+        return this.file;
+    };
+
+    return FileFactory;
+})();
+
 var InputsFactory = (function () {
 
     function InputsFactory() {
@@ -31258,7 +31282,8 @@ var InputsFactory = (function () {
 
     InputsFactory.prototype.createInput = function (lang, input) {
         var selectFactory = new SelectFactory(),
-            textFactory = new TextFactory();
+            textFactory = new TextFactory(),
+            fileFactory = new FileFactory();
         switch (input.type) {
             case 'text':
             case 'password':
@@ -31269,6 +31294,9 @@ var InputsFactory = (function () {
                 break;
             case 'tel':
                 this.inputClass = TelInput;
+                break;
+            case 'file':
+                this.inputClass = fileFactory.createSelect(lang, input);
                 break;
             case 'select-one': //select input
             case 'select-multiple':
@@ -31727,6 +31755,157 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+var d = __webpack_require__(2);
+var DefaultInput = d.DefaultInput;
+var STATES = d.STATES;
+
+var FileInput = (function () {
+
+    function FileInput(lang, input) {
+        DefaultInput.apply(this, arguments);
+        this.maxSize = 2e+7;
+
+        var self = this;
+
+        this.input.onchange =  function () {
+            self.doValidate();
+        };
+    }
+
+    FileInput.prototype = Object.create(DefaultInput.prototype);
+    FileInput.prototype.constructor = FileInput;
+
+    /**
+     * The function to validate uploaded file.
+     * @param {File} file
+     * @throws {RangeError} File size of uploaded file should be less than 20Mb
+     */
+    FileInput.prototype.checkSize = function (file) {
+        if (file.size > this.maxSize)
+            throw new RangeError('File size should be less than 20Mb');
+    };
+
+    FileInput.prototype.checkCount = function () {
+        if (!this.input.files.length)
+            throw new ReferenceError('File is required');
+    };
+
+    FileInput.prototype.doValidate = function () {
+        try {
+            this.checkCount();
+            var file = this.input.files[0];
+            this.checkSize(file);
+            return this.doNormalize();
+        } catch (e) {
+            this.doValidateError(e.message);
+        }
+    };
+
+    FileInput.prototype.doValidateError = function (errMsg) {
+        this.setState(STATES.invalid);
+        this.setErrorText(errMsg);
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    return FileInput;
+})();
+
+var MultipleFileInput = (function () {
+
+    function MultipleFileInput(lang, input) {
+        FileInput.apply(this, arguments);
+        this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
+        var self = this;
+        this.input.onchange =  function () {
+            self.doValidate();
+        };
+    }
+
+    MultipleFileInput.prototype = Object.create(FileInput.prototype);
+    MultipleFileInput.prototype.constructor = MultipleFileInput;
+
+    MultipleFileInput.prototype.count = function () {
+        return this.addContainer.childNodes.length;
+    };
+
+    MultipleFileInput.prototype.checkCount = function () {
+        if (!this.count())
+            throw new ReferenceError('Files are required');
+    };
+
+    MultipleFileInput.prototype.doValidate = function () {
+        try {
+            var fList = this.input.files;
+
+            for (var i = 0; i < fList.length; ++i) {
+                var file = fList[i];
+                this.checkSize(file);
+                this.add(file);
+                //TODO Load file to server
+            }
+            this.checkCount();
+            this.input.value = '';
+            return this.doNormalize();
+        } catch (e) {
+            this.doValidateError(e.message);
+        }
+    };
+
+    MultipleFileInput.prototype.add = function (file) {
+        var s = document.createElement('span');
+        var self = this;
+        s.classList.add('added-file-name');
+        s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
+        s.querySelector('.added-file-delete').onclick = function(e) {
+            self.remove(e, this.parentNode);
+        };
+        this.addContainer.insertBefore(s, null);
+    };
+
+    /**
+     * @param {MouseEvent} e
+     * @param {Node} child The node that must be deleted.
+     */
+    MultipleFileInput.prototype.remove = function (e, child) {
+        e.preventDefault();
+        this.addContainer.removeChild(child);
+    };
+
+
+    /**
+      * {File} @param file
+     */
+    MultipleFileInput.prototype.upload = function (file) {
+        $.ajax({
+            url: gic.ajaxurl,
+            type: "POST",
+            data: {
+                'action': 'get_cities_list_by_province',
+                'file': file
+            },
+            dataType: 'json',
+            success: function () {
+                console.log('file loaded');
+            }
+        });
+    };
+
+    return MultipleFileInput;
+})();
+
+module.exports = {
+    FileInput: FileInput,
+    MultipleFileInput: MultipleFileInput
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 var defaultOptions = {
@@ -31798,12 +31977,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
@@ -31865,40 +32038,30 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
-
-/**
- * @param {MouseEvent} e
- * @param {string} id Container's id
- * @param {Node} child The node that must be deleted.
- */
-var deleteFileFromList = function (e, id, child) {
-    e.preventDefault();
-    var addContainer = document.getElementById(id).querySelector('.added-files');
-    addContainer.removeChild(child);
-};
-
-
 /**
  * @param input input[type=file]
  * @param {string} id Container's id
  */
 var addFileToList = function (input, id) {
-    /**
-     * @type {FileList}
-     */
+
+
     var fList = input.files;
 
     var addContainer = document.getElementById(id).querySelector('.added-files');
 
     for (var i = 0; i < fList.length; ++i) {
-        /**
-         * @type {File}
-         */
         var file = fList[i];
+        validate(file);
         var s = document.createElement('span');
         s.classList.add('added-file-name');
         s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
@@ -31913,6 +32076,7 @@ var addFileToList = function (input, id) {
 
         input.innerHTML = input.innerHTML;
     }
+
 };
 
 var paymentMethodClick = function (e) {
