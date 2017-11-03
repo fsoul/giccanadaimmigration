@@ -1,15 +1,13 @@
 <?php
 
-class UploadException extends Exception
-{
-	public function __construct($code) {
-		$message = $this->codeToMessage($code);
-		parent::__construct($message, $code);
+class UploadException extends Exception {
+	public function __construct( $code ) {
+		$message = $this->codeToMessage( $code );
+		parent::__construct( $message, $code );
 	}
 
-	private function codeToMessage($code)
-	{
-		switch ($code) {
+	private function codeToMessage( $code ) {
+		switch ( $code ) {
 			case UPLOAD_ERR_INI_SIZE:
 				$message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
 				break;
@@ -35,46 +33,178 @@ class UploadException extends Exception
 				$message = "Unknown upload error";
 				break;
 		}
+
 		return $message;
 	}
 }
 
-function upload($name) {
-	if ($_FILES[$name]['error'] == UPLOAD_ERR_OK) {
-//		$type = $_FILES[$name]['type'];
-//		$size = $_FILES[$name]['size'];
-		$file_ext = pathinfo($_FILES[$name]['name'])['extension'];
-		$file_name = pathinfo($_FILES[$name]['name'])['filename'];
-		$hash_file_name = md5($file_name) . ".$file_ext";
-		$tmp_name = $_FILES[$name]["tmp_name"];
+class FileLoader {
+	public $file_name = '';
+	public $ext = '';
+	public $size = 0;
+	public $error = 0;
+	public $type = '';
+	public $path = '';
+	public $tmp_name = '';
 
-		$hex_year = bin2hex( date("Y") );
-		$hex_month = bin2hex( date("m") );
-		$hex_day =  bin2hex( date("d") );
+	/**
+	 * The `$is_local` has to be 'false' if file is uploaded by agent and 'true' if file is already on a local server.
+	 * @var bool
+	 */
+	private $is_local = false;
 
-		$new_path = get_stylesheet_directory() . "/public/uploads/$hex_year";
 
-		if ( !is_dir( $new_path ) ) {
-			mkdir($new_path, 0775);
-			chmod($new_path, 0775);
-			$new_path .= "/$hex_month";
-			mkdir($new_path, 0775);
-			chmod($new_path, 0775);
-			$new_path .= "/$hex_day";
-			mkdir($new_path, 0775);
-			chmod($new_path, 0775);
-		} else {
-			$new_path = get_stylesheet_directory() . "/public/uploads/$hex_year/$hex_month/$hex_day";
+	public static function compress( $path ) {
+		$handle   = fopen( $path, "r" );
+		$contents = fread( $handle, filesize( $path ) );
+		fclose( $handle );
+
+		return gzcompress( $contents, 9 );
+	}
+
+	public static function create_path() {
+
+		$hex_year  = bin2hex( date( "Y" ) );
+		$hex_month = bin2hex( date( "m" ) );
+		$hex_day   = bin2hex( date( "d" ) );
+
+		$new_path = get_stylesheet_directory() . "/public/uploads/$hex_year/$hex_month/$hex_day";
+
+		if ( ! is_dir( $new_path ) ) {
+			$path = get_stylesheet_directory() . "/public/uploads/$hex_year";
+			mkdir( $path, 0775 );
+			chmod( $path, 0775 );
+			$path .= "/$hex_month";
+			mkdir( $path, 0775 );
+			chmod( $path, 0775 );
+			$path .= "/$hex_day";
+			mkdir( $path, 0775 );
+			chmod( $path, 0775 );
+		}
+		if ( ! is_dir( $new_path ) ) {
+			throw new Exception( error_get_last()['message'] );
 		}
 
-	} else {
-		throw new UploadException($_FILES[$name]['error']);
+		return "$hex_year/$hex_month/$hex_day";
 	}
-	$res = move_uploaded_file($tmp_name, "$new_path/$hash_file_name") ? $new_path : error_get_last();
-	return $res;
-}
+
+	/**
+	 * @param string $content Compressed file.
+	 *
+	 * @return string
+	 */
+	public static function uncompress( $content ) {
+		return gzuncompress( $content );
+	}
+
+	/**
+	 * @param string $email
+	 * @param string $fname
+	 * @param string $ext
+	 * @param string $hname
+	 * @param string $path
+	 * @param integer $size
+	 *
+	 * @throws Exception
+	 */
+	public static function insert_file_info( $email, $fname, $ext, $hname, $path, $size ) {
+
+		global $wpdb;
+		$wpdb->insert( 'wp_attachments',
+			array(
+				'attach_email'    => $email,
+				'attach_filename' => $fname,
+				'attach_ext'      => $ext,
+				'attach_hashname' => $hname,
+				'attach_path'     => $path,
+				'attach_size'     => $size
+			));
+
+		if ( ! $wpdb->insert_id ) {
+			throw new Exception( $wpdb->last_error );
+		}
+	}
+
+	public static function upload_files_from_session($email) {
+		$path = self::create_path();
+		$full_path = get_stylesheet_directory() . "/public/uploads/$path";
+
+		foreach ( $_SESSION['upload_files'] as $key => $value ) {
+			$filename   = $key;
+			$ext        = pathinfo( $filename, PATHINFO_EXTENSION );
+			$hash       = md5( $filename );
+			$h_filename = "$full_path/$hash.$ext";
+			$handle     = fopen( $h_filename, "wb" );
+			fwrite( $handle, self::uncompress( $value ) );
+			fclose( $handle );
+			if ( error_get_last()['message'] ) {
+				throw new Exception( error_get_last()['message'] );
+			}
+			$size = filesize( $h_filename );
+			self::insert_file_info($email, $filename, $ext, $hash, $path, $size);
+
+			if ( error_get_last()['message'] ) {
+				throw new Exception( error_get_last()['message'] );
+			}
+
+			unset( $_SESSION['upload_files'][ $key ] );
+
+			if ( error_get_last()['message'] ) {
+				throw new Exception( error_get_last()['message'] );
+			}
+
+		}
+	}
+
+	/**
+	 * FileLoader constructor.
+	 *
+	 * @param array $file_arr array('name' => string, 'type' => string, 'size' => int, 'tmp_name' => string, 'error' => int, 'path' => string)
+	 * @param bool $is_local
+	 *
+	 * @throws UploadException
+	 */
+	public function __construct( array $file_arr, $is_local = false ) {
+
+		$this->is_local = $is_local;
+		$this->error    = $file_arr['error'];
+
+		if ( ! $this->is_local && $this->error != UPLOAD_ERR_OK ) {
+			throw new UploadException( $this->error );
+		}
+
+		$this->file_name = pathinfo( $file_arr['name'] )['filename'];
+		$this->ext       = pathinfo( $file_arr['name'] )['extension'];
+		$this->size      = $file_arr['size'];
+		$this->type      = $file_arr['type'];
+		$this->path      = isset( $file_arr['path'] ) ? $file_arr['path'] : '';
+		$this->tmp_name  = isset( $file_arr['tmp_name'] ) ? $file_arr['tmp_name'] : '';
+
+		$this->is_local = $is_local;
+	}
 
 
-function remove_file($fileName) {
-	//TODO
+	/** The function only for files uploaded by agents
+	 * @throws Exception
+	 */
+	public function upload() {
+		if ( $this->is_local || count( $_FILES ) === 0 ) {
+			throw new Exception( 'The file should be uploaded be agent' );
+		}
+	}
+
+	/** The function only for files uploaded by agents
+	 * @throws Exception
+	 */
+	public function upload_to_session() {
+		if ( $this->is_local || count( $_FILES ) === 0 ) {
+			throw new Exception( 'The file should be uploaded be agent' );
+		}
+
+		if ( ! strlen( session_id() ) ) {
+			session_start();
+		}
+
+		$_SESSION['upload_files']["$this->file_name.$this->ext"] = FileLoader::compress( $this->tmp_name );
+	}
 }

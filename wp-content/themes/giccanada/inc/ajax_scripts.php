@@ -131,9 +131,10 @@ function upload_file() {
 		require_once get_template_directory() . '/inc/upload.php';
 
 		try {
-			$file = upload('file');
-
-			echo json_encode( array( 'new_path' => $file ) );
+			$file =  new FileLoader($_FILES['file'], false);
+			$file->upload_to_session();
+			$path = json_encode( array( 'success' => 'OK!' ) );
+			echo $path;
 			wp_die();
 
 		} catch (Exception $e) {
@@ -145,3 +146,25 @@ function upload_file() {
 
 add_action( 'wp_ajax_upload_file', 'upload_file' );
 add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );
+
+
+function save_session_files() {
+
+	if (isset($_SESSION['upload_files']) && count($_SESSION['upload_files']) > 0 ) {
+		require_once get_template_directory() . '/inc/upload.php';
+
+		try {
+			FileLoader::upload_files_from_session('test@email.com'); //TODO pass email from form
+			$path = json_encode( array( 'success' => 'OK!' ) );
+			echo $path;
+			wp_die();
+
+		} catch (Exception $e) {
+			echo json_encode( array( 'error' => $e->getMessage() ) );
+			wp_die();
+		}
+	}
+}
+
+add_action( 'wp_ajax_save_session_files', 'save_session_files' );
+add_action( 'wp_ajax_nopriv_save_session_files', 'save_session_files' );
