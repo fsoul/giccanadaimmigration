@@ -1,34 +1,4 @@
 'use strict';
-/**
- * @param input input[type=file]
- * @param {string} id Container's id
- */
-var addFileToList = function (input, id) {
-
-
-    var fList = input.files;
-
-    var addContainer = document.getElementById(id).querySelector('.added-files');
-
-    for (var i = 0; i < fList.length; ++i) {
-        var file = fList[i];
-        validate(file);
-        var s = document.createElement('span');
-        s.classList.add('added-file-name');
-        s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
-
-        s.querySelector('.added-file-delete').onclick = function(e) {
-            deleteFileFromList(e, id, this.parentNode);
-        };
-
-        //TODO Load file to server
-
-        addContainer.insertBefore(s, null);
-
-        input.innerHTML = input.innerHTML;
-    }
-
-};
 
 var paymentMethodClick = function (e) {
     var target = e.target;
@@ -91,7 +61,6 @@ var onProvinceChanged = function (code, selector) {
 };
 
 module.exports = {
-    addFileToList: addFileToList,
     paymentMethodClick: paymentMethodClick,
     onProvinceChanged: onProvinceChanged
 };

@@ -66,7 +66,7 @@ var SelectFactory = (function () {
 var FileFactory = (function () {
 
     function FileFactory() {
-        this.select = FileInput;
+        this.file = FileInput;
     }
 
     FileFactory.prototype.createSelect = function (lang, file) {

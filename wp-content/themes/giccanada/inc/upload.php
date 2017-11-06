@@ -38,6 +38,13 @@ class UploadException extends Exception {
 	}
 }
 
+
+/*
+ * TODO
+ * function load_from_session
+ * function load_from_local
+ */
+
 class FileLoader {
 	public $file_name = '';
 	public $ext = '';
@@ -130,9 +137,9 @@ class FileLoader {
 		$full_path = get_stylesheet_directory() . "/public/uploads/$path";
 
 		foreach ( $_SESSION['upload_files'] as $key => $value ) {
-			$filename   = $key;
-			$ext        = pathinfo( $filename, PATHINFO_EXTENSION );
-			$hash       = md5( $filename );
+			$filename   = pathinfo( $key, PATHINFO_FILENAME );
+			$ext        = pathinfo( $key, PATHINFO_EXTENSION );
+			$hash       = md5( $filename . (new DateTime())->getTimestamp());
 			$h_filename = "$full_path/$hash.$ext";
 			$handle     = fopen( $h_filename, "wb" );
 			fwrite( $handle, self::uncompress( $value ) );
@@ -147,13 +154,21 @@ class FileLoader {
 				throw new Exception( error_get_last()['message'] );
 			}
 
-			unset( $_SESSION['upload_files'][ $key ] );
+			self::remove_file_from_session($key);
 
 			if ( error_get_last()['message'] ) {
 				throw new Exception( error_get_last()['message'] );
 			}
 
 		}
+	}
+
+	public static function remove_file_from_session($name) {
+		if (isset($_SESSION['upload_files'][ $name ])) {
+			unset( $_SESSION['upload_files'][ $name ] );
+			return true;
+		}
+		return false;
 	}
 
 	/**

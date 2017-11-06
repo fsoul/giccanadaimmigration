@@ -125,6 +125,9 @@ function get_cities_list_by_province() {
 add_action( 'wp_ajax_get_cities_list_by_province', 'get_cities_list_by_province' );
 add_action( 'wp_ajax_nopriv_get_cities_list_by_province', 'get_cities_list_by_province' );
 
+/**
+ *  Save file to current session
+ */
 function upload_file() {
 
 	if (isset($_FILES['file'])) {
@@ -133,8 +136,33 @@ function upload_file() {
 		try {
 			$file =  new FileLoader($_FILES['file'], false);
 			$file->upload_to_session();
-			$path = json_encode( array( 'success' => 'OK!' ) );
-			echo $path;
+			$response = json_encode( array( 'success' => 'OK!' ) );
+			echo $response;
+			wp_die();
+
+		} catch (Exception $e) {
+			echo json_encode( array( 'error' => $e->getMessage() ) );
+			wp_die();
+		}
+	}
+}
+add_action( 'wp_ajax_upload_file', 'upload_file' );
+add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );
+
+/**
+ *  Remove file from current session by `filename` passed in POST
+ */
+function remove_file_from_session() {
+	$filename = $_POST['filename'];
+
+	if (isset($filename)) {
+		require_once get_template_directory() . '/inc/upload.php';
+
+		try {
+			$response = '';
+			if (FileLoader::remove_file_from_session($filename))
+				$response = json_encode( array( 'success' => 'OK!' ) );
+			echo $response;
 			wp_die();
 
 		} catch (Exception $e) {
@@ -144,10 +172,13 @@ function upload_file() {
 	}
 }
 
-add_action( 'wp_ajax_upload_file', 'upload_file' );
-add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );
+add_action( 'wp_ajax_remove_file_from_session', 'remove_file_from_session' );
+add_action( 'wp_ajax_nopriv_remove_file_from_session', 'remove_file_from_session' );
 
 
+/**
+ *  Save files from current session to server
+ */
 function save_session_files() {
 
 	if (isset($_SESSION['upload_files']) && count($_SESSION['upload_files']) > 0 ) {
@@ -155,8 +186,8 @@ function save_session_files() {
 
 		try {
 			FileLoader::upload_files_from_session('test@email.com'); //TODO pass email from form
-			$path = json_encode( array( 'success' => 'OK!' ) );
-			echo $path;
+			$response = json_encode( array( 'success' => 'OK!' ) );
+			echo $response;
 			wp_die();
 
 		} catch (Exception $e) {

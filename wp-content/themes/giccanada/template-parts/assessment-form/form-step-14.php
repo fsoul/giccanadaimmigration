@@ -11,11 +11,12 @@
 </section>
 <section class="file-upload-container clearfix" id="canadian-work-files">
     <div class="file-upload-button-container">
-        <input type="file" onchange="app.func.addFileToList(this, 'canadian-work-files');" id="ass-worked-files" multiple accept="application/pdf, image/*">
+        <input type="file"id="ass-worked-files" multiple accept="application/pdf, image/*" data-container="canadian-work-files-list" data-type="multiple">
         <label class="ass-file-input-label">Приложите подтверждающие документы</label>
         <label class="ass-file-input" for="ass-worked-files"><span>Загрузить файл</span></label>
+        <span class="error-text add-btn-err" id="error-ass-worked-files"></span>
     </div>
-    <div class="added-files"></div>
+    <div class="added-files" id="canadian-work-files-list"></div>
 </section>
 <section>
 <section class="radio-block">

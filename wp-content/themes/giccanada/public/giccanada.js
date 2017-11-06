@@ -31070,7 +31070,7 @@ var validation = __webpack_require__(24);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 11,
+                startIndex: 13,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31258,7 +31258,7 @@ var SelectFactory = (function () {
 var FileFactory = (function () {
 
     function FileFactory() {
-        this.select = FileInput;
+        this.file = FileInput;
     }
 
     FileFactory.prototype.createSelect = function (lang, file) {
@@ -31755,7 +31755,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {
+
 var d = __webpack_require__(2);
 var DefaultInput = d.DefaultInput;
 var STATES = d.STATES;
@@ -31809,6 +31809,46 @@ var FileInput = (function () {
         return false;
     };
 
+    FileInput.prototype.upload = function (file, bar) {
+
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('action', 'upload_file');
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+
+        if (bar) {
+            xhr.upload.onprogress = function (event) {
+                var p = (event.loaded / event.total) * 100;
+                if (p < 90) {
+                    bar.style.width = p + '%';
+                    bar.setAttribute('aria-valuenow', p);
+                } else {
+                    bar.style.width = '90%';
+                    bar.setAttribute('aria-valuenow', 90);
+                }
+            };
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.error || !res.success) {
+                        bar.style.width = '0%';
+                        bar.setAttribute('aria-valuenow', 0);
+                        throw new Error(res.error);
+                    }
+                    bar.style.width = '100%';
+                    bar.setAttribute('aria-valuenow', 100);
+                }
+            };
+        }
+
+        xhr.send(fd);
+    };
+
     return FileInput;
 })();
 
@@ -31843,7 +31883,6 @@ var MultipleFileInput = (function () {
                 var file = fList[i];
                 this.checkSize(file);
                 this.add(file);
-                //TODO Load file to server
             }
             this.checkCount();
             this.input.value = '';
@@ -31853,43 +31892,77 @@ var MultipleFileInput = (function () {
         }
     };
 
-    MultipleFileInput.prototype.add = function (file) {
-        var s = document.createElement('span');
+    MultipleFileInput.prototype.createFileNode = function (text) {
+        var progress = document.createElement('div');
+        var bar = document.createElement('div');
+        var caption = document.createElement('span');
+        var del = document.createElement('span');
+
         var self = this;
-        s.classList.add('added-file-name');
-        s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
-        s.querySelector('.added-file-delete').onclick = function(e) {
-            self.remove(e, this.parentNode);
+
+        progress.classList.add('progress');
+        progress.classList.add('ass-file-p');
+        progress.appendChild(bar);
+
+        bar.classList.add('progress-bar');
+        bar.classList.add('ass-file-pb');
+        bar.setAttribute('role', 'progressbar');
+        bar.setAttribute('aria-valuemin', '0');
+        bar.setAttribute('aria-valuenow', '0');
+        bar.setAttribute('aria-valuemax', '100');
+        bar.style.width = "0%";
+        bar.appendChild(caption);
+
+        caption.classList.add('added-file-name');
+        caption.innerText = text;
+        caption.appendChild(del);
+
+        del.classList.add('added-file-delete');
+        del.innerHTML = '<i class="fa fa-times"></i>';
+
+        del.onclick = function(e) {
+            self.remove(e, progress);
         };
-        this.addContainer.insertBefore(s, null);
+
+        this.addContainer.insertBefore(progress, null);
+
+        return bar;
+    };
+
+    /**
+     * @param {File} file
+     */
+    MultipleFileInput.prototype.add = function (file) {
+        var bar = this.createFileNode(file.name);
+        this.upload(file, bar);
     };
 
     /**
      * @param {MouseEvent} e
-     * @param {Node} child The node that must be deleted.
+     * @param child The node that must be deleted.
      */
     MultipleFileInput.prototype.remove = function (e, child) {
         e.preventDefault();
-        this.addContainer.removeChild(child);
-    };
+        var caption = child.querySelector('.added-file-name');
+        var filename = caption.innerText;
+        var fd = new FormData();
+        var self = this;
+        fd.append('filename', filename);
+        fd.append('action', 'remove_file_from_session');
 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
 
-    /**
-      * {File} @param file
-     */
-    MultipleFileInput.prototype.upload = function (file) {
-        $.ajax({
-            url: gic.ajaxurl,
-            type: "POST",
-            data: {
-                'action': 'get_cities_list_by_province',
-                'file': file
-            },
-            dataType: 'json',
-            success: function () {
-                console.log('file loaded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = JSON.parse(xhr.responseText);
+                if (res.error || !res.success) {
+                    throw new Error(res.error || 'File not found');
+                }
+                self.addContainer.removeChild(child);
             }
-        });
+        };
+        xhr.send(fd);
     };
 
     return MultipleFileInput;
@@ -31899,7 +31972,6 @@ module.exports = {
     FileInput: FileInput,
     MultipleFileInput: MultipleFileInput
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 28 */
@@ -32048,36 +32120,6 @@ module.exports = ProgressBar;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
-/**
- * @param input input[type=file]
- * @param {string} id Container's id
- */
-var addFileToList = function (input, id) {
-
-
-    var fList = input.files;
-
-    var addContainer = document.getElementById(id).querySelector('.added-files');
-
-    for (var i = 0; i < fList.length; ++i) {
-        var file = fList[i];
-        validate(file);
-        var s = document.createElement('span');
-        s.classList.add('added-file-name');
-        s.innerHTML = file.name + '<span class="added-file-delete"><i class="fa fa-times"></i></span>';
-
-        s.querySelector('.added-file-delete').onclick = function(e) {
-            deleteFileFromList(e, id, this.parentNode);
-        };
-
-        //TODO Load file to server
-
-        addContainer.insertBefore(s, null);
-
-        input.innerHTML = input.innerHTML;
-    }
-
-};
 
 var paymentMethodClick = function (e) {
     var target = e.target;
@@ -32140,7 +32182,6 @@ var onProvinceChanged = function (code, selector) {
 };
 
 module.exports = {
-    addFileToList: addFileToList,
     paymentMethodClick: paymentMethodClick,
     onProvinceChanged: onProvinceChanged
 };
