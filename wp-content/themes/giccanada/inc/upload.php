@@ -38,7 +38,6 @@ class UploadException extends Exception {
 	}
 }
 
-
 /*
  * TODO
  * function load_from_session
@@ -50,9 +49,9 @@ class FileLoader {
 	public $ext = '';
 	public $size = 0;
 	public $error = 0;
-	public $type = '';
 	public $path = '';
 	public $tmp_name = '';
+	public $att_type = 0;
 
 	/**
 	 * The `$is_local` has to be 'false' if file is uploaded by agent and 'true' if file is already on a local server.
@@ -111,11 +110,11 @@ class FileLoader {
 	 * @param string $hname
 	 * @param string $path
 	 * @param integer $size
+	 * @param integer $type
 	 *
 	 * @throws Exception
 	 */
-	public static function insert_file_info( $email, $fname, $ext, $hname, $path, $size ) {
-
+	public static function insert_file_info( $email, $fname, $ext, $hname, $path, $size, $type ) {
 		global $wpdb;
 		$wpdb->insert( 'wp_attachments',
 			array(
@@ -124,37 +123,50 @@ class FileLoader {
 				'attach_ext'      => $ext,
 				'attach_hashname' => $hname,
 				'attach_path'     => $path,
-				'attach_size'     => $size
-			));
+				'attach_size'     => $size,
+				'attach_type'     => $type
+			) );
 
 		if ( ! $wpdb->insert_id ) {
 			throw new Exception( $wpdb->last_error );
 		}
 	}
 
-	public static function upload_files_from_session($email) {
-		$path = self::create_path();
+	public static function get_type_by_code( $code ) {
+		global $wpdb;
+		$prepare = $wpdb->prepare('SELECT att_type_id FROM wp_attach_type WHERE att_type_code = %s', $code);
+		$type = $wpdb->get_var( $prepare );
+		if ( ! $type ) {
+			throw new Exception( $wpdb->last_error || 'Unknown attach file' );
+		}
+		return $type;
+	}
+
+	public static function upload_files_from_session( $email ) {
+		$path      = self::create_path();
 		$full_path = get_stylesheet_directory() . "/public/uploads/$path";
 
 		foreach ( $_SESSION['upload_files'] as $key => $value ) {
 			$filename   = pathinfo( $key, PATHINFO_FILENAME );
 			$ext        = pathinfo( $key, PATHINFO_EXTENSION );
-			$hash       = md5( $filename . (new DateTime())->getTimestamp());
+			$hash       = md5( $filename . ( new DateTime() )->getTimestamp() );
 			$h_filename = "$full_path/$hash.$ext";
 			$handle     = fopen( $h_filename, "wb" );
-			fwrite( $handle, self::uncompress( $value ) );
+			$data = unserialize($value);
+			fwrite( $handle, self::uncompress( $data['file']) );
 			fclose( $handle );
 			if ( error_get_last()['message'] ) {
 				throw new Exception( error_get_last()['message'] );
 			}
 			$size = filesize( $h_filename );
-			self::insert_file_info($email, $filename, $ext, $hash, $path, $size);
+			$type = self::get_type_by_code($data['type']);
+			self::insert_file_info( $email, $filename, $ext, $hash, $path, $size, $type );
 
 			if ( error_get_last()['message'] ) {
 				throw new Exception( error_get_last()['message'] );
 			}
 
-			self::remove_file_from_session($key);
+			self::remove_file_from_session( $key );
 
 			if ( error_get_last()['message'] ) {
 				throw new Exception( error_get_last()['message'] );
@@ -163,11 +175,13 @@ class FileLoader {
 		}
 	}
 
-	public static function remove_file_from_session($name) {
-		if (isset($_SESSION['upload_files'][ $name ])) {
+	public static function remove_file_from_session( $name ) {
+		if ( isset( $_SESSION['upload_files'][ $name ] ) ) {
 			unset( $_SESSION['upload_files'][ $name ] );
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -188,10 +202,10 @@ class FileLoader {
 			throw new UploadException( $this->error );
 		}
 
-		$this->file_name = pathinfo( $file_arr['name'] )['filename'];
-		$this->ext       = pathinfo( $file_arr['name'] )['extension'];
+		$this->file_name = pathinfo( $_POST['filename'], PATHINFO_FILENAME );
+		$this->ext       = pathinfo( $_POST['filename'], PATHINFO_EXTENSION );
 		$this->size      = $file_arr['size'];
-		$this->type      = $file_arr['type'];
+		$this->att_type  = $file_arr['type'];
 		$this->path      = isset( $file_arr['path'] ) ? $file_arr['path'] : '';
 		$this->tmp_name  = isset( $file_arr['tmp_name'] ) ? $file_arr['tmp_name'] : '';
 
@@ -220,6 +234,12 @@ class FileLoader {
 			session_start();
 		}
 
-		$_SESSION['upload_files']["$this->file_name.$this->ext"] = FileLoader::compress( $this->tmp_name );
+		$filename = strtolower( pathinfo( $_POST['filename'], PATHINFO_FILENAME ) );
+		$ext      = strtolower( pathinfo( $_POST['filename'], PATHINFO_EXTENSION ) );
+
+		$_SESSION['upload_files']["$filename.$ext"] = serialize( array(
+			'file' => FileLoader::compress( $this->tmp_name ),
+			'type' => $_POST['type']
+		) );
 	}
 }

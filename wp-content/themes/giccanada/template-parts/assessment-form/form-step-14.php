@@ -11,7 +11,7 @@
 </section>
 <section class="file-upload-container clearfix" id="canadian-work-files">
     <div class="file-upload-button-container">
-        <input type="file"id="ass-worked-files" multiple accept="application/pdf, image/*" data-container="canadian-work-files-list" data-type="multiple">
+        <input type="file"id="ass-worked-files" multiple accept="application/pdf, image/*" data-container="canadian-work-files-list" data-type="multiple" data-attach="att_work">
         <label class="ass-file-input-label">Приложите подтверждающие документы</label>
         <label class="ass-file-input" for="ass-worked-files"><span>Загрузить файл</span></label>
         <span class="error-text add-btn-err" id="error-ass-worked-files"></span>

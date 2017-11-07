@@ -172,11 +172,18 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 13,
+                startIndex: 2,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
                         return false;
+
+                    if (currentIndex === 2) {
+                        var input = self.steps[2].inputs.filter(function (t) {
+                            return t.id = 'ass-photo';
+                        })[0];
+                        input.dispatchEvent(new CustomEvent('upload'));
+                    }
 
                     self._loadFormByStepIndex(newIndex + 1);
                     return true;
@@ -278,7 +285,6 @@ var validation = require('./input-validation');
 
             return result;
         };
-
         return AssessmentForm;
     })();
 

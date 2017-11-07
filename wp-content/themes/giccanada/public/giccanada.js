@@ -10433,12 +10433,19 @@ var STATES = {
     normal: 'normal'
 };
 
+var EventTarget = __webpack_require__(24);
+
 function DefaultInput(lang, input) {
+    EventTarget.call(this);
     this.lang = lang;
     this.input = input;
     this.errorMsg = document.getElementById('error-' + input.id);
     this.subscribers = [];
 }
+
+DefaultInput.prototype = Object.create(EventTarget.prototype);
+DefaultInput.prototype.constructor = DefaultInput;
+
 
 DefaultInput.prototype.getErrorMessage = function () {
     return {
@@ -10553,9 +10560,6 @@ var listeners = __webpack_require__(16),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
     buttonUp = listeners.buttonUp;
-var CroppiePhoto = __webpack_require__(17),
-    croppie = new CroppiePhoto();
-
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -10612,11 +10616,11 @@ document.addEventListener('DOMContentLoaded', function () {
         backArrow.style.visibility = 'hidden';
     });
 
+    __webpack_require__(17);
     __webpack_require__(18);
-    __webpack_require__(19);
+    __webpack_require__(20);
     __webpack_require__(21);
     __webpack_require__(22);
-    __webpack_require__(23);
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
@@ -10644,8 +10648,7 @@ __webpack_require__(38);
 __webpack_require__(39);
 
 module.exports = {
-    func: __webpack_require__(40),
-    croppie: croppie
+    func: __webpack_require__(40)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30375,57 +30378,6 @@ module.exports = {
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function CroppieAssPhoto() {
-    this.options = {
-        viewport: {width: 200, height: 250},
-        boundary: {width: 266, height: 266}
-    };
-}
-
-CroppieAssPhoto.prototype._init = function () {
-    if (!this.croppie)
-        this.croppie = new Croppie(document.getElementById('added-photo'), this.options);
-};
-
-CroppieAssPhoto.prototype.croppieLoadImage = function (imgUrl) {
-    this._init();
-    imgUrl = imgUrl || 'http://giccanadaimmigration.lo/wp-content/themes/giccanada/public/images/Review2-f94bca7e14.jpg';
-    this.croppie.bind({
-        url: imgUrl
-    });
-};
-
-CroppieAssPhoto.prototype.saveCroppedBlob = function () {
-    this.croppie.result('blob').then(function (blob) {
-
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            var base64 = reader.result;
-            var link = document.createElement("a");
-
-            link.setAttribute("href", base64);
-            link.setAttribute("download", 'test');
-            link.click();
-        };
-
-        reader.readAsDataURL(blob);
-
-        // window.URL.createObjectURL(blob)
-    });
-};
-
-
-module.exports =  CroppieAssPhoto;
-
-
-/***/ }),
-/* 18 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -30501,13 +30453,13 @@ module.exports =
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var OpenCaseForm = __webpack_require__(20);
+var OpenCaseForm = __webpack_require__(19);
 
 module.exports = (function () {
 
@@ -30628,7 +30580,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30781,7 +30733,7 @@ module.exports = OpenCaseForm;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30829,7 +30781,7 @@ module.exports =  (function() {
 })();
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30892,13 +30844,13 @@ module.exports =  (function () {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-var validation = __webpack_require__(24);
+var validation = __webpack_require__(23);
 
 (function () {
     var AssessmentProgressBar = (function () {
@@ -31070,11 +31022,18 @@ var validation = __webpack_require__(24);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 13,
+                startIndex: 2,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
                         return false;
+
+                    if (currentIndex === 2) {
+                        var input = self.steps[2].inputs.filter(function (t) {
+                            return t.id = 'ass-photo';
+                        })[0];
+                        input.dispatchEvent(new CustomEvent('upload'));
+                    }
 
                     self._loadFormByStepIndex(newIndex + 1);
                     return true;
@@ -31176,7 +31135,6 @@ var validation = __webpack_require__(24);
 
             return result;
         };
-
         return AssessmentForm;
     })();
 
@@ -31186,7 +31144,7 @@ var validation = __webpack_require__(24);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31210,6 +31168,7 @@ var PeriodDateSelect = select.PeriodDateSelect;
 
 var FileInput = file.FileInput;
 var MultipleFileInput = file.MultipleFileInput;
+var PhotoInput = file.PhotoInput;
 
 var TextFactory = (function () {
 
@@ -31267,6 +31226,8 @@ var FileFactory = (function () {
             case 'multiple':
                 this.file = MultipleFileInput;
                 break;
+            case 'image':
+                this.file = PhotoInput;
         }
         return this.file;
     };
@@ -31320,6 +31281,52 @@ function initByInput(el) {
 module.exports = {
     initByInput: initByInput
 };
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function EventTarget() {
+    this.listeners = {};
+}
+
+EventTarget.prototype.listeners = null;
+EventTarget.prototype.addEventListener = function(type, callback) {
+    if (!(type in this.listeners)) {
+        this.listeners[type] = [];
+    }
+    this.listeners[type].push(callback);
+};
+
+EventTarget.prototype.removeEventListener = function(type, callback) {
+    if (!(type in this.listeners)) {
+        return;
+    }
+    var stack = this.listeners[type];
+    for (var i = 0, l = stack.length; i < l; i++) {
+        if (stack[i] === callback){
+            stack.splice(i, 1);
+            return;
+        }
+    }
+};
+
+EventTarget.prototype.dispatchEvent = function(event) {
+    if (!(event.type in this.listeners)) {
+        return true;
+    }
+    var stack = this.listeners[event.type];
+
+    for (var i = 0, l = stack.length; i < l; i++) {
+        stack[i].call(this, event);
+    }
+    return !event.defaultPrevented;
+};
+
+module.exports = EventTarget;
 
 /***/ }),
 /* 25 */
@@ -31765,10 +31772,9 @@ var FileInput = (function () {
     function FileInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.maxSize = 2e+7;
-
+        this.type = this.input.getAttribute('data-attach');
         var self = this;
-
-        this.input.onchange =  function () {
+        this.input.onchange = function () {
             self.doValidate();
         };
     }
@@ -31809,46 +31815,6 @@ var FileInput = (function () {
         return false;
     };
 
-    FileInput.prototype.upload = function (file, bar) {
-
-        var fd = new FormData();
-        fd.append('file', file);
-        fd.append('action', 'upload_file');
-
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', gic.ajaxurl, true);
-
-
-        if (bar) {
-            xhr.upload.onprogress = function (event) {
-                var p = (event.loaded / event.total) * 100;
-                if (p < 90) {
-                    bar.style.width = p + '%';
-                    bar.setAttribute('aria-valuenow', p);
-                } else {
-                    bar.style.width = '90%';
-                    bar.setAttribute('aria-valuenow', 90);
-                }
-            };
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = JSON.parse(xhr.responseText);
-                    if (res.error || !res.success) {
-                        bar.style.width = '0%';
-                        bar.setAttribute('aria-valuenow', 0);
-                        throw new Error(res.error);
-                    }
-                    bar.style.width = '100%';
-                    bar.setAttribute('aria-valuenow', 100);
-                }
-            };
-        }
-
-        xhr.send(fd);
-    };
-
     return FileInput;
 })();
 
@@ -31857,10 +31823,6 @@ var MultipleFileInput = (function () {
     function MultipleFileInput(lang, input) {
         FileInput.apply(this, arguments);
         this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
-        var self = this;
-        this.input.onchange =  function () {
-            self.doValidate();
-        };
     }
 
     MultipleFileInput.prototype = Object.create(FileInput.prototype);
@@ -31920,13 +31882,55 @@ var MultipleFileInput = (function () {
         del.classList.add('added-file-delete');
         del.innerHTML = '<i class="fa fa-times"></i>';
 
-        del.onclick = function(e) {
+        del.onclick = function (e) {
             self.remove(e, progress);
         };
 
         this.addContainer.insertBefore(progress, null);
 
         return bar;
+    };
+
+    MultipleFileInput.prototype.upload = function (file, bar) {
+
+        var fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('filename', file.name);
+        fd.append('type', this.type);
+        fd.append('action', 'upload_file');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+
+        if (bar) {
+            xhr.upload.onprogress = function (event) {
+                var p = (event.loaded / event.total) * 100;
+                if (p < 90) {
+                    bar.style.width = p + '%';
+                    bar.setAttribute('aria-valuenow', p);
+                } else {
+                    bar.style.width = '90%';
+                    bar.setAttribute('aria-valuenow', 90);
+                }
+            };
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.error || !res.success) {
+                        bar.style.width = '0%';
+                        bar.setAttribute('aria-valuenow', 0);
+                        throw new Error(res.error);
+                    }
+                    bar.style.width = '100%';
+                    bar.setAttribute('aria-valuenow', 100);
+                }
+            };
+        }
+
+        xhr.send(fd);
     };
 
     /**
@@ -31942,7 +31946,6 @@ var MultipleFileInput = (function () {
      * @param child The node that must be deleted.
      */
     MultipleFileInput.prototype.remove = function (e, child) {
-        e.preventDefault();
         var caption = child.querySelector('.added-file-name');
         var filename = caption.innerText;
         var fd = new FormData();
@@ -31953,7 +31956,7 @@ var MultipleFileInput = (function () {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', gic.ajaxurl, true);
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var res = JSON.parse(xhr.responseText);
                 if (res.error || !res.success) {
@@ -31968,9 +31971,113 @@ var MultipleFileInput = (function () {
     return MultipleFileInput;
 })();
 
+
+var PhotoInput = (function () {
+
+    function PhotoInput(lang, input) {
+        FileInput.apply(this, arguments);
+
+        this.options = {
+            viewport: {width: 200, height: 250},
+            boundary: {width: 266, height: 266}
+        };
+        var self = this;
+        this.filename = '';
+
+        this.input.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                // if (self.filename) {
+                //     self.remove(self.filename);
+                // }
+                self.filename = this.files[0].name;
+                self.showPhoto(this.files[0]);
+            }
+        });
+
+        this.addEventListener('upload', function () {
+            self.upload();
+        });
+    }
+
+    PhotoInput.prototype = Object.create(FileInput.prototype);
+    PhotoInput.prototype.constructor = PhotoInput;
+
+    PhotoInput.prototype.showPhoto = function (file) {
+        if (!this.croppie)
+            this.croppie = new Croppie(document.getElementById(this.input.getAttribute('data-photo')), this.options);
+        if ( file ) {
+            var reader = new FileReader();
+            var self = this;
+            reader.onload = function (e) {
+                self.croppie.bind({
+                    url: e.target.result
+                });
+            };
+            reader.readAsDataURL(file)
+        }
+    };
+
+
+    PhotoInput.prototype.upload = function () {
+        var fd = new FormData();
+        var self = this;
+        var xhr = new XMLHttpRequest();
+        this.croppie.result('blob').then(function (blob) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                fd.append('file', blob);
+                fd.append('filename', self.filename.split('.').shift() + '.png');
+                fd.append('type', self.type);
+                fd.append('action', 'upload_file');
+                xhr.open('POST', gic.ajaxurl, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var res = JSON.parse(xhr.responseText);
+                        if (res.error || !res.success) {
+                            throw new Error(res.error || 'Upload error');
+                        }
+                    }
+                };
+                xhr.send(fd);
+
+            };
+
+            reader.readAsArrayBuffer(blob);
+        });
+    };
+
+
+    PhotoInput.prototype.remove = function (filename) {
+        var fd = new FormData();
+        var self = this;
+        fd.append('filename', filename);
+        fd.append('action', 'remove_file_from_session');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = JSON.parse(xhr.responseText);
+                if (res.error || !res.success) {
+                    throw new Error(res.error || 'File not found');
+                }
+            }
+        };
+        xhr.send(fd);
+    };
+
+    return PhotoInput;
+})();
+
+
 module.exports = {
     FileInput: FileInput,
-    MultipleFileInput: MultipleFileInput
+    MultipleFileInput: MultipleFileInput,
+    PhotoInput: PhotoInput
 };
 
 /***/ }),

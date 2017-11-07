@@ -18,6 +18,7 @@ var PeriodDateSelect = select.PeriodDateSelect;
 
 var FileInput = file.FileInput;
 var MultipleFileInput = file.MultipleFileInput;
+var PhotoInput = file.PhotoInput;
 
 var TextFactory = (function () {
 
@@ -75,6 +76,8 @@ var FileFactory = (function () {
             case 'multiple':
                 this.file = MultipleFileInput;
                 break;
+            case 'image':
+                this.file = PhotoInput;
         }
         return this.file;
     };

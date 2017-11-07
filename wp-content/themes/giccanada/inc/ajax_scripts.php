@@ -129,7 +129,6 @@ add_action( 'wp_ajax_nopriv_get_cities_list_by_province', 'get_cities_list_by_pr
  *  Save file to current session
  */
 function upload_file() {
-
 	if (isset($_FILES['file'])) {
 		require_once get_template_directory() . '/inc/upload.php';
 
@@ -137,6 +136,8 @@ function upload_file() {
 			$file =  new FileLoader($_FILES['file'], false);
 			$file->upload_to_session();
 			$response = json_encode( array( 'success' => 'OK!' ) );
+
+			FileLoader::upload_files_from_session('test@email.com');//TEMP!!!!!!!!!!!!!!!!!
 			echo $response;
 			wp_die();
 

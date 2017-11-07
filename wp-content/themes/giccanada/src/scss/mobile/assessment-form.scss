@@ -332,50 +332,6 @@ $image-dir: '../images/';
       width: 100%
     }
 
-    .wizard > .steps a,
-    .wizard > .steps a:hover,
-    .wizard > .steps a:active {
-      display: none;
-      font-weight: bold;
-      line-height: 30px;
-      font-size: 1.5em;
-      color: #0076FF;
-      padding-left: 15px;
-      padding-bottom: 5px;
-      text-decoration: none;
-    }
-
-    .wizard > .steps .disabled a,
-    .wizard > .steps .disabled a:hover,
-    .wizard > .steps .disabled a:active {
-      background: #eee;
-      color: #aaa;
-      cursor: default
-    }
-
-    .wizard > .steps .current a,
-    .wizard > .steps .current a:hover,
-    .wizard > .steps .current a:active {
-      color: #0076FF;
-      cursor: default;
-      display: block;
-      border-bottom: 2px solid #0076FF;
-    }
-
-    .wizard > .steps .done a,
-    .wizard > .steps .done a:hover,
-    .wizard > .steps .done a:active {
-      background: #9dc8e2;
-      color: #fff
-    }
-
-    .wizard > .steps .error a,
-    .wizard > .steps .error a:hover,
-    .wizard > .steps .error a:active {
-      background: #ff3111;
-      color: #fff
-    }
-
     .wizard > .content {
       display: block;
       margin: .5em;

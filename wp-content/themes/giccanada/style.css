@@ -12065,40 +12065,6 @@ body {
     #assessment-modal .modal-body .wizard.vertical > .steps > ul > li {
       float: none;
       width: 100%; }
-    #assessment-modal .modal-body .wizard > .steps a,
-    #assessment-modal .modal-body .wizard > .steps a:hover,
-    #assessment-modal .modal-body .wizard > .steps a:active {
-      display: none;
-      font-weight: bold;
-      line-height: 30px;
-      font-size: 1.5em;
-      color: #0076FF;
-      padding-left: 15px;
-      padding-bottom: 5px;
-      text-decoration: none; }
-    #assessment-modal .modal-body .wizard > .steps .disabled a,
-    #assessment-modal .modal-body .wizard > .steps .disabled a:hover,
-    #assessment-modal .modal-body .wizard > .steps .disabled a:active {
-      background: #eee;
-      color: #aaa;
-      cursor: default; }
-    #assessment-modal .modal-body .wizard > .steps .current a,
-    #assessment-modal .modal-body .wizard > .steps .current a:hover,
-    #assessment-modal .modal-body .wizard > .steps .current a:active {
-      color: #0076FF;
-      cursor: default;
-      display: block;
-      border-bottom: 2px solid #0076FF; }
-    #assessment-modal .modal-body .wizard > .steps .done a,
-    #assessment-modal .modal-body .wizard > .steps .done a:hover,
-    #assessment-modal .modal-body .wizard > .steps .done a:active {
-      background: #9dc8e2;
-      color: #fff; }
-    #assessment-modal .modal-body .wizard > .steps .error a,
-    #assessment-modal .modal-body .wizard > .steps .error a:hover,
-    #assessment-modal .modal-body .wizard > .steps .error a:active {
-      background: #ff3111;
-      color: #fff; }
     #assessment-modal .modal-body .wizard > .content {
       display: block;
       margin: .5em;

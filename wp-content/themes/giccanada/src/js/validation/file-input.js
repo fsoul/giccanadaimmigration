@@ -8,10 +8,9 @@ var FileInput = (function () {
     function FileInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.maxSize = 2e+7;
-
+        this.type = this.input.getAttribute('data-attach');
         var self = this;
-
-        this.input.onchange =  function () {
+        this.input.onchange = function () {
             self.doValidate();
         };
     }
@@ -52,46 +51,6 @@ var FileInput = (function () {
         return false;
     };
 
-    FileInput.prototype.upload = function (file, bar) {
-
-        var fd = new FormData();
-        fd.append('file', file);
-        fd.append('action', 'upload_file');
-
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', gic.ajaxurl, true);
-
-
-        if (bar) {
-            xhr.upload.onprogress = function (event) {
-                var p = (event.loaded / event.total) * 100;
-                if (p < 90) {
-                    bar.style.width = p + '%';
-                    bar.setAttribute('aria-valuenow', p);
-                } else {
-                    bar.style.width = '90%';
-                    bar.setAttribute('aria-valuenow', 90);
-                }
-            };
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = JSON.parse(xhr.responseText);
-                    if (res.error || !res.success) {
-                        bar.style.width = '0%';
-                        bar.setAttribute('aria-valuenow', 0);
-                        throw new Error(res.error);
-                    }
-                    bar.style.width = '100%';
-                    bar.setAttribute('aria-valuenow', 100);
-                }
-            };
-        }
-
-        xhr.send(fd);
-    };
-
     return FileInput;
 })();
 
@@ -100,10 +59,6 @@ var MultipleFileInput = (function () {
     function MultipleFileInput(lang, input) {
         FileInput.apply(this, arguments);
         this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
-        var self = this;
-        this.input.onchange =  function () {
-            self.doValidate();
-        };
     }
 
     MultipleFileInput.prototype = Object.create(FileInput.prototype);
@@ -163,13 +118,55 @@ var MultipleFileInput = (function () {
         del.classList.add('added-file-delete');
         del.innerHTML = '<i class="fa fa-times"></i>';
 
-        del.onclick = function(e) {
+        del.onclick = function (e) {
             self.remove(e, progress);
         };
 
         this.addContainer.insertBefore(progress, null);
 
         return bar;
+    };
+
+    MultipleFileInput.prototype.upload = function (file, bar) {
+
+        var fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('filename', file.name);
+        fd.append('type', this.type);
+        fd.append('action', 'upload_file');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+
+        if (bar) {
+            xhr.upload.onprogress = function (event) {
+                var p = (event.loaded / event.total) * 100;
+                if (p < 90) {
+                    bar.style.width = p + '%';
+                    bar.setAttribute('aria-valuenow', p);
+                } else {
+                    bar.style.width = '90%';
+                    bar.setAttribute('aria-valuenow', 90);
+                }
+            };
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.error || !res.success) {
+                        bar.style.width = '0%';
+                        bar.setAttribute('aria-valuenow', 0);
+                        throw new Error(res.error);
+                    }
+                    bar.style.width = '100%';
+                    bar.setAttribute('aria-valuenow', 100);
+                }
+            };
+        }
+
+        xhr.send(fd);
     };
 
     /**
@@ -185,7 +182,6 @@ var MultipleFileInput = (function () {
      * @param child The node that must be deleted.
      */
     MultipleFileInput.prototype.remove = function (e, child) {
-        e.preventDefault();
         var caption = child.querySelector('.added-file-name');
         var filename = caption.innerText;
         var fd = new FormData();
@@ -196,7 +192,7 @@ var MultipleFileInput = (function () {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', gic.ajaxurl, true);
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var res = JSON.parse(xhr.responseText);
                 if (res.error || !res.success) {
@@ -211,7 +207,111 @@ var MultipleFileInput = (function () {
     return MultipleFileInput;
 })();
 
+
+var PhotoInput = (function () {
+
+    function PhotoInput(lang, input) {
+        FileInput.apply(this, arguments);
+
+        this.options = {
+            viewport: {width: 200, height: 250},
+            boundary: {width: 266, height: 266}
+        };
+        var self = this;
+        this.filename = '';
+
+        this.input.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                // if (self.filename) {
+                //     self.remove(self.filename);
+                // }
+                self.filename = this.files[0].name;
+                self.showPhoto(this.files[0]);
+            }
+        });
+
+        this.addEventListener('upload', function () {
+            self.upload();
+        });
+    }
+
+    PhotoInput.prototype = Object.create(FileInput.prototype);
+    PhotoInput.prototype.constructor = PhotoInput;
+
+    PhotoInput.prototype.showPhoto = function (file) {
+        if (!this.croppie)
+            this.croppie = new Croppie(document.getElementById(this.input.getAttribute('data-photo')), this.options);
+        if ( file ) {
+            var reader = new FileReader();
+            var self = this;
+            reader.onload = function (e) {
+                self.croppie.bind({
+                    url: e.target.result
+                });
+            };
+            reader.readAsDataURL(file)
+        }
+    };
+
+
+    PhotoInput.prototype.upload = function () {
+        var fd = new FormData();
+        var self = this;
+        var xhr = new XMLHttpRequest();
+        this.croppie.result('blob').then(function (blob) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                fd.append('file', blob);
+                fd.append('filename', self.filename.split('.').shift() + '.png');
+                fd.append('type', self.type);
+                fd.append('action', 'upload_file');
+                xhr.open('POST', gic.ajaxurl, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var res = JSON.parse(xhr.responseText);
+                        if (res.error || !res.success) {
+                            throw new Error(res.error || 'Upload error');
+                        }
+                    }
+                };
+                xhr.send(fd);
+
+            };
+
+            reader.readAsArrayBuffer(blob);
+        });
+    };
+
+
+    PhotoInput.prototype.remove = function (filename) {
+        var fd = new FormData();
+        var self = this;
+        fd.append('filename', filename);
+        fd.append('action', 'remove_file_from_session');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = JSON.parse(xhr.responseText);
+                if (res.error || !res.success) {
+                    throw new Error(res.error || 'File not found');
+                }
+            }
+        };
+        xhr.send(fd);
+    };
+
+    return PhotoInput;
+})();
+
+
 module.exports = {
     FileInput: FileInput,
-    MultipleFileInput: MultipleFileInput
+    MultipleFileInput: MultipleFileInput,
+    PhotoInput: PhotoInput
 };
