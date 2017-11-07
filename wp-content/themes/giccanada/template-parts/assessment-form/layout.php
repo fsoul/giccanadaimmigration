@@ -2,12 +2,22 @@
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">ASSESSMENT FORM</h5>
+                <div class="container-fluid">
+                    <div class="row justify-content-center no-gutters">
+                        <div id="ass-logo" class="col">
+
+                        </div>
+                    </div>
+                    <div class="row justify-content-center no-gutters">
+                        <div class="col">
+                            <h5 class="modal-title">ASSESSMENT FORM</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
                 <div id="ass-step-init">
                     <div>
-                        <span class="ass-photo"></span>
                         <p>
                             <span>Добрый день!</span>
                             <span>После заполнения формы, оплаты услуг и открытия иммиграционного дела

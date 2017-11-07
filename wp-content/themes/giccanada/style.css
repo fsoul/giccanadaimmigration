@@ -10904,7 +10904,14 @@ body {
   padding: 60px 0; }
 
 #assessment-modal .modal-header {
-  border: none; }
+  border: none;
+  padding-left: 0;
+  padding-right: 0; }
+  #assessment-modal .modal-header #ass-logo {
+    background: url(./public/images/ass-logo-de5548aa11.png) no-repeat center;
+    background-size: contain;
+    width: 184px;
+    height: 100px; }
   #assessment-modal .modal-header .modal-title {
     width: 100%;
     height: 56px;
@@ -10914,7 +10921,9 @@ body {
     letter-spacing: 0.42px;
     text-transform: uppercase;
     color: #FF8200;
-    font-weight: 900; }
+    font-weight: 900;
+    padding-top: 20px;
+    padding-bottom: 20px; }
 
 #assessment-modal .modal-body {
   padding: 50px 15px 0 15px; }
@@ -10938,12 +10947,6 @@ body {
         background: linear-gradient(66.11deg, #FF8200 34.28%, #FF3400 167.85%); }
   #assessment-modal .modal-body #ass-step-init {
     text-align: center; }
-    #assessment-modal .modal-body #ass-step-init .ass-photo {
-      display: inline-block;
-      height: 100px;
-      width: 100px;
-      background: url(./public/images/ass-photo-69388f311b.png) no-repeat;
-      background-size: contain; }
     #assessment-modal .modal-body #ass-step-init p span {
       padding-bottom: 40px;
       display: inline-block; }
