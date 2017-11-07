@@ -13,9 +13,6 @@ var listeners = require('./js/listeners'),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
     buttonUp = listeners.buttonUp;
-var CroppiePhoto = require('./js/croppie-photo'),
-    croppie = new CroppiePhoto();
-
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -104,6 +101,5 @@ require('./scss/assessment-form.scss');
 require('./scss/media-query.scss');
 
 module.exports = {
-    func: require('./js/functions'),
-    croppie: croppie
+    func: require('./js/functions')
 };

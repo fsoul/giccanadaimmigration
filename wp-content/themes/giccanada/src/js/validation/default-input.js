@@ -6,12 +6,19 @@ var STATES = {
     normal: 'normal'
 };
 
+var EventTarget = require('../lib/event-target');
+
 function DefaultInput(lang, input) {
+    EventTarget.call(this);
     this.lang = lang;
     this.input = input;
     this.errorMsg = document.getElementById('error-' + input.id);
     this.subscribers = [];
 }
+
+DefaultInput.prototype = Object.create(EventTarget.prototype);
+DefaultInput.prototype.constructor = DefaultInput;
+
 
 DefaultInput.prototype.getErrorMessage = function () {
     return {

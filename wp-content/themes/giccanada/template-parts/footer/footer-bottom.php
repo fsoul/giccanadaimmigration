@@ -14,7 +14,7 @@
             <a href="#" class="footer-text footer-site-map white-link-underline">Карта сайта</a>
 		</div>
 		<div class="col-sm-12 col-md-3 col-auto">
-			<span class="footer-text footer-cr">&copy;2017 GIC Canada. All rights reserved.</span>
+			<span class="footer-text footer-cr">&copy;<?=date("Y");?> GIC Canada. All rights reserved.</span>
 		</div>
 	</div>
 </div>

@@ -34,6 +34,13 @@ function register_wp_widgets() {
 }
 add_action( 'widgets_init', 'register_wp_widgets' );
 
+function start_session() {
+	if(!session_id()) {
+		session_start();
+	}
+}
+add_action('init', 'start_session', 1);
+
 function setOpenCaseCountry() {
 	$pathToLib = get_stylesheet_directory() . "/SxGeo.php";
 	$pathToDB = get_stylesheet_directory() . "/SxGeo.dat";

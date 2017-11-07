@@ -4,6 +4,7 @@ var DefaultInput = require('./validation/default-input').DefaultInput;
 
 var text = require('./validation/text-input');
 var select = require('./validation/select-input');
+var file = require('./validation/file-input');
 
 var TextInput = text.TextInput;
 var EmailInput = text.EmailInput;
@@ -14,6 +15,10 @@ var CVCInput = text.CVCInput;
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
 var PeriodDateSelect = select.PeriodDateSelect;
+
+var FileInput = file.FileInput;
+var MultipleFileInput = file.MultipleFileInput;
+var PhotoInput = file.PhotoInput;
 
 var TextFactory = (function () {
 
@@ -59,6 +64,27 @@ var SelectFactory = (function () {
     return SelectFactory;
 })();
 
+var FileFactory = (function () {
+
+    function FileFactory() {
+        this.file = FileInput;
+    }
+
+    FileFactory.prototype.createSelect = function (lang, file) {
+        var type = file.getAttribute('data-type');
+        switch (type) {
+            case 'multiple':
+                this.file = MultipleFileInput;
+                break;
+            case 'image':
+                this.file = PhotoInput;
+        }
+        return this.file;
+    };
+
+    return FileFactory;
+})();
+
 var InputsFactory = (function () {
 
     function InputsFactory() {
@@ -67,7 +93,8 @@ var InputsFactory = (function () {
 
     InputsFactory.prototype.createInput = function (lang, input) {
         var selectFactory = new SelectFactory(),
-            textFactory = new TextFactory();
+            textFactory = new TextFactory(),
+            fileFactory = new FileFactory();
         switch (input.type) {
             case 'text':
             case 'password':
@@ -78,6 +105,9 @@ var InputsFactory = (function () {
                 break;
             case 'tel':
                 this.inputClass = TelInput;
+                break;
+            case 'file':
+                this.inputClass = fileFactory.createSelect(lang, input);
                 break;
             case 'select-one': //select input
             case 'select-multiple':
