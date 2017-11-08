@@ -1,13 +1,19 @@
 <div class="modal fade" id="assessment-modal">
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">ASSESSMENT FORM</h5>
-            </div>
             <div class="modal-body">
                 <div id="ass-step-init">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center no-gutters">
+                            <div id="ass-logo" class="col"></div>
+                        </div>
+                        <div class="row justify-content-center no-gutters">
+                            <div class="col">
+                                <h5 class="modal-title">ASSESSMENT FORM</h5>
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <span class="ass-photo"></span>
                         <p>
                             <span>Добрый день!</span>
                             <span>После заполнения формы, оплаты услуг и открытия иммиграционного дела
@@ -18,6 +24,13 @@
                     <button class="orange-btn" id="ass-init-btn">Заполнить форму</button>
                 </div>
                 <div class="progress-container">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center no-gutters">
+                            <div class="col">
+                                <h5>ASSESSMENT FORM</h5>
+                            </div>
+                        </div>
+                    </div>
                     <p class="progress-cation">Шаг <span class="progress-current-step"></span> из <span class="progress-steps-count"></span></p>
                     <div class="progressbar">
                         <div></div>
@@ -52,10 +65,12 @@
                     <fieldset class="assessment-step -step13 work"></fieldset>
                     <h5>Опыт работы в Канаде</h5>
                     <fieldset class="assessment-step -step14 work-at-canada"></fieldset>
-                    <h5>Информация о семье</h5>
+                    <h5>Информация о партнере</h5>
                     <fieldset class="assessment-step -step15 family-members"></fieldset>
+                    <h5>Информация о детях</h5>
+                    <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>
-                    <fieldset class="assessment-step -step16 payment"></fieldset>
+                    <fieldset class="assessment-step -step17 payment"></fieldset>
                 </form>
             </div>
         </div>

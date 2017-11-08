@@ -15,20 +15,25 @@ $image-dir: '../images/';
     min-height: 100%;
   }
 
-  .modal-header {
+  .modal-body {
+    padding: 0 7px;
 
     .modal-title {
       font-size: 1.5em;
       line-height: 30px;
-      height: 30px;
     }
-  }
-
-  .modal-body {
-    padding: 0 7px;
 
     .progress-container {
       text-align: center;
+
+      div.container-fluid {
+        padding: 0;
+
+        h5 {
+          line-height: 48px;
+          font-size: 1.5em;
+        }
+      }
     }
 
     #ass-step-init {
