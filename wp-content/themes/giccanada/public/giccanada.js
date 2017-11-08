@@ -31020,7 +31020,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 14,
+                startIndex: 15,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31094,11 +31094,11 @@ var validation = __webpack_require__(23);
                         for (var i = 0; i < copies.length; ++i) {
                             if (self.steps[stepIndex].copyButtons.indexOf(copies[i]) === -1) {
                                 self.steps[stepIndex].copyButtons.push(new AssessmentCopyButton(copies[i]));
-                                self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
-                                    self.doCopyInputs(e, stepIndex);
-                                });
                             }
                         }
+                        self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
+                            self.doCopyInputs(e, stepIndex);
+                        });
                         self.steps[stepIndex].isLoaded = true;
                     }
                 });

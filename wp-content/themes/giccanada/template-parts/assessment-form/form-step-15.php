@@ -1,6 +1,6 @@
 <div>
     <p>Пожалуйста, предоставьте подробную информацию о Вашем партнере.</p>
-    <div data-parent="family-members">
+    <div>
         <section class="radio-block">
             <label>Есть ли у вас супруг/а или гражданский партнер?</label>
             <section>
@@ -126,7 +126,6 @@
             </section>
         </section>
     </div>
-
 </div>
 <div id="part-educ">
     <p>Образование партнера (школа, училище, институт, курсы) в хронологическом порядке.</p>
@@ -220,7 +219,7 @@
 </div>
 <div id="part-work">
     <p>Укажите опыт работы партнера в хронологическом порядке начиная с последнего места работы.</p>
-    <div class="multiplication-container" data-parent="work">
+    <div class="multiplication-container" data-parent="family-members">
         <section>
             <label for="part-work-name-0">Наименование компании / нанимателя</label>
             <input type="text" name="part-work-name[]" id="part-work-name-0" class="to-change-id">

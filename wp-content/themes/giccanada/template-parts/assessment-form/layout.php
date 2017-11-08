@@ -67,8 +67,10 @@
                     <fieldset class="assessment-step -step14 work-at-canada"></fieldset>
                     <h5>Информация о партнере</h5>
                     <fieldset class="assessment-step -step15 family-members"></fieldset>
+                    <h5>Информация о детях</h5>
+                    <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>
-                    <fieldset class="assessment-step -step16 payment"></fieldset>
+                    <fieldset class="assessment-step -step17 payment"></fieldset>
                 </form>
             </div>
         </div>
