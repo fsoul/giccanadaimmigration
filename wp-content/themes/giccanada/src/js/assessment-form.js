@@ -96,7 +96,6 @@ var validation = require('./input-validation');
                     case 'select':
                     case 'textarea':
                         item.id = this.getNewId(item.id, copyCount + 1);
-                        item.setAttribute('name', this.getNewId(item.getAttribute('name'), copyCount + 1));
                         item.value = '';
                         item.classList.remove('invalid-input');
                         if (item.hasAttribute('data-class'))

@@ -1,6 +1,18 @@
 <div>
     <p>Пожалуйста, предоставьте подробную информацию о Вашем партнере.</p>
     <div data-parent="family-members">
+        <section class="radio-block">
+            <label>Есть ли у вас супруг/а или гражданский партнер?</label>
+            <section>
+                <input name="part-relation" class="ass-radio" value="y" checked type="radio"
+                       id="part-relation-y">
+                <label for="part-relation-y" >Да</label>
+            </section>
+            <section>
+                <input name="part-relation" class="ass-radio" value="n" type="radio" id="part-relation-n">
+                <label for="part-relation-n" >Нет</label>
+            </section>
+        </section>
         <section>
             <label for="member-last-name" >Фамилия</label>
             <input type="text" name="member-last-name" id="member-last-name"
@@ -121,22 +133,22 @@
     <div class="multiplication-container" data-parent="family-members">
         <section>
             <label for="part-educ-name-0">Наименование учебного заведения</label>
-            <input type="text" name="part-educ-name-0" id="part-educ-name-0" class="to-change-id">
+            <input type="text" name="part-educ-name[]" id="part-educ-name-0" class="to-change-id">
             <span class="error-text to-change-id" id="error-part-educ-name-0"></span>
         </section>
         <section>
             <label for="part-educ-specialty-0" class="to-change-id">Факультет, специальность</label>
-            <input type="text" name="part-educ-specialty-0" id="part-educ-specialty-0" class="to-change-id">
+            <input type="text" name="part-educ-specialty[]" id="part-educ-specialty-0" class="to-change-id">
             <span class="error-text to-change-id" id="error-part-educ-specialty-0"></span>
         </section>
         <section>
             <label for="part-educ-country-0">Город, страна</label>
-            <input type="text" name="part-educ-country-0" id="part-educ-country-0" class="to-change-id">
+            <input type="text" name="part-educ-country[]" id="part-educ-country-0" class="to-change-id">
             <span class="error-text to-change-id" id="error-part-educ-country-0"></span>
         </section>
         <section>
             <label for="part-educ-level-0" class="to-change-id">Уровень образования</label>
-            <select id="part-educ-level-0" name="part-educ-level-0" class="to-change-id" required>
+            <select id="part-educ-level-0" name="part-educ-level[]" class="to-change-id" required>
                 <option value="" disabled selected>- Выбрать -</option>
                 <option value="preschool">Preschool</option>
                 <option value="primary">Primary</option>
@@ -150,7 +162,7 @@
         <section>
             <label for="part-educ-certificate-type-0" class="to-change-id">Тип свидетельства об образовании (диплом,
                 сертификат, свидетельство)</label>
-            <select id="part-educ-certificate-type-0" name="part-educ-certificate-type-0" class="to-change-id" required>
+            <select id="part-educ-certificate-type-0" name="part-educ-certificate-type[]" class="to-change-id" required>
                 <option value="" disabled selected>- Выбрать -</option>
                 <option value="diploma">Diploma</option>
                 <option value="certificate">Certificate</option>
@@ -160,7 +172,7 @@
         </section>
         <section>
             <label for="part-educ-type-0" class="to-change-id">Форма обучения</label>
-            <select id="part-educ-type-0" name="part-educ-type-0" class="to-change-id">
+            <select id="part-educ-type-0" name="part-educ-type[]" class="to-change-id">
                 <option value="fulltime" selected>Full-time education</option>
                 <option value="distance">Distance education</option>
             </select>
@@ -171,28 +183,28 @@
                 <div>
                     <div class="from-date clearfix">
                         <label>Период обучения, c</label>
-                        <select title="" class="month to-change-id" name="part-educ-from-m-0" id="part-educ-from-m-0"
-                                required data-class="part-educ-period">
+                        <select title="" class="month to-change-id" name="part-educ-from-m[]" id="part-educ-from-m-0"
+                                required data-class="part-educ-period-0">
                             <option value="" disabled selected>Month</option>
 							<?= getMonthOptions(); ?>
                         </select>
 
-                        <select title="" class="year to-change-id" name="part-educ-from-y-0" id="part-educ-from-y-0"
-                                required data-class="part-educ-period">
+                        <select title="" class="year to-change-id" name="part-educ-from-y[]" id="part-educ-from-y-0"
+                                required data-class="part-educ-period-0">
                             <option value="" disabled selected>Year</option>
 							<?= getYearOptions(); ?>
                         </select>
                     </div>
                     <div class="to-date clearfix">
                         <label>по</label>
-                        <select title="" id="part-educ-to-m-0" name="part-educ-to-m-0" class="month to-change-id" required
-                                data-class="part-educ-period">
+                        <select title="" id="part-educ-to-m-0" name="part-educ-to-m[]" class="month to-change-id" required
+                                data-class="part-educ-period-0">
                             <option value="" disabled selected>Month</option>
 							<?= getMonthOptions(); ?>
                         </select>
 
-                        <select title="" id="part-educ-to-y-0" name="part-educ-to-y-0" class="year to-change-id" required
-                                data-type="period-date-select" data-class="part-educ-period">
+                        <select title="" id="part-educ-to-y-0" name="part-educ-to-y[]" class="year to-change-id" required
+                                data-type="period-date-select" data-class="part-educ-period-0">
                             <option value="" disabled selected>Year</option>
 							<?= getYearOptions(); ?>
                         </select>
@@ -203,7 +215,70 @@
         </section>
     </div>
     <section>
-        <button class="ass-add-button" data-block="part-educ">
-            <span>Добавить члена семьи</span></button>
+        <button class="ass-add-button" data-block="part-educ"><span>Добавить учебное заведение</span></button>
+    </section>
+</div>
+<div id="part-work">
+    <p>Укажите опыт работы партнера в хронологическом порядке начиная с последнего места работы.</p>
+    <div class="multiplication-container" data-parent="work">
+        <section>
+            <label for="part-work-name-0">Наименование компании / нанимателя</label>
+            <input type="text" name="part-work-name[]" id="part-work-name-0" class="to-change-id">
+            <span class="error-text to-change-id" id="error-part-work-name-0"></span>
+        </section>
+        <section>
+            <label for="part-work-country-0" class="to-change-id">Город, страна</label>
+            <input type="text" name="part-work-country[]" id="part-work-country-0" class="to-change-id">
+            <span class="error-text to-change-id" id="error-part-work-country-0"></span>
+        </section>
+        <section>
+            <label for="part-work-position-0">Должность</label>
+            <input type="text" name="part-work-position[]" id="part-work-position-0" class="to-change-id">
+            <span class="error-text to-change-id" id="error-part-work-position-0"></span>
+        </section>
+        <section>
+            <section class="period-date clearfix to-change-id" id="ass-part-work-period-0">
+                <div>
+                    <div class="from-date clearfix">
+                        <label>Период работы, c</label>
+                        <select title="" class="month to-change-id" name="ass-part-work-from-m[]" id="ass-part-work-from-m-0"
+                                required data-class="ass-part-work-period-0">
+                            <option value="" disabled selected>Month</option>
+							<?= getMonthOptions(); ?>
+                        </select>
+
+                        <select title="" class="year to-change-id" name="ass-part-work-from-y[]" id="ass-part-work-from-y-0"
+                                required data-class="ass-part-work-period-0">
+                            <option value="" disabled selected>Year</option>
+							<?= getYearOptions(); ?>
+                        </select>
+                    </div>
+                    <div class="to-date clearfix">
+                        <label>по</label>
+                        <select title="" id="ass-part-work-to-m-0" name="ass-part-work-to-m[]" class="month to-change-id"
+                                required data-class="ass-part-work-period-0">
+                            <option value="" disabled selected>Month</option>
+							<?= getMonthOptions(); ?>
+                        </select>
+
+                        <select title="" id="ass-part-work-to-y-0" name="ass-part-work-to-y[]" class="year to-change-id"
+                                required data-class="ass-part-work-period-0" data-type="period-date-select">
+                            <option value="" disabled selected>Year</option>
+							<?= getYearOptions(); ?>
+                        </select>
+                    </div>
+                    <span class="error-text to-change-id" id="error-ass-part-work-period-0"></span>
+                </div>
+            </section>
+        </section>
+        <section>
+            <label for="part-work-requirement-0">Должностные обязанности</label>
+            <textarea name="part-work-requirement[]" id="part-work-requirement-0" class="to-change-id" rows="4"
+                      cols="50"></textarea>
+            <span class="error-text to-change-id" id="error-part-work-requirement-0"></span>
+        </section>
+    </div>
+    <section>
+        <button class="ass-add-button" data-block="part-work"><span>Добавить место работы</span></button>
     </section>
 </div>
