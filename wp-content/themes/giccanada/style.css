@@ -11316,37 +11316,37 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section:first-of-type {
       width: 65%;
       margin-right: 5%; }
-    #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo {
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo {
       display: inline-block;
       position: absolute;
       right: 15px; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #visa-logo,
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #master-logo,
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #maestro-logo {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #visa-logo,
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #master-logo,
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #maestro-logo {
         height: 18px;
         width: 30px;
         display: inline-block; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #visa-logo {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #visa-logo {
         margin-right: 5px;
         background: url(./public/images/Visa-dark-b574726efb.png) no-repeat center;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #master-logo {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #master-logo {
         margin-right: 5px;
         background: url(./public/images/MasterCard-dark-586fd5d7d7.png) no-repeat center;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #maestro-logo {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #maestro-logo {
         background: url(./public/images/Maestro-dark-a0d9ffcafe.png) no-repeat center;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo #paypal-logo {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo #paypal-logo {
         height: 18px;
         width: 64px;
         display: inline-block;
@@ -11355,34 +11355,70 @@ body {
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover; }
-    #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel {
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-out;
       -webkit-transition: max-height 0.3s ease-out;
       -moz-transition: max-height 0.3s ease-out;
       -o-transition: max-height 0.3s ease-out; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel > section {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel > section {
         padding-bottom: 15px; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel > section:first-of-type {
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel > section:first-of-type {
           padding-top: 15px; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date {
         width: 70%;
         float: left; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select {
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date select {
           width: 45%;
           float: left;
           margin-right: 5%; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel #holder-cvc-container {
         float: left;
         width: 30%; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .payment-bank-info {
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .payment-bank-info {
         display: inline-block;
         width: 100%;
         line-height: 48px;
         border-top: 1px solid #CFCFCF; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .payment-bank-info:last-child {
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .payment-bank-info:last-child {
           border-bottom: 1px solid #CFCFCF; }
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence {
+      padding-top: 20px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] {
+        position: absolute;
+        left: -999999px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span {
+        position: absolute;
+        left: 24px;
+        cursor: pointer; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span::before, #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span::after {
+          content: '';
+          position: absolute;
+          margin: auto; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span::before {
+          width: 18px;
+          height: 18px;
+          left: -24px;
+          top: -2px;
+          border: 3px solid transparent;
+          background: #FF8200;
+          border-radius: 20%; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span::after {
+          content: '\F00C';
+          font-family: 'FontAwesome', sans-serif;
+          left: -22px;
+          top: 0px;
+          color: transparent;
+          transition: color .2s;
+          -webkit-transition: color .2s;
+          -o-transition: color .2s;
+          -moz-transition: color .2s; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] + label span a {
+          text-decoration-line: underline;
+          color: #FF9500; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type="checkbox"]:checked + label span::after {
+        color: #fff; }
   #assessment-modal .modal-body .hide-text {
     font: 0/0 a;
     color: transparent;
