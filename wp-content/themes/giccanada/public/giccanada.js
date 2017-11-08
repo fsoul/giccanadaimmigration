@@ -30889,25 +30889,24 @@ var validation = __webpack_require__(23);
         }
 
 
-        /** Button must be inside selector '.assessment-step'
-         * @param {EventTarget|Node} node button.ass-add-button
+        /**
+         * @param {string} id Button's attribute `data-block`
          * @return {Node} Returns div.multiplication-container
          */
-        AssessmentCopyButton.prototype.findMContainer = function (node) {
-            if (node.classList.contains('assessment-step')) {
-                var res;
-                for (var i = 0; i < node.childNodes.length; ++i) {
-                    var child = node.childNodes[i];
+        AssessmentCopyButton.prototype.findMContainer = function (id) {
+            var b = document.getElementById(id);
+            var res;
+            if (b) {
+                for (var i = 0; i < b.childNodes.length; ++i) {
+                    var child = b.childNodes[i];
                     if (child.nodeType === Node.ELEMENT_NODE &&
                         child.classList.contains('multiplication-container')) {
                         res = child;
                         break;
                     }
                 }
-                return res;
-            } else {
-                return this.findMContainer(node.parentNode);
             }
+            return res;
         };
 
         /**
@@ -30982,7 +30981,7 @@ var validation = __webpack_require__(23);
             if (event) {
                 event.preventDefault();
                 var copyBtn = this.button,
-                    mContainer = this.findMContainer(copyBtn);
+                    mContainer = this.findMContainer(copyBtn.getAttribute('data-block'));
 
                 var newNode = this.copyNode(mContainer);
                 mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
@@ -31022,7 +31021,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 2,
+                startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31057,7 +31056,7 @@ var validation = __webpack_require__(23);
                             step: assSteps[i],
                             isLoaded: false,
                             inputs: [],
-                            copyButton: null
+                            copyButtons: []
                         });
                     }
 
@@ -31092,12 +31091,14 @@ var validation = __webpack_require__(23);
                     success: function (html) {
                         page.step.innerHTML = html;
                         self.initInputsValidation(index - 1, self._getPageInputs(stepIndex));
-                        var copy = page.step.querySelector('.ass-add-button');
-                        if (copy) {
-                            self.steps[stepIndex].copyButton = new AssessmentCopyButton(copy);
-                            self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
-                                self.doCopyInputs(e, stepIndex);
-                            })
+                        var copies = page.step.querySelectorAll('.ass-add-button');
+                        for (var i = 0; i < copies.length; ++i) {
+                            if (self.steps[stepIndex].copyButtons.indexOf(copies[i]) === -1) {
+                                self.steps[stepIndex].copyButtons.push(new AssessmentCopyButton(copies[i]));
+                                self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
+                                    self.doCopyInputs(e, stepIndex);
+                                });
+                            }
                         }
                         self.steps[stepIndex].isLoaded = true;
                     }

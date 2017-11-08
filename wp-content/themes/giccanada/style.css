@@ -10900,33 +10900,25 @@ body {
 
 /*images end---------*/
 /*footer end -------------------------------------*/
-#assessment-modal .modal-content {
-  padding: 60px 0; }
-
-#assessment-modal .modal-header {
-  border: none;
-  padding-left: 0;
-  padding-right: 0; }
-  #assessment-modal .modal-header #ass-logo {
+#assessment-modal .modal-body {
+  padding: 50px 15px; }
+  #assessment-modal .modal-body #ass-logo {
     background: url(./public/images/ass-logo-de5548aa11.png) no-repeat center;
     background-size: contain;
     width: 184px;
     height: 100px; }
-  #assessment-modal .modal-header .modal-title {
+  #assessment-modal .modal-body .modal-title {
     width: 100%;
     height: 56px;
     text-align: center;
     line-height: 56px;
-    font-size: 3em;
+    font-size: 2.5em;
     letter-spacing: 0.42px;
     text-transform: uppercase;
     color: #FF8200;
     font-weight: 900;
     padding-top: 20px;
     padding-bottom: 20px; }
-
-#assessment-modal .modal-body {
-  padding: 50px 15px 0 15px; }
   #assessment-modal .modal-body .progress-container {
     display: none;
     max-width: 570px;
@@ -10935,6 +10927,19 @@ body {
     line-height: normal;
     font-size: 1.25em;
     color: #4a4a4a; }
+    #assessment-modal .modal-body .progress-container div.container-fluid {
+      padding: 0; }
+      #assessment-modal .modal-body .progress-container div.container-fluid h5 {
+        width: 100%;
+        height: 48px;
+        text-align: center;
+        line-height: 48px;
+        font-size: 2em;
+        letter-spacing: 0.42px;
+        text-transform: uppercase;
+        color: #FF8200;
+        font-weight: 900;
+        margin-bottom: 20px; }
     #assessment-modal .modal-body .progress-container .progressbar {
       width: 100%;
       height: 24px;
@@ -10947,6 +10952,8 @@ body {
         background: linear-gradient(66.11deg, #FF8200 34.28%, #FF3400 167.85%); }
   #assessment-modal .modal-body #ass-step-init {
     text-align: center; }
+    #assessment-modal .modal-body #ass-step-init div.container-fluid {
+      padding: 0; }
     #assessment-modal .modal-body #ass-step-init p span {
       padding-bottom: 40px;
       display: inline-block; }
@@ -10979,6 +10986,8 @@ body {
     margin: 0 auto; }
   #assessment-modal .modal-body #assessment-form {
     display: none; }
+    #assessment-modal .modal-body #assessment-form .assessment-step p {
+      font-size: .75rem; }
     #assessment-modal .modal-body #assessment-form .assessment-step .error-text {
       font-style: normal;
       font-weight: normal;
@@ -11889,14 +11898,18 @@ body {
     padding: 20px 0;
     border: 0;
     min-height: 100%; }
-  #assessment-modal .modal-header .modal-title {
-    font-size: 1.5em;
-    line-height: 30px;
-    height: 30px; }
   #assessment-modal .modal-body {
     padding: 0 7px; }
+    #assessment-modal .modal-body .modal-title {
+      font-size: 1.5em;
+      line-height: 30px; }
     #assessment-modal .modal-body .progress-container {
       text-align: center; }
+      #assessment-modal .modal-body .progress-container div.container-fluid {
+        padding: 0; }
+        #assessment-modal .modal-body .progress-container div.container-fluid h5 {
+          line-height: 48px;
+          font-size: 1.5em; }
     #assessment-modal .modal-body #ass-step-init p span {
       padding-bottom: 20px; }
     #assessment-modal .modal-body #ass-step-init p span:first-child {
