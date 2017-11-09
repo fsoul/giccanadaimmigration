@@ -10633,7 +10633,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
 __webpack_require__(33);
@@ -10643,12 +10642,13 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
-
-
 __webpack_require__(40);
 
+
+__webpack_require__(41);
+
 module.exports = {
-    func: __webpack_require__(41)
+    func: __webpack_require__(42)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30854,7 +30854,7 @@ var validation = __webpack_require__(23);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(29);
+        var ProgressBar = __webpack_require__(30);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -31020,7 +31020,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 4,
+                startIndex: 5,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32054,6 +32054,32 @@ var TelInput = (function () {
     TelInput.prototype = Object.create(NumberInput.prototype);
     TelInput.prototype.constructor = TelInput;
 
+    TelInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Use correct phone number.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Укажите корректный номер телефона.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    TelInput.prototype.doValidate = function () {
+        var value = this.input.value;
+        var pattern = /^\+?\d{0,13}$/;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
     return TelInput;
 })();
 
@@ -32194,7 +32220,8 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32269,12 +32296,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
@@ -32336,6 +32357,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

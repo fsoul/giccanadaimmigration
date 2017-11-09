@@ -66,6 +66,32 @@ var TelInput = (function () {
     TelInput.prototype = Object.create(NumberInput.prototype);
     TelInput.prototype.constructor = TelInput;
 
+    TelInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Use correct phone number.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Укажите корректный номер телефона.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    TelInput.prototype.doValidate = function () {
+        var value = this.input.value;
+        var pattern = /^\+?\d{0,13}$/;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
     return TelInput;
 })();
 
