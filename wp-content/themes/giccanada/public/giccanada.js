@@ -31020,7 +31020,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 2,
+                startIndex: 4,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31158,6 +31158,7 @@ var file = __webpack_require__(27);
 var number = __webpack_require__(28);
 
 var TextInput = text.TextInput;
+var MixedInput = text.MixedInput;
 var EmailInput = text.EmailInput;
 
 var NumberInput = number.NumberInput;
@@ -31201,7 +31202,7 @@ var InputsFactory = (function () {
                 this.inputClass = CVCInput;
                 break;
             case 'mixed':
-                this.inputClass = DefaultInput;
+                this.inputClass = MixedInput;
                 break;
             case 'file':
                 this.inputClass = FileInput;
@@ -31317,11 +31318,11 @@ var TextInput = (function () {
     TextInput.prototype.getErrorMessage = function (errType) {
         return { //TODO
             'en-US': {
-                'invalid-input': 'You should enter only characters.',
+                'invalid-input': 'You should use only characters.',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             },
             'ru-RU': {
-                'invalid-input': 'Поле должно состоять из символов a-Z, а-Я',
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я]',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             }
         }[this.lang][errType];
@@ -31348,6 +31349,43 @@ var TextInput = (function () {
     };
 
     return TextInput;
+})();
+
+var MixedInput = (function () {
+    function MixedInput(lang, input) {
+        TextInput.apply(this, arguments);
+    }
+
+    MixedInput.prototype = Object.create(TextInput.prototype);
+    MixedInput.prototype.constructor = MixedInput;
+
+    MixedInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should use only characters and digits.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] и цифры',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    MixedInput.prototype.doValidate = function () {
+        var value = this.input.value;
+        var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    return MixedInput;
 })();
 
 var EmailInput = (function () {
@@ -31381,6 +31419,7 @@ var EmailInput = (function () {
 
 module.exports = {
     TextInput: TextInput,
+    MixedInput: MixedInput,
     EmailInput: EmailInput
 };
 

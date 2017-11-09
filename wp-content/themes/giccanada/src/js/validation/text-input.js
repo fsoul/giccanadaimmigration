@@ -24,11 +24,11 @@ var TextInput = (function () {
     TextInput.prototype.getErrorMessage = function (errType) {
         return { //TODO
             'en-US': {
-                'invalid-input': 'You should enter only characters.',
+                'invalid-input': 'You should use only characters.',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             },
             'ru-RU': {
-                'invalid-input': 'Поле должно состоять из символов a-Z, а-Я',
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я]',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             }
         }[this.lang][errType];
@@ -55,6 +55,43 @@ var TextInput = (function () {
     };
 
     return TextInput;
+})();
+
+var MixedInput = (function () {
+    function MixedInput(lang, input) {
+        TextInput.apply(this, arguments);
+    }
+
+    MixedInput.prototype = Object.create(TextInput.prototype);
+    MixedInput.prototype.constructor = MixedInput;
+
+    MixedInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should use only characters and digits.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] и цифры',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    MixedInput.prototype.doValidate = function () {
+        var value = this.input.value;
+        var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    return MixedInput;
 })();
 
 var EmailInput = (function () {
@@ -88,5 +125,6 @@ var EmailInput = (function () {
 
 module.exports = {
     TextInput: TextInput,
+    MixedInput: MixedInput,
     EmailInput: EmailInput
 };

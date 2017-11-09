@@ -1,12 +1,12 @@
 <section>
     <label for="citizenship">Гражданство</label>
-    <input type="text" name="citizenship" id="citizenship">
+    <input type="text" name="citizenship" id="citizenship" data-role="text">
     <span class="error-text" id="error-citizenship"></span>
 </section>
 <section class="ass-country">
     <section>
         <label for="country-residence">Страна проживания</label>
-        <select id="country-residence" name="country-residence">
+        <select id="country-residence" name="country-residence" data-role="select">
             <option value="AO">Angola</option>
             <option value="AF">Afghanistan</option>
             <option value="BJ">Benin</option>
@@ -58,7 +58,7 @@
     </section>
     <section>
         <label for="country-residence-from">C (Г/М)</label>
-        <select id="country-residence-from" name="country-residence-from" class="year" required>
+        <select id="country-residence-from" name="country-residence-from" class="year" required data-role="select">
             <option value="" disabled selected>Year</option>
 	        <?= getYearOptions();?>
         </select>
@@ -67,13 +67,13 @@
 </section>
 <section>
     <label>Статус в стране проживания</label>
-    <select title="" id="status-residence" name="status-residence">
+    <select title="" id="status-residence" name="status-residence" data-role="select">
         <option value="resident" selected>Резидент</option>
     </select>
     <span class="error-text" id="error-status-residence"></span>
 </section>
 <section>
     <label for="native-lang">Родной язык</label>
-    <input type="text" name="native-lang" id="native-lang">
+    <input type="text" name="native-lang" id="native-lang" data-role="text">
     <span class="error-text" id="error-native-lang"></span>
 </section>

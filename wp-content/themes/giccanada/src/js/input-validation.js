@@ -8,6 +8,7 @@ var file = require('./validation/file-input');
 var number = require('./validation/number-input');
 
 var TextInput = text.TextInput;
+var MixedInput = text.MixedInput;
 var EmailInput = text.EmailInput;
 
 var NumberInput = number.NumberInput;
@@ -51,7 +52,7 @@ var InputsFactory = (function () {
                 this.inputClass = CVCInput;
                 break;
             case 'mixed':
-                this.inputClass = DefaultInput;
+                this.inputClass = MixedInput;
                 break;
             case 'file':
                 this.inputClass = FileInput;
