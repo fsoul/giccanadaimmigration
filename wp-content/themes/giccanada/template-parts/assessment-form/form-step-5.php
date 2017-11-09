@@ -16,7 +16,7 @@
             <?= getMonthOptions();?>
         </select>
 
-        <select title="" name="passport-expiration-y" class="year" required data-type="combine-date-select" data-class="passport-expiration-date">
+        <select title="" name="passport-expiration-y" class="year" required data-role="combine-date" data-class="passport-expiration-date">
             <option value="" disabled selected>Year</option>
             <?= getYearOptions();?>
         </select>

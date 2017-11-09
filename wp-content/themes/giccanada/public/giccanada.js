@@ -10633,7 +10633,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(29);
 __webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
@@ -10643,12 +10642,13 @@ __webpack_require__(35);
 __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
-
-
 __webpack_require__(39);
 
+
+__webpack_require__(40);
+
 module.exports = {
-    func: __webpack_require__(40)
+    func: __webpack_require__(41)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30854,7 +30854,7 @@ var validation = __webpack_require__(23);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(28);
+        var ProgressBar = __webpack_require__(29);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -31155,12 +31155,15 @@ var DefaultInput = __webpack_require__(2).DefaultInput;
 var text = __webpack_require__(25);
 var select = __webpack_require__(26);
 var file = __webpack_require__(27);
+var number = __webpack_require__(28);
 
 var TextInput = text.TextInput;
 var EmailInput = text.EmailInput;
-var TelInput = text.TelInput;
-var CardNumberInput = text.CardNumberInput;
-var CVCInput = text.CVCInput;
+
+var NumberInput = number.NumberInput;
+var TelInput = number.TelInput;
+var CardNumberInput = number.CardNumberInput;
+var CVCInput = number.CVCInput;
 
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
@@ -31170,71 +31173,6 @@ var FileInput = file.FileInput;
 var MultipleFileInput = file.MultipleFileInput;
 var PhotoInput = file.PhotoInput;
 
-var TextFactory = (function () {
-
-    function TextFactory() {
-        this.class = TextInput;
-    }
-
-    TextFactory.prototype.create = function (lang, el) {
-        var type = el.getAttribute('data-type');
-        switch (type) {
-            case 'card-number-text':
-                this.class = CardNumberInput;
-                break;
-            case 'cvc-code-text':
-                this.class = CVCInput;
-                break;
-        }
-        return this.class;
-    };
-    return TextFactory;
-})();
-
-var SelectFactory = (function () {
-
-    function SelectFactory() {
-        this.select = SelectInput;
-    }
-
-    SelectFactory.prototype.createSelect = function (lang, select) {
-        var type = select.getAttribute('data-type');
-        switch (type) {
-            case 'combine-date-select':
-                this.select = CombineDateSelect;
-                break;
-            case 'period-date-select':
-                this.select = PeriodDateSelect;
-                break;
-            default:
-                this.select = SelectInput;
-        }
-        return this.select;
-    };
-    return SelectFactory;
-})();
-
-var FileFactory = (function () {
-
-    function FileFactory() {
-        this.file = FileInput;
-    }
-
-    FileFactory.prototype.createSelect = function (lang, file) {
-        var type = file.getAttribute('data-type');
-        switch (type) {
-            case 'multiple':
-                this.file = MultipleFileInput;
-                break;
-            case 'image':
-                this.file = PhotoInput;
-        }
-        return this.file;
-    };
-
-    return FileFactory;
-})();
-
 var InputsFactory = (function () {
 
     function InputsFactory() {
@@ -31242,26 +31180,46 @@ var InputsFactory = (function () {
     }
 
     InputsFactory.prototype.createInput = function (lang, input) {
-        var selectFactory = new SelectFactory(),
-            textFactory = new TextFactory(),
-            fileFactory = new FileFactory();
-        switch (input.type) {
+        var role = input.getAttribute('role');
+        switch (role) {
             case 'text':
-            case 'password':
-                this.inputClass = textFactory.create(lang, input);
+                this.inputClass = TextInput;
                 break;
             case 'email':
                 this.inputClass = EmailInput;
                 break;
+            case 'number':
+                this.inputClass = NumberInput;
+                break;
             case 'tel':
                 this.inputClass = TelInput;
                 break;
-            case 'file':
-                this.inputClass = fileFactory.createSelect(lang, input);
+            case 'card-number':
+                this.inputClass = CardNumberInput;
                 break;
-            case 'select-one': //select input
-            case 'select-multiple':
-                this.inputClass = selectFactory.createSelect(lang, input);
+            case 'cvc':
+                this.inputClass = CVCInput;
+                break;
+            case 'mixed':
+                this.inputClass = DefaultInput;
+                break;
+            case 'file':
+                this.inputClass = FileInput;
+                break;
+            case 'file-multiply':
+                this.inputClass = MultipleFileInput;
+                break;
+            case 'file-photo':
+                this.inputClass = PhotoInput;
+                break;
+            case 'select':
+                this.inputClass = SelectInput;
+                break;
+            case 'combine-date':
+                this.inputClass = CombineDateSelect;
+                break;
+            case 'period-date':
+                this.inputClass = PeriodDateSelect;
                 break;
         }
 
@@ -31356,6 +31314,39 @@ var TextInput = (function () {
     TextInput.prototype = Object.create(DefaultInput.prototype);
     TextInput.prototype.constructor = TextInput;
 
+    TextInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should enter only characters.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Поле должно состоять из символов a-Z, а-Я',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    TextInput.prototype.doValidate = function () {
+        var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
+        var value = this.input.value;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    TextInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
     return TextInput;
 })();
 
@@ -31388,153 +31379,9 @@ var EmailInput = (function () {
     return EmailInput;
 })();
 
-var TelInput = (function () {
-
-    function TelInput(lang, input) {
-        TextInput.apply(this, arguments);
-    }
-
-    TelInput.prototype = Object.create(TextInput.prototype);
-    TelInput.prototype.constructor = TelInput;
-
-    return TelInput;
-})();
-
-var CardNumberInput = (function () {
-
-    function CardNumberInput(lang, input) {
-        TextInput.apply(this, arguments);
-        var self = this;
-
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
-        this.input.addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CardNumberInput.prototype = Object.create(TextInput.prototype);
-    CardNumberInput.prototype.constructor = CardNumberInput;
-
-    CardNumberInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct card number.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный номер карты.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            }
-        }[this.lang][errType];
-    };
-
-    CardNumberInput.prototype.doValidate = function () {
-        var val = this.input.value.replace(/\s/g, '');
-
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CardNumberInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-
-    CardNumberInput.prototype.doKeyPress = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
-            this.input.value += ' ';
-    };
-
-    CardNumberInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CardNumberInput;
-})();
-
-var CVCInput = (function () {
-
-    function CVCInput(lang, input) {
-        TextInput.apply(this, arguments);
-        var self = this;
-
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
-        this.input.addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CVCInput.prototype = Object.create(TextInput.prototype);
-    CVCInput.prototype.constructor = CVCInput;
-
-    CVCInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct CVV2/CVC2.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный CVV2/CVC2.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            }
-        }[this.lang][errType];
-    };
-
-    CVCInput.prototype.doValidate = function () {
-        var val = this.input.value;
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CVCInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-    CVCInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value;
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CVCInput;
-})();
-
 module.exports = {
     TextInput: TextInput,
-    EmailInput: EmailInput,
-    TelInput: TelInput,
-    CardNumberInput: CardNumberInput,
-    CVCInput: CVCInput
+    EmailInput: EmailInput
 };
 
 /***/ }),
@@ -32087,6 +31934,218 @@ module.exports = {
 "use strict";
 
 
+var d = __webpack_require__(2);
+var DefaultInput = d.DefaultInput;
+var STATES = d.STATES;
+
+var NumberInput = (function () {
+    function NumberInput(lang, input) {
+        DefaultInput.apply(this, arguments);
+        var self = this;
+
+        this.input.addEventListener('focusout', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input.addEventListener('input', function (e) {
+            self.doValidate(e);
+        });
+    }
+
+    NumberInput.prototype = Object.create(DefaultInput.prototype);
+    NumberInput.prototype.constructor = NumberInput;
+
+    NumberInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should enter only digits.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Поле должно состоять из цифр.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    NumberInput.prototype.doValidate = function () {
+        var pattern = /^[0-9\s]+$/;
+        var value = this.input.value;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    NumberInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    return NumberInput;
+})();
+
+var TelInput = (function () {
+
+    function TelInput(lang, input) {
+        NumberInput.apply(this, arguments);
+    }
+
+    TelInput.prototype = Object.create(NumberInput.prototype);
+    TelInput.prototype.constructor = TelInput;
+
+    return TelInput;
+})();
+
+var CardNumberInput = (function () {
+
+    function CardNumberInput(lang, input) {
+        NumberInput.apply(this, arguments);
+        var self = this;
+
+        this.input.addEventListener('keypress', function (e) {
+            self.doKeyPress(e);
+        });
+
+        this.input.addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CardNumberInput.prototype = Object.create(NumberInput.prototype);
+    CardNumberInput.prototype.constructor = CardNumberInput;
+
+    CardNumberInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct card number.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный номер карты.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    CardNumberInput.prototype.doValidate = function () {
+        var val = this.input.value.replace(/\s/g, '');
+
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CardNumberInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+
+    CardNumberInput.prototype.doKeyPress = function (e) {
+        var val = this.input.value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
+            this.input.value += ' ';
+    };
+
+    CardNumberInput.prototype.doKeyDown = function (e) {
+        var val = this.input.value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CardNumberInput;
+})();
+
+var CVCInput = (function () {
+
+    function CVCInput(lang, input) {
+        NumberInput.apply(this, arguments);
+        var self = this;
+
+        this.input.addEventListener('keypress', function (e) {
+            self.doKeyPress(e);
+        });
+
+        this.input.addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CVCInput.prototype = Object.create(NumberInput.prototype);
+    CVCInput.prototype.constructor = CVCInput;
+
+    CVCInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct CVV2/CVC2.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный CVV2/CVC2.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    CVCInput.prototype.doValidate = function () {
+        var val = this.input.value;
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CVCInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    CVCInput.prototype.doKeyDown = function (e) {
+        var val = this.input.value;
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CVCInput;
+})();
+
+module.exports = {
+    NumberInput: NumberInput,
+    TelInput: TelInput,
+    CardNumberInput: CardNumberInput,
+    CVCInput: CVCInput
+};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var defaultOptions = {
   steps: 1,
   duration: 2000
@@ -32156,12 +32215,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
@@ -32223,6 +32276,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

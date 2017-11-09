@@ -47,7 +47,7 @@
                 </select>
 
                 <select title="" name="member-birth-year" class="year" id="member-birth-year" required
-                        data-class="member-birth-date" data-type="combine-date-select">
+                        data-class="member-birth-date" data-role="combine-date">
                     <option value="" disabled selected>Year</option>
 					<?= getYearOptions(); ?>
                 </select>

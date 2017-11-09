@@ -5,12 +5,15 @@ var DefaultInput = require('./validation/default-input').DefaultInput;
 var text = require('./validation/text-input');
 var select = require('./validation/select-input');
 var file = require('./validation/file-input');
+var number = require('./validation/number-input');
 
 var TextInput = text.TextInput;
 var EmailInput = text.EmailInput;
-var TelInput = text.TelInput;
-var CardNumberInput = text.CardNumberInput;
-var CVCInput = text.CVCInput;
+
+var NumberInput = number.NumberInput;
+var TelInput = number.TelInput;
+var CardNumberInput = number.CardNumberInput;
+var CVCInput = number.CVCInput;
 
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
@@ -20,71 +23,6 @@ var FileInput = file.FileInput;
 var MultipleFileInput = file.MultipleFileInput;
 var PhotoInput = file.PhotoInput;
 
-var TextFactory = (function () {
-
-    function TextFactory() {
-        this.class = TextInput;
-    }
-
-    TextFactory.prototype.create = function (lang, el) {
-        var type = el.getAttribute('data-type');
-        switch (type) {
-            case 'card-number-text':
-                this.class = CardNumberInput;
-                break;
-            case 'cvc-code-text':
-                this.class = CVCInput;
-                break;
-        }
-        return this.class;
-    };
-    return TextFactory;
-})();
-
-var SelectFactory = (function () {
-
-    function SelectFactory() {
-        this.select = SelectInput;
-    }
-
-    SelectFactory.prototype.createSelect = function (lang, select) {
-        var type = select.getAttribute('data-type');
-        switch (type) {
-            case 'combine-date-select':
-                this.select = CombineDateSelect;
-                break;
-            case 'period-date-select':
-                this.select = PeriodDateSelect;
-                break;
-            default:
-                this.select = SelectInput;
-        }
-        return this.select;
-    };
-    return SelectFactory;
-})();
-
-var FileFactory = (function () {
-
-    function FileFactory() {
-        this.file = FileInput;
-    }
-
-    FileFactory.prototype.createSelect = function (lang, file) {
-        var type = file.getAttribute('data-type');
-        switch (type) {
-            case 'multiple':
-                this.file = MultipleFileInput;
-                break;
-            case 'image':
-                this.file = PhotoInput;
-        }
-        return this.file;
-    };
-
-    return FileFactory;
-})();
-
 var InputsFactory = (function () {
 
     function InputsFactory() {
@@ -92,26 +30,46 @@ var InputsFactory = (function () {
     }
 
     InputsFactory.prototype.createInput = function (lang, input) {
-        var selectFactory = new SelectFactory(),
-            textFactory = new TextFactory(),
-            fileFactory = new FileFactory();
-        switch (input.type) {
+        var role = input.getAttribute('role');
+        switch (role) {
             case 'text':
-            case 'password':
-                this.inputClass = textFactory.create(lang, input);
+                this.inputClass = TextInput;
                 break;
             case 'email':
                 this.inputClass = EmailInput;
                 break;
+            case 'number':
+                this.inputClass = NumberInput;
+                break;
             case 'tel':
                 this.inputClass = TelInput;
                 break;
-            case 'file':
-                this.inputClass = fileFactory.createSelect(lang, input);
+            case 'card-number':
+                this.inputClass = CardNumberInput;
                 break;
-            case 'select-one': //select input
-            case 'select-multiple':
-                this.inputClass = selectFactory.createSelect(lang, input);
+            case 'cvc':
+                this.inputClass = CVCInput;
+                break;
+            case 'mixed':
+                this.inputClass = DefaultInput;
+                break;
+            case 'file':
+                this.inputClass = FileInput;
+                break;
+            case 'file-multiply':
+                this.inputClass = MultipleFileInput;
+                break;
+            case 'file-photo':
+                this.inputClass = PhotoInput;
+                break;
+            case 'select':
+                this.inputClass = SelectInput;
+                break;
+            case 'combine-date':
+                this.inputClass = CombineDateSelect;
+                break;
+            case 'period-date':
+                this.inputClass = PeriodDateSelect;
                 break;
         }
 

@@ -39,7 +39,7 @@
                 </select>
 
                 <select title="" name="child-birth-year[]" class="year to-change-id" id="child-birth-year-0" required
-                        data-class="child-birth-date-0" data-type="combine-date-select">
+                        data-class="child-birth-date-0" data-role="combine-date">
                     <option value="" disabled selected>Year</option>
 				    <?= getYearOptions(); ?>
                 </select>
