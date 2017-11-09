@@ -35,36 +35,38 @@ var SelectInput = (function () {
         }[this.lang];
     };
 
+    SelectInput.prototype.getValue = function () {
+        return this.input.value;
+    };
+
     return SelectInput;
 })();
 
 var CombineDateSelect = (function () {
 
     function CombineDateSelect(lang, input) {
-        SelectInput.apply(this, arguments);
-        this.id = input.id;
-        this.errorMsg = document.getElementById('error-' + input.getAttribute('data-class'));
+        this.lang = lang;
+        this.div = input;
+        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
         this.dateParts = [];
-        this.dataClass = this.input.getAttribute('data-class');
         this._initCombine();
     }
 
-    CombineDateSelect.prototype = Object.create(SelectInput.prototype);
-    CombineDateSelect.prototype.constructor = CombineDateSelect;
-
-
     CombineDateSelect.prototype._initCombine = function () {
-        var selects = this.input.parentNode
-            .querySelectorAll('select[data-class=' + this.dataClass + ']');
+        var selects = this.div.querySelectorAll('select');
+        var self = this;
 
         for (var i = 0; i < selects.length; ++i) {
             if (selects[i].classList.contains('day'))
-                this.dateParts['day'] = selects[i];
+                this.dateParts['day'] = new SelectInput(this.lang, selects[i]);
             else if (selects[i].classList.contains('month'))
-                this.dateParts['month'] = selects[i];
+                this.dateParts['month'] = new SelectInput(this.lang, selects[i]);
             else
-                this.dateParts['year'] = selects[i];
-            this.subscribe(selects[i]);
+                this.dateParts['year'] = new SelectInput(this.lang, selects[i]);
+
+            selects[i].addEventListener('change', function () {
+                self.doValidate();
+            })
         }
     };
 
@@ -75,28 +77,41 @@ var CombineDateSelect = (function () {
         }[this.lang];
     };
 
+    CombineDateSelect.prototype.setState = function (newState) {
+        for (var i = 0; i < this.dateParts; ++i) {
+            this.dateParts.setState(newState)
+        }
+    };
+
+    CombineDateSelect.prototype.setErrorText = function (text) {
+        if (this.errorMsg)
+            this.errorMsg.innerText = text;
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
             return this.doValidateError();
         } else {
-            return SelectInput.prototype.doValidate.apply(this);
+            return this.doNormalize();
         }
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.invalid
-            }
-        }));
+        this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
         return false;
     };
 
+    CombineDateSelect.prototype.doNormalize = function () {
+        this.setState(STATES.valid);
+        this.setErrorText('');
+        return true;
+    };
+
     CombineDateSelect.prototype.checkDate = function () {
-        var date = this.dateParts['day'].value,
-            month = this.dateParts['month'].value,
-            year = this.dateParts['year'].value;
+        var date = this.dateParts['day'].getValue(),
+            month = this.dateParts['month'].getValue(),
+            year = this.dateParts['year'].getValue();
         var d = new Date(year, month - 1, date);
         return isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date;
     };

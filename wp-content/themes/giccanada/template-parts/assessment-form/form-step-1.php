@@ -15,24 +15,26 @@
     <span class="error-text" id="error-middle-name"></span>
 </section>
 <section class="combine-date birth-date">
-    <label>Дата рождения</label>
-    <div>
-        <select title="" name="birth-date-d" class="day" required data-class="birth-date">
-            <option value="" disabled selected>Day</option>
-		    <?= getDayOptions();?>
-        </select>
+    <div data-role="combine-date" data-msg="error-birth-date">
+        <label>Дата рождения</label>
+        <div>
+            <select title="" name="birth-date-d" class="day" required data-class="birth-date">
+                <option value="" disabled selected>Day</option>
+			    <?= getDayOptions();?>
+            </select>
 
-        <select title="" name="birth-date-m" class="month" required data-class="birth-date">
-            <option value="" disabled selected>Month</option>
-            <?= getMonthOptions();?>
-        </select>
+            <select title="" name="birth-date-m" class="month" required data-class="birth-date">
+                <option value="" disabled selected>Month</option>
+			    <?= getMonthOptions();?>
+            </select>
 
-        <select title="" name="birth-date-y" class="year" required data-role="combine-date" data-class="birth-date">
-            <option value="" disabled selected>Year</option>
-	        <?= getYearOptions();?>
-        </select>
+            <select title="" name="birth-date-y" class="year" required data-class="birth-date">
+                <option value="" disabled selected>Year</option>
+			    <?= getYearOptions();?>
+            </select>
+        </div>
+        <span class="error-text" id="error-birth-date"></span>
     </div>
-    <span class="error-text" id="error-birth-date"></span>
 </section>
 <section class="radio-block">
     <label>Пол</label>

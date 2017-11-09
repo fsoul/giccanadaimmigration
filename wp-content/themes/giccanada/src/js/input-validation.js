@@ -30,7 +30,7 @@ var InputsFactory = (function () {
     }
 
     InputsFactory.prototype.createInput = function (lang, input) {
-        var role = input.getAttribute('role');
+        var role = input.getAttribute('data-role');
         switch (role) {
             case 'text':
                 this.inputClass = TextInput;
