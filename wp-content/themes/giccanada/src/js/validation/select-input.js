@@ -79,7 +79,7 @@ var CombineDateSelect = (function () {
 
     CombineDateSelect.prototype.setState = function (newState) {
         for (var i = 0; i < this.dateParts; ++i) {
-            this.dateParts.setState(newState)
+            this.dateParts[i].setState(newState)
         }
     };
 
@@ -122,8 +122,10 @@ var CombineDateSelect = (function () {
 var PeriodDateSelect = (function () {
 
     function PeriodDateSelect(lang, input) {
-        SelectInput.apply(this, arguments);
-        this.id = input.id;
+        this.lang = lang;
+        this.div = input;
+        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
+
         this.dateParts = {
             from: {
                 month: null,
@@ -134,40 +136,32 @@ var PeriodDateSelect = (function () {
                 year: null
             }
         };
-        this.dataClass = this.input.getAttribute('data-class');
         this._initPeriod();
     }
 
-    PeriodDateSelect.prototype = Object.create(SelectInput.prototype);
-    PeriodDateSelect.prototype.constructor = PeriodDateSelect;
-
 
     PeriodDateSelect.prototype._initPeriod = function () {
-
-        function findContainer(node) {
-            return node.classList.contains('period-date') ? node : findContainer(node.parentNode);
-        }
-
-        this.container = findContainer(this.input);
-        this.errorMsg = document.getElementById('error-' + this.container.id);
-
-        var selects = this.container.querySelectorAll('select[data-class=' + this.dataClass + ']');
+        var self = this;
+        var selects = this.div.querySelectorAll('select');
 
         for (var i = 0; i < selects.length; ++i) {
-            this.subscribe(selects[i]);
             if (selects[i].parentNode.classList.contains('from-date')) {
                 if (selects[i].classList.contains('month')) {
-                    this.dateParts.from.month = selects[i];
+                    this.dateParts.from.month = new SelectInput(this.lang, selects[i]);
                 } else {
-                    this.dateParts.from.year = selects[i];
+                    this.dateParts.from.year = new SelectInput(this.lang, selects[i]);
                 }
             } else {
                 if (selects[i].classList.contains('month')) {
-                    this.dateParts.to.month = selects[i];
+                    this.dateParts.to.month = new SelectInput(this.lang, selects[i]);
                 } else {
-                    this.dateParts.to.year = selects[i];
+                    this.dateParts.to.year = new SelectInput(this.lang, selects[i]);
                 }
             }
+
+            selects[i].addEventListener('change', function () {
+                self.doValidate();
+            })
         }
     };
 
@@ -178,45 +172,49 @@ var PeriodDateSelect = (function () {
         }[this.lang];
     };
 
+    PeriodDateSelect.prototype.setState = function (newState) {
+        this.dateParts.from.month.setState(newState);
+        this.dateParts.from.year.setState(newState);
+        this.dateParts.to.month.setState(newState);
+        this.dateParts.to.year.setState(newState);
+    };
+
+    PeriodDateSelect.prototype.setErrorText = function (text) {
+        if (this.errorMsg)
+            this.errorMsg.innerText = text;
+    };
+
     PeriodDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
             return this.doValidateError();
         } else {
-            return SelectInput.prototype.doValidate.apply(this);
+            return this.doNormalize();
         }
+    };
+
+    PeriodDateSelect.prototype.doValidateError = function () {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage());
+        return false;
+    };
+
+    PeriodDateSelect.prototype.doNormalize = function () {
+        this.setState(STATES.valid);
+        this.setErrorText('');
+        return true;
     };
 
     PeriodDateSelect.prototype.checkDate = function () {
         var f = this.dateParts.from,
             t = this.dateParts.to;
 
-        var dateF = new Date(f.year.value, f.month.value, 1),
-            dateT = new Date(t.year.value, t.month.value, 1);
+        var dateF = new Date(f.year.input.value, f.month.input.value, 1),
+            dateT = new Date(t.year.input.value, t.month.input.value, 1);
 
-        var dateFIsCorrect = dateF.getFullYear() == f.year.value && dateF.getMonth() == f.month.value,
-            dateTIsCorrect = dateT.getFullYear() == t.year.value && dateT.getMonth() == t.month.value;
+        var dateFIsCorrect = dateF.getFullYear() == f.year.input.value && dateF.getMonth() == f.month.input.value,
+            dateTIsCorrect = dateT.getFullYear() == t.year.input.value && dateT.getMonth() == t.month.input.value;
 
         return isNaN(dateF) || isNaN(dateT) || !dateFIsCorrect || !dateTIsCorrect || dateT < dateF;
-    };
-
-    PeriodDateSelect.prototype.doValidateError = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.invalid
-            }
-        }));
-        this.setErrorText(this.getErrorMessage());
-        return false;
-    };
-
-    PeriodDateSelect.prototype.doNormalize = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.valid
-            }
-        }));
-        this.setErrorText('');
-        return true;
     };
 
     return PeriodDateSelect;
