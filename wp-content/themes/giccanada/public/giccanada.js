@@ -10633,6 +10633,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
+__webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
 __webpack_require__(33);
@@ -10642,13 +10643,12 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
+
+
 __webpack_require__(40);
 
-
-__webpack_require__(41);
-
 module.exports = {
-    func: __webpack_require__(42)
+    func: __webpack_require__(41)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30884,7 +30884,7 @@ var validation = __webpack_require__(23);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(30);
+        var ProgressBar = __webpack_require__(29);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -31055,7 +31055,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 15,
+                // startIndex: 1,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32144,7 +32144,7 @@ var CardNumberInput = (function () {
             },
             'ru-RU': {
                 'invalid-input': 'Введите правильный номер карты.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
+                'empty': 'Вы пропустили это поле.'
             }
         }[this.lang][errType];
     };
@@ -32193,10 +32193,6 @@ var CVCInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
         this.input.addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
@@ -32213,7 +32209,7 @@ var CVCInput = (function () {
             },
             'ru-RU': {
                 'invalid-input': 'Введите правильный CVV2/CVC2.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
+                'empty': 'Вы пропустили это поле.'
             }
         }[this.lang][errType];
     };
@@ -32255,8 +32251,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */,
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32331,6 +32326,12 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
@@ -32392,12 +32393,6 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

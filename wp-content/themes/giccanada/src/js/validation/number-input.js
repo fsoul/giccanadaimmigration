@@ -121,7 +121,7 @@ var CardNumberInput = (function () {
             },
             'ru-RU': {
                 'invalid-input': 'Введите правильный номер карты.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
+                'empty': 'Вы пропустили это поле.'
             }
         }[this.lang][errType];
     };
@@ -170,10 +170,6 @@ var CVCInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
         this.input.addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
@@ -190,7 +186,7 @@ var CVCInput = (function () {
             },
             'ru-RU': {
                 'invalid-input': 'Введите правильный CVV2/CVC2.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
+                'empty': 'Вы пропустили это поле.'
             }
         }[this.lang][errType];
     };
