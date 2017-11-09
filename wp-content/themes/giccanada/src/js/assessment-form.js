@@ -170,19 +170,20 @@ var validation = require('./input-validation');
 
         AssessmentForm.prototype._init = function () {
             var self = this;
+            var photoStep = 2;
             this.form.steps({
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 10,
+                startIndex: 12,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
                         return false;
 
-                    if (currentIndex === 2) {
-                        var input = self.steps[2].inputs.filter(function (t) {
-                            return t.id = 'ass-photo';
+                    if (currentIndex === photoStep) {
+                        var input = self.steps[photoStep].inputs.filter(function (t) {
+                            return t.id === 'ass-photo';
                         })[0];
                         input.dispatchEvent(new CustomEvent('upload'));
                     }
