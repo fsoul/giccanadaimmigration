@@ -66,7 +66,7 @@
                     <h5>Опыт работы в Канаде</h5>
                     <fieldset class="assessment-step -step14 work-at-canada"></fieldset>
                     <h5>Информация о партнере</h5>
-                    <fieldset class="assessment-step -step15 family-members"></fieldset>
+                    <fieldset class="assessment-step -step15 partner"></fieldset>
                     <h5>Информация о детях</h5>
                     <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>

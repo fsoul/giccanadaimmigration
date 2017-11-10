@@ -114,7 +114,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 12,
+                // startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -224,6 +224,10 @@ var validation = require('./input-validation');
             var page = this.steps[pageIndex];
             var result = true;
             for (var i = 0; i < page.inputs.length; ++i) {
+                if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
+                    (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
+                    page.inputs.splice(i, 1);
+                } else
                 if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }

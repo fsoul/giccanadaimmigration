@@ -15,7 +15,7 @@
     <span class="error-text" id="error-middle-name"></span>
 </section>
 <section class="combine-date birth-date">
-    <div data-role="combine-date" data-msg="error-birth-date">
+    <div data-role="combine-date" data-msg="error-birth-date" id="combine-date-birth-date">
         <label>Дата рождения</label>
         <div>
             <select title="" name="birth-date-d" class="day" required data-class="birth-date">

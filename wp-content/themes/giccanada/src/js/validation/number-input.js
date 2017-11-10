@@ -9,11 +9,11 @@ var NumberInput = (function () {
         DefaultInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('focusout', function (e) {
+        this.input().addEventListener('focusout', function (e) {
             self.doValidate(e);
         });
 
-        this.input.addEventListener('input', function (e) {
+        this.input().addEventListener('input', function (e) {
             self.doValidate(e);
         });
     }
@@ -36,7 +36,7 @@ var NumberInput = (function () {
 
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
-        var value = this.input.value;
+        var value = this.input().value;
         var res = false;
         if (!value)
             res = this.doValidateError('empty');
@@ -80,7 +80,7 @@ var TelInput = (function () {
     };
 
     TelInput.prototype.doValidate = function () {
-        var value = this.input.value;
+        var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
         var res = false;
         if (!value)
@@ -101,11 +101,11 @@ var CardNumberInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keypress', function (e) {
+        this.input().addEventListener('keypress', function (e) {
             self.doKeyPress(e);
         });
 
-        this.input.addEventListener('keydown', function (e) {
+        this.input().addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
     }
@@ -127,7 +127,7 @@ var CardNumberInput = (function () {
     };
 
     CardNumberInput.prototype.doValidate = function () {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
 
         if (isNaN(+val)) {
             return this.doValidateError(STATES.invalid);
@@ -147,14 +147,14 @@ var CardNumberInput = (function () {
 
 
     CardNumberInput.prototype.doKeyPress = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
-            this.input.value += ' ';
+            this.input().value += ' ';
     };
 
     CardNumberInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
                 'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
@@ -170,7 +170,7 @@ var CVCInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keydown', function (e) {
+        this.input().addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
     }
@@ -192,7 +192,7 @@ var CVCInput = (function () {
     };
 
     CVCInput.prototype.doValidate = function () {
-        var val = this.input.value;
+        var val = this.input().value;
         if (isNaN(+val)) {
             return this.doValidateError(STATES.invalid);
         } else if (val === '') {
@@ -210,7 +210,7 @@ var CVCInput = (function () {
     };
 
     CVCInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value;
+        var val = this.input().value;
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
                 'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)

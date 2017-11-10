@@ -4,7 +4,7 @@
     <span class="error-text" id="error-passport-num"></span>
 </section>
 <section class="combine-date passport-exp-date">
-    <div data-role="combine-date" data-msg="error-passport-exp-date">
+    <div data-role="combine-date" data-msg="error-passport-exp-date" id="combine-date-passport-exp-date">
         <label>Действителен до</label>
         <div>
             <select title="" name="passport-exp-date-d" class="day" required data-class="passport-exp-date">

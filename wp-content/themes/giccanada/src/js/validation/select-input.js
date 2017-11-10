@@ -8,19 +8,17 @@ var SelectInput = (function () {
 
     function SelectInput(lang, input) {
         DefaultInput.apply(this, arguments);
-        this.id = input.id;
-
         var self = this;
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('click', function () {
+        this.input().addEventListener('click', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('onSetState', function (e) {
+        this.input().addEventListener('onSetState', function (e) {
             self.setState(e.detail.state);
         });
     }
@@ -36,7 +34,7 @@ var SelectInput = (function () {
     };
 
     SelectInput.prototype.getValue = function () {
-        return this.input.value;
+        return this.input().value;
     };
 
     return SelectInput;
@@ -46,14 +44,14 @@ var CombineDateSelect = (function () {
 
     function CombineDateSelect(lang, input) {
         this.lang = lang;
-        this.div = input;
-        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
+        this.id = input.id;
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
         this.dateParts = [];
         this._initCombine();
     }
 
     CombineDateSelect.prototype._initCombine = function () {
-        var selects = this.div.querySelectorAll('select');
+        var selects = this.div().querySelectorAll('select');
         var self = this;
 
         for (var i = 0; i < selects.length; ++i) {
@@ -68,6 +66,10 @@ var CombineDateSelect = (function () {
                 self.doValidate();
             })
         }
+    };
+
+    CombineDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
     };
 
     CombineDateSelect.prototype.getErrorMessage = function () {
@@ -123,8 +125,8 @@ var PeriodDateSelect = (function () {
 
     function PeriodDateSelect(lang, input) {
         this.lang = lang;
-        this.div = input;
-        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
+        this.id = input.id;
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
 
         this.dateParts = {
             from: {
@@ -139,10 +141,13 @@ var PeriodDateSelect = (function () {
         this._initPeriod();
     }
 
+    PeriodDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
+    };
 
     PeriodDateSelect.prototype._initPeriod = function () {
         var self = this;
-        var selects = this.div.querySelectorAll('select');
+        var selects = this.div().querySelectorAll('select');
 
         for (var i = 0; i < selects.length; ++i) {
             if (selects[i].parentNode.classList.contains('from-date')) {
@@ -208,11 +213,11 @@ var PeriodDateSelect = (function () {
         var f = this.dateParts.from,
             t = this.dateParts.to;
 
-        var dateF = new Date(f.year.input.value, f.month.input.value, 1),
-            dateT = new Date(t.year.input.value, t.month.input.value, 1);
+        var dateF = new Date(f.year.input().value, f.month.input().value, 1),
+            dateT = new Date(t.year.input().value, t.month.input().value, 1);
 
-        var dateFIsCorrect = dateF.getFullYear() == f.year.input.value && dateF.getMonth() == f.month.input.value,
-            dateTIsCorrect = dateT.getFullYear() == t.year.input.value && dateT.getMonth() == t.month.input.value;
+        var dateFIsCorrect = dateF.getFullYear() == f.year.input().value && dateF.getMonth() == f.month.input().value,
+            dateTIsCorrect = dateT.getFullYear() == t.year.input().value && dateT.getMonth() == t.month.input().value;
 
         return isNaN(dateF) || isNaN(dateT) || !dateFIsCorrect || !dateTIsCorrect || dateT < dateF;
     };

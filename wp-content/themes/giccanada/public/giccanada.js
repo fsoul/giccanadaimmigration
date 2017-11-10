@@ -10438,7 +10438,7 @@ var EventTarget = __webpack_require__(24);
 function DefaultInput(lang, input) {
     EventTarget.call(this);
     this.lang = lang;
-    this.input = input;
+    this.id = input.id;
     this.errorMsg = document.getElementById('error-' + input.id);
     this.subscribers = [];
 }
@@ -10446,6 +10446,9 @@ function DefaultInput(lang, input) {
 DefaultInput.prototype = Object.create(EventTarget.prototype);
 DefaultInput.prototype.constructor = DefaultInput;
 
+DefaultInput.prototype.input = function () {
+    return document.getElementById(this.id)
+};
 
 DefaultInput.prototype.getErrorMessage = function () {
     return {
@@ -10456,14 +10459,14 @@ DefaultInput.prototype.getErrorMessage = function () {
 
 DefaultInput.prototype.setState = function (newState) {
     var curState = this.getState();
-    if (this.input && curState !== newState) {
-        this.input.classList.remove(curState);
-        this.input.classList.add(newState);
+    if (this.input() && curState !== newState) {
+        this.input().classList.remove(curState);
+        this.input().classList.add(newState);
     }
 };
 
 DefaultInput.prototype.getState = function () {
-    var cl = this.input.classList;
+    var cl = this.input().classList;
     return cl.contains(STATES.invalid) ? STATES.invalid :
         cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
 };
@@ -10474,7 +10477,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input.value) {
+    if (!this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();
@@ -30994,7 +30997,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 12,
+                // startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31104,6 +31107,10 @@ var validation = __webpack_require__(23);
             var page = this.steps[pageIndex];
             var result = true;
             for (var i = 0; i < page.inputs.length; ++i) {
+                if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
+                    (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
+                    page.inputs.splice(i, 1);
+                } else
                 if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
@@ -31116,7 +31123,6 @@ var validation = __webpack_require__(23);
 
     var form = new AssessmentForm();
 })();
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -31279,11 +31285,11 @@ var TextInput = (function () {
         DefaultInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('focusout', function (e) {
+        this.input().addEventListener('focusout', function (e) {
             self.doValidate(e);
         });
 
-        this.input.addEventListener('input', function (e) {
+        this.input().addEventListener('input', function (e) {
             self.doValidate(e);
         });
     }
@@ -31306,7 +31312,7 @@ var TextInput = (function () {
 
     TextInput.prototype.doValidate = function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
-        var value = this.input.value;
+        var value = this.input().value;
         var res = false;
         if (!value)
             res = this.doValidateError('empty');
@@ -31349,7 +31355,7 @@ var MixedInput = (function () {
     };
 
     MixedInput.prototype.doValidate = function () {
-        var value = this.input.value;
+        var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
         var res = false;
         if (!value)
@@ -31383,7 +31389,7 @@ var EmailInput = (function () {
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!this.input.value || !this.input.value.match(mailPattern)) {
+        if (!this.input().value || !this.input().value.match(mailPattern)) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31414,19 +31420,17 @@ var SelectInput = (function () {
 
     function SelectInput(lang, input) {
         DefaultInput.apply(this, arguments);
-        this.id = input.id;
-
         var self = this;
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('click', function () {
+        this.input().addEventListener('click', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('onSetState', function (e) {
+        this.input().addEventListener('onSetState', function (e) {
             self.setState(e.detail.state);
         });
     }
@@ -31442,7 +31446,7 @@ var SelectInput = (function () {
     };
 
     SelectInput.prototype.getValue = function () {
-        return this.input.value;
+        return this.input().value;
     };
 
     return SelectInput;
@@ -31452,14 +31456,14 @@ var CombineDateSelect = (function () {
 
     function CombineDateSelect(lang, input) {
         this.lang = lang;
-        this.div = input;
-        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
+        this.id = input.id;
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
         this.dateParts = [];
         this._initCombine();
     }
 
     CombineDateSelect.prototype._initCombine = function () {
-        var selects = this.div.querySelectorAll('select');
+        var selects = this.div().querySelectorAll('select');
         var self = this;
 
         for (var i = 0; i < selects.length; ++i) {
@@ -31474,6 +31478,10 @@ var CombineDateSelect = (function () {
                 self.doValidate();
             })
         }
+    };
+
+    CombineDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
     };
 
     CombineDateSelect.prototype.getErrorMessage = function () {
@@ -31529,8 +31537,8 @@ var PeriodDateSelect = (function () {
 
     function PeriodDateSelect(lang, input) {
         this.lang = lang;
-        this.div = input;
-        this.errorMsg = document.getElementById(this.div.getAttribute('data-msg'));
+        this.id = input.id;
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
 
         this.dateParts = {
             from: {
@@ -31545,10 +31553,13 @@ var PeriodDateSelect = (function () {
         this._initPeriod();
     }
 
+    PeriodDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
+    };
 
     PeriodDateSelect.prototype._initPeriod = function () {
         var self = this;
-        var selects = this.div.querySelectorAll('select');
+        var selects = this.div().querySelectorAll('select');
 
         for (var i = 0; i < selects.length; ++i) {
             if (selects[i].parentNode.classList.contains('from-date')) {
@@ -31614,11 +31625,11 @@ var PeriodDateSelect = (function () {
         var f = this.dateParts.from,
             t = this.dateParts.to;
 
-        var dateF = new Date(f.year.input.value, f.month.input.value, 1),
-            dateT = new Date(t.year.input.value, t.month.input.value, 1);
+        var dateF = new Date(f.year.input().value, f.month.input().value, 1),
+            dateT = new Date(t.year.input().value, t.month.input().value, 1);
 
-        var dateFIsCorrect = dateF.getFullYear() == f.year.input.value && dateF.getMonth() == f.month.input.value,
-            dateTIsCorrect = dateT.getFullYear() == t.year.input.value && dateT.getMonth() == t.month.input.value;
+        var dateFIsCorrect = dateF.getFullYear() == f.year.input().value && dateF.getMonth() == f.month.input().value,
+            dateTIsCorrect = dateT.getFullYear() == t.year.input().value && dateT.getMonth() == t.month.input().value;
 
         return isNaN(dateF) || isNaN(dateT) || !dateFIsCorrect || !dateTIsCorrect || dateT < dateF;
     };
@@ -31647,9 +31658,9 @@ var FileInput = (function () {
     function FileInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.maxSize = 2e+7;
-        this.type = this.input.getAttribute('data-attach');
+        this.type = this.input().getAttribute('data-attach');
         var self = this;
-        this.input.onchange = function () {
+        this.input().onchange = function () {
             self.doValidate();
         };
     }
@@ -31668,14 +31679,14 @@ var FileInput = (function () {
     };
 
     FileInput.prototype.checkCount = function () {
-        if (!this.input.files.length)
+        if (!this.input().files.length)
             throw new ReferenceError('File is required');
     };
 
     FileInput.prototype.doValidate = function () {
         try {
             this.checkCount();
-            var file = this.input.files[0];
+            var file = this.input().files[0];
             this.checkSize(file);
             return this.doNormalize();
         } catch (e) {
@@ -31697,7 +31708,7 @@ var MultipleFileInput = (function () {
 
     function MultipleFileInput(lang, input) {
         FileInput.apply(this, arguments);
-        this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
+        this.addContainer = document.getElementById(this.input().getAttribute('data-container'));
     }
 
     MultipleFileInput.prototype = Object.create(FileInput.prototype);
@@ -31714,7 +31725,7 @@ var MultipleFileInput = (function () {
 
     MultipleFileInput.prototype.doValidate = function () {
         try {
-            var fList = this.input.files;
+            var fList = this.input().files;
 
             for (var i = 0; i < fList.length; ++i) {
                 var file = fList[i];
@@ -31722,7 +31733,7 @@ var MultipleFileInput = (function () {
                 this.add(file);
             }
             this.checkCount();
-            this.input.value = '';
+            this.input().value = '';
             return this.doNormalize();
         } catch (e) {
             this.doValidateError(e.message);
@@ -31859,7 +31870,7 @@ var PhotoInput = (function () {
         var self = this;
         this.filename = '';
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             if (this.files && this.files[0]) {
                 // if (self.filename) {
                 //     self.remove(self.filename);
@@ -31879,7 +31890,7 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.showPhoto = function (file) {
         if (!this.croppie)
-            this.croppie = new Croppie(document.getElementById(this.input.getAttribute('data-photo')), this.options);
+            this.croppie = new Croppie(document.getElementById(this.input().getAttribute('data-photo')), this.options);
         if ( file ) {
             var reader = new FileReader();
             var self = this;
@@ -31927,7 +31938,6 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.remove = function (filename) {
         var fd = new FormData();
-        var self = this;
         fd.append('filename', filename);
         fd.append('action', 'remove_file_from_session');
 
@@ -31971,11 +31981,11 @@ var NumberInput = (function () {
         DefaultInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('focusout', function (e) {
+        this.input().addEventListener('focusout', function (e) {
             self.doValidate(e);
         });
 
-        this.input.addEventListener('input', function (e) {
+        this.input().addEventListener('input', function (e) {
             self.doValidate(e);
         });
     }
@@ -31998,7 +32008,7 @@ var NumberInput = (function () {
 
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
-        var value = this.input.value;
+        var value = this.input().value;
         var res = false;
         if (!value)
             res = this.doValidateError('empty');
@@ -32042,7 +32052,7 @@ var TelInput = (function () {
     };
 
     TelInput.prototype.doValidate = function () {
-        var value = this.input.value;
+        var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
         var res = false;
         if (!value)
@@ -32063,11 +32073,11 @@ var CardNumberInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keypress', function (e) {
+        this.input().addEventListener('keypress', function (e) {
             self.doKeyPress(e);
         });
 
-        this.input.addEventListener('keydown', function (e) {
+        this.input().addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
     }
@@ -32089,7 +32099,7 @@ var CardNumberInput = (function () {
     };
 
     CardNumberInput.prototype.doValidate = function () {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
 
         if (isNaN(+val)) {
             return this.doValidateError(STATES.invalid);
@@ -32109,14 +32119,14 @@ var CardNumberInput = (function () {
 
 
     CardNumberInput.prototype.doKeyPress = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
-            this.input.value += ' ';
+            this.input().value += ' ';
     };
 
     CardNumberInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
+        var val = this.input().value.replace(/\s/g, '');
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
                 'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
@@ -32132,7 +32142,7 @@ var CVCInput = (function () {
         NumberInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('keydown', function (e) {
+        this.input().addEventListener('keydown', function (e) {
             self.doKeyDown(e);
         });
     }
@@ -32154,7 +32164,7 @@ var CVCInput = (function () {
     };
 
     CVCInput.prototype.doValidate = function () {
-        var val = this.input.value;
+        var val = this.input().value;
         if (isNaN(+val)) {
             return this.doValidateError(STATES.invalid);
         } else if (val === '') {
@@ -32172,7 +32182,7 @@ var CVCInput = (function () {
     };
 
     CVCInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value;
+        var val = this.input().value;
         var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
         if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
                 'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
@@ -32396,10 +32406,73 @@ var onProvinceChanged = function (code, selector) {
         }
     });
 };
+var onPartnerAddRadioClick = function (e) {
+    var fd = new FormData();
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    var self = e.target;
+    fd.append('action', 'get_additional_template');
+    fd.append('template', e.target.getAttribute('data-template'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', gic.ajaxurl, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var res = xhr.responseText;
+            var copy = document.createElement('div');
+            copy.classList.add('copied');
+            copy.innerHTML = res;
+            div.insertBefore(copy, null);
+
+            var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
+            var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
+                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                'div[data-role=combine-date], div[data-role=period-date]');
+            page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                detail: {
+                    inputs: insertedInputs
+                }
+            }));
+
+            var work = document.getElementById('part-work-cont');
+            var educ = document.getElementById('part-educ-cont');
+            work.style.display = 'block';
+            educ.style.display = 'block';
+        }
+    };
+
+    xhr.send(fd);
+};
+
+var onPartnerDelRadioClick = function (e) {
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    if (div.childNodes.length > 2) {
+        var c = div.querySelector('.copied');
+        div.removeChild(c);
+        var work = document.getElementById('part-work-cont');
+        var educ = document.getElementById('part-educ-cont');
+        work.style.display = 'none';
+        educ.style.display = 'none';
+
+        var dels = work.querySelectorAll('span.added-file-delete');
+        var i;
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+
+        dels = educ.querySelectorAll('span.added-file-delete');
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+    }
+};
+
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
-    onProvinceChanged: onProvinceChanged
+    onProvinceChanged: onProvinceChanged,
+    onPartnerDelRadioClick: onPartnerDelRadioClick,
+    onPartnerAddRadioClick: onPartnerAddRadioClick
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
