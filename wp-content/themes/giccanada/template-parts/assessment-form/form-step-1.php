@@ -18,17 +18,17 @@
     <div data-role="combine-date" data-msg="error-birth-date" id="combine-date-birth-date">
         <label>Дата рождения</label>
         <div>
-            <select title="" name="birth-date-d" class="day" required data-class="birth-date">
+            <select title="" name="birth-date-d" class="day" required data-class="birth-date" id="birth-date-d">
                 <option value="" disabled selected>Day</option>
 			    <?= getDayOptions();?>
             </select>
 
-            <select title="" name="birth-date-m" class="month" required data-class="birth-date">
+            <select title="" name="birth-date-m" class="month" required data-class="birth-date" id="birth-date-m">
                 <option value="" disabled selected>Month</option>
 			    <?= getMonthOptions();?>
             </select>
 
-            <select title="" name="birth-date-y" class="year" required data-class="birth-date">
+            <select title="" name="birth-date-y" class="year" required data-class="birth-date" id="birth-date-y">
                 <option value="" disabled selected>Year</option>
 			    <?= getYearOptions();?>
             </select>
