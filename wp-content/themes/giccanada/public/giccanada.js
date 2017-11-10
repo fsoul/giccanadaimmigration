@@ -30994,7 +30994,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 8,
+                startIndex: 10,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
