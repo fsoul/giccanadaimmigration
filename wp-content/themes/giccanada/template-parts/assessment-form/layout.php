@@ -60,11 +60,11 @@
                     <h5>Образование</h5>
                     <fieldset class="assessment-step -step11 education"></fieldset>
                     <h5>Образование в Канаде</h5>
-                    <fieldset class="assessment-step -step12"></fieldset>
+                    <fieldset class="assessment-step -step12 canada-educ"></fieldset>
                     <h5>Опыт работы</h5>
                     <fieldset class="assessment-step -step13 work"></fieldset>
                     <h5>Опыт работы в Канаде</h5>
-                    <fieldset class="assessment-step -step14 work-at-canada"></fieldset>
+                    <fieldset class="assessment-step -step14 work-in-canada"></fieldset>
                     <h5>Информация о партнере</h5>
                     <fieldset class="assessment-step -step15 partner"></fieldset>
                     <h5>Информация о детях</h5>
