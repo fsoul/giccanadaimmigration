@@ -147,24 +147,25 @@ $image-dir: '../images/';
             }
 
           }
-          &.combine-date {
-            select {
-              width: 100%;
-              margin-bottom: 15px;
-              margin-right: 0;
+        }
 
-              &:last-child {
-                margin-bottom: 0;
-              }
+        .combine-date {
+          select {
+            width: 100%;
+            margin-bottom: 15px;
+            margin-right: 0;
+
+            &:last-child {
+              margin-bottom: 0;
             }
           }
-          &.period-date {
+        }
+        .period-date {
 
-            .from-date,
-            .to-date {
-              float: none;
-              width: 100%;
-            }
+          .from-date,
+          .to-date {
+            float: none;
+            width: 100%;
           }
         }
 

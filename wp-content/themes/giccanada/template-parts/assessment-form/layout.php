@@ -54,7 +54,7 @@
                     <h5>Французский язык</h5>
                     <fieldset class="assessment-step -step8"></fieldset>
                     <h5>Родственники в Канаде</h5>
-                    <fieldset class="assessment-step -step9"></fieldset>
+                    <fieldset class="assessment-step -step9 relations"></fieldset>
                     <h5>Где вы намереваетесь жить в Канаде?</h5>
                     <fieldset class="assessment-step -step10"></fieldset>
                     <h5>Образование</h5>
@@ -66,7 +66,7 @@
                     <h5>Опыт работы в Канаде</h5>
                     <fieldset class="assessment-step -step14 work-at-canada"></fieldset>
                     <h5>Информация о партнере</h5>
-                    <fieldset class="assessment-step -step15 family-members"></fieldset>
+                    <fieldset class="assessment-step -step15 partner"></fieldset>
                     <h5>Информация о детях</h5>
                     <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>

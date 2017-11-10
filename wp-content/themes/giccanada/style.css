@@ -11001,6 +11001,13 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step .copied {
       border-top: 1px solid #CFCFCF;
       padding-top: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .copied:first-child, #assessment-modal .modal-body #assessment-form .assessment-step .copied:first-of-type {
+        border-top: none; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .copied .delete-copy {
+        text-align: right; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .copied .delete-copy .added-file-delete {
+          color: red;
+          cursor: pointer; }
     #assessment-modal .modal-body #assessment-form .assessment-step section {
       padding-bottom: 15px; }
       #assessment-modal .modal-body #assessment-form .assessment-step section label, #assessment-modal .modal-body #assessment-form .assessment-step section input, #assessment-modal .modal-body #assessment-form .assessment-step section select, #assessment-modal .modal-body #assessment-form .assessment-step section textarea {
@@ -11091,29 +11098,29 @@ body {
           border: none;
           background: url(./public/images/radio_checked-1fd7e48840.png) no-repeat center;
           background-size: cover; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select {
-        width: 30%;
-        margin-right: 4%; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select:last-child {
-          margin-right: 0; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date,
-      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
+    #assessment-modal .modal-body #assessment-form .assessment-step .combine-date select {
+      width: 30%;
+      margin-right: 4%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .combine-date select:last-child {
+        margin-right: 0; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .period-date .from-date,
+    #assessment-modal .modal-body #assessment-form .assessment-step .period-date .to-date {
+      float: left;
+      font-size: .9em; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .period-date .from-date select,
+      #assessment-modal .modal-body #assessment-form .assessment-step .period-date .to-date select {
+        width: 50%;
         float: left;
-        font-size: .9em; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date select,
-        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date select {
-          width: 50%;
-          float: left;
-          margin-right: 5%; }
-          #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date select:last-of-type,
-          #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date select:last-of-type {
-            width: 45%;
-            margin-right: 0; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date {
-        width: 45%;
         margin-right: 5%; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
-        width: 50%; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .period-date .from-date select:last-of-type,
+        #assessment-modal .modal-body #assessment-form .assessment-step .period-date .to-date select:last-of-type {
+          width: 45%;
+          margin-right: 0; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .period-date .from-date {
+      width: 45%;
+      margin-right: 5%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .period-date .to-date {
+      width: 50%; }
     #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container {
       padding: 20px 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container input[type=file] {
@@ -12012,16 +12019,16 @@ body {
             border: none;
             background: url(./public/images/radio_checked-1fd7e48840.png) no-repeat center;
             background-size: cover; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select {
-          width: 100%;
-          margin-bottom: 15px;
-          margin-right: 0; }
-          #assessment-modal .modal-body #assessment-form .assessment-step section.combine-date select:last-child {
-            margin-bottom: 0; }
-        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .from-date,
-        #assessment-modal .modal-body #assessment-form .assessment-step section.period-date .to-date {
-          float: none;
-          width: 100%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .combine-date select {
+        width: 100%;
+        margin-bottom: 15px;
+        margin-right: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .combine-date select:last-child {
+          margin-bottom: 0; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .period-date .from-date,
+      #assessment-modal .modal-body #assessment-form .assessment-step .period-date .to-date {
+        float: none;
+        width: 100%; }
       #assessment-modal .modal-body #assessment-form .assessment-step .file-upload-container .file-upload-button-container .ass-file-input-label {
         width: 70%;
         margin-right: 5%;

@@ -8,9 +8,9 @@ var FileInput = (function () {
     function FileInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.maxSize = 2e+7;
-        this.type = this.input.getAttribute('data-attach');
+        this.type = this.input().getAttribute('data-attach');
         var self = this;
-        this.input.onchange = function () {
+        this.input().onchange = function () {
             self.doValidate();
         };
     }
@@ -29,14 +29,14 @@ var FileInput = (function () {
     };
 
     FileInput.prototype.checkCount = function () {
-        if (!this.input.files.length)
+        if (!this.input().files.length)
             throw new ReferenceError('File is required');
     };
 
     FileInput.prototype.doValidate = function () {
         try {
             this.checkCount();
-            var file = this.input.files[0];
+            var file = this.input().files[0];
             this.checkSize(file);
             return this.doNormalize();
         } catch (e) {
@@ -58,7 +58,7 @@ var MultipleFileInput = (function () {
 
     function MultipleFileInput(lang, input) {
         FileInput.apply(this, arguments);
-        this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
+        this.addContainer = document.getElementById(this.input().getAttribute('data-container'));
     }
 
     MultipleFileInput.prototype = Object.create(FileInput.prototype);
@@ -75,7 +75,7 @@ var MultipleFileInput = (function () {
 
     MultipleFileInput.prototype.doValidate = function () {
         try {
-            var fList = this.input.files;
+            var fList = this.input().files;
 
             for (var i = 0; i < fList.length; ++i) {
                 var file = fList[i];
@@ -83,7 +83,7 @@ var MultipleFileInput = (function () {
                 this.add(file);
             }
             this.checkCount();
-            this.input.value = '';
+            this.input().value = '';
             return this.doNormalize();
         } catch (e) {
             this.doValidateError(e.message);
@@ -220,7 +220,7 @@ var PhotoInput = (function () {
         var self = this;
         this.filename = '';
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             if (this.files && this.files[0]) {
                 // if (self.filename) {
                 //     self.remove(self.filename);
@@ -240,7 +240,7 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.showPhoto = function (file) {
         if (!this.croppie)
-            this.croppie = new Croppie(document.getElementById(this.input.getAttribute('data-photo')), this.options);
+            this.croppie = new Croppie(document.getElementById(this.input().getAttribute('data-photo')), this.options);
         if ( file ) {
             var reader = new FileReader();
             var self = this;
@@ -288,7 +288,6 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.remove = function (filename) {
         var fd = new FormData();
-        var self = this;
         fd.append('filename', filename);
         fd.append('action', 'remove_file_from_session');
 

@@ -11,7 +11,7 @@ var EventTarget = require('../lib/event-target');
 function DefaultInput(lang, input) {
     EventTarget.call(this);
     this.lang = lang;
-    this.input = input;
+    this.id = input.id;
     this.errorMsg = document.getElementById('error-' + input.id);
     this.subscribers = [];
 }
@@ -19,6 +19,9 @@ function DefaultInput(lang, input) {
 DefaultInput.prototype = Object.create(EventTarget.prototype);
 DefaultInput.prototype.constructor = DefaultInput;
 
+DefaultInput.prototype.input = function () {
+    return document.getElementById(this.id)
+};
 
 DefaultInput.prototype.getErrorMessage = function () {
     return {
@@ -29,14 +32,14 @@ DefaultInput.prototype.getErrorMessage = function () {
 
 DefaultInput.prototype.setState = function (newState) {
     var curState = this.getState();
-    if (this.input && curState !== newState) {
-        this.input.classList.remove(curState);
-        this.input.classList.add(newState);
+    if (this.input() && curState !== newState) {
+        this.input().classList.remove(curState);
+        this.input().classList.add(newState);
     }
 };
 
 DefaultInput.prototype.getState = function () {
-    var cl = this.input.classList;
+    var cl = this.input().classList;
     return cl.contains(STATES.invalid) ? STATES.invalid :
         cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
 };
@@ -47,7 +50,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input.value) {
+    if (!this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();

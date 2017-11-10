@@ -196,6 +196,19 @@ $image-dir: '../images/';
         .copied {
           border-top: 1px solid #CFCFCF;
           padding-top: 15px;
+
+          &:first-child, &:first-of-type {
+            border-top: none;
+          }
+
+          .delete-copy {
+            text-align: right;
+
+            .added-file-delete {
+              color: red;
+              cursor: pointer;
+            }
+          }
         }
 
         section {
@@ -314,43 +327,45 @@ $image-dir: '../images/';
             }
 
           }
-          &.combine-date {
-            select {
-              width: 30%;
-              margin-right: 4%;
+        }
 
-              &:last-child {
+        .combine-date {
+          select {
+            width: 30%;
+            margin-right: 4%;
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+
+        .period-date {
+
+          .from-date,
+          .to-date {
+            float: left;
+            font-size: .9em;
+
+            select {
+              width: 50%;
+              float: left;
+              margin-right: 5%;
+
+              &:last-of-type {
+                width: 45%;
                 margin-right: 0;
               }
             }
           }
-          &.period-date {
 
-            .from-date,
-            .to-date {
-              float: left;
-              font-size: .9em;
+          .from-date {
+            width: 45%;
+            margin-right: 5%;
+          }
 
-              select {
-                width: 50%;
-                float: left;
-                margin-right: 5%;
-
-                &:last-of-type {
-                  width: 45%;
-                  margin-right: 0;
-                }
-              }
-            }
-
-            .from-date {
-              width: 45%;
-              margin-right: 5%;
-            }
-
-            .to-date {
-              width: 50%;
-            }
+          .to-date {
+            width: 50%;
           }
         }
 

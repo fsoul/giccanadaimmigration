@@ -59,8 +59,71 @@ var onProvinceChanged = function (code, selector) {
         }
     });
 };
+var onPartnerAddRadioClick = function (e) {
+    var fd = new FormData();
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    var self = e.target;
+    fd.append('action', 'get_additional_template');
+    fd.append('template', e.target.getAttribute('data-template'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', gic.ajaxurl, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var res = xhr.responseText;
+            var copy = document.createElement('div');
+            copy.classList.add('copied');
+            copy.innerHTML = res;
+            div.insertBefore(copy, null);
+
+            var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
+            var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
+                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                'div[data-role=combine-date], div[data-role=period-date]');
+            page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                detail: {
+                    inputs: insertedInputs
+                }
+            }));
+
+            var work = document.getElementById('part-work-cont');
+            var educ = document.getElementById('part-educ-cont');
+            work.style.display = 'block';
+            educ.style.display = 'block';
+        }
+    };
+
+    xhr.send(fd);
+};
+
+var onPartnerDelRadioClick = function (e) {
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    if (div.childNodes.length > 2) {
+        var c = div.querySelector('.copied');
+        div.removeChild(c);
+        var work = document.getElementById('part-work-cont');
+        var educ = document.getElementById('part-educ-cont');
+        work.style.display = 'none';
+        educ.style.display = 'none';
+
+        var dels = work.querySelectorAll('span.added-file-delete');
+        var i;
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+
+        dels = educ.querySelectorAll('span.added-file-delete');
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+    }
+};
+
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
-    onProvinceChanged: onProvinceChanged
+    onProvinceChanged: onProvinceChanged,
+    onPartnerDelRadioClick: onPartnerDelRadioClick,
+    onPartnerAddRadioClick: onPartnerAddRadioClick
 };

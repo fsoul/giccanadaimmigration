@@ -1,31 +1,33 @@
 <section>
     <label for="passport-num">Номер паспорта</label>
-    <input type="text" name="passport-num" id="passport-num">
+    <input type="text" name="passport-num" id="passport-num" data-role="mixed">
     <span class="error-text" id="error-passport-num"></span>
 </section>
-<section class="combine-date passport-expiration-date">
-    <label>Действителен до</label>
-    <div>
-        <select title="" name="passport-expiration-date-d" class="day" required data-class="passport-expiration-date">
-            <option value="" disabled selected>Day</option>
-	        <?= getDayOptions();?>
-        </select>
+<section class="combine-date passport-exp-date">
+    <div data-role="combine-date" data-msg="error-passport-exp-date" id="combine-date-passport-exp-date">
+        <label>Действителен до</label>
+        <div>
+            <select title="" name="passport-exp-date-d" class="day" required data-class="passport-exp-date" id="passport-exp-date-d">
+                <option value="" disabled selected>Day</option>
+                <?= getDayOptions();?>
+            </select>
 
-        <select title="" name="passport-expiration-date-m" class="month" required data-class="passport-expiration-date">
-            <option value="" disabled selected>Month</option>
-            <?= getMonthOptions();?>
-        </select>
+            <select title="" name="passport-exp-date-m" class="month" required data-class="passport-exp-date" id="passport-exp-date-m">
+                <option value="" disabled selected>Month</option>
+                <?= getMonthOptions();?>
+            </select>
 
-        <select title="" name="passport-expiration-y" class="year" required data-type="combine-date-select" data-class="passport-expiration-date">
-            <option value="" disabled selected>Year</option>
-            <?= getYearOptions();?>
-        </select>
+            <select title="" name="passport-exp-y" class="year" required data-class="passport-exp-date" id="passport-exp-date-y">
+                <option value="" disabled selected>Year</option>
+                <?= getYearOptions();?>
+            </select>
+        </div>
+        <span class="error-text" id="error-passport-exp-date"></span>
     </div>
-    <span class="error-text" id="error-passport-expiration-date"></span>
 </section>
 <section>
     <label for="passport-country">Страна выдачи паспорта</label>
-    <select id="passport-country" name="passport-country">
+    <select id="passport-country" name="passport-country" data-role="select">
         <option value="AO">Angola</option>
         <option value="AF">Afghanistan</option>
         <option value="BJ">Benin</option>

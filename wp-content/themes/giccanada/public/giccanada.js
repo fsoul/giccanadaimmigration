@@ -10438,7 +10438,7 @@ var EventTarget = __webpack_require__(24);
 function DefaultInput(lang, input) {
     EventTarget.call(this);
     this.lang = lang;
-    this.input = input;
+    this.id = input.id;
     this.errorMsg = document.getElementById('error-' + input.id);
     this.subscribers = [];
 }
@@ -10446,6 +10446,9 @@ function DefaultInput(lang, input) {
 DefaultInput.prototype = Object.create(EventTarget.prototype);
 DefaultInput.prototype.constructor = DefaultInput;
 
+DefaultInput.prototype.input = function () {
+    return document.getElementById(this.id)
+};
 
 DefaultInput.prototype.getErrorMessage = function () {
     return {
@@ -10456,14 +10459,14 @@ DefaultInput.prototype.getErrorMessage = function () {
 
 DefaultInput.prototype.setState = function (newState) {
     var curState = this.getState();
-    if (this.input && curState !== newState) {
-        this.input.classList.remove(curState);
-        this.input.classList.add(newState);
+    if (this.input() && curState !== newState) {
+        this.input().classList.remove(curState);
+        this.input().classList.add(newState);
     }
 };
 
 DefaultInput.prototype.getState = function () {
-    var cl = this.input.classList;
+    var cl = this.input().classList;
     return cl.contains(STATES.invalid) ? STATES.invalid :
         cl.contains(STATES.valid) ? STATES.valid : STATES.normal;
 };
@@ -10474,7 +10477,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input.value) {
+    if (!this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();
@@ -10633,7 +10636,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //css/scss-------------------------------------------
-__webpack_require__(29);
 __webpack_require__(30);
 __webpack_require__(31);
 __webpack_require__(32);
@@ -10643,12 +10645,13 @@ __webpack_require__(35);
 __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
-
-
 __webpack_require__(39);
 
+
+__webpack_require__(40);
+
 module.exports = {
-    func: __webpack_require__(40)
+    func: __webpack_require__(41)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -10732,8 +10735,38 @@ module.exports = {
 
 (function () {
     if (!Array.isArray) {
-        Array.isArray = function(arg) {
+        Array.isArray = function (arg) {
             return Object.prototype.toString.call(arg) === '[object Array]';
+        };
+    }
+})();
+
+(function () {
+    // Production steps of ECMA-262, Edition 5, 15.4.4.17
+// Reference: http://es5.github.io/#x15.4.4.17
+    if (!Array.prototype.some) {
+        Array.prototype.some = function (fun/*, thisArg*/) {
+            'use strict';
+
+            if (this == null) {
+                throw new TypeError('Array.prototype.some called on null or undefined');
+            }
+
+            if (typeof fun !== 'function') {
+                throw new TypeError();
+            }
+
+            var t = Object(this);
+            var len = t.length >>> 0;
+
+            var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+            for (var i = 0; i < len; i++) {
+                if (i in t && fun.call(thisArg, t[i], i, t)) {
+                    return true;
+                }
+            }
+
+            return false;
         };
     }
 })();
@@ -30854,7 +30887,7 @@ var validation = __webpack_require__(23);
 
 (function () {
     var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(28);
+        var ProgressBar = __webpack_require__(29);
 
         function AssessmentProgressBar(elem, options) {
             var caption = document.querySelector('#assessment-modal .progress-container');
@@ -30884,116 +30917,59 @@ var validation = __webpack_require__(23);
             var self = this;
             this.button.addEventListener('click', function (e) {
                 e.preventDefault();
-                self.copyContainer(e);
+                self.copy();
             })
         }
 
-
-        /**
-         * @param {string} id Button's attribute `data-block`
-         * @return {Node} Returns div.multiplication-container
-         */
-        AssessmentCopyButton.prototype.findMContainer = function (id) {
-            var b = document.getElementById(id);
-            var res;
-            if (b) {
-                for (var i = 0; i < b.childNodes.length; ++i) {
-                    var child = b.childNodes[i];
-                    if (child.nodeType === Node.ELEMENT_NODE &&
-                        child.classList.contains('multiplication-container')) {
-                        res = child;
-                        break;
-                    }
+        AssessmentCopyButton.prototype.onCopyInputs = function (newNode) {
+            var page = document.querySelector('fieldset.' + this.button.getAttribute('data-parent'));
+            var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
+                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                'div[data-role=combine-date], div[data-role=period-date]');
+            page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                detail: {
+                    inputs: insertedInputs
                 }
-            }
-            return res;
+            }));
+            newNode.scrollIntoView(true);
         };
 
-        /**
-         * @param {string} id
-         * @param {number} newId
-         * @return {string} If matches then will return incremented 'id'
-         * @throws {TypeError}
-         */
-        AssessmentCopyButton.prototype.getNewId = function (id, newId) {
-            var changed = id.replace(/(-\d+)$/, function () {
-                return '-' + newId;
-            });
-            if (id === changed) {
-                throw new TypeError('Wrong item id');
-            }
-            return changed;
+        AssessmentCopyButton.prototype.initDel = function (newNode) {
+            var del = newNode.querySelector('.added-file-delete');
+            del.addEventListener('click', function (e) {
+                e.preventDefault();
+                var div = document.querySelector(this.getAttribute('data-parent'));
+                div.removeChild(newNode);
+            })
         };
 
-        /**
-         * @param {Node} node
-         * @return {Node} Returns new node
-         */
-        AssessmentCopyButton.prototype.copyNode = function (node) {
-            var newNode = node.cloneNode(true),
-                copyCount = node.parentNode.querySelectorAll('.copied').length;
+        AssessmentCopyButton.prototype.copy = function () {
+            var fd = new FormData();
+            var div = document.getElementById(this.button.getAttribute('data-template'));
+            var copyCount = div.querySelectorAll('.copied').length;
+            var self = this;
+            fd.append('action', 'get_additional_template');
+            fd.append('template', this.button.getAttribute('data-template'));
+            fd.append('index', copyCount + 1);
 
-            newNode.classList.remove('multiplication-container');
-            newNode.classList.add('copied');
-            newNode.classList.add('-copy' + (copyCount + 1));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
 
-            var changeIdList = newNode.querySelectorAll('.to-change-id');
 
-            for (var i = 0; i < changeIdList.length; ++i) {
-                var item = changeIdList.item(i);
-                switch (item.nodeName.toLowerCase()) {
-                    case 'input':
-                    case 'select':
-                    case 'textarea':
-                        item.id = this.getNewId(item.id, copyCount + 1);
-                        item.value = '';
-                        item.classList.remove('invalid-input');
-                        if (item.hasAttribute('data-class'))
-                            item.setAttribute('data-class',
-                                this.getNewId(item.getAttribute('data-class'), copyCount + 1));
-                        break;
-                    case 'div':
-                    case 'section':
-                        item.id = this.getNewId(item.id, copyCount + 1);
-                        break;
-                    case 'span':
-                        item.id = this.getNewId(item.id, copyCount + 1);
-                        item.innerText = '';
-                        break;
-                    case 'label':
-                        item.htmlFor = this.getNewId(item.getAttribute('for'), copyCount + 1);
-                        break;
-                    default:
-                        throw new TypeError('Item must be instance of input/select/label/div/section/span');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.responseText;
+                    var copy = document.createElement('div');
+                    copy.classList.add('copied');
+                    copy.classList.add('-copy' + (copyCount + 1));
+                    copy.innerHTML = res;
+                    div.insertBefore(copy, null);
+                    self.onCopyInputs(copy);
+                    self.initDel(copy);
                 }
-            }
+            };
 
-            return newNode;
-        };
-
-        /**
-         * Function copies div.multiplication-container on click event
-         * @see <div class="multiplication-container">
-         * @param {MouseEvent} event
-         */
-        AssessmentCopyButton.prototype.copyContainer = function (event) {
-            if (event) {
-                event.preventDefault();
-                var copyBtn = this.button,
-                    mContainer = this.findMContainer(copyBtn.getAttribute('data-block'));
-
-                var newNode = this.copyNode(mContainer);
-                mContainer.parentNode.insertBefore(newNode, copyBtn.parentNode);
-                var page = document.querySelector('fieldset.' + mContainer.getAttribute('data-parent'));
-                var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
-                    'input[type=email], input[type=file], input[type=password], textarea, select');
-                page.dispatchEvent(new CustomEvent('onCopyInputs', {
-                    detail: {
-                        inputs: insertedInputs
-                    }
-                }));
-                newNode.scrollIntoView(true);
-            }
+            xhr.send(fd);
         };
 
         return AssessmentCopyButton;
@@ -31016,19 +30992,20 @@ var validation = __webpack_require__(23);
 
         AssessmentForm.prototype._init = function () {
             var self = this;
+            var photoStep = 2;
             this.form.steps({
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 1,
+                // startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
                         return false;
 
-                    if (currentIndex === 2) {
-                        var input = self.steps[2].inputs.filter(function (t) {
-                            return t.id = 'ass-photo';
+                    if (currentIndex === photoStep) {
+                        var input = self.steps[photoStep].inputs.filter(function (t) {
+                            return t.id === 'ass-photo';
                         })[0];
                         input.dispatchEvent(new CustomEvent('upload'));
                     }
@@ -31114,13 +31091,15 @@ var validation = __webpack_require__(23);
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
-                'input[type=password], input[type=file], textarea, select');
+                'input[type=password], input[type=file], textarea, select, div[data-role=combine-date], ' +
+                'div[data-role=period-date]');
         };
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
             for (var i = 0; i < inputs.length; ++i) {
-                if (this.steps[pageIndex].inputs.indexOf(inputs[i]) === -1)
-                    this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]));
+                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
+                    this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
+                }
             }
         };
 
@@ -31128,6 +31107,10 @@ var validation = __webpack_require__(23);
             var page = this.steps[pageIndex];
             var result = true;
             for (var i = 0; i < page.inputs.length; ++i) {
+                if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
+                    (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
+                    page.inputs.splice(i, 1);
+                } else
                 if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
@@ -31140,7 +31123,6 @@ var validation = __webpack_require__(23);
 
     var form = new AssessmentForm();
 })();
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -31155,12 +31137,16 @@ var DefaultInput = __webpack_require__(2).DefaultInput;
 var text = __webpack_require__(25);
 var select = __webpack_require__(26);
 var file = __webpack_require__(27);
+var number = __webpack_require__(28);
 
 var TextInput = text.TextInput;
+var MixedInput = text.MixedInput;
 var EmailInput = text.EmailInput;
-var TelInput = text.TelInput;
-var CardNumberInput = text.CardNumberInput;
-var CVCInput = text.CVCInput;
+
+var NumberInput = number.NumberInput;
+var TelInput = number.TelInput;
+var CardNumberInput = number.CardNumberInput;
+var CVCInput = number.CVCInput;
 
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
@@ -31170,71 +31156,6 @@ var FileInput = file.FileInput;
 var MultipleFileInput = file.MultipleFileInput;
 var PhotoInput = file.PhotoInput;
 
-var TextFactory = (function () {
-
-    function TextFactory() {
-        this.class = TextInput;
-    }
-
-    TextFactory.prototype.create = function (lang, el) {
-        var type = el.getAttribute('data-type');
-        switch (type) {
-            case 'card-number-text':
-                this.class = CardNumberInput;
-                break;
-            case 'cvc-code-text':
-                this.class = CVCInput;
-                break;
-        }
-        return this.class;
-    };
-    return TextFactory;
-})();
-
-var SelectFactory = (function () {
-
-    function SelectFactory() {
-        this.select = SelectInput;
-    }
-
-    SelectFactory.prototype.createSelect = function (lang, select) {
-        var type = select.getAttribute('data-type');
-        switch (type) {
-            case 'combine-date-select':
-                this.select = CombineDateSelect;
-                break;
-            case 'period-date-select':
-                this.select = PeriodDateSelect;
-                break;
-            default:
-                this.select = SelectInput;
-        }
-        return this.select;
-    };
-    return SelectFactory;
-})();
-
-var FileFactory = (function () {
-
-    function FileFactory() {
-        this.file = FileInput;
-    }
-
-    FileFactory.prototype.createSelect = function (lang, file) {
-        var type = file.getAttribute('data-type');
-        switch (type) {
-            case 'multiple':
-                this.file = MultipleFileInput;
-                break;
-            case 'image':
-                this.file = PhotoInput;
-        }
-        return this.file;
-    };
-
-    return FileFactory;
-})();
-
 var InputsFactory = (function () {
 
     function InputsFactory() {
@@ -31242,26 +31163,46 @@ var InputsFactory = (function () {
     }
 
     InputsFactory.prototype.createInput = function (lang, input) {
-        var selectFactory = new SelectFactory(),
-            textFactory = new TextFactory(),
-            fileFactory = new FileFactory();
-        switch (input.type) {
+        var role = input.getAttribute('data-role');
+        switch (role) {
             case 'text':
-            case 'password':
-                this.inputClass = textFactory.create(lang, input);
+                this.inputClass = TextInput;
                 break;
             case 'email':
                 this.inputClass = EmailInput;
                 break;
+            case 'number':
+                this.inputClass = NumberInput;
+                break;
             case 'tel':
                 this.inputClass = TelInput;
                 break;
-            case 'file':
-                this.inputClass = fileFactory.createSelect(lang, input);
+            case 'card-number':
+                this.inputClass = CardNumberInput;
                 break;
-            case 'select-one': //select input
-            case 'select-multiple':
-                this.inputClass = selectFactory.createSelect(lang, input);
+            case 'cvc':
+                this.inputClass = CVCInput;
+                break;
+            case 'mixed':
+                this.inputClass = MixedInput;
+                break;
+            case 'file':
+                this.inputClass = FileInput;
+                break;
+            case 'file-multiply':
+                this.inputClass = MultipleFileInput;
+                break;
+            case 'file-photo':
+                this.inputClass = PhotoInput;
+                break;
+            case 'select':
+                this.inputClass = SelectInput;
+                break;
+            case 'combine-date':
+                this.inputClass = CombineDateSelect;
+                break;
+            case 'period-date':
+                this.inputClass = PeriodDateSelect;
                 break;
         }
 
@@ -31344,11 +31285,11 @@ var TextInput = (function () {
         DefaultInput.apply(this, arguments);
         var self = this;
 
-        this.input.addEventListener('focusout', function (e) {
+        this.input().addEventListener('focusout', function (e) {
             self.doValidate(e);
         });
 
-        this.input.addEventListener('input', function (e) {
+        this.input().addEventListener('input', function (e) {
             self.doValidate(e);
         });
     }
@@ -31356,7 +31297,77 @@ var TextInput = (function () {
     TextInput.prototype = Object.create(DefaultInput.prototype);
     TextInput.prototype.constructor = TextInput;
 
+    TextInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should use only characters.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я]',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    TextInput.prototype.doValidate = function () {
+        var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
+        var value = this.input().value;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    TextInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
     return TextInput;
+})();
+
+var MixedInput = (function () {
+    function MixedInput(lang, input) {
+        TextInput.apply(this, arguments);
+    }
+
+    MixedInput.prototype = Object.create(TextInput.prototype);
+    MixedInput.prototype.constructor = MixedInput;
+
+    MixedInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should use only characters and digits.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] и цифры',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    MixedInput.prototype.doValidate = function () {
+        var value = this.input().value;
+        var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    return MixedInput;
 })();
 
 var EmailInput = (function () {
@@ -31378,7 +31389,7 @@ var EmailInput = (function () {
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!this.input.value || !this.input.value.match(mailPattern)) {
+        if (!this.input().value || !this.input().value.match(mailPattern)) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31388,153 +31399,10 @@ var EmailInput = (function () {
     return EmailInput;
 })();
 
-var TelInput = (function () {
-
-    function TelInput(lang, input) {
-        TextInput.apply(this, arguments);
-    }
-
-    TelInput.prototype = Object.create(TextInput.prototype);
-    TelInput.prototype.constructor = TelInput;
-
-    return TelInput;
-})();
-
-var CardNumberInput = (function () {
-
-    function CardNumberInput(lang, input) {
-        TextInput.apply(this, arguments);
-        var self = this;
-
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
-        this.input.addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CardNumberInput.prototype = Object.create(TextInput.prototype);
-    CardNumberInput.prototype.constructor = CardNumberInput;
-
-    CardNumberInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct card number.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный номер карты.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            }
-        }[this.lang][errType];
-    };
-
-    CardNumberInput.prototype.doValidate = function () {
-        var val = this.input.value.replace(/\s/g, '');
-
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CardNumberInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-
-    CardNumberInput.prototype.doKeyPress = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
-            this.input.value += ' ';
-    };
-
-    CardNumberInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CardNumberInput;
-})();
-
-var CVCInput = (function () {
-
-    function CVCInput(lang, input) {
-        TextInput.apply(this, arguments);
-        var self = this;
-
-        this.input.addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
-        this.input.addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CVCInput.prototype = Object.create(TextInput.prototype);
-    CVCInput.prototype.constructor = CVCInput;
-
-    CVCInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct CVV2/CVC2.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный CVV2/CVC2.',
-                'empty': TextInput.prototype.getErrorMessage.call(this)
-            }
-        }[this.lang][errType];
-    };
-
-    CVCInput.prototype.doValidate = function () {
-        var val = this.input.value;
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CVCInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-    CVCInput.prototype.doKeyDown = function (e) {
-        var val = this.input.value;
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CVCInput;
-})();
-
 module.exports = {
     TextInput: TextInput,
-    EmailInput: EmailInput,
-    TelInput: TelInput,
-    CardNumberInput: CardNumberInput,
-    CVCInput: CVCInput
+    MixedInput: MixedInput,
+    EmailInput: EmailInput
 };
 
 /***/ }),
@@ -31552,19 +31420,17 @@ var SelectInput = (function () {
 
     function SelectInput(lang, input) {
         DefaultInput.apply(this, arguments);
-        this.id = input.id;
-
         var self = this;
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('click', function () {
+        this.input().addEventListener('click', function () {
             self.doValidate();
         });
 
-        this.input.addEventListener('onSetState', function (e) {
+        this.input().addEventListener('onSetState', function (e) {
             self.setState(e.detail.state);
         });
     }
@@ -31579,37 +31445,43 @@ var SelectInput = (function () {
         }[this.lang];
     };
 
+    SelectInput.prototype.getValue = function () {
+        return this.input().value;
+    };
+
     return SelectInput;
 })();
 
 var CombineDateSelect = (function () {
 
     function CombineDateSelect(lang, input) {
-        SelectInput.apply(this, arguments);
+        this.lang = lang;
         this.id = input.id;
-        this.errorMsg = document.getElementById('error-' + input.getAttribute('data-class'));
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
         this.dateParts = [];
-        this.dataClass = this.input.getAttribute('data-class');
         this._initCombine();
     }
 
-    CombineDateSelect.prototype = Object.create(SelectInput.prototype);
-    CombineDateSelect.prototype.constructor = CombineDateSelect;
-
-
     CombineDateSelect.prototype._initCombine = function () {
-        var selects = this.input.parentNode
-            .querySelectorAll('select[data-class=' + this.dataClass + ']');
+        var selects = this.div().querySelectorAll('select');
+        var self = this;
 
         for (var i = 0; i < selects.length; ++i) {
             if (selects[i].classList.contains('day'))
-                this.dateParts['day'] = selects[i];
+                this.dateParts['day'] = new SelectInput(this.lang, selects[i]);
             else if (selects[i].classList.contains('month'))
-                this.dateParts['month'] = selects[i];
+                this.dateParts['month'] = new SelectInput(this.lang, selects[i]);
             else
-                this.dateParts['year'] = selects[i];
-            this.subscribe(selects[i]);
+                this.dateParts['year'] = new SelectInput(this.lang, selects[i]);
+
+            selects[i].addEventListener('change', function () {
+                self.doValidate();
+            })
         }
+    };
+
+    CombineDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
     };
 
     CombineDateSelect.prototype.getErrorMessage = function () {
@@ -31619,28 +31491,41 @@ var CombineDateSelect = (function () {
         }[this.lang];
     };
 
+    CombineDateSelect.prototype.setState = function (newState) {
+        for (var i = 0; i < this.dateParts; ++i) {
+            this.dateParts[i].setState(newState)
+        }
+    };
+
+    CombineDateSelect.prototype.setErrorText = function (text) {
+        if (this.errorMsg)
+            this.errorMsg.innerText = text;
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
             return this.doValidateError();
         } else {
-            return SelectInput.prototype.doValidate.apply(this);
+            return this.doNormalize();
         }
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.invalid
-            }
-        }));
+        this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
         return false;
     };
 
+    CombineDateSelect.prototype.doNormalize = function () {
+        this.setState(STATES.valid);
+        this.setErrorText('');
+        return true;
+    };
+
     CombineDateSelect.prototype.checkDate = function () {
-        var date = this.dateParts['day'].value,
-            month = this.dateParts['month'].value,
-            year = this.dateParts['year'].value;
+        var date = this.dateParts['day'].getValue(),
+            month = this.dateParts['month'].getValue(),
+            year = this.dateParts['year'].getValue();
         var d = new Date(year, month - 1, date);
         return isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date;
     };
@@ -31651,8 +31536,10 @@ var CombineDateSelect = (function () {
 var PeriodDateSelect = (function () {
 
     function PeriodDateSelect(lang, input) {
-        SelectInput.apply(this, arguments);
+        this.lang = lang;
         this.id = input.id;
+        this.errorMsg = document.getElementById(this.div().getAttribute('data-msg'));
+
         this.dateParts = {
             from: {
                 month: null,
@@ -31663,40 +31550,35 @@ var PeriodDateSelect = (function () {
                 year: null
             }
         };
-        this.dataClass = this.input.getAttribute('data-class');
         this._initPeriod();
     }
 
-    PeriodDateSelect.prototype = Object.create(SelectInput.prototype);
-    PeriodDateSelect.prototype.constructor = PeriodDateSelect;
-
+    PeriodDateSelect.prototype.div = function () {
+        return document.getElementById(this.id);
+    };
 
     PeriodDateSelect.prototype._initPeriod = function () {
-
-        function findContainer(node) {
-            return node.classList.contains('period-date') ? node : findContainer(node.parentNode);
-        }
-
-        this.container = findContainer(this.input);
-        this.errorMsg = document.getElementById('error-' + this.container.id);
-
-        var selects = this.container.querySelectorAll('select[data-class=' + this.dataClass + ']');
+        var self = this;
+        var selects = this.div().querySelectorAll('select');
 
         for (var i = 0; i < selects.length; ++i) {
-            this.subscribe(selects[i]);
             if (selects[i].parentNode.classList.contains('from-date')) {
                 if (selects[i].classList.contains('month')) {
-                    this.dateParts.from.month = selects[i];
+                    this.dateParts.from.month = new SelectInput(this.lang, selects[i]);
                 } else {
-                    this.dateParts.from.year = selects[i];
+                    this.dateParts.from.year = new SelectInput(this.lang, selects[i]);
                 }
             } else {
                 if (selects[i].classList.contains('month')) {
-                    this.dateParts.to.month = selects[i];
+                    this.dateParts.to.month = new SelectInput(this.lang, selects[i]);
                 } else {
-                    this.dateParts.to.year = selects[i];
+                    this.dateParts.to.year = new SelectInput(this.lang, selects[i]);
                 }
             }
+
+            selects[i].addEventListener('change', function () {
+                self.doValidate();
+            })
         }
     };
 
@@ -31707,45 +31589,49 @@ var PeriodDateSelect = (function () {
         }[this.lang];
     };
 
+    PeriodDateSelect.prototype.setState = function (newState) {
+        this.dateParts.from.month.setState(newState);
+        this.dateParts.from.year.setState(newState);
+        this.dateParts.to.month.setState(newState);
+        this.dateParts.to.year.setState(newState);
+    };
+
+    PeriodDateSelect.prototype.setErrorText = function (text) {
+        if (this.errorMsg)
+            this.errorMsg.innerText = text;
+    };
+
     PeriodDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
             return this.doValidateError();
         } else {
-            return SelectInput.prototype.doValidate.apply(this);
+            return this.doNormalize();
         }
+    };
+
+    PeriodDateSelect.prototype.doValidateError = function () {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage());
+        return false;
+    };
+
+    PeriodDateSelect.prototype.doNormalize = function () {
+        this.setState(STATES.valid);
+        this.setErrorText('');
+        return true;
     };
 
     PeriodDateSelect.prototype.checkDate = function () {
         var f = this.dateParts.from,
             t = this.dateParts.to;
 
-        var dateF = new Date(f.year.value, f.month.value, 1),
-            dateT = new Date(t.year.value, t.month.value, 1);
+        var dateF = new Date(f.year.input().value, f.month.input().value, 1),
+            dateT = new Date(t.year.input().value, t.month.input().value, 1);
 
-        var dateFIsCorrect = dateF.getFullYear() == f.year.value && dateF.getMonth() == f.month.value,
-            dateTIsCorrect = dateT.getFullYear() == t.year.value && dateT.getMonth() == t.month.value;
+        var dateFIsCorrect = dateF.getFullYear() == f.year.input().value && dateF.getMonth() == f.month.input().value,
+            dateTIsCorrect = dateT.getFullYear() == t.year.input().value && dateT.getMonth() == t.month.input().value;
 
         return isNaN(dateF) || isNaN(dateT) || !dateFIsCorrect || !dateTIsCorrect || dateT < dateF;
-    };
-
-    PeriodDateSelect.prototype.doValidateError = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.invalid
-            }
-        }));
-        this.setErrorText(this.getErrorMessage());
-        return false;
-    };
-
-    PeriodDateSelect.prototype.doNormalize = function () {
-        this.fire(new CustomEvent('onSetState', {
-            detail: {
-                state: STATES.valid
-            }
-        }));
-        this.setErrorText('');
-        return true;
     };
 
     return PeriodDateSelect;
@@ -31772,9 +31658,9 @@ var FileInput = (function () {
     function FileInput(lang, input) {
         DefaultInput.apply(this, arguments);
         this.maxSize = 2e+7;
-        this.type = this.input.getAttribute('data-attach');
+        this.type = this.input().getAttribute('data-attach');
         var self = this;
-        this.input.onchange = function () {
+        this.input().onchange = function () {
             self.doValidate();
         };
     }
@@ -31793,14 +31679,14 @@ var FileInput = (function () {
     };
 
     FileInput.prototype.checkCount = function () {
-        if (!this.input.files.length)
+        if (!this.input().files.length)
             throw new ReferenceError('File is required');
     };
 
     FileInput.prototype.doValidate = function () {
         try {
             this.checkCount();
-            var file = this.input.files[0];
+            var file = this.input().files[0];
             this.checkSize(file);
             return this.doNormalize();
         } catch (e) {
@@ -31822,7 +31708,7 @@ var MultipleFileInput = (function () {
 
     function MultipleFileInput(lang, input) {
         FileInput.apply(this, arguments);
-        this.addContainer = document.getElementById(this.input.getAttribute('data-container'));
+        this.addContainer = document.getElementById(this.input().getAttribute('data-container'));
     }
 
     MultipleFileInput.prototype = Object.create(FileInput.prototype);
@@ -31839,7 +31725,7 @@ var MultipleFileInput = (function () {
 
     MultipleFileInput.prototype.doValidate = function () {
         try {
-            var fList = this.input.files;
+            var fList = this.input().files;
 
             for (var i = 0; i < fList.length; ++i) {
                 var file = fList[i];
@@ -31847,7 +31733,7 @@ var MultipleFileInput = (function () {
                 this.add(file);
             }
             this.checkCount();
-            this.input.value = '';
+            this.input().value = '';
             return this.doNormalize();
         } catch (e) {
             this.doValidateError(e.message);
@@ -31984,7 +31870,7 @@ var PhotoInput = (function () {
         var self = this;
         this.filename = '';
 
-        this.input.addEventListener('change', function () {
+        this.input().addEventListener('change', function () {
             if (this.files && this.files[0]) {
                 // if (self.filename) {
                 //     self.remove(self.filename);
@@ -32004,7 +31890,7 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.showPhoto = function (file) {
         if (!this.croppie)
-            this.croppie = new Croppie(document.getElementById(this.input.getAttribute('data-photo')), this.options);
+            this.croppie = new Croppie(document.getElementById(this.input().getAttribute('data-photo')), this.options);
         if ( file ) {
             var reader = new FileReader();
             var self = this;
@@ -32052,7 +31938,6 @@ var PhotoInput = (function () {
 
     PhotoInput.prototype.remove = function (filename) {
         var fd = new FormData();
-        var self = this;
         fd.append('filename', filename);
         fd.append('action', 'remove_file_from_session');
 
@@ -32082,6 +31967,240 @@ module.exports = {
 
 /***/ }),
 /* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var d = __webpack_require__(2);
+var DefaultInput = d.DefaultInput;
+var STATES = d.STATES;
+
+var NumberInput = (function () {
+    function NumberInput(lang, input) {
+        DefaultInput.apply(this, arguments);
+        var self = this;
+
+        this.input().addEventListener('focusout', function (e) {
+            self.doValidate(e);
+        });
+
+        this.input().addEventListener('input', function (e) {
+            self.doValidate(e);
+        });
+    }
+
+    NumberInput.prototype = Object.create(DefaultInput.prototype);
+    NumberInput.prototype.constructor = NumberInput;
+
+    NumberInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'You should enter only digits.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Поле должно состоять из цифр.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    NumberInput.prototype.doValidate = function () {
+        var pattern = /^[0-9\s]+$/;
+        var value = this.input().value;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    NumberInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    return NumberInput;
+})();
+
+var TelInput = (function () {
+
+    function TelInput(lang, input) {
+        NumberInput.apply(this, arguments);
+    }
+
+    TelInput.prototype = Object.create(NumberInput.prototype);
+    TelInput.prototype.constructor = TelInput;
+
+    TelInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Use correct phone number.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Укажите корректный номер телефона.',
+                'empty': DefaultInput.prototype.getErrorMessage.call(this)
+            }
+        }[this.lang][errType];
+    };
+
+    TelInput.prototype.doValidate = function () {
+        var value = this.input().value;
+        var pattern = /^\+?\d{0,13}$/;
+        var res = false;
+        if (!value)
+            res = this.doValidateError('empty');
+        else if (!value.match(pattern))
+            res = this.doValidateError('invalid-input');
+        else
+            res = this.doNormalize();
+        return res;
+    };
+
+    return TelInput;
+})();
+
+var CardNumberInput = (function () {
+
+    function CardNumberInput(lang, input) {
+        NumberInput.apply(this, arguments);
+        var self = this;
+
+        this.input().addEventListener('keypress', function (e) {
+            self.doKeyPress(e);
+        });
+
+        this.input().addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CardNumberInput.prototype = Object.create(NumberInput.prototype);
+    CardNumberInput.prototype.constructor = CardNumberInput;
+
+    CardNumberInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct card number.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный номер карты.',
+                'empty': 'Вы пропустили это поле.'
+            }
+        }[this.lang][errType];
+    };
+
+    CardNumberInput.prototype.doValidate = function () {
+        var val = this.input().value.replace(/\s/g, '');
+
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CardNumberInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+
+    CardNumberInput.prototype.doKeyPress = function (e) {
+        var val = this.input().value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
+            this.input().value += ' ';
+    };
+
+    CardNumberInput.prototype.doKeyDown = function (e) {
+        var val = this.input().value.replace(/\s/g, '');
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CardNumberInput;
+})();
+
+var CVCInput = (function () {
+
+    function CVCInput(lang, input) {
+        NumberInput.apply(this, arguments);
+        var self = this;
+
+        this.input().addEventListener('keydown', function (e) {
+            self.doKeyDown(e);
+        });
+    }
+
+    CVCInput.prototype = Object.create(NumberInput.prototype);
+    CVCInput.prototype.constructor = CVCInput;
+
+    CVCInput.prototype.getErrorMessage = function (errType) {
+        return { //TODO
+            'en-US': {
+                'invalid-input': 'Please, enter correct CVV2/CVC2.',
+                'empty': NumberInput.prototype.getErrorMessage.call(this)
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите правильный CVV2/CVC2.',
+                'empty': 'Вы пропустили это поле.'
+            }
+        }[this.lang][errType];
+    };
+
+    CVCInput.prototype.doValidate = function () {
+        var val = this.input().value;
+        if (isNaN(+val)) {
+            return this.doValidateError(STATES.invalid);
+        } else if (val === '') {
+            return this.doValidateError('empty');
+        } else {
+            return this.doNormalize();
+        }
+    };
+
+    CVCInput.prototype.doValidateError = function (errType) {
+        this.setState(STATES.invalid);
+        this.setErrorText(this.getErrorMessage(errType));
+        this.fire(new CustomEvent('onValidateError'));
+        return false;
+    };
+
+    CVCInput.prototype.doKeyDown = function (e) {
+        var val = this.input().value;
+        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
+        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
+                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
+            e.preventDefault();
+    };
+
+    return CVCInput;
+})();
+
+module.exports = {
+    NumberInput: NumberInput,
+    TelInput: TelInput,
+    CardNumberInput: CardNumberInput,
+    CVCInput: CVCInput
+};
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32156,12 +32275,6 @@ ProgressBar.prototype.prevStep = function () {
 module.exports = ProgressBar;
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
@@ -32223,6 +32336,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32287,10 +32406,73 @@ var onProvinceChanged = function (code, selector) {
         }
     });
 };
+var onPartnerAddRadioClick = function (e) {
+    var fd = new FormData();
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    var self = e.target;
+    fd.append('action', 'get_additional_template');
+    fd.append('template', e.target.getAttribute('data-template'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', gic.ajaxurl, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var res = xhr.responseText;
+            var copy = document.createElement('div');
+            copy.classList.add('copied');
+            copy.innerHTML = res;
+            div.insertBefore(copy, null);
+
+            var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
+            var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
+                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                'div[data-role=combine-date], div[data-role=period-date]');
+            page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                detail: {
+                    inputs: insertedInputs
+                }
+            }));
+
+            var work = document.getElementById('part-work-cont');
+            var educ = document.getElementById('part-educ-cont');
+            work.style.display = 'block';
+            educ.style.display = 'block';
+        }
+    };
+
+    xhr.send(fd);
+};
+
+var onPartnerDelRadioClick = function (e) {
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    if (div.childNodes.length > 2) {
+        var c = div.querySelector('.copied');
+        div.removeChild(c);
+        var work = document.getElementById('part-work-cont');
+        var educ = document.getElementById('part-educ-cont');
+        work.style.display = 'none';
+        educ.style.display = 'none';
+
+        var dels = work.querySelectorAll('span.added-file-delete');
+        var i;
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+
+        dels = educ.querySelectorAll('span.added-file-delete');
+        for (i = 0; i < dels.length; ++i ) {
+            dels.item(i).dispatchEvent(new Event('click'))
+        }
+    }
+};
+
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
-    onProvinceChanged: onProvinceChanged
+    onProvinceChanged: onProvinceChanged,
+    onPartnerDelRadioClick: onPartnerDelRadioClick,
+    onPartnerAddRadioClick: onPartnerAddRadioClick
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
