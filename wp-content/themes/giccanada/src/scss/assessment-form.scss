@@ -196,6 +196,19 @@ $image-dir: '../images/';
         .copied {
           border-top: 1px solid #CFCFCF;
           padding-top: 15px;
+
+          &.-copy1 {
+            border-top: none;
+          }
+
+          .delete-copy {
+            text-align: right;
+
+            .added-file-delete {
+              color: red;
+              cursor: pointer;
+            }
+          }
         }
 
         section {

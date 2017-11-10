@@ -11001,6 +11001,13 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step .copied {
       border-top: 1px solid #CFCFCF;
       padding-top: 15px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .copied.-copy1 {
+        border-top: none; }
+      #assessment-modal .modal-body #assessment-form .assessment-step .copied .delete-copy {
+        text-align: right; }
+        #assessment-modal .modal-body #assessment-form .assessment-step .copied .delete-copy .added-file-delete {
+          color: red;
+          cursor: pointer; }
     #assessment-modal .modal-body #assessment-form .assessment-step section {
       padding-bottom: 15px; }
       #assessment-modal .modal-body #assessment-form .assessment-step section label, #assessment-modal .modal-body #assessment-form .assessment-step section input, #assessment-modal .modal-body #assessment-form .assessment-step section select, #assessment-modal .modal-body #assessment-form .assessment-step section textarea {

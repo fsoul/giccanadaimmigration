@@ -200,3 +200,20 @@ function save_session_files() {
 
 add_action( 'wp_ajax_save_session_files', 'save_session_files' );
 add_action( 'wp_ajax_nopriv_save_session_files', 'save_session_files' );
+
+
+function get_additional_template() {
+
+	$template = $_POST['template'];
+	$index = $_POST['index'];
+	ob_start();
+	require_once( get_template_directory() . '/inc/get-select-options.php' );
+	require_once( get_template_directory() . "/template-parts/assessment-form/additional/$template.php" );
+	$message = ob_get_contents();
+	ob_end_clean();
+	echo $message;
+	wp_die();
+}
+
+add_action( 'wp_ajax_get_additional_template', 'get_additional_template' );
+add_action( 'wp_ajax_nopriv_get_additional_template', 'get_additional_template' );
