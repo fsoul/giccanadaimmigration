@@ -11001,7 +11001,7 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step .copied {
       border-top: 1px solid #CFCFCF;
       padding-top: 15px; }
-      #assessment-modal .modal-body #assessment-form .assessment-step .copied.-copy1 {
+      #assessment-modal .modal-body #assessment-form .assessment-step .copied:first-child, #assessment-modal .modal-body #assessment-form .assessment-step .copied:first-of-type {
         border-top: none; }
       #assessment-modal .modal-body #assessment-form .assessment-step .copied .delete-copy {
         text-align: right; }
