@@ -57,13 +57,11 @@
 <section>
     <label for="member-status" >Родственная связь</label>
     <select id="member-status" name="member-status" data-role="select">
-        <option value="wife" selected>Супруга</option>
+        <option value="" disabled selected>- Выбрать -</option>
+        <option value="wife">Супруга</option>
         <option value="husband">Супруг</option>
-        <option value="father">Отец</option>
-        <option value="mother">Мать</option>
-        <option value="brother">Брат</option>
-        <option value="sister">Сестра</option>
     </select>
+    <span class="error-text" id="error-member-status"></span>
 </section>
 <section class="radio-block">
     <label>Тип отношений</label>
