@@ -32409,45 +32409,46 @@ var onProvinceChanged = function (code, selector) {
 var onPartnerAddRadioClick = function (e) {
     var fd = new FormData();
     var div = document.getElementById(e.target.getAttribute('data-template'));
-    var self = e.target;
-    fd.append('action', 'get_additional_template');
-    fd.append('template', e.target.getAttribute('data-template'));
+    if (!div.querySelector('.copied')) {
+        var self = e.target;
+        fd.append('action', 'get_additional_template');
+        fd.append('template', e.target.getAttribute('data-template'));
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', gic.ajaxurl, true);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var res = xhr.responseText;
-            var copy = document.createElement('div');
-            copy.classList.add('copied');
-            copy.innerHTML = res;
-            div.insertBefore(copy, null);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = xhr.responseText;
+                var copy = document.createElement('div');
+                copy.classList.add('copied');
+                copy.innerHTML = res;
+                div.insertBefore(copy, null);
 
-            var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
-            var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
-                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
-                'div[data-role=combine-date], div[data-role=period-date]');
-            page.dispatchEvent(new CustomEvent('onCopyInputs', {
-                detail: {
-                    inputs: insertedInputs
-                }
-            }));
+                var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
+                var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
+                    'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                    'div[data-role=combine-date], div[data-role=period-date]');
+                page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                    detail: {
+                        inputs: insertedInputs
+                    }
+                }));
 
-            var work = document.getElementById('part-work-cont');
-            var educ = document.getElementById('part-educ-cont');
-            work.style.display = 'block';
-            educ.style.display = 'block';
-        }
-    };
-
-    xhr.send(fd);
+                var work = document.getElementById('part-work-cont');
+                var educ = document.getElementById('part-educ-cont');
+                work.style.display = 'block';
+                educ.style.display = 'block';
+            }
+        };
+        xhr.send(fd);
+    }
 };
 
 var onPartnerDelRadioClick = function (e) {
     var div = document.getElementById(e.target.getAttribute('data-template'));
-    if (div.childNodes.length > 2) {
-        var c = div.querySelector('.copied');
+    var c = div.querySelector('.copied');
+    if (c) {
         div.removeChild(c);
         var work = document.getElementById('part-work-cont');
         var educ = document.getElementById('part-educ-cont');
@@ -32467,12 +32468,57 @@ var onPartnerDelRadioClick = function (e) {
     }
 };
 
+var onFileAddRadioClick = function (e) {
+    var fd = new FormData();
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    div.querySelector('.copied');
+    if (!div.querySelector('.copied')) {
+        var self = e.target;
+        fd.append('action', 'get_additional_template');
+        fd.append('template', e.target.getAttribute('data-template'));
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = xhr.responseText;
+                var copy = document.createElement('div');
+                copy.classList.add('copied');
+                copy.innerHTML = res;
+                div.insertBefore(copy, null);
+
+                var page = document.querySelector('fieldset.' + self.getAttribute('data-parent'));
+                var insertedInputs = copy.querySelectorAll('input[type=text], input[type=tel], ' +
+                    'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                    'div[data-role=combine-date], div[data-role=period-date]');
+                page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                    detail: {
+                        inputs: insertedInputs
+                    }
+                }));
+            }
+        };
+
+        xhr.send(fd);
+    }
+};
+
+var onFileDelRadioClick = function (e) {
+    var div = document.getElementById(e.target.getAttribute('data-template'));
+    var c = div.querySelector('.copied');
+    if (c) {
+        div.removeChild(c);
+    }
+};
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
     onProvinceChanged: onProvinceChanged,
     onPartnerDelRadioClick: onPartnerDelRadioClick,
-    onPartnerAddRadioClick: onPartnerAddRadioClick
+    onPartnerAddRadioClick: onPartnerAddRadioClick,
+    onFileAddRadioClick: onFileAddRadioClick,
+    onFileDelRadioClick: onFileDelRadioClick
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
