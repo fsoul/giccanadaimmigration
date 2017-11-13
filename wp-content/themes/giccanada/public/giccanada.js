@@ -30997,7 +30997,7 @@ var validation = __webpack_require__(23);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 14,
+                // startIndex: 4,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -31344,11 +31344,11 @@ var MixedInput = (function () {
     MixedInput.prototype.getErrorMessage = function (errType) {
         return { //TODO
             'en-US': {
-                'invalid-input': 'You should use only characters and digits.',
+                'invalid-input': 'You should use only characters or digits.',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             },
             'ru-RU': {
-                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] и цифры',
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] или цифры',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             }
         }[this.lang][errType];
@@ -31526,8 +31526,8 @@ var CombineDateSelect = (function () {
         var date = this.dateParts['day'].getValue(),
             month = this.dateParts['month'].getValue(),
             year = this.dateParts['year'].getValue();
-        var d = new Date(year, month - 1, date);
-        return isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date;
+        var d = new Date(year, month, date);
+        return isNaN(d) || d.getFullYear() != year || d.getMonth() != month || d.getDate() != date;
     };
 
     return CombineDateSelect;

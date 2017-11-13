@@ -68,11 +68,11 @@ var MixedInput = (function () {
     MixedInput.prototype.getErrorMessage = function (errType) {
         return { //TODO
             'en-US': {
-                'invalid-input': 'You should use only characters and digits.',
+                'invalid-input': 'You should use only characters or digits.',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             },
             'ru-RU': {
-                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] и цифры',
+                'invalid-input': 'Вы должны использовать символы [a-Z, а-Я] или цифры',
                 'empty': DefaultInput.prototype.getErrorMessage.call(this)
             }
         }[this.lang][errType];
