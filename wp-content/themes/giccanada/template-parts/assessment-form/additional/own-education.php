@@ -1,7 +1,7 @@
 <div class="delete-copy"><span class="added-file-delete" data-parent="#own-education" data-del="-copy<?=$index;?>"><i class="fa fa-times"></i></span></div>
 <section>
     <label for="education-name-<?=$index;?>">Наименование учебного заведения</label>
-    <input type="text" name="education-name[]" id="education-name-<?=$index;?>" data-role="text">
+    <input type="text" name="education-name[]" id="education-name-<?=$index;?>" data-role="mixed">
     <span class="error-text" id="error-education-name-<?=$index;?>"></span>
 </section>
 <section>
