@@ -114,8 +114,8 @@ var CombineDateSelect = (function () {
         var date = this.dateParts['day'].getValue(),
             month = this.dateParts['month'].getValue(),
             year = this.dateParts['year'].getValue();
-        var d = new Date(year, month - 1, date);
-        return isNaN(d) || d.getFullYear() != year || d.getMonth() + 1 != month || d.getDate() != date;
+        var d = new Date(year, month, date);
+        return isNaN(d) || d.getFullYear() != year || d.getMonth() != month || d.getDate() != date;
     };
 
     return CombineDateSelect;
