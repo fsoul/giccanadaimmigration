@@ -9,26 +9,28 @@ function send_open_case_form() {
 	}
 
 
-	$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
-												SELECT COUNT(*) 
-												FROM wp_open_case 
-												WHERE open_case_email = %s",
-			$form['email']
-		) ) > 0;
+//	$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
+//												SELECT COUNT(*)
+//												FROM wp_open_case
+//												WHERE open_case_email = %s",
+//			$form['email']
+//		) ) > 0;
 	//Проверка была ли подписка
-	if ( $is_email_sent ) {
+//	if ( $is_email_sent ) {
+	if ( false ) {
 		$ans_msg   = 'This email is already subscribed!';
 		$isSuccess = false;
 	} else {
-		$wpdb->insert( 'wp_open_case', array(
-			'open_case_name'    => $form['first_name'],
-			'open_case_phone'   => $form['phone'],
-			'open_case_email'   => $form['email'],
-			'open_case_country' => $form['country'],
-			'open_case_lang'    => $form['lang']
-		) );
+//		$wpdb->insert( 'wp_open_case', array(
+//			'open_case_name'    => $form['first_name'],
+//			'open_case_phone'   => $form['phone'],
+//			'open_case_email'   => $form['email'],
+//			'open_case_country' => $form['country'],
+//			'open_case_lang'    => $form['lang']
+//		) );
 
-		if ( $wpdb->insert_id ) {
+//		if ( $wpdb->insert_id ) {
+		if ( true ) {
 			require_once( get_template_directory() . '/inc/mails.php' );
 			$isSuccess = send_open_case_admin_mail( $form ) && send_open_case_user_mail( $form );
 		} else {
