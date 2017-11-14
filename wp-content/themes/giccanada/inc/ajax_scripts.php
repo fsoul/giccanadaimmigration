@@ -7,38 +7,42 @@ function send_open_case_form() {
 	foreach ( $form as $key => $value ) {
 		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
 	}
+    $is_debug_mode = $_COOKIE['debug'] == 1;
+	$ans_msg   = '';
+	$is_success = false;
+	$insert_id = '';
 
-	$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
+	if (!$is_debug_mode) {
+		$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
 												SELECT COUNT(*)
 												FROM wp_open_case
 												WHERE open_case_email = %s",
-			$form['email']
-		) ) > 0;
-	//Проверка была ли подписка
-	if ( $is_email_sent ) {
-		$ans_msg   = 'This email is already subscribed!';
-		$isSuccess = false;
-	} else {
-		$wpdb->insert( 'wp_open_case', array(
-			'open_case_name'    => $form['first_name'],
-			'open_case_phone'   => $form['phone'],
-			'open_case_email'   => $form['email'],
-			'open_case_country' => $form['country'],
-			'open_case_lang'    => $form['lang']
-		) );
+				$form['email']
+			) ) > 0;
 
-		if ( $wpdb->insert_id ) {
-			require_once( get_template_directory() . '/inc/mails.php' );
-			$isSuccess = send_open_case_admin_mail( $form ) &&  send_open_case_user_mail( $form );
+		//Проверка была ли подписка
+		if ( $is_email_sent ) {
+			$ans_msg   = 'This email is already subscribed!';
 		} else {
-			$isSuccess = false;
+			$wpdb->insert( 'wp_open_case', array(
+				'open_case_name'    => $form['first_name'],
+				'open_case_phone'   => $form['phone'],
+				'open_case_email'   => $form['email'],
+				'open_case_country' => $form['country'],
+				'open_case_lang'    => $form['lang']
+			) );
+			$insert_id = $wpdb->insert_id;
 		}
+	}
 
-		$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+	if ($is_debug_mode || $insert_id) {
+		require_once( get_template_directory() . '/inc/mails.php' );
+		$is_success = send_open_case_admin_mail( $form ) &&  send_open_case_user_mail( $form );
+		$ans_msg = $is_success ? 'Form sent successfully!' : 'Failed to send your message!';
 	}
 
 	echo json_encode( array(
-		'isSuccess' => $isSuccess,
+		'isSuccess' => $is_success,
 		'message'   => $ans_msg
 	) );
 	wp_die();
