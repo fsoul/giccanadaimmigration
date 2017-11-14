@@ -71,7 +71,9 @@
                     <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>
                     <fieldset class="assessment-step -step17 payment"></fieldset>
-                    <input type="submit">
+                    <? if($_GET['debug'] == 'submit') : ?>
+                        <input type="submit">
+                    <? endif; ?>
                 </form>
             </div>
         </div>
