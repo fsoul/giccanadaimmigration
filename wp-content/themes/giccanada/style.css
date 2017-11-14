@@ -10086,6 +10086,9 @@ body {
   border-radius: 16px;
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.364074);
   padding: 50px; }
+  #open-case-form .error-text {
+    position: relative;
+    top: -10px; }
   #open-case-form .close {
     position: relative;
     right: -20px;
@@ -10157,6 +10160,16 @@ body {
         outline: 0; }
 
 /*fixed right panel end -----------------------*/
+.error-text {
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 0.813em;
+  color: #F54B5E; }
+
+.invalid-input {
+  border: 1px solid #ff0000 !important;
+  outline: none; }
 .header-container {
   width: 100%;
   height: 828px; }
@@ -10988,16 +11001,10 @@ body {
     display: none; }
     #assessment-modal .modal-body #assessment-form .assessment-step p {
       font-size: .75rem; }
-    #assessment-modal .modal-body #assessment-form .assessment-step .error-text {
-      font-style: normal;
-      font-weight: normal;
-      line-height: normal;
-      font-size: 0.813em;
-      color: #F54B5E; }
-      #assessment-modal .modal-body #assessment-form .assessment-step .error-text.add-btn-err {
-        display: inline-block;
-        text-align: right;
-        width: 100%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step .error-text.add-btn-err {
+      display: inline-block;
+      text-align: right;
+      width: 100%; }
     #assessment-modal .modal-body #assessment-form .assessment-step .copied {
       border-top: 1px solid #CFCFCF;
       padding-top: 15px; }
@@ -11059,12 +11066,6 @@ body {
       #assessment-modal .modal-body #assessment-form .assessment-step section .invalid-input {
         border: 1px solid #ff0000;
         outline: none; }
-      #assessment-modal .modal-body #assessment-form .assessment-step section .error-text {
-        font-style: normal;
-        font-weight: normal;
-        line-height: normal;
-        font-size: 0.813em;
-        color: #F54B5E; }
       #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section {
         padding-bottom: 0; }
         #assessment-modal .modal-body #assessment-form .assessment-step section.radio-block section:last-of-type .ass-radio + label {
@@ -11415,7 +11416,7 @@ body {
           content: '\F00C';
           font-family: 'FontAwesome', sans-serif;
           left: -22px;
-          top: 0px;
+          top: 0;
           color: transparent;
           transition: color .2s;
           -webkit-transition: color .2s;

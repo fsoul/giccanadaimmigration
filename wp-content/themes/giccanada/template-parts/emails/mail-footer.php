@@ -1,4 +1,4 @@
-<?php ?>
+<?php $imageURI = get_template_directory_uri() . '/public/images/mails/'; ?>
 <table style="width:100%;border-spacing:0;border-collapse:collapse;">
     <tbody>
     <tr style="font-weight:bold;">
@@ -55,6 +55,13 @@
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr style="font-weight:bold;line-height:16px;">
+        <td colspan="2" style="padding-top: 15px;">
+            <a href="https://vk.com/gic_canada_immigeration" style="border:none" target="_blank"><img src="<?= $imageURI; ?>vk.png" alt="VK" style="height:30px;width:30px;"></a>
+            <a href="https://www.facebook.com/giccanada.rus/" style="border:none;padding-left:10px;padding-right:10px;" target="_blank"><img src="<?= $imageURI; ?>facebook.png" alt="FB" style="height:30px;width:30px;"></a>
+            <a href="https://www.instagram.com/gic_canada/?hl=en" style="border:none" target="_blank"><img src="<?= $imageURI; ?>instagram.png" alt="Instagram" style="height:30px;width:30px;"></a>
         </td>
     </tr>
     <tr style="font-weight:bold;line-height:16px;">
