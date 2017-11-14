@@ -37,11 +37,14 @@ class OpenCaseWidget extends WP_Widget {
                 <h2><?= $title; ?></h2>
 <!--                <p>Оставьте свои контактные данные и мы свяжемся с Вами в ближайшее время</p>-->
                 <p><?= $instance['phrase']; ?></p>
-                <input type="text" name="first_name" placeholder="Ваше имя *">
-                <input type="tel" name="phone" placeholder="Ваш телефон *">
-                <input type="email" name="email" placeholder="Ваш E-mail">
+                <input type="text" name="first_name" id="last_name" placeholder="Ваше имя *" data-role="text">
+                <span class="error-text" id="error-last_name"></span>
+                <input type="tel" name="phone" id="phone" placeholder="Ваш телефон *" data-role="tel">
+                <span class="error-text" id="error-phone"></span>
+                <input type="email" name="email" id="email" placeholder="Ваш E-mail" data-role="email">
+                <span class="error-text" id="error-email"></span>
                 <div id="selection-block">
-                    <select name="country" id="open-case-country" style="width: 100%">
+                    <select name="country" id="open-case-country" style="width: 100%" data-role="select">
 						<?php foreach ($this->countries as $key => $value):?>
                             <option value="<?= $key; ?>"><?= $value;?></option>
 						<?php endforeach;?>
@@ -53,6 +56,8 @@ class OpenCaseWidget extends WP_Widget {
                         <option value="AR">Арабский</option>
                     </select>
                 </div>
+                <span class="error-text" id="error-open-case-country"></span>
+                <span class="error-text" id="error-open-case-form" style="visibility:hidden;"></span>
                 <input type="submit" class="orange-btn" value="Отправить">
             </form>
         </div>

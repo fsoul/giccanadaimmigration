@@ -4,11 +4,6 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
-/*test data*/
-$label = 'test label';
-$section = 'test section';
-$value = 'Тестовое значение';
-
 ob_start();
 require_once('wp-content/themes/giccanada/template-parts/assessment-form/additional/pdf-template.php');
 $html = ob_get_contents();
@@ -32,4 +27,4 @@ $pdfFileName = uniqid() . '.pdf';
 
 $res = file_put_contents($pdfPath . $pdfFileName, $output);
 
-echo json_encode($_POST);
+echo json_encode($_POST['relative']);

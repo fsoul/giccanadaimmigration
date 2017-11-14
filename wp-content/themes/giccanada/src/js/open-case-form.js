@@ -1,6 +1,7 @@
 'use strict';
 
 var helper = require('./lib/helpers');
+var validation = require('./input-validation');
 
 function OpenCaseForm(renderFunc) {
 
@@ -16,15 +17,18 @@ function OpenCaseForm(renderFunc) {
     this.isMobile = helper.isMobile();
     this.cancelButton = this.form.querySelector('.close');
     this.submitButton = this.form.querySelector('input[type=submit]');
+    this.inputs = [];
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
-        self.sendForm();
+        if (self.validate()) {
+            self.sendForm();
+        }
     });
 
     this.cancelButton.addEventListener('click', function (e) {
-       e.preventDefault();
-       self.formClose();
+        e.preventDefault();
+        self.formClose();
     });
 
     window.addEventListener('click', function (e) {
@@ -45,6 +49,8 @@ function OpenCaseForm(renderFunc) {
     }
 
     this.timerInit();
+
+    this.initInputs();
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -57,7 +63,7 @@ OpenCaseForm.prototype.formClose = function () {
 };
 
 OpenCaseForm.prototype.toggle = function () {
-    this.style.display = this.style.display !== 'block' ?  this.formShow() : this.formClose();
+    this.style.display = this.style.display !== 'block' ? this.formShow() : this.formClose();
 };
 
 
@@ -66,7 +72,7 @@ OpenCaseForm.prototype.timerInit = function () {
 
     function go(timeToShow) {
         var timerID = setInterval(function () {
-            var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
+            var currentTime = Math.round((Date.now() - self.startTime) / 1000);
             if (currentTime === timeToShow) {
                 clearInterval(timerID);
                 self.formShow();
@@ -79,9 +85,9 @@ OpenCaseForm.prototype.timerInit = function () {
         type: "POST",
         data: {'action': 'get_feedback_timer'},
         success: function (second) {
-            go( parseInt(second) );
+            go(parseInt(second));
         },
-        error:  function () {
+        error: function () {
             go(10);
         }
     });
@@ -108,20 +114,16 @@ OpenCaseForm.prototype.sendForm = function () {
         dataType: 'json',
         data: data,
         success: function (data) {
-            var span = document.createElement('span'),
-                style = span.style;
+            var span = document.getElementById('error-open-case-form');
             span.innerText = data.message;
-            style.fontSize = '1em';
-            style.display = 'block';
-            style.textAlign = 'center';
-            if (!data.isSuccess) {
-                style.color = '#ce2029';
-            } else {
-                style.color = '#228b22';
+            if (data.isSuccess) {
+                span.style.color = '#12c126';
+                self.submitButton.disabled = true;
             }
-
-            self.submitButton.parentElement.insertBefore(span, self.submitButton);
-            self.submitButton.disabled = true;
+            span.style.display = 'block';
+            span.style.textAlign = 'center';
+            span.style.paddingTop = '10px';
+            span.style.visibility = 'visible';
         }
     });
 };
@@ -138,9 +140,37 @@ OpenCaseForm.prototype.onWindowClick = function (e) {
         }
     }
 
-    if( !e.target.matches('#open-case') && !findParent(e.target)) {
+    if (!e.target.matches('#open-case') && !findParent(e.target)) {
         this.style.display = 'none';
     }
+};
+
+OpenCaseForm.prototype.initInputs = function () {
+    var inputs = this.form.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
+        'input[type=password], input[type=file], textarea, select, div[data-role=combine-date], ' +
+        'div[data-role=period-date]');
+
+    for (var i = 0; i < inputs.length; ++i) {
+        if (!this.inputs.some(function (t) {
+                return t.id === inputs[i].id;
+            })) {
+            this.inputs.push(validation.initByInput(inputs[i]))
+        }
+    }
+};
+
+OpenCaseForm.prototype.validate = function () {
+    var result = true;
+    for (var i = 0; i < this.inputs.length; ++i) {
+        if ((typeof this.inputs[i].input === 'function' && !this.inputs[i].input()) ||
+            (typeof this.inputs[i].div === 'function' && !this.inputs[i].div())) {
+            this.inputs.splice(i, 1);
+        } else
+        if (typeof this.inputs[i].doValidate === 'function' && !this.inputs[i].doValidate()) {
+            result = false;
+        }
+    }
+    return result
 };
 
 module.exports = OpenCaseForm;

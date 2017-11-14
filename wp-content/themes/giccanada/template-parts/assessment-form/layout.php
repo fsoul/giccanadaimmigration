@@ -36,7 +36,7 @@
                         <div></div>
                     </div>
                 </div>
-                <form id="assessment-form">
+                <form id="assessment-form" action="handler.php" method="post">
                     <h5>Личные данные</h5>
                     <fieldset class="assessment-step -step1"></fieldset>
                     <h5>Семейное положение</h5>
@@ -71,6 +71,7 @@
                     <fieldset class="assessment-step -step16 children"></fieldset>
                     <h5>Оплата</h5>
                     <fieldset class="assessment-step -step17 payment"></fieldset>
+                    <input type="submit">
                 </form>
             </div>
         </div>
