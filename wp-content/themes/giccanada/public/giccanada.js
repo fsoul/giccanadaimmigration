@@ -61,7 +61,7 @@ var app =
 /******/ 	__webpack_require__.p = "./public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10433,7 +10433,7 @@ var STATES = {
     normal: 'normal'
 };
 
-var EventTarget = __webpack_require__(24);
+var EventTarget = __webpack_require__(21);
 
 function DefaultInput(lang, input) {
     EventTarget.call(this);
@@ -10548,18 +10548,116 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+var DefaultInput = __webpack_require__(2).DefaultInput;
+
+var text = __webpack_require__(22);
+var select = __webpack_require__(23);
+var file = __webpack_require__(24);
+var number = __webpack_require__(25);
+
+var TextInput = text.TextInput;
+var MixedInput = text.MixedInput;
+var EmailInput = text.EmailInput;
+
+var NumberInput = number.NumberInput;
+var TelInput = number.TelInput;
+var CardNumberInput = number.CardNumberInput;
+var CVCInput = number.CVCInput;
+
+var SelectInput = select.SelectInput;
+var CombineDateSelect = select.CombineDateSelect;
+var PeriodDateSelect = select.PeriodDateSelect;
+
+var FileInput = file.FileInput;
+var MultipleFileInput = file.MultipleFileInput;
+var PhotoInput = file.PhotoInput;
+
+var InputsFactory = (function () {
+
+    function InputsFactory() {
+        this.inputClass = DefaultInput;
+    }
+
+    InputsFactory.prototype.createInput = function (lang, input) {
+        var role = input.getAttribute('data-role');
+        switch (role) {
+            case 'text':
+                this.inputClass = TextInput;
+                break;
+            case 'email':
+                this.inputClass = EmailInput;
+                break;
+            case 'number':
+                this.inputClass = NumberInput;
+                break;
+            case 'tel':
+                this.inputClass = TelInput;
+                break;
+            case 'card-number':
+                this.inputClass = CardNumberInput;
+                break;
+            case 'cvc':
+                this.inputClass = CVCInput;
+                break;
+            case 'mixed':
+                this.inputClass = MixedInput;
+                break;
+            case 'file':
+                this.inputClass = FileInput;
+                break;
+            case 'file-multiply':
+                this.inputClass = MultipleFileInput;
+                break;
+            case 'file-photo':
+                this.inputClass = PhotoInput;
+                break;
+            case 'select':
+                this.inputClass = SelectInput;
+                break;
+            case 'combine-date':
+                this.inputClass = CombineDateSelect;
+                break;
+            case 'period-date':
+                this.inputClass = PeriodDateSelect;
+                break;
+        }
+
+        return new this.inputClass(lang, input);
+    };
+
+    return InputsFactory;
+})();
+
+
+function initByInput(el) {
+    var lang = 'ru-RU'; //TODO
+    var factory = new InputsFactory();
+    return factory.createInput(lang, el);
+}
+
+module.exports = {
+    initByInput: initByInput
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
-__webpack_require__(5);
 __webpack_require__(6);
 __webpack_require__(7);
 __webpack_require__(8);
 __webpack_require__(9);
-__webpack_require__(11);
+__webpack_require__(10);
+__webpack_require__(12);
 
-var StickyMenu = __webpack_require__(15),
+var StickyMenu = __webpack_require__(16),
     stickMenu = new StickyMenu();
-var listeners = __webpack_require__(16),
+var listeners = __webpack_require__(17),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
     buttonUp = listeners.buttonUp;
@@ -10619,11 +10717,11 @@ document.addEventListener('DOMContentLoaded', function () {
         backArrow.style.visibility = 'hidden';
     });
 
-    __webpack_require__(17);
     __webpack_require__(18);
-    __webpack_require__(20);
-    __webpack_require__(21);
-    __webpack_require__(22);
+    __webpack_require__(19);
+    __webpack_require__(26);
+    __webpack_require__(27);
+    __webpack_require__(28);
 
     stickMenu.subscribe(menuLogo);
     stickMenu.subscribe(menuPhoneBlock);
@@ -10656,7 +10754,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10772,7 +10870,7 @@ module.exports = {
 })();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery, jQuery) {/**
@@ -14054,7 +14152,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(0)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -19810,7 +19908,7 @@ S2.define('jquery.select2',[
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*! 
@@ -21858,7 +21956,7 @@ var defaults = $.fn.steps.defaults = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($, Popper) {/*!
@@ -25712,10 +25810,10 @@ return exports;
 }({},$,Popper));
 //# sourceMappingURL=bootstrap.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(11)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28158,7 +28256,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, __webpack_provided_window_dot_jQuery) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -29753,10 +29851,10 @@ Popper.Defaults = Defaults;
     }
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12).setImmediate, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).setImmediate, __webpack_require__(0)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -29809,13 +29907,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(13);
+__webpack_require__(14);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -30005,10 +30103,10 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(14)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(15)))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -30198,7 +30296,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30305,7 +30403,7 @@ module.exports = StickyMenu;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30410,7 +30508,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports =
@@ -30486,13 +30584,13 @@ module.exports =
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var OpenCaseForm = __webpack_require__(19);
+var OpenCaseForm = __webpack_require__(20);
 
 module.exports = (function () {
 
@@ -30613,13 +30711,14 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
 var helper = __webpack_require__(1);
+var validation = __webpack_require__(4);
 
 function OpenCaseForm(renderFunc) {
 
@@ -30635,15 +30734,18 @@ function OpenCaseForm(renderFunc) {
     this.isMobile = helper.isMobile();
     this.cancelButton = this.form.querySelector('.close');
     this.submitButton = this.form.querySelector('input[type=submit]');
+    this.inputs = [];
 
     this.form.addEventListener('submit', function (e) {
         e.preventDefault();
-        self.sendForm();
+        if (self.validate()) {
+            self.sendForm();
+        }
     });
 
     this.cancelButton.addEventListener('click', function (e) {
-       e.preventDefault();
-       self.formClose();
+        e.preventDefault();
+        self.formClose();
     });
 
     window.addEventListener('click', function (e) {
@@ -30664,6 +30766,8 @@ function OpenCaseForm(renderFunc) {
     }
 
     this.timerInit();
+
+    this.initInputs();
 }
 
 OpenCaseForm.prototype.formShow = function () {
@@ -30676,7 +30780,7 @@ OpenCaseForm.prototype.formClose = function () {
 };
 
 OpenCaseForm.prototype.toggle = function () {
-    this.style.display = this.style.display !== 'block' ?  this.formShow() : this.formClose();
+    this.style.display = this.style.display !== 'block' ? this.formShow() : this.formClose();
 };
 
 
@@ -30685,7 +30789,7 @@ OpenCaseForm.prototype.timerInit = function () {
 
     function go(timeToShow) {
         var timerID = setInterval(function () {
-            var currentTime = Math.round( (Date.now() - self.startTime) / 1000 );
+            var currentTime = Math.round((Date.now() - self.startTime) / 1000);
             if (currentTime === timeToShow) {
                 clearInterval(timerID);
                 self.formShow();
@@ -30698,9 +30802,9 @@ OpenCaseForm.prototype.timerInit = function () {
         type: "POST",
         data: {'action': 'get_feedback_timer'},
         success: function (second) {
-            go( parseInt(second) );
+            go(parseInt(second));
         },
-        error:  function () {
+        error: function () {
             go(10);
         }
     });
@@ -30727,20 +30831,16 @@ OpenCaseForm.prototype.sendForm = function () {
         dataType: 'json',
         data: data,
         success: function (data) {
-            var span = document.createElement('span'),
-                style = span.style;
+            var span = document.getElementById('error-open-case-form');
             span.innerText = data.message;
-            style.fontSize = '1em';
-            style.display = 'block';
-            style.textAlign = 'center';
-            if (!data.isSuccess) {
-                style.color = '#ce2029';
-            } else {
-                style.color = '#228b22';
+            if (data.isSuccess) {
+                span.style.color = '#12c126';
+                self.submitButton.disabled = true;
             }
-
-            self.submitButton.parentElement.insertBefore(span, self.submitButton);
-            self.submitButton.disabled = true;
+            span.style.display = 'block';
+            span.style.textAlign = 'center';
+            span.style.paddingTop = '10px';
+            span.style.visibility = 'visible';
         }
     });
 };
@@ -30757,474 +30857,44 @@ OpenCaseForm.prototype.onWindowClick = function (e) {
         }
     }
 
-    if( !e.target.matches('#open-case') && !findParent(e.target)) {
+    if (!e.target.matches('#open-case') && !findParent(e.target)) {
         this.style.display = 'none';
     }
+};
+
+OpenCaseForm.prototype.initInputs = function () {
+    var inputs = this.form.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
+        'input[type=password], input[type=file], textarea, select, div[data-role=combine-date], ' +
+        'div[data-role=period-date]');
+
+    for (var i = 0; i < inputs.length; ++i) {
+        if (!this.inputs.some(function (t) {
+                return t.id === inputs[i].id;
+            })) {
+            this.inputs.push(validation.initByInput(inputs[i]))
+        }
+    }
+};
+
+OpenCaseForm.prototype.validate = function () {
+    var result = true;
+    for (var i = 0; i < this.inputs.length; ++i) {
+        if ((typeof this.inputs[i].input === 'function' && !this.inputs[i].input()) ||
+            (typeof this.inputs[i].div === 'function' && !this.inputs[i].div())) {
+            this.inputs.splice(i, 1);
+        } else
+        if (typeof this.inputs[i].doValidate === 'function' && !this.inputs[i].doValidate()) {
+            result = false;
+        }
+    }
+    return result
 };
 
 module.exports = OpenCaseForm;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports =  (function() {
-    var helper = __webpack_require__(1);
-
-    function onWindowLoadResize () {
-        var windowWidth = window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        var isMobile = helper.isMobile();
-
-        var programmsItems = document.getElementsByClassName('programms-grid-item');
-        var i;
-        for (i = 0; i < programmsItems.length; ++i) {
-            if (i > 2 && isMobile) {
-                programmsItems[i].style.display = 'none';
-            } else {
-                programmsItems[i].style.display = 'block';
-            }
-        }
-
-        var newsItems = document.getElementsByClassName('news-item');
-        for (i = 0; i < newsItems.length; ++i) {
-            if (i > 1 && isMobile) {
-                newsItems[i].style.display = 'none';
-            } else {
-                newsItems[i].style.display = 'block';
-            }
-        }
-        var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
-    }
-
-    /* init - you can init any event */
-    helper.throttle("resize", "optimizedResize");
-
-    // handle event
-    window.addEventListener("optimizedResize", onWindowLoadResize);
-
-    //on document load
-    onWindowLoadResize();
-})();
-
-/***/ }),
 /* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var helper = __webpack_require__(1);
-
-module.exports =  (function () {
-
-    function MobileModalMenu() {
-        this._modal = document.getElementById('mobile-modal');
-        this._list = this._modal.querySelector('#modal-menu-list');
-        var li = this._list.querySelectorAll('li.modal-item');
-        var backArrow = document.getElementById('modal-back-arrow');
-
-        for (var i = 0; i < li.length; ++i) {
-            helper.throttle('', 'onHideItem', li[i]);
-            helper.throttle('click', 'itemClick', li[i]);
-            li[i].addEventListener('onHideItem', this.doHideItem);
-            li[i].addEventListener('itemClick', this.doItemClick);
-        }
-
-        helper.throttle('', 'onHideItems', this._list);
-        this._list.addEventListener('onHideItems', this.doFireHideItems);
-        backArrow.addEventListener('click', function (e) {
-            e.preventDefault();
-            for (var i = 0; i < li.length; ++i) {
-                li[i].classList.remove('to-hide');
-                li[i].classList.remove('modal-inspected');
-            }
-            backArrow.style.visibility = 'hidden';
-        });
-    }
-
-
-    MobileModalMenu.prototype.doItemClick = function () {
-        if (this.children.length > 0) {
-            this.classList.add('modal-inspected');
-            this.parentElement.dispatchEvent(new CustomEvent('onHideItems'));
-        }
-    };
-
-    MobileModalMenu.prototype.doFireHideItems = function () {
-        var items = this.querySelectorAll('li.modal-item');
-        for (var i = 0; i < items.length; ++i) {
-            items[i].dispatchEvent(new CustomEvent('onHideItem'));
-        }
-
-        var backArrow = document.getElementById('modal-back-arrow');
-        backArrow.style.visibility = 'initial';
-    };
-
-    MobileModalMenu.prototype.doHideItem = function () {
-        if (!this.classList.contains('modal-inspected')) {
-            this.classList.add('to-hide');
-        }
-    };
-    return new MobileModalMenu();
-})();
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-var validation = __webpack_require__(23);
-
-(function () {
-    var AssessmentProgressBar = (function () {
-        var ProgressBar = __webpack_require__(29);
-
-        function AssessmentProgressBar(elem, options) {
-            var caption = document.querySelector('#assessment-modal .progress-container');
-            caption.style.display = !caption.style.display ? 'block' : caption.style.display;
-            ProgressBar.apply(this, arguments);
-        }
-
-        AssessmentProgressBar.prototype = Object.create(ProgressBar.prototype);
-        AssessmentProgressBar.prototype.constructor = AssessmentProgressBar;
-
-        AssessmentProgressBar.prototype.udpateCaption = function (newIndex, count) {
-            var caption = document.querySelector('#assessment-modal .progress-container'),
-                currentStep = caption.querySelector('.progress-current-step'),
-                stepsCount = caption.querySelector('.progress-steps-count');
-            currentStep.innerHTML = newIndex;
-            stepsCount.innerHTML = count;
-        };
-
-        return AssessmentProgressBar;
-    })();
-
-
-    var AssessmentCopyButton = (function () {
-
-        function AssessmentCopyButton(el) {
-            this.button = el;
-            var self = this;
-            this.button.addEventListener('click', function (e) {
-                e.preventDefault();
-                self.copy();
-            })
-        }
-
-        AssessmentCopyButton.prototype.onCopyInputs = function (newNode) {
-            var page = document.querySelector('fieldset.' + this.button.getAttribute('data-parent'));
-            var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
-                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
-                'div[data-role=combine-date], div[data-role=period-date]');
-            page.dispatchEvent(new CustomEvent('onCopyInputs', {
-                detail: {
-                    inputs: insertedInputs
-                }
-            }));
-            newNode.scrollIntoView(true);
-        };
-
-        AssessmentCopyButton.prototype.initDel = function (newNode) {
-            var del = newNode.querySelector('.added-file-delete');
-            del.addEventListener('click', function (e) {
-                e.preventDefault();
-                var div = document.querySelector(this.getAttribute('data-parent'));
-                div.removeChild(newNode);
-            })
-        };
-
-        AssessmentCopyButton.prototype.copy = function () {
-            var fd = new FormData();
-            var div = document.getElementById(this.button.getAttribute('data-template'));
-            var copyCount = div.querySelectorAll('.copied').length;
-            var self = this;
-            fd.append('action', 'get_additional_template');
-            fd.append('template', this.button.getAttribute('data-template'));
-            fd.append('index', copyCount + 1);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', gic.ajaxurl, true);
-
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = xhr.responseText;
-                    var copy = document.createElement('div');
-                    copy.classList.add('copied');
-                    copy.classList.add('-copy' + (copyCount + 1));
-                    copy.innerHTML = res;
-                    div.insertBefore(copy, null);
-                    self.onCopyInputs(copy);
-                    self.initDel(copy);
-                }
-            };
-
-            xhr.send(fd);
-        };
-
-        return AssessmentCopyButton;
-    })();
-
-
-    var AssessmentForm = (function () {
-        function AssessmentForm() {
-            this.form = $('#assessment-form');
-            this.isInited = false;
-            this.steps = [];
-            var self = this;
-
-            var initBtn = document.getElementById('ass-init-btn');
-            initBtn.addEventListener('click', function () {
-                if (!self.isInited)
-                    self._init();
-            });
-        }
-
-        AssessmentForm.prototype._init = function () {
-            var self = this;
-            var photoStep = 2;
-            this.form.steps({
-                headerTag: "h5",
-                bodyTag: "fieldset",
-                transitionEffect: "slideLeft",
-                // startIndex: 4,
-                onStepChanging: function (event, currentIndex, newIndex) {
-
-                    if (newIndex > currentIndex && !self.stepValidation(currentIndex))
-                        return false;
-
-                    if (currentIndex === photoStep) {
-                        var input = self.steps[photoStep].inputs.filter(function (t) {
-                            return t.id === 'ass-photo';
-                        })[0];
-                        input.dispatchEvent(new CustomEvent('upload'));
-                    }
-
-                    self._loadFormByStepIndex(newIndex + 1);
-                    return true;
-                },
-                onStepChanged: function (event, currentIndex, priorIndex) {
-                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
-
-                    if (currentIndex > priorIndex) {
-                        self.progressBar.nextStep();
-                    } else {
-                        self.progressBar.prevStep();
-                    }
-                },
-                onInit: function (event, currentIndex) {
-                    var stepInit = document.getElementById('ass-step-init');
-                    stepInit.style.display = 'none';
-
-                    var assSteps = document.querySelectorAll('.assessment-step');
-                    for (var i = 0; i < assSteps.length; ++i) {
-                        self.steps.push({
-                            step: assSteps[i],
-                            isLoaded: false,
-                            inputs: [],
-                            copyButtons: []
-                        });
-                    }
-
-                    self._loadFormByStepIndex(currentIndex + 1);
-                    self.form.show();
-                    self.progressBar = new AssessmentProgressBar('.progressbar div', {
-                        steps: self.steps.length,
-                        duration: 2000
-                    });
-                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
-                }
-            });
-        };
-
-
-        AssessmentForm.prototype._loadFormByStepIndex = function (index) {
-            var self = this;
-            var stepClass = '-step' + index;
-            var page = [].filter.call(this.steps, (function (s) {
-                return s.step.classList.contains(stepClass);
-            }))[0];
-            var stepIndex = self.steps.indexOf(page);
-            if (page && !page.isLoaded) {
-                $.ajax({
-                    url: gic.ajaxurl,
-                    type: "POST",
-                    data: {
-                        'action': 'get_step_by_index',
-                        'index': index
-                    },
-                    dataType: 'html',
-                    success: function (html) {
-                        page.step.innerHTML = html;
-                        self.initInputsValidation(index - 1, self._getPageInputs(stepIndex));
-                        var copies = page.step.querySelectorAll('.ass-add-button');
-                        for (var i = 0; i < copies.length; ++i) {
-                            if (self.steps[stepIndex].copyButtons.indexOf(copies[i]) === -1) {
-                                self.steps[stepIndex].copyButtons.push(new AssessmentCopyButton(copies[i]));
-                            }
-                        }
-                        self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
-                            self.doCopyInputs(e, stepIndex);
-                        });
-                        self.steps[stepIndex].isLoaded = true;
-                    }
-                });
-            }
-        };
-
-
-        AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
-            var inputs = e.detail.inputs;
-            this.initInputsValidation(stepIndex, inputs);
-        };
-
-        AssessmentForm.prototype._getPageInputs = function (pageIndex) {
-            var page = this.steps[pageIndex].step;
-            return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
-                'input[type=password], input[type=file], textarea, select, div[data-role=combine-date], ' +
-                'div[data-role=period-date]');
-        };
-
-        AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
-            for (var i = 0; i < inputs.length; ++i) {
-                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
-                    this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
-                }
-            }
-        };
-
-        AssessmentForm.prototype.stepValidation = function (pageIndex) {
-            var page = this.steps[pageIndex];
-            var result = true;
-            for (var i = 0; i < page.inputs.length; ++i) {
-                if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
-                    (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
-                    page.inputs.splice(i, 1);
-                } else
-                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
-                    result = false;
-                }
-            }
-
-            return result;
-        };
-        return AssessmentForm;
-    })();
-
-    var form = new AssessmentForm();
-})();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var DefaultInput = __webpack_require__(2).DefaultInput;
-
-var text = __webpack_require__(25);
-var select = __webpack_require__(26);
-var file = __webpack_require__(27);
-var number = __webpack_require__(28);
-
-var TextInput = text.TextInput;
-var MixedInput = text.MixedInput;
-var EmailInput = text.EmailInput;
-
-var NumberInput = number.NumberInput;
-var TelInput = number.TelInput;
-var CardNumberInput = number.CardNumberInput;
-var CVCInput = number.CVCInput;
-
-var SelectInput = select.SelectInput;
-var CombineDateSelect = select.CombineDateSelect;
-var PeriodDateSelect = select.PeriodDateSelect;
-
-var FileInput = file.FileInput;
-var MultipleFileInput = file.MultipleFileInput;
-var PhotoInput = file.PhotoInput;
-
-var InputsFactory = (function () {
-
-    function InputsFactory() {
-        this.inputClass = DefaultInput;
-    }
-
-    InputsFactory.prototype.createInput = function (lang, input) {
-        var role = input.getAttribute('data-role');
-        switch (role) {
-            case 'text':
-                this.inputClass = TextInput;
-                break;
-            case 'email':
-                this.inputClass = EmailInput;
-                break;
-            case 'number':
-                this.inputClass = NumberInput;
-                break;
-            case 'tel':
-                this.inputClass = TelInput;
-                break;
-            case 'card-number':
-                this.inputClass = CardNumberInput;
-                break;
-            case 'cvc':
-                this.inputClass = CVCInput;
-                break;
-            case 'mixed':
-                this.inputClass = MixedInput;
-                break;
-            case 'file':
-                this.inputClass = FileInput;
-                break;
-            case 'file-multiply':
-                this.inputClass = MultipleFileInput;
-                break;
-            case 'file-photo':
-                this.inputClass = PhotoInput;
-                break;
-            case 'select':
-                this.inputClass = SelectInput;
-                break;
-            case 'combine-date':
-                this.inputClass = CombineDateSelect;
-                break;
-            case 'period-date':
-                this.inputClass = PeriodDateSelect;
-                break;
-        }
-
-        return new this.inputClass(lang, input);
-    };
-
-    return InputsFactory;
-})();
-
-
-function initByInput(el) {
-    var lang = 'ru-RU'; //TODO
-    var factory = new InputsFactory();
-    return factory.createInput(lang, el);
-}
-
-module.exports = {
-    initByInput: initByInput
-};
-
-/***/ }),
-/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31270,7 +30940,7 @@ EventTarget.prototype.dispatchEvent = function(event) {
 module.exports = EventTarget;
 
 /***/ }),
-/* 25 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31406,7 +31076,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 26 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31644,7 +31314,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31966,7 +31636,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32198,6 +31868,366 @@ module.exports = {
     CardNumberInput: CardNumberInput,
     CVCInput: CVCInput
 };
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports =  (function() {
+    var helper = __webpack_require__(1);
+
+    function onWindowLoadResize () {
+        var windowWidth = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        var isMobile = helper.isMobile();
+
+        var programmsItems = document.getElementsByClassName('programms-grid-item');
+        var i;
+        for (i = 0; i < programmsItems.length; ++i) {
+            if (i > 2 && isMobile) {
+                programmsItems[i].style.display = 'none';
+            } else {
+                programmsItems[i].style.display = 'block';
+            }
+        }
+
+        var newsItems = document.getElementsByClassName('news-item');
+        for (i = 0; i < newsItems.length; ++i) {
+            if (i > 1 && isMobile) {
+                newsItems[i].style.display = 'none';
+            } else {
+                newsItems[i].style.display = 'block';
+            }
+        }
+        var academyCaption = document.querySelector('.academy-caption');
+        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
+    }
+
+    /* init - you can init any event */
+    helper.throttle("resize", "optimizedResize");
+
+    // handle event
+    window.addEventListener("optimizedResize", onWindowLoadResize);
+
+    //on document load
+    onWindowLoadResize();
+})();
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var helper = __webpack_require__(1);
+
+module.exports =  (function () {
+
+    function MobileModalMenu() {
+        this._modal = document.getElementById('mobile-modal');
+        this._list = this._modal.querySelector('#modal-menu-list');
+        var li = this._list.querySelectorAll('li.modal-item');
+        var backArrow = document.getElementById('modal-back-arrow');
+
+        for (var i = 0; i < li.length; ++i) {
+            helper.throttle('', 'onHideItem', li[i]);
+            helper.throttle('click', 'itemClick', li[i]);
+            li[i].addEventListener('onHideItem', this.doHideItem);
+            li[i].addEventListener('itemClick', this.doItemClick);
+        }
+
+        helper.throttle('', 'onHideItems', this._list);
+        this._list.addEventListener('onHideItems', this.doFireHideItems);
+        backArrow.addEventListener('click', function (e) {
+            e.preventDefault();
+            for (var i = 0; i < li.length; ++i) {
+                li[i].classList.remove('to-hide');
+                li[i].classList.remove('modal-inspected');
+            }
+            backArrow.style.visibility = 'hidden';
+        });
+    }
+
+
+    MobileModalMenu.prototype.doItemClick = function () {
+        if (this.children.length > 0) {
+            this.classList.add('modal-inspected');
+            this.parentElement.dispatchEvent(new CustomEvent('onHideItems'));
+        }
+    };
+
+    MobileModalMenu.prototype.doFireHideItems = function () {
+        var items = this.querySelectorAll('li.modal-item');
+        for (var i = 0; i < items.length; ++i) {
+            items[i].dispatchEvent(new CustomEvent('onHideItem'));
+        }
+
+        var backArrow = document.getElementById('modal-back-arrow');
+        backArrow.style.visibility = 'initial';
+    };
+
+    MobileModalMenu.prototype.doHideItem = function () {
+        if (!this.classList.contains('modal-inspected')) {
+            this.classList.add('to-hide');
+        }
+    };
+    return new MobileModalMenu();
+})();
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+var validation = __webpack_require__(4);
+
+(function () {
+    var AssessmentProgressBar = (function () {
+        var ProgressBar = __webpack_require__(29);
+
+        function AssessmentProgressBar(elem, options) {
+            var caption = document.querySelector('#assessment-modal .progress-container');
+            caption.style.display = !caption.style.display ? 'block' : caption.style.display;
+            ProgressBar.apply(this, arguments);
+        }
+
+        AssessmentProgressBar.prototype = Object.create(ProgressBar.prototype);
+        AssessmentProgressBar.prototype.constructor = AssessmentProgressBar;
+
+        AssessmentProgressBar.prototype.udpateCaption = function (newIndex, count) {
+            var caption = document.querySelector('#assessment-modal .progress-container'),
+                currentStep = caption.querySelector('.progress-current-step'),
+                stepsCount = caption.querySelector('.progress-steps-count');
+            currentStep.innerHTML = newIndex;
+            stepsCount.innerHTML = count;
+        };
+
+        return AssessmentProgressBar;
+    })();
+
+
+    var AssessmentCopyButton = (function () {
+
+        function AssessmentCopyButton(el) {
+            this.button = el;
+            var self = this;
+            this.button.addEventListener('click', function (e) {
+                e.preventDefault();
+                self.copy();
+            })
+        }
+
+        AssessmentCopyButton.prototype.onCopyInputs = function (newNode) {
+            var page = document.querySelector('fieldset.' + this.button.getAttribute('data-parent'));
+            var insertedInputs = newNode.querySelectorAll('input[type=text], input[type=tel], ' +
+                'input[type=email], input[type=file], input[type=password], textarea, select, ' +
+                'div[data-role=combine-date], div[data-role=period-date]');
+            page.dispatchEvent(new CustomEvent('onCopyInputs', {
+                detail: {
+                    inputs: insertedInputs
+                }
+            }));
+            newNode.scrollIntoView(true);
+        };
+
+        AssessmentCopyButton.prototype.initDel = function (newNode) {
+            var del = newNode.querySelector('.added-file-delete');
+            del.addEventListener('click', function (e) {
+                e.preventDefault();
+                var div = document.querySelector(this.getAttribute('data-parent'));
+                div.removeChild(newNode);
+            })
+        };
+
+        AssessmentCopyButton.prototype.copy = function () {
+            var fd = new FormData();
+            var div = document.getElementById(this.button.getAttribute('data-template'));
+            var copyCount = div.querySelectorAll('.copied').length;
+            var self = this;
+            fd.append('action', 'get_additional_template');
+            fd.append('template', this.button.getAttribute('data-template'));
+            fd.append('index', copyCount + 1);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
+
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.responseText;
+                    var copy = document.createElement('div');
+                    copy.classList.add('copied');
+                    copy.classList.add('-copy' + (copyCount + 1));
+                    copy.innerHTML = res;
+                    div.insertBefore(copy, null);
+                    self.onCopyInputs(copy);
+                    self.initDel(copy);
+                }
+            };
+
+            xhr.send(fd);
+        };
+
+        return AssessmentCopyButton;
+    })();
+
+
+    var AssessmentForm = (function () {
+        function AssessmentForm() {
+            this.form = $('#assessment-form');
+            this.isInited = false;
+            this.steps = [];
+            var self = this;
+
+            var initBtn = document.getElementById('ass-init-btn');
+            initBtn.addEventListener('click', function () {
+                if (!self.isInited)
+                    self._init();
+            });
+        }
+
+        AssessmentForm.prototype._init = function () {
+            var self = this;
+            var photoStep = 2;
+            this.form.steps({
+                headerTag: "h5",
+                bodyTag: "fieldset",
+                transitionEffect: "slideLeft",
+                // startIndex: 4,
+                onStepChanging: function (event, currentIndex, newIndex) {
+
+                    if (newIndex > currentIndex && !self.stepValidation(currentIndex))
+                        return false;
+
+                    if (currentIndex === photoStep) {
+                        var input = self.steps[photoStep].inputs.filter(function (t) {
+                            return t.id === 'ass-photo';
+                        })[0];
+                        input.dispatchEvent(new CustomEvent('upload'));
+                    }
+
+                    self._loadFormByStepIndex(newIndex + 1);
+                    return true;
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+
+                    if (currentIndex > priorIndex) {
+                        self.progressBar.nextStep();
+                    } else {
+                        self.progressBar.prevStep();
+                    }
+                },
+                onInit: function (event, currentIndex) {
+                    var stepInit = document.getElementById('ass-step-init');
+                    stepInit.style.display = 'none';
+
+                    var assSteps = document.querySelectorAll('.assessment-step');
+                    for (var i = 0; i < assSteps.length; ++i) {
+                        self.steps.push({
+                            step: assSteps[i],
+                            isLoaded: false,
+                            inputs: [],
+                            copyButtons: []
+                        });
+                    }
+
+                    self._loadFormByStepIndex(currentIndex + 1);
+                    self.form.show();
+                    self.progressBar = new AssessmentProgressBar('.progressbar div', {
+                        steps: self.steps.length,
+                        duration: 2000
+                    });
+                    self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                }
+            });
+        };
+
+
+        AssessmentForm.prototype._loadFormByStepIndex = function (index) {
+            var self = this;
+            var stepClass = '-step' + index;
+            var page = [].filter.call(this.steps, (function (s) {
+                return s.step.classList.contains(stepClass);
+            }))[0];
+            var stepIndex = self.steps.indexOf(page);
+            if (page && !page.isLoaded) {
+                $.ajax({
+                    url: gic.ajaxurl,
+                    type: "POST",
+                    data: {
+                        'action': 'get_step_by_index',
+                        'index': index
+                    },
+                    dataType: 'html',
+                    success: function (html) {
+                        page.step.innerHTML = html;
+                        self.initInputsValidation(index - 1, self._getPageInputs(stepIndex));
+                        var copies = page.step.querySelectorAll('.ass-add-button');
+                        for (var i = 0; i < copies.length; ++i) {
+                            if (self.steps[stepIndex].copyButtons.indexOf(copies[i]) === -1) {
+                                self.steps[stepIndex].copyButtons.push(new AssessmentCopyButton(copies[i]));
+                            }
+                        }
+                        self.steps[stepIndex].step.addEventListener('onCopyInputs', function (e) {
+                            self.doCopyInputs(e, stepIndex);
+                        });
+                        self.steps[stepIndex].isLoaded = true;
+                    }
+                });
+            }
+        };
+
+
+        AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
+            var inputs = e.detail.inputs;
+            this.initInputsValidation(stepIndex, inputs);
+        };
+
+        AssessmentForm.prototype._getPageInputs = function (pageIndex) {
+            var page = this.steps[pageIndex].step;
+            return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
+                'input[type=password], input[type=file], textarea, select, div[data-role=combine-date], ' +
+                'div[data-role=period-date]');
+        };
+
+        AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
+            for (var i = 0; i < inputs.length; ++i) {
+                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
+                    this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
+                }
+            }
+        };
+
+        AssessmentForm.prototype.stepValidation = function (pageIndex) {
+            var page = this.steps[pageIndex];
+            var result = true;
+            for (var i = 0; i < page.inputs.length; ++i) {
+                if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
+                    (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
+                    page.inputs.splice(i, 1);
+                } else
+                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                    result = false;
+                }
+            }
+
+            return result;
+        };
+        return AssessmentForm;
+    })();
+
+    var form = new AssessmentForm();
+})();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 29 */
