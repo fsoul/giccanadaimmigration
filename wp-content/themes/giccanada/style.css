@@ -10917,7 +10917,8 @@ body {
 /*images end---------*/
 /*footer end -------------------------------------*/
 #assessment-modal .modal-header {
-  border-bottom: none; }
+  border-bottom: none;
+  display: none; }
   #assessment-modal .modal-header button:focus {
     outline: none; }
 
@@ -11950,6 +11951,9 @@ body {
     padding: 20px 0;
     border: 0;
     min-height: 100%; }
+  #assessment-modal .modal-header {
+    border-bottom: none;
+    display: flex; }
   #assessment-modal .modal-body {
     padding: 0 7px; }
     #assessment-modal .modal-body .modal-title {

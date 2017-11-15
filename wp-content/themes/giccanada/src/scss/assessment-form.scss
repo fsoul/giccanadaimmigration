@@ -50,6 +50,7 @@ $image-dir: '../images/';
 
   .modal-header {
     border-bottom: none;
+    display: none;
 
     button {
       &:focus {
