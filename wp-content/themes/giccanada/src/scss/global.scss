@@ -56,6 +56,10 @@ body {
     color: #FF8200;
     text-decoration: none;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .white-link-underline {
