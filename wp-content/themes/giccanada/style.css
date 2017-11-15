@@ -10916,6 +10916,11 @@ body {
 
 /*images end---------*/
 /*footer end -------------------------------------*/
+#assessment-modal .modal-header {
+  border-bottom: none; }
+  #assessment-modal .modal-header button:focus {
+    outline: none; }
+
 #assessment-modal .modal-body {
   padding: 50px 15px; }
   #assessment-modal .modal-body #ass-logo {
