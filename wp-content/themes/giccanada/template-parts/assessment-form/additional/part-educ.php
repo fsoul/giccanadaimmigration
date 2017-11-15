@@ -3,22 +3,22 @@
                 class="fa fa-times"></i></span></div>
 <section>
     <label for="part-educ-name-<?= $index; ?>">Наименование учебного заведения</label>
-    <input type="text" name="part-educ-name[]" id="part-educ-name-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-name]" id="part-educ-name-<?= $index; ?>" data-role="text">
     <span class="error-text" id="error-part-educ-name-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-specialty-<?= $index; ?>">Факультет, специальность</label>
-    <input type="text" name="part-educ-specialty[]" id="part-educ-specialty-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-specialty]" id="part-educ-specialty-<?= $index; ?>" data-role="text">
     <span class="error-text" id="error-part-educ-specialty-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-country-<?= $index; ?>">Город, страна</label>
-    <input type="text" name="part-educ-country[]" id="part-educ-country-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-country]" id="part-educ-country-<?= $index; ?>" data-role="text">
     <span class="error-text" id="error-part-educ-country-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-level-<?= $index; ?>">Уровень образования</label>
-    <select id="part-educ-level-<?= $index; ?>" name="part-educ-level[]" required data-role="select">
+    <select id="part-educ-level-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-level]" required data-role="select">
         <option value="" disabled selected>- Выбрать -</option>
         <option value="preschool">Preschool</option>
         <option value="primary">Primary</option>
@@ -32,7 +32,7 @@
 <section>
     <label for="part-educ-certificate-type-<?= $index; ?>">Тип свидетельства об образовании (диплом,
         сертификат, свидетельство)</label>
-    <select id="part-educ-certificate-type-<?= $index; ?>" name="part-educ-certificate-type[]" required
+    <select id="part-educ-certificate-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-certificate-type]" required
             data-role="select">
         <option value="" disabled selected>- Выбрать -</option>
         <option value="diploma">Diploma</option>
@@ -43,7 +43,7 @@
 </section>
 <section>
     <label for="part-educ-type-<?= $index; ?>">Форма обучения</label>
-    <select id="part-educ-type-<?= $index; ?>" name="part-educ-type[]" data-role="select">
+    <select id="part-educ-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-type]" data-role="select">
         <option value="fulltime" selected>Full-time education</option>
         <option value="distance">Distance education</option>
     </select>
@@ -55,13 +55,13 @@
         <div>
             <div class="from-date clearfix">
                 <label>Период обучения, c</label>
-                <select title="" class="month" name="part-educ-from-m[]" id="part-educ-from-m-<?= $index; ?>"
+                <select title="" class="month" name="part-educ[<?=$index;?>][part-educ-from-m]" id="part-educ-from-m-<?= $index; ?>"
                         required data-class="part-educ-period-<?= $index; ?>" data-role="select">
                     <option value="" disabled selected>Month</option>
 					<?= getMonthOptions(); ?>
                 </select>
 
-                <select title="" class="year" name="part-educ-from-y[]" id="part-educ-from-y-<?= $index; ?>"
+                <select title="" class="year" name="part-educ[<?=$index;?>][part-educ-from-y]" id="part-educ-from-y-<?= $index; ?>"
                         required data-class="part-educ-period-<?= $index; ?>" data-role="select">
                     <option value="" disabled selected>Year</option>
 					<?= getYearOptions(); ?>
@@ -69,13 +69,13 @@
             </div>
             <div class="to-date clearfix">
                 <label>по</label>
-                <select title="" id="part-educ-to-m-<?= $index; ?>" name="part-educ-to-m[]" class="month" required
+                <select title="" id="part-educ-to-m-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-to-m]" class="month" required
                         data-class="part-educ-period-<?= $index; ?>" data-role="select">
                     <option value="" disabled selected>Month</option>
 					<?= getMonthOptions(); ?>
                 </select>
 
-                <select title="" id="part-educ-to-y-<?= $index; ?>" name="part-educ-to-y[]" class="year" required
+                <select title="" id="part-educ-to-y-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-to-y]" class="year" required
                         data-class="part-educ-period-<?= $index; ?>" data-role="select">
                     <option value="" disabled selected>Year</option>
 					<?= getYearOptions(); ?>

@@ -114,7 +114,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 4,
+                //startIndex: 8,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -160,6 +160,32 @@ var validation = require('./input-validation');
                         duration: 2000
                     });
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                },
+                onFinishing: function(event, currentIndex){
+                    var $form = $('#assessment-form');
+                    var data = $form.serialize();
+
+                    $.ajax({
+                        url: 'pdf-handler.php', //url: gic.ajaxurl,
+                        type: "POST",
+                        data: data, //{'action': 'send_assessment_form',
+                                    // 'form': $form.serialize() }
+                        success: function(resp){
+                            var res = JSON.parse(resp);
+
+                            $.each(res, function(indx, el){
+                                console.log(indx +":");
+                                console.log(el);
+                            });
+                            if(res.mail == true){
+
+                                alert('Анкета отправлнна');
+                            }
+                            console.log('success');
+                        }
+                    });
+
+                    console.log('finish');
                 }
             });
         };

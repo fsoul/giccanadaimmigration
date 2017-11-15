@@ -25820,7 +25820,7 @@ return exports;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.6
+ * @version 1.12.7
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -26390,7 +26390,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
     // Handle other cases based on DOM element used as boundaries
     var boundariesNode = void 0;
     if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(popper));
+      boundariesNode = getScrollParent(getParentNode(reference));
       if (boundariesNode.nodeName === 'BODY') {
         boundariesNode = popper.ownerDocument.documentElement;
       }
@@ -32101,7 +32101,7 @@ var validation = __webpack_require__(4);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 4,
+                //startIndex: 8,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32147,6 +32147,32 @@ var validation = __webpack_require__(4);
                         duration: 2000
                     });
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
+                },
+                onFinishing: function(event, currentIndex){
+                    var $form = $('#assessment-form');
+                    var data = $form.serialize();
+
+                    $.ajax({
+                        url: 'pdf-handler.php', //url: gic.ajaxurl,
+                        type: "POST",
+                        data: data, //{'action': 'send_assessment_form',
+                                    // 'form': $form.serialize() }
+                        success: function(resp){
+                            var res = JSON.parse(resp);
+
+                            $.each(res, function(indx, el){
+                                console.log(indx +":");
+                                console.log(el);
+                            });
+                            if(res.mail == true){
+
+                                alert('Анкета отправлнна');
+                            }
+                            console.log('success');
+                        }
+                    });
+
+                    console.log('finish');
                 }
             });
         };
