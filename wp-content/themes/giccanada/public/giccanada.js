@@ -32153,9 +32153,10 @@ var validation = __webpack_require__(4);
                     var data = $form.serialize();
 
                     $.ajax({
-                        url: 'pdf-handler.php',
+                        url: 'pdf-handler.php', //url: gic.ajaxurl,
                         type: "POST",
-                        data: data,
+                        data: data, //{'action': 'send_assessment_form',
+                                    // 'form': $form.serialize() }
                         success: function(resp){
                             var res = JSON.parse(resp);
 
@@ -32163,7 +32164,10 @@ var validation = __webpack_require__(4);
                                 console.log(indx +":");
                                 console.log(el);
                             });
+                            if(res.mail == true){
 
+                                alert('Анкета отправлнна');
+                            }
                             console.log('success');
                         }
                     });

@@ -64,6 +64,6 @@ $pdfFileName = uniqid() . '.pdf';
 
 $res = file_put_contents($pdfPath . $pdfFileName, $output);
 
-$mail = send_pdf_admin_mail('bilinskyivitalii@gmail.com', $pdfPath, $pdfFileName);
+$mail = send_pdf_admin_mail($_POST['addr'], $pdfPath, $pdfFileName);
 
 echo json_encode(array('mail'=>$mail));
