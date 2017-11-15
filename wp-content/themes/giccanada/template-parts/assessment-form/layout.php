@@ -69,7 +69,7 @@
                     <fieldset class="assessment-step -step15 partner"></fieldset>
                     <h5>Информация о детях</h5>
                     <fieldset class="assessment-step -step16 children"></fieldset>
-                    <h5>Оплата</h5>
+                    <h5>Оплата за регистрацию иммиграционного файла</h5>
                     <fieldset class="assessment-step -step17 payment"></fieldset>
                     <input type="hidden" name="addr" value="<?= get_option('show_email');?>">
                     <? if($_GET['debug'] == 'submit') : ?>
