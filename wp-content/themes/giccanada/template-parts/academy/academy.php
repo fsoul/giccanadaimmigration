@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <a href="#" class="academy-slr-item-btn orange-btn">Заполнить
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="academy-slr-item-btn orange-btn">Заполнить
                     анкету</a>
             </div>
         </div>

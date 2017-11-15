@@ -26,7 +26,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -43,7 +43,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -60,7 +60,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>

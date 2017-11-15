@@ -9989,6 +9989,8 @@ body {
     border: 2px solid #FF6200;
     color: #FF8200;
     text-decoration: none; }
+  .orange-btn:focus {
+    outline: none; }
 
 .white-link-underline {
   color: #fff; }
