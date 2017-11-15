@@ -10530,7 +10530,8 @@ body {
   top: -35px;
   max-width: 290px;
   width: 290px;
-  height: 56px; }
+  height: 56px;
+  z-index: 2; }
 
 .academy-slr-item-btn:visited,
 .academy-slr-item-btn:link {
