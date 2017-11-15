@@ -72,9 +72,9 @@
                     <h5>Оплата</h5>
                     <fieldset class="assessment-step -step17 payment"></fieldset>
                     <input type="hidden" name="addr" value="<?= get_option('show_email');?>">
-                    <? if($_GET['debug'] == 'submit') : ?>
+                    <?php if($_GET['debug'] == 'submit') : ?>
                         <input type="submit">
-                    <? endif; ?>
+                    <?php endif; ?>
                 </form>
             </div>
         </div>
