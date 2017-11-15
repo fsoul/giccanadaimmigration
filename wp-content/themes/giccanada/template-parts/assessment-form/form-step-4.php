@@ -45,7 +45,7 @@
             <option value="TZ">Tanzania</option>
             <option value="TG">Togo</option>
             <option value="UG">Uganda</option>
-            <option value="US" selected>Ukraine</option>
+            <option value="UA" selected>Ukraine</option>
             <option value="TD">Chad</option>
             <option value="LK">Sri Lanka</option>
             <option value="ER">Eritrea</option>
