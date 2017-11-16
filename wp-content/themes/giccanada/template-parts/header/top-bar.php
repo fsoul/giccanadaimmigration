@@ -1,4 +1,25 @@
 <?php //phpinfo(); die(); ?>
+
+<script>
+    function test() {
+        var fd = new FormData();
+        var xhr = new XMLHttpRequest();
+
+        fd.append('action', 'get_payment_by_liqpay')
+
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            var res = xhr.responseText;
+            debugger;
+        };
+
+        xhr.send(fd);
+    }
+</script>
+<?php if ($_GET['debug'] == 1):?>
+<button onclick="test();">sent</button>
+<?php endif;?>
 <div class="top-bar" id="top">
 	<ul class="nav justify-content-center flex-nowrap" id='desktop-top-bar'>
 		<li class="nav-item nav-link tb-menu-item">

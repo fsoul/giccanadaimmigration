@@ -220,3 +220,39 @@ function get_additional_template() {
 
 add_action( 'wp_ajax_get_additional_template', 'get_additional_template' );
 add_action( 'wp_ajax_nopriv_get_additional_template', 'get_additional_template' );
+
+function get_payment_by_liqpay() {
+	$public_key = 'i3872387445';
+	$private_key = 'FEG8q2N6Iv5RocGoLq3xSk58NxwV1cJPLwJSvONw';
+	try {
+		require_once(get_template_directory() . '/LiqPay.php');
+		$liqpay = new LiqPay($public_key, $private_key);
+		$server = ( isset( $_SERVER['HTTPS'] ) ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]/";
+		$data = array(
+			'sandbox' => 1, //Включает тестовый режим. Средства с карты плательщика не списываются.
+			//Для включения тестового режима необходимо передать значение 1.
+			//Все тестовые платежи будут иметь статус sandbox - успешный тестовый платеж.
+			'version' => 3,
+			'public_key' => $public_key,
+			'action' => 'pay',
+			'amount' => 10,
+			'currency' => LiqPay::CURRENCY_UAH,
+			'description' => 'Оплата за регистрацию иммиграционного файла',
+			'order_id' => 'test_item_1111',
+			'language' => 'ua',
+			"server_url" => "$server/inc/liqpay-callback.php",
+			"result_url" => "$server/inc/liqpay-callback.php"
+		);
+
+		$resp = $liqpay->send_checkout($data);
+		echo $resp;
+		wp_die();
+	} catch (Exception $e) {
+		echo $e->getMessage();
+		wp_die();
+	}
+
+}
+
+add_action( 'wp_ajax_get_payment_by_liqpay', 'get_payment_by_liqpay' );
+add_action( 'wp_ajax_nopriv_get_payment_by_liqpay', 'get_payment_by_liqpay' );
