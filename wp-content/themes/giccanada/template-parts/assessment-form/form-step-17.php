@@ -30,7 +30,7 @@
                     <select title="" id="card-expiration-date-y" name="card-expiration-date-y" class="year"
                             required data-role="select">
                         <option value="" disabled selected>Year</option>
-						<?= getYearOptions(); ?>
+						<?= getExpirationDateYearsOptions(); ?>
                     </select>
                     <span class="error-text" id="error-card-expiration-date-y"></span>
                 </div>
