@@ -48,6 +48,17 @@ function getYearOptions() {
 
 }
 
+function getExpirationDateYearsOptions() {
+	$options = '';
+	$y = date( 'Y' ) - 5;
+	for ($year = $y; $year <= $y + 50; ++$year ) {
+		$options .= "<option value = \"$year\">$year</option>";
+	}
+
+	return $options;
+
+}
+
 function getProvinceOptions() {
 	$provinces = getProvinces();
 	$options = '';
