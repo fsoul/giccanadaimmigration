@@ -19,7 +19,7 @@
 
             <select title="" name="passport-exp-y" class="year" required data-class="passport-exp-date" id="passport-exp-date-y">
                 <option value="" disabled selected>Year</option>
-                <?= getYearOptions();?>
+                <?= getExpirationDateYearsOptions();?>
             </select>
         </div>
         <span class="error-text" id="error-passport-exp-date"></span>
