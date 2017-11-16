@@ -10,8 +10,10 @@
         xhr.open('POST', gic.ajaxurl, true);
 
         xhr.onreadystatechange = function () {
-            var res = xhr.responseText;
-            debugger;
+            if (xhr.readyState == 4) {
+                var res = xhr.responseText;
+                debugger;
+            }
         };
 
         xhr.send(fd);

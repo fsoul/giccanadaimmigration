@@ -227,7 +227,7 @@ function get_payment_by_liqpay() {
 	try {
 		require_once(get_template_directory() . '/LiqPay.php');
 		$liqpay = new LiqPay($public_key, $private_key);
-		$server = ( isset( $_SERVER['HTTPS'] ) ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]/";
+		$server = ( isset( $_SERVER['HTTPS'] ) ? "https" : "http" ) . "://$_SERVER[HTTP_HOST]";
 		$data = array(
 			'sandbox' => 1, //Включает тестовый режим. Средства с карты плательщика не списываются.
 			//Для включения тестового режима необходимо передать значение 1.
@@ -240,13 +240,9 @@ function get_payment_by_liqpay() {
 			'description' => 'Оплата за регистрацию иммиграционного файла',
 			'order_id' => 'test_item_1111',
 			'language' => 'ua',
-			"server_url" => "$server/inc/liqpay-callback.php",
-			"result_url" => "$server/inc/liqpay-callback.php"
+			"server_url" => "$server/inc/liqpay-callback.php"
 		);
-
-		$resp = $liqpay->send_checkout($data);
-		echo $resp;
-		wp_die();
+		$liqpay->api('request', $data);
 	} catch (Exception $e) {
 		echo $e->getMessage();
 		wp_die();
