@@ -123,7 +123,7 @@
     </div>
 </div>
 <div class="row justify-content-center no-gutters">
-	<a href="#" class="col col-md-auto process-btn orange-btn">Заполнить анкету</a>
+	<a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col col-md-auto process-btn orange-btn">Заполнить анкету</a>
 </div>
 
 

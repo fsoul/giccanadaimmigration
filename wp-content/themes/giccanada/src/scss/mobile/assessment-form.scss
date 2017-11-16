@@ -15,6 +15,11 @@ $image-dir: '../images/';
     min-height: 100%;
   }
 
+  .modal-header {
+    border-bottom: none;
+    display: flex;
+  }
+
   .modal-body {
     padding: 0 7px;
 

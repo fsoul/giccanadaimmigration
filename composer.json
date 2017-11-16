@@ -1,5 +1,10 @@
 {
   "require": {
     "dompdf/dompdf": "^0.8.1"
+  },
+  "autoload":{
+    "classmap":[
+      "./wp-content/themes/giccanada/LiqPay.php"
+    ]
   }
 }

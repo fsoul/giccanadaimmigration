@@ -9989,6 +9989,8 @@ body {
     border: 2px solid #FF6200;
     color: #FF8200;
     text-decoration: none; }
+  .orange-btn:focus {
+    outline: none; }
 
 .white-link-underline {
   color: #fff; }
@@ -10528,7 +10530,8 @@ body {
   top: -35px;
   max-width: 290px;
   width: 290px;
-  height: 56px; }
+  height: 56px;
+  z-index: 2; }
 
 .academy-slr-item-btn:visited,
 .academy-slr-item-btn:link {
@@ -10609,7 +10612,7 @@ body {
   height: 96px; }
 
 .process-descr {
-  margin-top: 40px;
+  margin: 25px 10px 0 10px;
   padding: 0 18px; }
 
 .process-spider-bottom {
@@ -10913,6 +10916,12 @@ body {
 
 /*images end---------*/
 /*footer end -------------------------------------*/
+#assessment-modal .modal-header {
+  border-bottom: none;
+  display: none; }
+  #assessment-modal .modal-header button:focus {
+    outline: none; }
+
 #assessment-modal .modal-body {
   padding: 50px 15px; }
   #assessment-modal .modal-body #ass-logo {
@@ -11942,6 +11951,9 @@ body {
     padding: 20px 0;
     border: 0;
     min-height: 100%; }
+  #assessment-modal .modal-header {
+    border-bottom: none;
+    display: flex; }
   #assessment-modal .modal-body {
     padding: 0 7px; }
     #assessment-modal .modal-body .modal-title {

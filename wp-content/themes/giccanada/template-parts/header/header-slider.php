@@ -8,7 +8,7 @@
         </span>
     </div>
     <div class="row no-gutters justify-content-center">
-        <a href="#" class="col hs-item-button orange-btn">Начать процесс</a>
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col hs-item-button orange-btn">Начать процесс</a>
     </div>
 </div> <!--header-mobile-content-->
 <div class="container-fluid carousel-div"> <!--header slider-->
@@ -26,7 +26,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -43,7 +43,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>
@@ -60,7 +60,7 @@
                                         </span>
                         </div>
                         <div class="row align-items-center justify-content-center">
-                            <a href="#" class="col-auto hs-item-button orange-btn">открыть
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#assessment-modal" class="col-auto hs-item-button orange-btn">открыть
                                 иммиграционное
                                 дело</a>
                         </div>

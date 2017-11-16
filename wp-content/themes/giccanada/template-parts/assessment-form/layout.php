@@ -1,6 +1,11 @@
 <div class="modal fade" id="assessment-modal">
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
                 <div id="ass-step-init">
                     <div class="container-fluid">
@@ -69,7 +74,7 @@
                     <fieldset class="assessment-step -step15 partner"></fieldset>
                     <h5>Информация о детях</h5>
                     <fieldset class="assessment-step -step16 children"></fieldset>
-                    <h5>Оплата</h5>
+                    <h5>Оплата за регистрацию иммиграционного файла</h5>
                     <fieldset class="assessment-step -step17 payment"></fieldset>
                     <input type="hidden" name="addr" value="<?= get_option('show_email');?>">
                     <?php if($_GET['debug'] == 'submit') : ?>

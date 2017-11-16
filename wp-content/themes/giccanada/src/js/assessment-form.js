@@ -179,7 +179,7 @@ var validation = require('./input-validation');
                             });
                             if(res.mail == true){
 
-                                alert('Анкета отправлнна');
+                                alert('Анкета отправлена');
                             }
                             console.log('success');
                         }
