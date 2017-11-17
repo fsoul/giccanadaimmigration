@@ -124,12 +124,13 @@ class LiqPay
      * cnb_form
      *
      * @param array $params
+     * @param string $id
      *
      * @return string
      *
      * @throws InvalidArgumentException
      */
-    public function cnb_form($params)
+    public function cnb_form($id, $params)
     {
         $language = 'ru';
         if (isset($params['language']) && $params['language'] == 'en') {
@@ -139,19 +140,21 @@ class LiqPay
         $params    = $this->cnb_params($params);
         $data      = $this->encode_params($params);
         $signature = $this->cnb_signature($params);
-        
-        return sprintf('
-            <form method="POST" action="%s" accept-charset="utf-8">
+
+        $res = sprintf('
+            <form id="%s" method="POST" action="%s" accept-charset="utf-8" style="display:none;">
                 %s
                 %s
                 <input type="image" src="//static.liqpay.ua/buttons/p1%s.radius.png" name="btn_text" />
             </form>
             ',
-            $this->_checkout_url,
-            sprintf('<input type="hidden" name="%s" value="%s" />', 'data', $data),
-            sprintf('<input type="hidden" name="%s" value="%s" />', 'signature', $signature),
-            $language
+	        $id,
+	        $this->_checkout_url,
+	        sprintf('<input type="hidden" name="%s" value="%s" />', 'data', $data),
+	        sprintf('<input type="hidden" name="%s" value="%s" />', 'signature', $signature),
+	        $language
         );
+        return $res;
     }
 
     /**

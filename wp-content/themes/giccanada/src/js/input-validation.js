@@ -13,8 +13,6 @@ var EmailInput = text.EmailInput;
 
 var NumberInput = number.NumberInput;
 var TelInput = number.TelInput;
-var CardNumberInput = number.CardNumberInput;
-var CVCInput = number.CVCInput;
 
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
@@ -44,12 +42,6 @@ var InputsFactory = (function () {
                 break;
             case 'tel':
                 this.inputClass = TelInput;
-                break;
-            case 'card-number':
-                this.inputClass = CardNumberInput;
-                break;
-            case 'cvc':
-                this.inputClass = CVCInput;
                 break;
             case 'mixed':
                 this.inputClass = MixedInput;

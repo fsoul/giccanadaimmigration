@@ -11383,13 +11383,6 @@ body {
         padding-bottom: 15px; }
         #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel > section:first-of-type {
           padding-top: 15px; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date {
-        width: 70%;
-        float: left; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date select {
-          width: 45%;
-          float: left;
-          margin-right: 5%; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel #holder-cvc-container {
         float: left;
         width: 30%; }
@@ -12066,17 +12059,6 @@ body {
         margin-right: 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo {
         right: 0; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date {
-        width: 100%;
-        float: left;
-        padding-bottom: 15px; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select {
-          width: 50%;
-          float: left;
-          margin-right: 5%; }
-          #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select:last-child {
-            margin-right: 0;
-            width: 45%; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
         float: none;
         width: 45%; }

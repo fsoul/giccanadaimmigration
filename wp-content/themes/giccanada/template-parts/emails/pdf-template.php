@@ -106,7 +106,7 @@ $values = [
 <head></head>
 <style>
     body{
-        font-family: "DejaVu Sans";
+        font-family: "DejaVu Sans", sans-serif;
     }
 </style>
 <body>
@@ -122,9 +122,9 @@ $values = [
     }
     ?>
 
-    <? if(!empty($_POST['relative'])) : ?>
+    <?php if(!empty($_POST['relative'])) : ?>
         <h3>Родственники в Канаде</h3>
-        <? foreach ($_POST['relative'] as $k => $persons) : ?>
+        <?php foreach ($_POST['relative'] as $k => $persons) : ?>
 
             <p>
                 Фамилия: <?= $_POST['relative'][$k]['asa-rel-last-name']; ?>
@@ -145,16 +145,16 @@ $values = [
                 Провинция в Канаде: <?= $_POST['relative'][$k]['ass-rel-province']; ?>
             </p>
 
-        <? endforeach; ?>
-    <? endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
     <h3>Где вы намереваетесь жить в Канаде?</h3>
     <p>Провинция в Канаде: <?= $_POST['ass-rel-province']; ?></p>
     <p>Город: <?= $_POST['ass-rel-city']; ?></p>
 
-    <? if(!empty($_POST['education'])) : ?>
+    <?php if(!empty($_POST['education'])) : ?>
         <h3>Образование</h3>
-        <? foreach ($_POST['education'] as $k => $item) : ?>
+        <?php foreach ($_POST['education'] as $k => $item) : ?>
 
             <p>
                 Наименование учебного заведения: <?= $_POST['education'][$k]['education-name']; ?>
@@ -178,12 +178,12 @@ $values = [
                 Период обучения с <?= $_POST['education'][$k]['ass-study-from-m'].'.'.$_POST['education'][$k]['ass-study-from-y']; ?> по <?= $_POST['education'][$k]['ass-study-to-m'].'.'.$_POST['education'][$k]['ass-study-to-y']; ?>
             </p>
 
-        <? endforeach; ?>
-    <? endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
-    <? if(!empty($_POST['work'])) : ?>
+    <?php if(!empty($_POST['work'])) : ?>
         <h3>Опыт работы</h3>
-        <? foreach ($_POST['work'] as $k => $item) : ?>
+        <?php foreach ($_POST['work'] as $k => $item) : ?>
 
             <p>
                 Наименование компании / нанимателя: <?= $_POST['work'][$k]['company-name']; ?>
@@ -201,11 +201,11 @@ $values = [
                 Должностные обязанности: <?= $_POST['work'][$k]['company-requirement']; ?>
             </p>
 
-        <? endforeach; ?>
-    <? endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
 
-    <? if(!empty($_POST['partner'])) : ?>
+    <?php if(!empty($_POST['partner'])) : ?>
         <h3>Информация о партнере</h3>
 
         <p>
@@ -233,9 +233,9 @@ $values = [
             Отношения с <?= $_POST['partner']['member-relation-from-m'].'.'.$_POST['partner']['member-relation-from-y']; ?> по <?= $_POST['partner']['member-relation-to-m'].'.'.$_POST['education']['member-relation-to-y']; ?>
         </p>
 
-        <? if(!empty($_POST['part-educ'])) : ?>
+        <?php if(!empty($_POST['part-educ'])) : ?>
             <h3>Образование партнера</h3>
-            <? foreach ($_POST['part-educ'] as $k => $item) : ?>
+            <?php foreach ($_POST['part-educ'] as $k => $item) : ?>
 
                 <p>
                     Наименование учебного заведения: <?= $_POST['part-educ'][$k]['part-educ-name']; ?>
@@ -259,12 +259,12 @@ $values = [
                     Период обучения с <?= $_POST['part-educ'][$k]['part-educ-from-m'].'.'.$_POST['part-educ'][$k]['part-educ-from-y']; ?> по <?= $_POST['part-educ'][$k]['part-educ-to-m'].'.'.$_POST['part-educ'][$k]['part-educ-to-y']; ?>
                 </p>
 
-            <? endforeach; ?>
-        <? endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
-        <? if(!empty($_POST['part-work'])) : ?>
+        <?php if(!empty($_POST['part-work'])) : ?>
             <h3>Опыт работы партнера</h3>
-            <? foreach ($_POST['part-work'] as $k => $item) : ?>
+            <?php foreach ($_POST['part-work'] as $k => $item) : ?>
 
                 <p>
                     Наименование компании / нанимателя: <?= $_POST['part-work'][$k]['part-work-name']; ?>
@@ -282,14 +282,14 @@ $values = [
                     Должностные обязанности: <?= $_POST['part-work'][$k]['part-work-requirement']; ?>
                 </p>
 
-            <? endforeach; ?>
-        <? endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
-    <? endif; ?>
+    <?php endif; ?>
 
-    <? if(!empty($_POST['child'])) : ?>
+    <?php if(!empty($_POST['child'])) : ?>
         <h3>Информация о детях</h3>
-        <? foreach ($_POST['child'] as $k => $persons) : ?>
+        <?php foreach ($_POST['child'] as $k => $persons) : ?>
 
             <p>
                 Фамилия: <?= $_POST['child'][$k]['child-surname']; ?>
@@ -301,8 +301,8 @@ $values = [
                 Дата рождения: <?= $_POST['child'][$k]['child-birth-day'].'.'.$_POST['child'][$k]['child-birth-month'].'.'.$_POST['child'][$k]['child-birth-year']; ?>
             </p>
 
-        <? endforeach; ?>
-    <? endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
 </div>
 </body>

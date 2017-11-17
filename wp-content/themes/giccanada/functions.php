@@ -42,8 +42,8 @@ function start_session() {
 add_action('init', 'start_session', 1);
 
 function setOpenCaseCountry() {
-	$pathToLib = get_stylesheet_directory() . "/SxGeo.php";
-	$pathToDB = get_stylesheet_directory() . "/SxGeo.dat";
+	$pathToLib = get_template_directory() . "/SxGeo.php";
+	$pathToDB = get_template_directory() . "/SxGeo.dat";
 
 	require_once($pathToLib);
 

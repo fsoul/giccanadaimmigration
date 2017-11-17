@@ -161,23 +161,23 @@ var validation = require('./input-validation');
                     });
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
-                onFinishing: function(event, currentIndex){
+                onFinishing: function (event, currentIndex) {
                     var $form = $('#assessment-form');
-                    var data = $form.serialize();
-
                     $.ajax({
-                        url: 'pdf-handler.php', //url: gic.ajaxurl,
+                        url: gic.ajaxurl,
                         type: "POST",
-                        data: data, //{'action': 'send_assessment_form',
-                                    // 'form': $form.serialize() }
-                        success: function(resp){
+                        data: {
+                            'action': 'send_assessment_form',
+                            'form': $form.serialize()
+                        },
+                        success: function (resp) {
                             var res = JSON.parse(resp);
 
-                            $.each(res, function(indx, el){
-                                console.log(indx +":");
+                            $.each(res, function (indx, el) {
+                                console.log(indx + ":");
                                 console.log(el);
                             });
-                            if(res.mail == true){
+                            if (res.mail == true) {
 
                                 alert('Анкета отправлена');
                             }
@@ -240,7 +240,9 @@ var validation = require('./input-validation');
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
             for (var i = 0; i < inputs.length; ++i) {
-                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
+                if (!this.steps[pageIndex].inputs.some(function (t) {
+                        return t.id === inputs[i].id;
+                    })) {
                     this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
                 }
             }
@@ -253,8 +255,7 @@ var validation = require('./input-validation');
                 if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
                     (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
                     page.inputs.splice(i, 1);
-                } else
-                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                } else if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
             }
