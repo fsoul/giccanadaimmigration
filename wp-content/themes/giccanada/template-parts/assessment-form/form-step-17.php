@@ -3,7 +3,7 @@
     <input type="hidden" id="ass-payment-type-hidden">
     <section>
         <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required data-role="radio"
-               data-hidden="ass-payment-type-hidden">
+               data-hidden="ass-payment-type-hidden" checked>
         <label for="ass-target-card" onclick="app.func.paymentMethodClick(event);">Платежная карта
             <span class="payment-type-logo"><span id="visa-logo"></span><span id="master-logo"></span><span
                         id="maestro-logo"></span></span></label>
@@ -40,8 +40,7 @@
                 течении 3 рабочих дней</b> вы получите контракт на подходящую для вас иммиграционную программу.
         </p>
         <div>
-            <input type="checkbox" value="y" id="ass-licence-cb" name="is-agree" required data-role="checkbox"/>
+            <input type="checkbox" onchange="app.func.onLicenseChange();" value="y" id="ass-licence-cb" name="is-agree" required checked data-role="checkbox"/>
             <label for="ass-licence-cb"><span>Я прочитал и принимаю условия <a href="#" class="ass-licence-link">Пользовательского соглашения</a>.</span></label>
-        </div>
     </section>
 </section>

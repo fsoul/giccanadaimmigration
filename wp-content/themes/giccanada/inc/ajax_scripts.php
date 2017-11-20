@@ -62,7 +62,6 @@ function send_open_case_form() {
 add_action( 'wp_ajax_send_open_case_form', 'send_open_case_form' );
 add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 
-
 function send_assessment_form() {
 
 	$form = $_POST;

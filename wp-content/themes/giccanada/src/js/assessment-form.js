@@ -260,7 +260,7 @@ var validation = require('./input-validation');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var res = JSON.parse(xhr.responseText);
-                    debugger;
+                    console.log(res)
                 }
             };
             xhr.send(fd);

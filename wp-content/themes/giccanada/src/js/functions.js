@@ -119,12 +119,12 @@ var onPartnerDelRadioClick = function (e) {
         var dels = work.querySelectorAll('span.added-file-delete');
         var i;
         for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('click'))
+            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
         }
 
         dels = educ.querySelectorAll('span.added-file-delete');
         for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('click'))
+            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
         }
     }
 };
@@ -173,6 +173,14 @@ var onFileDelRadioClick = function (e) {
     }
 };
 
+
+function onLicenseChange() {
+    var form = document.getElementById('assessment-form');
+    var finish = form.querySelector(".actions a[href='#finish']");
+    var cb = document.getElementById('ass-licence-cb');
+    (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
+}
+
 module.exports = {
     paymentMethodClick: paymentMethodClick,
     saveRadioValToHidden: saveRadioValToHidden,
@@ -180,5 +188,6 @@ module.exports = {
     onPartnerDelRadioClick: onPartnerDelRadioClick,
     onPartnerAddRadioClick: onPartnerAddRadioClick,
     onFileAddRadioClick: onFileAddRadioClick,
-    onFileDelRadioClick: onFileDelRadioClick
+    onFileDelRadioClick: onFileDelRadioClick,
+    onLicenseChange: onLicenseChange
 };
