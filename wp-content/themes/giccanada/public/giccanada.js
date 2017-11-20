@@ -32014,30 +32014,12 @@ var validation = __webpack_require__(4);
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
                 onFinishing: function (event, currentIndex) {
-                    var $form = $('#assessment-form');
-                    $.ajax({
-                        url: gic.ajaxurl,
-                        type: "POST",
-                        data: {
-                            'action': 'send_assessment_form',
-                            'form': $form.serialize()
-                        },
-                        success: function (resp) {
-                            var res = JSON.parse(resp);
-
-                            $.each(res, function (indx, el) {
-                                console.log(indx + ":");
-                                console.log(el);
-                            });
-                            if (res.mail == true) {
-
-                                alert('Анкета отправлена');
-                            }
-                            console.log('success');
-                        }
-                    });
-
-                    console.log('finish');
+                    var paymentType = document.getElementById('ass-payment-type-hidden');
+                    switch (paymentType.value) {
+                        case 'tc':
+                            self.payByCard();
+                            break;
+                    }
                 }
             });
         };
@@ -32114,6 +32096,28 @@ var validation = __webpack_require__(4);
 
             return result;
         };
+
+        AssessmentForm.prototype.payByCard = function () {
+            this.sendForm();
+        };
+
+
+        AssessmentForm.prototype.sendForm = function () {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    debugger;
+                }
+            };
+            xhr.send(fd);
+        };
+
         return AssessmentForm;
     })();
 
@@ -32269,6 +32273,12 @@ module.exports = ProgressBar;
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
+var saveRadioValToHidden = function(e) {
+    var radio =  document.getElementById(e.target.getAttribute('for'));
+    var hidden = document.getElementById(radio.getAttribute('data-hidden'));
+    hidden.value = radio.value;
+};
+
 var paymentMethodClick = function (e) {
     var target = e.target;
     var activePanel = target.nextElementSibling;
@@ -32285,6 +32295,8 @@ var paymentMethodClick = function (e) {
     target.classList.toggle('active');
     if (activePanel && activePanel.classList.contains('payment-panel'))
         activePanel.style.maxHeight = 20*4 + activePanel.scrollHeight + "px";
+
+    saveRadioValToHidden(e);
 };
 
 
@@ -32436,6 +32448,7 @@ var onFileDelRadioClick = function (e) {
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
+    saveRadioValToHidden: saveRadioValToHidden,
     onProvinceChanged: onProvinceChanged,
     onPartnerDelRadioClick: onPartnerDelRadioClick,
     onPartnerAddRadioClick: onPartnerAddRadioClick,

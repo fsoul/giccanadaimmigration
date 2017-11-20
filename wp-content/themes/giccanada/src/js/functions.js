@@ -1,5 +1,11 @@
 'use strict';
 
+var saveRadioValToHidden = function(e) {
+    var radio =  document.getElementById(e.target.getAttribute('for'));
+    var hidden = document.getElementById(radio.getAttribute('data-hidden'));
+    hidden.value = radio.value;
+};
+
 var paymentMethodClick = function (e) {
     var target = e.target;
     var activePanel = target.nextElementSibling;
@@ -16,6 +22,8 @@ var paymentMethodClick = function (e) {
     target.classList.toggle('active');
     if (activePanel && activePanel.classList.contains('payment-panel'))
         activePanel.style.maxHeight = 20*4 + activePanel.scrollHeight + "px";
+
+    saveRadioValToHidden(e);
 };
 
 
@@ -167,6 +175,7 @@ var onFileDelRadioClick = function (e) {
 
 module.exports = {
     paymentMethodClick: paymentMethodClick,
+    saveRadioValToHidden: saveRadioValToHidden,
     onProvinceChanged: onProvinceChanged,
     onPartnerDelRadioClick: onPartnerDelRadioClick,
     onPartnerAddRadioClick: onPartnerAddRadioClick,

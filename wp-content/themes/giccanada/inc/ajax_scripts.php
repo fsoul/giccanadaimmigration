@@ -1,18 +1,30 @@
 <?php
+require_once( get_template_directory() . '/inc/mails.php' );
+require_once get_template_directory() . '/inc/provinces.php';
+require_once get_template_directory() . '/inc/upload.php';
+
+function clear_form( array &$data ) {
+	foreach ( $data as $key => $value ) {
+		if ( is_array( $value ) ) {
+			clear_form( $value );
+		} else {
+			$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+		}
+	}
+}
+
 function send_open_case_form() {
 
 	global $wpdb;
 
 	$form = $_POST['form'];
-	foreach ( $form as $key => $value ) {
-		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
-	}
-    $is_debug_mode = $_COOKIE['debug'] == 1;
-	$ans_msg   = '';
-	$is_success = false;
-	$insert_id = '';
+	clear_form( $form );
+	$is_debug_mode = $_COOKIE['debug'] == 1;
+	$ans_msg       = '';
+	$is_success    = false;
+	$insert_id     = '';
 
-	if (!$is_debug_mode) {
+	if ( ! $is_debug_mode ) {
 		$is_email_sent = $wpdb->get_var( $wpdb->prepare( "
 												SELECT COUNT(*)
 												FROM wp_open_case
@@ -22,7 +34,7 @@ function send_open_case_form() {
 
 		//Проверка была ли подписка
 		if ( $is_email_sent ) {
-			$ans_msg   = 'This email is already subscribed!';
+			$ans_msg = 'This email is already subscribed!';
 		} else {
 			$wpdb->insert( 'wp_open_case', array(
 				'open_case_name'    => $form['first_name'],
@@ -35,10 +47,9 @@ function send_open_case_form() {
 		}
 	}
 
-	if ($is_debug_mode || $insert_id) {
-		require_once( get_template_directory() . '/inc/mails.php' );
-		$is_success = send_open_case_admin_mail( $form ) &&  send_open_case_user_mail( $form );
-		$ans_msg = $is_success ? 'Form sent successfully!' : 'Failed to send your message!';
+	if ( $is_debug_mode || $insert_id ) {
+		$is_success = send_open_case_admin_mail( $form ) && send_open_case_user_mail( $form );
+		$ans_msg    = $is_success ? 'Form sent successfully!' : 'Failed to send your message!';
 	}
 
 	echo json_encode( array(
@@ -54,13 +65,9 @@ add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 
 function send_assessment_form() {
 
-	$form = $_POST['form'];
-	foreach ( $form as $key => $value ) {
-		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
-	}
-
-	require_once( get_template_directory() . '/inc/mails.php' );
-	$isSuccess = send_assessment_user_mail( $form );
+	$form = $_POST;
+	clear_form( $form );
+	$isSuccess = send_pdf_admin_mail( $form ) && send_assessment_user_mail( $form );
 	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 
 	echo json_encode( array(
@@ -76,11 +83,7 @@ add_action( 'wp_ajax_nopriv_send_assessment_form', 'send_assessment_form' );
 function send_start_work_mail() {
 
 	$form = $_POST['form'];
-	foreach ( $form as $key => $value ) {
-		$form[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
-	}
-
-	require_once( get_template_directory() . '/inc/mails.php' );
+	clear_form( $form );
 	$isSuccess = send_start_work_user_mail( $form );
 	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 
@@ -118,8 +121,7 @@ add_action( 'wp_ajax_get_step_by_index', 'get_step_by_index' );
 add_action( 'wp_ajax_nopriv_get_step_by_index', 'get_step_by_index' );
 
 function get_cities_list_by_province() {
-	$code = $_POST['code'];
-	require_once get_template_directory() . '/inc/provinces.php';
+	$code   = $_POST['code'];
 	$cities = getCitiesByProvince( $code );
 	echo json_encode( $cities );
 	wp_die();
@@ -132,24 +134,23 @@ add_action( 'wp_ajax_nopriv_get_cities_list_by_province', 'get_cities_list_by_pr
  *  Save file to current session
  */
 function upload_file() {
-	if (isset($_FILES['file'])) {
-		require_once get_template_directory() . '/inc/upload.php';
-
+	if ( isset( $_FILES['file'] ) ) {
 		try {
-			$file =  new FileLoader($_FILES['file'], false);
+			$file = new FileLoader( $_FILES['file'], false );
 			$file->upload_to_session();
 			$response = json_encode( array( 'success' => 'OK!' ) );
 
-			FileLoader::upload_files_from_session('test@email.com');//TEMP!!!!!!!!!!!!!!!!!
+			FileLoader::upload_files_from_session( 'test@email.com' );//TEMP!!!!!!!!!!!!!!!!!
 			echo $response;
 			wp_die();
 
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			echo json_encode( array( 'error' => $e->getMessage() ) );
 			wp_die();
 		}
 	}
 }
+
 add_action( 'wp_ajax_upload_file', 'upload_file' );
 add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );
 
@@ -159,17 +160,17 @@ add_action( 'wp_ajax_nopriv_upload_file', 'upload_file' );
 function remove_file_from_session() {
 	$filename = $_POST['filename'];
 
-	if (isset($filename)) {
-		require_once get_template_directory() . '/inc/upload.php';
+	if ( isset( $filename ) ) {
 
 		try {
 			$response = '';
-			if (FileLoader::remove_file_from_session($filename))
+			if ( FileLoader::remove_file_from_session( $filename ) ) {
 				$response = json_encode( array( 'success' => 'OK!' ) );
+			}
 			echo $response;
 			wp_die();
 
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			echo json_encode( array( 'error' => $e->getMessage() ) );
 			wp_die();
 		}
@@ -185,16 +186,15 @@ add_action( 'wp_ajax_nopriv_remove_file_from_session', 'remove_file_from_session
  */
 function save_session_files() {
 
-	if (isset($_SESSION['upload_files']) && count($_SESSION['upload_files']) > 0 ) {
-		require_once get_template_directory() . '/inc/upload.php';
+	if ( isset( $_SESSION['upload_files'] ) && count( $_SESSION['upload_files'] ) > 0 ) {
 
 		try {
-			FileLoader::upload_files_from_session('test@email.com'); //TODO pass email from form
+			FileLoader::upload_files_from_session( 'test@email.com' ); //TODO pass email from form
 			$response = json_encode( array( 'success' => 'OK!' ) );
 			echo $response;
 			wp_die();
 
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			echo json_encode( array( 'error' => $e->getMessage() ) );
 			wp_die();
 		}
@@ -208,7 +208,7 @@ add_action( 'wp_ajax_nopriv_save_session_files', 'save_session_files' );
 function get_additional_template() {
 
 	$template = $_POST['template'];
-	$index = $_POST['index'];
+	$index    = $_POST['index'];
 	ob_start();
 	require_once( get_template_directory() . '/inc/get-select-options.php' );
 	require_once( get_template_directory() . "/template-parts/assessment-form/additional/$template.php" );

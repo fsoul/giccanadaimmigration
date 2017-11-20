@@ -162,30 +162,12 @@ var validation = require('./input-validation');
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
                 onFinishing: function (event, currentIndex) {
-                    var $form = $('#assessment-form');
-                    $.ajax({
-                        url: gic.ajaxurl,
-                        type: "POST",
-                        data: {
-                            'action': 'send_assessment_form',
-                            'form': $form.serialize()
-                        },
-                        success: function (resp) {
-                            var res = JSON.parse(resp);
-
-                            $.each(res, function (indx, el) {
-                                console.log(indx + ":");
-                                console.log(el);
-                            });
-                            if (res.mail == true) {
-
-                                alert('Анкета отправлена');
-                            }
-                            console.log('success');
-                        }
-                    });
-
-                    console.log('finish');
+                    var paymentType = document.getElementById('ass-payment-type-hidden');
+                    switch (paymentType.value) {
+                        case 'tc':
+                            self.payByCard();
+                            break;
+                    }
                 }
             });
         };
@@ -262,6 +244,28 @@ var validation = require('./input-validation');
 
             return result;
         };
+
+        AssessmentForm.prototype.payByCard = function () {
+            this.sendForm();
+        };
+
+
+        AssessmentForm.prototype.sendForm = function () {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    debugger;
+                }
+            };
+            xhr.send(fd);
+        };
+
         return AssessmentForm;
     })();
 

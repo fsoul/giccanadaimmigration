@@ -1,5 +1,10 @@
 <?php
 
+require ABSPATH . '/vendor/autoload.php';
+require_once get_template_directory() . '/inc/countries.php';
+
+use Dompdf\Dompdf;
+
 add_filter( 'wp_mail_from', 'open_case_wp_mail_from' );
 function open_case_wp_mail_from( $email_address ) {
 	return 'noreply@giccanadaimmigration.com';
@@ -17,9 +22,8 @@ function open_case_wp_mail_content_type( $content_type ) {
 
 
 function send_open_case_admin_mail( $form ) {
-	$subject = "New feedback";
-	$to      = get_option( 'show_email' );
-	require_once get_template_directory() . '/inc/countries.php';
+	$subject         = "New feedback";
+	$to              = get_option( 'show_email' );
 	$form['country'] = getCountryByIso( $form['country'] ) ? getCountryByIso( $form['country'] ) : $form['country'];
 	ob_start();
 	require_once( get_template_directory() . '/template-parts/emails/open-case-admin-mail.phtml' );
@@ -90,10 +94,7 @@ function send_open_case_user_mail( $form ) {
 	return wp_mail( $to, $subject, $message, $headers );
 }
 
-function send_pdf_admin_mail() {
-	require get_template_directory() . '/vendor/autoload.php';
-
-	use Dompdf\Dompdf;
+function send_pdf_admin_mail( $form ) {
 
 	ob_start();
 	require_once( get_template_directory() . '/template-parts/emails/pdf-template.php' );
@@ -112,7 +113,7 @@ function send_pdf_admin_mail() {
 
 	$output = $dompdf->output();
 
-	$pdfPath = 'wp-content/themes/giccanada/public/pdf/';
+	$pdfPath = get_template_directory() . '/public/pdf/';
 
 	$pdfFileName = uniqid() . '.pdf';
 
@@ -128,7 +129,7 @@ function send_pdf_admin_mail() {
 	$from_name = 'GICCANADA';
 	$from_mail = 'noreply@giccanadaimmigration.com';
 	$message   = 'New Assesment';
-	$mailto    = $_POST['addr'];
+	$mailto    = get_option( 'show_email' );
 	$subject   = 'Assesment Form Pdf';
 
 // header
@@ -148,5 +149,6 @@ function send_pdf_admin_mail() {
 	$nmessage .= $content . "\r\n\r\n";
 	$nmessage .= "--" . $uid . "--";
 
-	echo json_encode( array( 'mail' => mail( $mailto, $subject, $nmessage, $header ) ) );
+	$res = mail( $mailto, $subject, $nmessage, $header );
+	return $res;
 }

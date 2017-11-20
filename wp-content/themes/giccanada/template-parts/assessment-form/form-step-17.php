@@ -1,22 +1,27 @@
 <section class="radio-block payment-method">
     <label>Способ оплаты</label>
+    <input type="hidden" id="ass-payment-type-hidden">
     <section>
-        <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required data-role="radio">
+        <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required data-role="radio"
+               data-hidden="ass-payment-type-hidden">
         <label for="ass-target-card" onclick="app.func.paymentMethodClick(event);">Платежная карта
             <span class="payment-type-logo"><span id="visa-logo"></span><span id="master-logo"></span><span
                         id="maestro-logo"></span></span></label>
     </section>
     <section>
-        <input name="ass-payment-type" class="ass-radio" value="pp" type="radio" id="ass-paypal" data-role="radio">
+        <input name="ass-payment-type" class="ass-radio" value="pp" type="radio" id="ass-paypal" data-role="radio"
+               data-hidden="ass-payment-type-hidden">
         <label for="ass-paypal" onclick="app.func.paymentMethodClick(event);">PayPal
             <span class="payment-type-logo"><span id="paypal-logo"></span></span></label>
     </section>
     <section>
-        <input name="ass-payment-type" class="ass-radio" value="wu" type="radio" id="ass-west-un" data-role="radio">
+        <input name="ass-payment-type" class="ass-radio" value="wu" type="radio" id="ass-west-un" data-role="radio"
+               data-hidden="ass-payment-type-hidden">
         <label for="ass-west-un" onclick="app.func.paymentMethodClick(event);">Western Union online</label>
     </section>
     <section>
-        <input name="ass-payment-type" class="ass-radio" value="bw" type="radio" id="ass-bank-wire" data-role="radio">
+        <input name="ass-payment-type" class="ass-radio" value="bw" type="radio" id="ass-bank-wire" data-role="radio"
+               data-hidden="ass-payment-type-hidden">
         <label for="ass-bank-wire" onclick="app.func.paymentMethodClick(event);">Банковский перевод</label>
         <div class="payment-panel">
             <section>
