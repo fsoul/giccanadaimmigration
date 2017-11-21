@@ -66,7 +66,8 @@ function send_assessment_form() {
 
 	$form = $_POST;
 	clear_form( $form );
-	$isSuccess = send_pdf_admin_mail( $form ) && send_assessment_user_mail( $form );
+//	save_user_info($form);
+	$isSuccess = send_pdf_admin_mail( $form );
 	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 
 	echo json_encode( array(

@@ -247,6 +247,7 @@ var validation = require('./input-validation');
 
         AssessmentForm.prototype.payByCard = function () {
             this.sendForm();
+            document.getElementById('ass-liqpay').submit();
         };
 
 

@@ -1,6 +1,6 @@
 <section class="radio-block payment-method">
     <label>Способ оплаты</label>
-    <input type="hidden" id="ass-payment-type-hidden">
+    <input type="hidden" id="ass-payment-type-hidden" value="tc">
     <section>
         <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required data-role="radio"
                data-hidden="ass-payment-type-hidden" checked>

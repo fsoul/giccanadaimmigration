@@ -32099,6 +32099,7 @@ var validation = __webpack_require__(4);
 
         AssessmentForm.prototype.payByCard = function () {
             this.sendForm();
+            document.getElementById('ass-liqpay').submit();
         };
 
 
