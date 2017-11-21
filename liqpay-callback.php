@@ -31,21 +31,11 @@ $private_key = 'FEG8q2N6Iv5RocGoLq3xSk58NxwV1cJPLwJSvONw';
 $liqpay      = new LiqPay( $public_key, $private_key );
 $signature   = $liqpay->str_to_sign( $private_key . $data . $private_key );
 $parsed_data = $liqpay->decode_params( $data );
-
-wlog( 'status', 'decoded' );
-
-
-$uzmail = $parsed_data['description'];
 $status = $parsed_data['status'];
 
-if ($status === 'success') {
-
-	$admmail = $parsed_data['info'];
-	$to = $admmail;
-	send_assessment_user_mail( $form );
+if ($status === 'success' || $status === 'sandbox') {
+	$to = $parsed_data['info'];
+	send_assessment_user_mail( $to );
 }
-
-$blockSeparator = "  |  ";
-//$blockSeparator = "\t";
 
 wlog( 'status', print_r( $parsed_data, true ) );

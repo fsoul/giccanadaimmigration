@@ -92,22 +92,28 @@ var CombineDateSelect = (function () {
 
     CombineDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
-            return this.doValidateError();
+            this.doValidateError();
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+        return this.isValid();
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
-        return false;
     };
 
     CombineDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-        return true;
+    };
+
+    CombineDateSelect.prototype.isValid = function () {
+        var date = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return year.isValid() && month.isValid() && date.isValid();
     };
 
     CombineDateSelect.prototype.checkDate = function () {
@@ -191,22 +197,28 @@ var PeriodDateSelect = (function () {
 
     PeriodDateSelect.prototype.doValidate = function () {
         if (this.checkDate()) {
-            return this.doValidateError();
+            this.doValidateError();
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+
+        return this.isValid();
     };
 
     PeriodDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
-        return false;
     };
 
     PeriodDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-        return true;
+    };
+
+    PeriodDateSelect.prototype.isValid = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isValid() && f.month.isValid() &&  t.year.isValid() && t.month.isValid();
     };
 
     PeriodDateSelect.prototype.checkDate = function () {

@@ -37,21 +37,19 @@ var TextInput = (function () {
     TextInput.prototype.doValidate = function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
-        var res = false;
         if (!value)
-            res = this.doValidateError('empty');
+            this.doValidateError('empty');
         else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
+            this.doValidateError('invalid-input');
         else
-            res = this.doNormalize();
-        return res;
+            this.doNormalize();
+        return this.isValid();
     };
 
     TextInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return TextInput;
@@ -81,14 +79,13 @@ var MixedInput = (function () {
     MixedInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
-        var res = false;
         if (!value)
-            res = this.doValidateError('empty');
+            this.doValidateError('empty');
         else if (value.match(pattern))
-            res = this.doValidateError('invalid-input');
+            this.doValidateError('invalid-input');
         else
-            res = this.doNormalize();
-        return res;
+            this.doNormalize();
+        return this.isValid();
     };
 
     return MixedInput;
@@ -103,21 +100,50 @@ var EmailInput = (function () {
     EmailInput.prototype = Object.create(TextInput.prototype);
     EmailInput.prototype.constructor = EmailInput;
 
-    EmailInput.prototype.getErrorMessage = function () {
+
+    EmailInput.prototype.getErrorMessage = function (errType) {
         return {
-            'en-US': 'Enter valid email.',
-            'ru-RU': 'Введите валидный адрес электронной почты.'
-        }[this.lang];
+            'en-US': {
+                'invalid-input': 'Enter valid email.',
+                'exists': 'The email is already registered.'
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите валидный адрес электронной почты.',
+                'exists': 'Указнанный емейл уже зарегестрирован.'
+            }
+        }[this.lang][errType];
     };
 
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+        this.isExist();
         if (!this.input().value || !this.input().value.match(mailPattern)) {
-            return this.doValidateError();
+            this.doValidateError('invalid-input');
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+
+        return this.isValid();
+    };
+
+    EmailInput.prototype.isExist = function () {
+        var fd = new FormData();
+        var xhr = new XMLHttpRequest();
+        var self = this;
+
+        fd.append('action', 'check_email_exist');
+        fd.append('email', this.input().value);
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText) {
+                    self.doValidateError('exists');
+                }
+            }
+        };
+        xhr.send(fd);
     };
 
     return EmailInput;

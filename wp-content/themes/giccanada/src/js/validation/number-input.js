@@ -37,21 +37,19 @@ var NumberInput = (function () {
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
-        var res = false;
         if (!value)
-            res = this.doValidateError('empty');
+            this.doValidateError('empty');
         else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
+            this.doValidateError('invalid-input');
         else
-            res = this.doNormalize();
-        return res;
+            this.doNormalize();
+        return this.isValid();
     };
 
     NumberInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return NumberInput;
@@ -82,14 +80,13 @@ var TelInput = (function () {
     TelInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
-        var res = false;
         if (!value)
-            res = this.doValidateError('empty');
+            this.doValidateError('empty');
         else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
+            this.doValidateError('invalid-input');
         else
-            res = this.doNormalize();
-        return res;
+           this.doNormalize();
+        return this.isValid();
     };
 
     return TelInput;

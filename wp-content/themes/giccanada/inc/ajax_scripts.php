@@ -2,23 +2,49 @@
 require_once( get_template_directory() . '/inc/mails.php' );
 require_once get_template_directory() . '/inc/provinces.php';
 require_once get_template_directory() . '/inc/upload.php';
+require_once get_template_directory() . '/inc/payment-forms.php';
 
-function clear_form( array &$data ) {
-	foreach ( $data as $key => $value ) {
-		if ( is_array( $value ) ) {
-			clear_form( $value );
-		} else {
-			$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+function clear_request( &$data ) {
+
+	if (is_array($data)) {
+		foreach ( $data as $key => $value ) {
+			if ( is_array( $value ) ) {
+				clear_request( $value );
+			} else {
+				$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+			}
 		}
+	} else if (is_string($data)) {
+		$data = htmlspecialchars( strip_tags( stripcslashes( trim( $data ) ) ) );
 	}
 }
+
+
+function check_email_exist() {
+	global $wpdb;
+	$email = $_POST['email'];
+	clear_request( $email );
+
+	$is_email_exist = $wpdb->get_var( $wpdb->prepare( "
+												SELECT COUNT(*)
+												FROM wp_users
+												WHERE user_email = %s",
+			$email
+		) ) > 0;
+
+	echo $is_email_exist;
+	wp_die();
+}
+
+add_action( 'wp_ajax_check_email_exist', 'check_email_exist' );
+add_action( 'wp_ajax_nopriv_check_email_exist', 'check_email_exist' );
 
 function send_open_case_form() {
 
 	global $wpdb;
 
 	$form = $_POST['form'];
-	clear_form( $form );
+	clear_request( $form );
 	$is_debug_mode = $_COOKIE['debug'] == 1;
 	$ans_msg       = '';
 	$is_success    = false;
@@ -65,10 +91,20 @@ add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 function send_assessment_form() {
 
 	$form = $_POST;
-	clear_form( $form );
+	clear_request( $form );
 //	save_user_info($form);
-	$isSuccess = send_pdf_admin_mail( $form );
-	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+//	register_new_user($form['ass-email'], $form['ass-email']);
+	$error = register_new_user('rogovoyalexandr94@gmail.com', 'rogovoyalexandr94@gmail.com');
+
+	$isSuccess = false;
+	if (!is_wp_error($error)) {
+		//Success
+		$isSuccess = send_pdf_admin_mail( $form );
+		$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+		$_SESSION['user_id'] = $error;
+	} else {
+		$ans_msg   = $error->get_error_message();
+	}
 
 	echo json_encode( array(
 		'isSuccess' => $isSuccess,
@@ -83,7 +119,7 @@ add_action( 'wp_ajax_nopriv_send_assessment_form', 'send_assessment_form' );
 function send_start_work_mail() {
 
 	$form = $_POST['form'];
-	clear_form( $form );
+	clear_request( $form );
 	$isSuccess = send_start_work_user_mail( $form );
 	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 

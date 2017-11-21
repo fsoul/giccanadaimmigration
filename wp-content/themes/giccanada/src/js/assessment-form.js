@@ -115,7 +115,7 @@ var helpers = require("./lib/helpers");
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 16,
+                startIndex: 5,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -256,8 +256,7 @@ var helpers = require("./lib/helpers");
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = JSON.parse(xhr.responseText);
-                    debugger;
+                    var res = xhr.responseText;
                     document.body.insertAdjacentHTML('beforeend', res);
                     document.getElementById('ass-liqpay').submit();
                 }
@@ -278,6 +277,8 @@ var helpers = require("./lib/helpers");
                     var res = JSON.parse(xhr.responseText);
                     if (res.isSuccess && typeof paymentFunc === 'function') {
                         paymentFunc();
+                    } else {
+                        console.log(res.message)
                     }
                 }
             };

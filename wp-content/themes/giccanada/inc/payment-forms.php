@@ -23,7 +23,8 @@ function getLiqPay($lang) {
 		'order_id' => $order_id,
 		'language' => 'ua' == $lang ? $lang: 'ru',
 		'server_url' => "$server/liqpay-callback.php",
-		'result_url' => $server
+		'result_url' => $server,
+		'info' => $server
 	);
 	return $liqpay->cnb_form('ass-liqpay', $data);
 }
