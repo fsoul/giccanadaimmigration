@@ -31853,6 +31853,7 @@ module.exports =  (function () {
 /* WEBPACK VAR INJECTION */(function($) {
 
 var validation = __webpack_require__(4);
+var helpers = __webpack_require__(1);
 
 (function () {
     var AssessmentProgressBar = (function () {
@@ -32017,7 +32018,7 @@ var validation = __webpack_require__(4);
                     var paymentType = document.getElementById('ass-payment-type-hidden');
                     switch (paymentType.value) {
                         case 'tc':
-                            self.payByCard();
+                            self.sendForm(self.payByLiqPay);
                             break;
                     }
                 }
@@ -32097,15 +32098,10 @@ var validation = __webpack_require__(4);
             return result;
         };
 
-        AssessmentForm.prototype.payByCard = function () {
-            this.sendForm();
-            document.getElementById('ass-liqpay').submit();
-        };
-
-
-        AssessmentForm.prototype.sendForm = function () {
-            var fd = new FormData(document.getElementById('assessment-form'));
-            fd.append('action', 'send_assessment_form');
+        AssessmentForm.prototype.payByLiqPay = function () {
+            var fd = new FormData();
+            fd.append('action', 'get_liqpay_data');
+            fd.append('country', helpers.getCookie('iso').toLowerCase());
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', gic.ajaxurl, true);
@@ -32113,7 +32109,28 @@ var validation = __webpack_require__(4);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var res = JSON.parse(xhr.responseText);
-                    console.log(res)
+                    debugger;
+                    document.body.insertAdjacentHTML('beforeend', res);
+                    document.getElementById('ass-liqpay').submit();
+                }
+            };
+            xhr.send(fd);
+        };
+
+
+        AssessmentForm.prototype.sendForm = function (paymentFunc) {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            var xhr = new XMLHttpRequest();
+
+            fd.append('action', 'send_assessment_form');
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.isSuccess && typeof paymentFunc === 'function') {
+                        paymentFunc();
+                    }
                 }
             };
             xhr.send(fd);

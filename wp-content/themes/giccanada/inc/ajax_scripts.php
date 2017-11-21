@@ -220,3 +220,12 @@ function get_additional_template() {
 
 add_action( 'wp_ajax_get_additional_template', 'get_additional_template' );
 add_action( 'wp_ajax_nopriv_get_additional_template', 'get_additional_template' );
+
+function get_liqpay_data() {
+	$message = getLiqPay($_POST['country']);
+	echo $message;
+	wp_die();
+}
+
+add_action( 'wp_ajax_get_liqpay_data', 'get_liqpay_data' );
+add_action( 'wp_ajax_nopriv_get_liqpay_data', 'get_liqpay_data' );
