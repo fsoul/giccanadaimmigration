@@ -11738,7 +11738,7 @@ body {
     background-size: contain; } }
 
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
   .fixed-right-panel {
     position: fixed;
     width: 192px;
@@ -12166,14 +12166,14 @@ body {
       line-height: 40px; }
     #assessment-modal .modal-body .wizard > .actions a {
       line-height: 42px; } }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) and (max-width: 600px) {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-width: 600px) {
     #assessment-modal .modal-body .wizard > .steps > ul > li {
       width: 50%; }
     #assessment-modal .modal-body .wizard > .steps a,
     #assessment-modal .modal-body .wizard > .steps a:hover,
     #assessment-modal .modal-body .wizard > .steps a:active {
       margin-top: .5em; } }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) and (max-width: 480px) {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-width: 480px) {
     #assessment-modal .modal-body .wizard > .steps > ul > li {
       width: 100%; } }
 
