@@ -267,6 +267,8 @@ var helpers = require("./lib/helpers");
 
         AssessmentForm.prototype.sendForm = function (paymentFunc) {
             var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
             var xhr = new XMLHttpRequest();
 
             fd.append('action', 'send_assessment_form');
