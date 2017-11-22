@@ -3,10 +3,11 @@ require_once( get_template_directory() . '/inc/mails.php' );
 require_once get_template_directory() . '/inc/provinces.php';
 require_once get_template_directory() . '/inc/upload.php';
 require_once get_template_directory() . '/inc/payment-forms.php';
+require_once( get_template_directory() . '/inc/save_user.php' );
 
 function clear_request( &$data ) {
 
-	if (is_array($data)) {
+	if ( is_array( $data ) ) {
 		foreach ( $data as $key => $value ) {
 			if ( is_array( $value ) ) {
 				clear_request( $value );
@@ -14,25 +15,16 @@ function clear_request( &$data ) {
 				$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
 			}
 		}
-	} else if (is_string($data)) {
+	} else if ( is_string( $data ) ) {
 		$data = htmlspecialchars( strip_tags( stripcslashes( trim( $data ) ) ) );
 	}
 }
 
 
 function check_email_exist() {
-	global $wpdb;
 	$email = $_POST['email'];
 	clear_request( $email );
-
-	$is_email_exist = $wpdb->get_var( $wpdb->prepare( "
-												SELECT COUNT(*)
-												FROM wp_users
-												WHERE user_email = %s",
-			$email
-		) ) > 0;
-
-	echo $is_email_exist;
+	echo is_numeric( email_exists( $email ) );
 	wp_die();
 }
 
@@ -90,27 +82,24 @@ add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 
 function send_assessment_form() {
 
-	$form = $_POST;
-	clear_request( $form );
-//	save_user_info($form);
-//	register_new_user($form['ass-email'], $form['ass-email']);
-	$error = register_new_user('rogovoyalexandr94@gmail.com', 'rogovoyalexandr94@gmail.com');
-
 	$isSuccess = false;
-	if (!is_wp_error($error)) {
-		//Success
-		$isSuccess = send_pdf_admin_mail( $form );
-		$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
-		$_SESSION['user_id'] = $error;
-	} else {
-		$ans_msg   = $error->get_error_message();
+	$ans_msg   = '';
+	$form      = $_POST;
+	clear_request( $form );
+	try {
+		if ( save_user( $form ) ) {
+			$isSuccess = send_pdf_admin_mail( $form );
+		}
+		$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+	} catch ( Exception $e ) {
+		$ans_msg = $e->getMessage();
+	} finally {
+		echo json_encode( array(
+			'isSuccess' => $isSuccess,
+			'message'   => $ans_msg
+		) );
+		wp_die();
 	}
-
-	echo json_encode( array(
-		'isSuccess' => $isSuccess,
-		'message'   => $ans_msg
-	) );
-	wp_die();
 }
 
 add_action( 'wp_ajax_send_assessment_form', 'send_assessment_form' );
@@ -258,7 +247,7 @@ add_action( 'wp_ajax_get_additional_template', 'get_additional_template' );
 add_action( 'wp_ajax_nopriv_get_additional_template', 'get_additional_template' );
 
 function get_liqpay_data() {
-	$message = getLiqPay($_POST['country']);
+	$message = getLiqPay( $_POST['country'] );
 	echo $message;
 	wp_die();
 }
