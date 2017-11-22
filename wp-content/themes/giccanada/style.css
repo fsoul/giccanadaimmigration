@@ -12062,6 +12062,8 @@ body {
       #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
         float: none;
         width: 45%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence {
+        padding-bottom: 20px; }
     #assessment-modal .modal-body .hide-text {
       font: 0/0 a;
       color: transparent;

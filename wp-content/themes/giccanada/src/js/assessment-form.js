@@ -114,7 +114,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 16,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -162,12 +162,13 @@ var validation = require('./input-validation');
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
                 onFinishing: function (event, currentIndex) {
-                    var paymentType = document.getElementById('ass-payment-type-hidden');
-                    switch (paymentType.value) {
-                        case 'tc':
-                            self.payByCard();
-                            break;
-                    }
+                    self.sendForm();
+                    // var paymentType = document.getElementById('ass-payment-type-hidden');
+                    // switch (paymentType.value) {
+                    //     case 'tc':
+                    //         self.payByCard();
+                    //         break;
+                    // }
                 }
             });
         };

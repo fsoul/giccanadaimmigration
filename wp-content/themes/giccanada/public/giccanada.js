@@ -31966,7 +31966,7 @@ var validation = __webpack_require__(4);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 16,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32014,12 +32014,13 @@ var validation = __webpack_require__(4);
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
                 onFinishing: function (event, currentIndex) {
-                    var paymentType = document.getElementById('ass-payment-type-hidden');
-                    switch (paymentType.value) {
-                        case 'tc':
-                            self.payByCard();
-                            break;
-                    }
+                    self.sendForm();
+                    // var paymentType = document.getElementById('ass-payment-type-hidden');
+                    // switch (paymentType.value) {
+                    //     case 'tc':
+                    //         self.payByCard();
+                    //         break;
+                    // }
                 }
             });
         };
