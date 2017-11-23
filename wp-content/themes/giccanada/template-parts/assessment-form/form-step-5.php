@@ -1,6 +1,6 @@
 <section>
     <label for="passport-num">Номер паспорта</label>
-    <input type="text" name="passport-num" id="passport-num" data-role="mixed">
+    <input type="text" name="passport-num" id="passport-num" data-role="mixed" required>
     <span class="error-text" id="error-passport-num"></span>
 </section>
 <section class="combine-date passport-exp-date">
@@ -19,15 +19,20 @@
 
             <select title="" name="passport-exp-y" class="year" required data-class="passport-exp-date" id="passport-exp-date-y">
                 <option value="" disabled selected>Year</option>
-                <?= getYearOptions();?>
+                <?= getExpirationDateYearsOptions();?>
             </select>
         </div>
         <span class="error-text" id="error-passport-exp-date"></span>
     </div>
 </section>
+<div class="cb-container">
+    <input type="checkbox" onchange="app.func.disableCombineDate(event);" id="ass-no-date-exp-cb" value="yes"
+           name="ass-no-date-exp-cb" data-role="checkbox" data-combine="combine-date-passport-exp-date"/>
+    <label for="ass-no-date-exp-cb">нет срока истечения документа</span></label>
+</div>
 <section>
     <label for="passport-country">Страна выдачи паспорта</label>
-    <select id="passport-country" name="passport-country" data-role="select">
+    <select id="passport-country" name="passport-country" data-role="select" required>
         <option value="AO">Angola</option>
         <option value="AF">Afghanistan</option>
         <option value="BJ">Benin</option>

@@ -10916,6 +10916,35 @@ body {
 
 /*images end---------*/
 /*footer end -------------------------------------*/
+#assessment-complete.modal {
+  text-align: center;
+  padding: 0 !important; }
+
+#assessment-complete.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; }
+
+#assessment-complete .modal-content {
+  padding: 15px 15px 0 15px; }
+
+#assessment-complete .modal-body, #assessment-complete .modal-footer {
+  padding-left: 0;
+  padding-right: 0; }
+
+#assessment-complete .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; }
+
+#assessment-modal .modal-header {
+  border-bottom: none;
+  display: none; }
+  #assessment-modal .modal-header button:focus {
+    outline: none; }
+
 #assessment-modal .modal-body {
   padding: 50px 15px; }
   #assessment-modal .modal-body #ass-logo {
@@ -11327,6 +11356,43 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section:first-of-type {
       width: 65%;
       margin-right: 5%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container {
+      height: 35px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] {
+        position: absolute;
+        left: -999999px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label {
+        position: absolute;
+        left: 24px;
+        cursor: pointer;
+        margin: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::before, #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::after {
+          content: '';
+          position: absolute;
+          margin: auto; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::before {
+          width: 18px;
+          height: 18px;
+          left: -24px;
+          top: 3px;
+          border: 3px solid transparent;
+          background: #FF8200;
+          border-radius: 20%; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::after {
+          content: '\F00C';
+          font-family: 'FontAwesome', sans-serif;
+          left: -22px;
+          top: 0;
+          color: transparent;
+          transition: color .2s;
+          -webkit-transition: color .2s;
+          -o-transition: color .2s;
+          -moz-transition: color .2s; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label a {
+          text-decoration-line: underline;
+          color: #FF9500; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type="checkbox"]:checked + label::after {
+        color: #fff; }
     #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo {
       display: inline-block;
       position: absolute;
@@ -11377,13 +11443,6 @@ body {
         padding-bottom: 15px; }
         #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel > section:first-of-type {
           padding-top: 15px; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date {
-        width: 70%;
-        float: left; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .expiration-date select {
-          width: 45%;
-          float: left;
-          margin-right: 5%; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel #holder-cvc-container {
         float: left;
         width: 30%; }
@@ -11739,7 +11798,7 @@ body {
     background-size: contain; } }
 
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
   .fixed-right-panel {
     position: fixed;
     width: 192px;
@@ -11945,6 +12004,9 @@ body {
     padding: 20px 0;
     border: 0;
     min-height: 100%; }
+  #assessment-modal .modal-header {
+    border-bottom: none;
+    display: flex; }
   #assessment-modal .modal-body {
     padding: 0 7px; }
     #assessment-modal .modal-body .modal-title {
@@ -12057,20 +12119,11 @@ body {
         margin-right: 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step16 label .payment-type-logo {
         right: 0; }
-      #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date {
-        width: 100%;
-        float: left;
-        padding-bottom: 15px; }
-        #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select {
-          width: 50%;
-          float: left;
-          margin-right: 5%; }
-          #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel .expiration-date select:last-child {
-            margin-right: 0;
-            width: 45%; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step16 .payment-panel #holder-cvc-container {
         float: none;
         width: 45%; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence {
+        padding-bottom: 20px; }
     #assessment-modal .modal-body .hide-text {
       font: 0/0 a;
       color: transparent;
@@ -12175,14 +12228,14 @@ body {
       line-height: 40px; }
     #assessment-modal .modal-body .wizard > .actions a {
       line-height: 42px; } }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) and (max-width: 600px) {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-width: 600px) {
     #assessment-modal .modal-body .wizard > .steps > ul > li {
       width: 50%; }
     #assessment-modal .modal-body .wizard > .steps a,
     #assessment-modal .modal-body .wizard > .steps a:hover,
     #assessment-modal .modal-body .wizard > .steps a:active {
       margin-top: .5em; } }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (min-resolution: 1.5dppx) and (max-width: 480px) {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-width: 480px) {
     #assessment-modal .modal-body .wizard > .steps > ul > li {
       width: 100%; } }
 

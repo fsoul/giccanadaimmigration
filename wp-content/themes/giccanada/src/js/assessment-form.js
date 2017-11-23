@@ -114,7 +114,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                //startIndex: 8,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -161,31 +161,18 @@ var validation = require('./input-validation');
                     });
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
-                onFinishing: function(event, currentIndex){
-                    var $form = $('#assessment-form');
-                    var data = $form.serialize();
-
-                    $.ajax({
-                        url: 'pdf-handler.php', //url: gic.ajaxurl,
-                        type: "POST",
-                        data: data, //{'action': 'send_assessment_form',
-                                    // 'form': $form.serialize() }
-                        success: function(resp){
-                            var res = JSON.parse(resp);
-
-                            $.each(res, function(indx, el){
-                                console.log(indx +":");
-                                console.log(el);
-                            });
-                            if(res.mail == true){
-
-                                alert('Анкета отправлена');
-                            }
-                            console.log('success');
-                        }
-                    });
-
-                    console.log('finish');
+                onFinishing: function (event, currentIndex) {
+                    var paymentType = document.getElementById('ass-payment-type-hidden');
+                    switch (paymentType.value) {
+                        case 'tc':
+                            self.sendForm();
+                            // self.payByCard();
+                            break;
+                        default:
+                            self.sendForm();
+                            self.complete();
+                            break;
+                    }
                 }
             });
         };
@@ -231,6 +218,14 @@ var validation = require('./input-validation');
             this.initInputsValidation(stepIndex, inputs);
         };
 
+        AssessmentForm.prototype.complete = function () {
+            var form = document.getElementById('assessment-form');
+            var finish = form.querySelector(".actions a[href='#finish']");
+            finish.style.visibility = 'hidden';
+            $('#assessment-modal').modal('hide');
+            $('#assessment-complete').modal('show');
+        };
+
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
@@ -240,7 +235,9 @@ var validation = require('./input-validation');
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
             for (var i = 0; i < inputs.length; ++i) {
-                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
+                if (!this.steps[pageIndex].inputs.some(function (t) {
+                        return t.id === inputs[i].id;
+                    })) {
                     this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
                 }
             }
@@ -253,14 +250,36 @@ var validation = require('./input-validation');
                 if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
                     (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
                     page.inputs.splice(i, 1);
-                } else
-                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                } else if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
             }
 
             return result;
         };
+
+        AssessmentForm.prototype.payByCard = function () {
+            this.sendForm();
+            document.getElementById('ass-liqpay').submit();
+        };
+
+
+        AssessmentForm.prototype.sendForm = function () {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    console.log(res)
+                }
+            };
+            xhr.send(fd);
+        };
+
         return AssessmentForm;
     })();
 

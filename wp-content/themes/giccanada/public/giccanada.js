@@ -10450,6 +10450,10 @@ DefaultInput.prototype.input = function () {
     return document.getElementById(this.id)
 };
 
+DefaultInput.prototype.isRequired = function () {
+    return this.input().hasAttribute('required');
+};
+
 DefaultInput.prototype.getErrorMessage = function () {
     return {
         'en-US': 'This field is required.',
@@ -10477,7 +10481,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input().value) {
+    if (this.isRequired() && !this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();
@@ -10563,8 +10567,6 @@ var EmailInput = text.EmailInput;
 
 var NumberInput = number.NumberInput;
 var TelInput = number.TelInput;
-var CardNumberInput = number.CardNumberInput;
-var CVCInput = number.CVCInput;
 
 var SelectInput = select.SelectInput;
 var CombineDateSelect = select.CombineDateSelect;
@@ -10594,12 +10596,6 @@ var InputsFactory = (function () {
                 break;
             case 'tel':
                 this.inputClass = TelInput;
-                break;
-            case 'card-number':
-                this.inputClass = CardNumberInput;
-                break;
-            case 'cvc':
-                this.inputClass = CVCInput;
                 break;
             case 'mixed':
                 this.inputClass = MixedInput;
@@ -25820,7 +25816,7 @@ return exports;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.7
+ * @version 1.12.6
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -26390,7 +26386,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
     // Handle other cases based on DOM element used as boundaries
     var boundariesNode = void 0;
     if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(reference));
+      boundariesNode = getScrollParent(getParentNode(popper));
       if (boundariesNode.nodeName === 'BODY') {
         boundariesNode = popper.ownerDocument.documentElement;
       }
@@ -30984,12 +30980,18 @@ var TextInput = (function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
+
         return res;
     };
 
@@ -31028,12 +31030,17 @@ var MixedInput = (function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
         return res;
     };
 
@@ -31059,7 +31066,7 @@ var EmailInput = (function () {
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!this.input().value || !this.input().value.match(mailPattern)) {
+        if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31172,8 +31179,17 @@ var CombineDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    CombineDateSelect.prototype.isRequired = function () {
+        var day = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return day.isRequired() ||
+            month.isRequired() ||
+            year.isRequired();
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31271,8 +31287,15 @@ var PeriodDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    PeriodDateSelect.prototype.isRequired = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isRequired() || f.month.isRequired() ||
+            t.month.isRequired() || t.year.isRequired();
+    };
+
     PeriodDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31355,10 +31378,12 @@ var FileInput = (function () {
 
     FileInput.prototype.doValidate = function () {
         try {
-            this.checkCount();
-            var file = this.input().files[0];
-            this.checkSize(file);
-            return this.doNormalize();
+            if (this.isRequired()) {
+                this.checkCount();
+                var file = this.input().files[0];
+                this.checkSize(file);
+                return this.doNormalize();
+            }
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -31680,12 +31705,18 @@ var NumberInput = (function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
+
         return res;
     };
 
@@ -31725,148 +31756,25 @@ var TelInput = (function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
         return res;
     };
 
     return TelInput;
 })();
 
-var CardNumberInput = (function () {
-
-    function CardNumberInput(lang, input) {
-        NumberInput.apply(this, arguments);
-        var self = this;
-
-        this.input().addEventListener('keypress', function (e) {
-            self.doKeyPress(e);
-        });
-
-        this.input().addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CardNumberInput.prototype = Object.create(NumberInput.prototype);
-    CardNumberInput.prototype.constructor = CardNumberInput;
-
-    CardNumberInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct card number.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный номер карты.',
-                'empty': 'Вы пропустили это поле.'
-            }
-        }[this.lang][errType];
-    };
-
-    CardNumberInput.prototype.doValidate = function () {
-        var val = this.input().value.replace(/\s/g, '');
-
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CardNumberInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-
-    CardNumberInput.prototype.doKeyPress = function (e) {
-        var val = this.input().value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (val.length && !(val.length % 4) && val.length < 16 && ['Backspace', 'Delete'].lastIndexOf(key) === -1)
-            this.input().value += ' ';
-    };
-
-    CardNumberInput.prototype.doKeyDown = function (e) {
-        var val = this.input().value.replace(/\s/g, '');
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 16 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CardNumberInput;
-})();
-
-var CVCInput = (function () {
-
-    function CVCInput(lang, input) {
-        NumberInput.apply(this, arguments);
-        var self = this;
-
-        this.input().addEventListener('keydown', function (e) {
-            self.doKeyDown(e);
-        });
-    }
-
-    CVCInput.prototype = Object.create(NumberInput.prototype);
-    CVCInput.prototype.constructor = CVCInput;
-
-    CVCInput.prototype.getErrorMessage = function (errType) {
-        return { //TODO
-            'en-US': {
-                'invalid-input': 'Please, enter correct CVV2/CVC2.',
-                'empty': NumberInput.prototype.getErrorMessage.call(this)
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите правильный CVV2/CVC2.',
-                'empty': 'Вы пропустили это поле.'
-            }
-        }[this.lang][errType];
-    };
-
-    CVCInput.prototype.doValidate = function () {
-        var val = this.input().value;
-        if (isNaN(+val)) {
-            return this.doValidateError(STATES.invalid);
-        } else if (val === '') {
-            return this.doValidateError('empty');
-        } else {
-            return this.doNormalize();
-        }
-    };
-
-    CVCInput.prototype.doValidateError = function (errType) {
-        this.setState(STATES.invalid);
-        this.setErrorText(this.getErrorMessage(errType));
-        this.fire(new CustomEvent('onValidateError'));
-        return false;
-    };
-
-    CVCInput.prototype.doKeyDown = function (e) {
-        var val = this.input().value;
-        var key = e.key || String.fromCharCode(e.which) || String.fromCharCode(e.keyCode);
-        if (( isNaN(+key) || val.length >= 3 ) && ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown',
-                'ArrowLeft', 'ArrowRight'].lastIndexOf(key) === -1)
-            e.preventDefault();
-    };
-
-    return CVCInput;
-})();
-
 module.exports = {
     NumberInput: NumberInput,
-    TelInput: TelInput,
-    CardNumberInput: CardNumberInput,
-    CVCInput: CVCInput
+    TelInput: TelInput
 };
 
 /***/ }),
@@ -32101,7 +32009,7 @@ var validation = __webpack_require__(4);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                //startIndex: 8,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32148,31 +32056,18 @@ var validation = __webpack_require__(4);
                     });
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
-                onFinishing: function(event, currentIndex){
-                    var $form = $('#assessment-form');
-                    var data = $form.serialize();
-
-                    $.ajax({
-                        url: 'pdf-handler.php', //url: gic.ajaxurl,
-                        type: "POST",
-                        data: data, //{'action': 'send_assessment_form',
-                                    // 'form': $form.serialize() }
-                        success: function(resp){
-                            var res = JSON.parse(resp);
-
-                            $.each(res, function(indx, el){
-                                console.log(indx +":");
-                                console.log(el);
-                            });
-                            if(res.mail == true){
-
-                                alert('Анкета отправлнна');
-                            }
-                            console.log('success');
-                        }
-                    });
-
-                    console.log('finish');
+                onFinishing: function (event, currentIndex) {
+                    var paymentType = document.getElementById('ass-payment-type-hidden');
+                    switch (paymentType.value) {
+                        case 'tc':
+                            self.sendForm();
+                            // self.payByCard();
+                            break;
+                        default:
+                            self.sendForm();
+                            self.complete();
+                            break;
+                    }
                 }
             });
         };
@@ -32218,6 +32113,14 @@ var validation = __webpack_require__(4);
             this.initInputsValidation(stepIndex, inputs);
         };
 
+        AssessmentForm.prototype.complete = function () {
+            var form = document.getElementById('assessment-form');
+            var finish = form.querySelector(".actions a[href='#finish']");
+            finish.style.visibility = 'hidden';
+            $('#assessment-modal').modal('hide');
+            $('#assessment-complete').modal('show');
+        };
+
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
@@ -32227,7 +32130,9 @@ var validation = __webpack_require__(4);
 
         AssessmentForm.prototype.initInputsValidation = function (pageIndex, inputs) {
             for (var i = 0; i < inputs.length; ++i) {
-                if (!this.steps[pageIndex].inputs.some(function (t) { return t.id === inputs[i].id; })) {
+                if (!this.steps[pageIndex].inputs.some(function (t) {
+                        return t.id === inputs[i].id;
+                    })) {
                     this.steps[pageIndex].inputs.push(validation.initByInput(inputs[i]))
                 }
             }
@@ -32240,14 +32145,36 @@ var validation = __webpack_require__(4);
                 if ((typeof page.inputs[i].input === 'function' && !page.inputs[i].input()) ||
                     (typeof page.inputs[i].div === 'function' && !page.inputs[i].div())) {
                     page.inputs.splice(i, 1);
-                } else
-                if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
+                } else if (typeof page.inputs[i].doValidate === 'function' && !page.inputs[i].doValidate()) {
                     result = false;
                 }
             }
 
             return result;
         };
+
+        AssessmentForm.prototype.payByCard = function () {
+            this.sendForm();
+            document.getElementById('ass-liqpay').submit();
+        };
+
+
+        AssessmentForm.prototype.sendForm = function () {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    console.log(res)
+                }
+            };
+            xhr.send(fd);
+        };
+
         return AssessmentForm;
     })();
 
@@ -32403,6 +32330,12 @@ module.exports = ProgressBar;
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {
 
+var saveRadioValToHidden = function(e) {
+    var radio =  document.getElementById(e.target.getAttribute('for'));
+    var hidden = document.getElementById(radio.getAttribute('data-hidden'));
+    hidden.value = radio.value;
+};
+
 var paymentMethodClick = function (e) {
     var target = e.target;
     var activePanel = target.nextElementSibling;
@@ -32419,6 +32352,8 @@ var paymentMethodClick = function (e) {
     target.classList.toggle('active');
     if (activePanel && activePanel.classList.contains('payment-panel'))
         activePanel.style.maxHeight = 20*4 + activePanel.scrollHeight + "px";
+
+    saveRadioValToHidden(e);
 };
 
 
@@ -32502,25 +32437,14 @@ var onPartnerAddRadioClick = function (e) {
 };
 
 var onPartnerDelRadioClick = function (e) {
-    var div = document.getElementById(e.target.getAttribute('data-template'));
-    var c = div.querySelector('.copied');
-    if (c) {
-        div.removeChild(c);
-        var work = document.getElementById('part-work-cont');
-        var educ = document.getElementById('part-educ-cont');
-        work.style.display = 'none';
-        educ.style.display = 'none';
-
-        var dels = work.querySelectorAll('span.added-file-delete');
-        var i;
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('click'))
-        }
-
-        dels = educ.querySelectorAll('span.added-file-delete');
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('click'))
-        }
+    var div = document.querySelector('.' + e.target.getAttribute('data-parent'));
+    var c = div.querySelectorAll('.copied');
+    var work = document.getElementById('part-work-cont');
+    var educ = document.getElementById('part-educ-cont');
+    work.style.display = 'none';
+    educ.style.display = 'none';
+    for (var i = 0; i < c.length; ++i ) {
+        c[i].parentNode.removeChild(c[i]);
     }
 };
 
@@ -32568,13 +32492,43 @@ var onFileDelRadioClick = function (e) {
     }
 };
 
+
+function onLicenseChange() {
+    var form = document.getElementById('assessment-form');
+    var finish = form.querySelector(".actions a[href='#finish']");
+    var cb = document.getElementById('ass-licence-cb');
+    (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
+}
+
+function setRequire(input, isRequire) {
+    if (!isRequire) {
+        input.removeAttribute('required')
+    } else {
+        input.setAttribute('required', '')
+    }
+}
+
+function disableCombineDate(e) {
+    var cb = e.target;
+    var comb = document.getElementById( cb.getAttribute('data-combine') );
+    var inputs = comb.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; ++i) {
+        setRequire(inputs[i], !cb.checked);
+    }
+
+}
+
 module.exports = {
     paymentMethodClick: paymentMethodClick,
+    saveRadioValToHidden: saveRadioValToHidden,
     onProvinceChanged: onProvinceChanged,
     onPartnerDelRadioClick: onPartnerDelRadioClick,
     onPartnerAddRadioClick: onPartnerAddRadioClick,
     onFileAddRadioClick: onFileAddRadioClick,
-    onFileDelRadioClick: onFileDelRadioClick
+    onFileDelRadioClick: onFileDelRadioClick,
+    onLicenseChange: onLicenseChange,
+    disableCombineDate: disableCombineDate
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 

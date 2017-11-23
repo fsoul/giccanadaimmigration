@@ -38,12 +38,18 @@ var TextInput = (function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
+
         return res;
     };
 
@@ -82,12 +88,17 @@ var MixedInput = (function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
         return res;
     };
 
@@ -113,7 +124,7 @@ var EmailInput = (function () {
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!this.input().value || !this.input().value.match(mailPattern)) {
+        if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
             return this.doValidateError();
         } else {
             return this.doNormalize();

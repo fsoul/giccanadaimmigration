@@ -5,13 +5,13 @@
             <label>Есть ли у вас супруг/а или гражданский партнер?</label>
             <section>
                 <input name="part-relation" class="ass-radio" value="n" checked type="radio" id="part-relation-n" data-role="radio"
-                       data-template="partner-info" data-parent="partner" onclick="app.func.onPartnerDelRadioClick(event);">
+                       data-template="partner-info" data-parent="partner" onclick="app.func.onPartnerDelRadioClick(event);" required>
                 <label for="part-relation-n" >Нет</label>
             </section>
             <section>
                 <input name="part-relation" class="ass-radio" value="y" type="radio"
                        id="part-relation-y" data-role="radio" data-template="partner-info" data-parent="partner"
-                onclick="app.func.onPartnerAddRadioClick(event);">
+                onclick="app.func.onPartnerAddRadioClick(event);" required>
                 <label for="part-relation-y" >Да</label>
             </section>
         </section>

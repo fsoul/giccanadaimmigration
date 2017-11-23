@@ -1,31 +1,31 @@
 <div class="delete-copy"><span class="added-file-delete" data-parent="#own-education" data-del="-copy<?=$index;?>"><i class="fa fa-times"></i></span></div>
 <section>
     <label for="education-name-<?=$index;?>">Наименование учебного заведения</label>
-    <input type="text" name="education[<?=$index;?>][education-name]" id="education-name-<?=$index;?>" data-role="mixed">
+    <input type="text" name="education[<?=$index;?>][education-name]" id="education-name-<?=$index;?>" data-role="mixed" required>
     <span class="error-text" id="error-education-name-<?=$index;?>"></span>
 </section>
 <section>
     <label for="education-specialty-<?=$index;?>">Факультет, специальность</label>
     <input type="text" name="education[<?=$index;?>][education-specialty]" id="education-specialty-<?=$index;?>"
-           data-role="text">
+           data-role="text" required>
     <span class="error-text" id="error-education-specialty-<?=$index;?>"></span>
 </section>
 <section>
     <label for="education-country-<?=$index;?>">Город, страна</label>
     <input type="text" name="education[<?=$index;?>][education-country]" id="education-country-<?=$index;?>"
-           data-role="text">
+           data-role="text" required>
     <span class="error-text" id="error-education-country-<?=$index;?>"></span>
 </section>
 <section>
     <label for="education-level-<?=$index;?>">Уровень образования</label>
     <select id="education-level-<?=$index;?>" name="education[<?=$index;?>][education-level]" required data-role="select">
         <option value="" disabled selected>- Выбрать -</option>
-        <option value="preschool">Preschool</option>
         <option value="primary">Primary</option>
         <option value="secondary">Secondary</option>
-        <option value="higher">Tertiary (higher)</option>
-        <option value="vocational">Vocational</option>
-        <option value="special">Special</option>
+        <option value="2-3 years Certificate program (College, School)">2-3 years Certificate program (College, School)</option>
+        <option value="3-4 years Bachelor program (College, University)">3-4 years Bachelor program (College, University)</option>
+        <option value="4-6 years Master program (College, University)">4-6 years Master program (College, University)</option>
+        <option value="PhD (Doctor of Science)">PhD (Doctor of Science)</option>
     </select>
     <span class="error-text" id="error-education-level-<?=$index;?>"></span>
 </section>
@@ -43,7 +43,7 @@
 </section>
 <section>
     <label for="education-type-<?=$index;?>">Форма обучения</label>
-    <select id="education-type-<?=$index;?>" name="education[<?=$index;?>][education-type]">
+    <select id="education-type-<?=$index;?>" name="education[<?=$index;?>][education-type]" required>
         <option value="fulltime" selected>Full-time education</option>
         <option value="distance">Distance education</option>
     </select>

@@ -23,6 +23,10 @@ DefaultInput.prototype.input = function () {
     return document.getElementById(this.id)
 };
 
+DefaultInput.prototype.isRequired = function () {
+    return this.input().hasAttribute('required');
+};
+
 DefaultInput.prototype.getErrorMessage = function () {
     return {
         'en-US': 'This field is required.',
@@ -50,7 +54,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input().value) {
+    if (this.isRequired() && !this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();

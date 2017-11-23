@@ -15,6 +15,11 @@ $image-dir: '../images/';
     min-height: 100%;
   }
 
+  .modal-header {
+    border-bottom: none;
+    display: flex;
+  }
+
   .modal-body {
     padding: 0 7px;
 
@@ -227,27 +232,17 @@ $image-dir: '../images/';
 
           .payment-panel {
 
-            .expiration-date {
-              width: 100%;
-              float: left;
-              padding-bottom: 15px;
-
-              select {
-                width: 50%;
-                float: left;
-                margin-right: 5%;
-
-                &:last-child {
-                  margin-right: 0;
-                  width: 45%;
-                }
-              }
-            }
-
             #holder-cvc-container {
               float: none;
               width: 45%;
             }
+          }
+        }
+
+        &.-step17 {
+          .ass-licence {
+            padding-bottom: 20px;
+
           }
         }
       }

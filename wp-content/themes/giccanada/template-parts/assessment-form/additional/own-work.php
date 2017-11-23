@@ -2,17 +2,17 @@
 <div class="delete-copy"><span class="added-file-delete" data-parent="#own-work" data-del="-copy<?=$index;?>"><i class="fa fa-times"></i></span></div>
 <section>
 	<label for="company-name-<?=$index;?>">Наименование компании / нанимателя</label>
-	<input type="text" name="work[<?=$index;?>][company-name]" id="company-name-<?=$index;?>" data-role="mixed">
+	<input type="text" name="work[<?=$index;?>][company-name]" id="company-name-<?=$index;?>" data-role="mixed" required>
 	<span class="error-text" id="error-company-name-<?=$index;?>"></span>
 </section>
 <section>
 	<label for="company-country-<?=$index;?>">Город, страна</label>
-	<input type="text" name="work[<?=$index;?>][company-country]" id="company-country-<?=$index;?>" data-role="text">
+	<input type="text" name="work[<?=$index;?>][company-country]" id="company-country-<?=$index;?>" data-role="text" required>
 	<span class="error-text" id="error-company-country-<?=$index;?>"></span>
 </section>
 <section>
 	<label for="company-position-<?=$index;?>">Должность</label>
-	<input type="text" name="work[<?=$index;?>][company-position]" id="company-position-<?=$index;?>" data-role="text">
+	<input type="text" name="work[<?=$index;?>][company-position]" id="company-position-<?=$index;?>" data-role="text" required>
 	<span class="error-text" id="error-company-position-<?=$index;?>"></span>
 </section>
 <section>
@@ -53,6 +53,6 @@
 <section>
 	<label for="company-requirement-<?=$index;?>">Должностные обязанности</label>
 	<textarea name="work[<?=$index;?>][company-requirement]" id="company-requirement-<?=$index;?>" rows="4"
-	          cols="50" data-role="mixed"></textarea>
+	          cols="50" data-role="mixed" required></textarea>
 	<span class="error-text" id="error-company-requirement-<?=$index;?>"></span>
 </section>

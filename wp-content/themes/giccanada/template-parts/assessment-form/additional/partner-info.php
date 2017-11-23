@@ -2,20 +2,14 @@
 <section>
     <label for="member-last-name" >Фамилия</label>
     <input type="text" name="partner[member-last-name]" id="member-last-name"
-           placeholder="Введите фамилию" data-role="text">
+           placeholder="Введите фамилию" data-role="text" required>
     <span class="error-text" id="error-member-last-name"></span>
 </section>
 <section>
     <label for="member-first-name">Имя</label>
     <input type="text" name="partner[member-first-name]" id="member-first-name"
-           placeholder="Введите имя" data-role="text">
+           placeholder="Введите имя" data-role="text" required>
     <span class="error-text" id="error-member-first-name"></span>
-</section>
-<section>
-    <label for="member-middle-name">Отчество</label>
-    <input type="text" name="partner[member-middle-name]" id="member-middle-name"
-           placeholder="Введите отчетство" data-role="text">
-    <span class="error-text" id="error-member-middle-name"></span>
 </section>
 <section class="combine-date birth-date">
     <div data-role="combine-date" data-msg="error-member-birth-date" id="combine-date-member-birth-date">
@@ -46,17 +40,17 @@
     <label>Пол</label>
     <section>
         <input name="partner[member-sex]" class="ass-radio" value="m" checked type="radio"
-               id="member-sex-m" data-role="radio">
+               id="member-sex-m" data-role="radio" required>
         <label for="member-sex-m" >Мужской</label>
     </section>
     <section>
-        <input name="partner[member-sex]" class="ass-radio" value="f" type="radio" id="member-sex-f" data-role="radio">
+        <input name="partner[member-sex]" class="ass-radio" value="f" type="radio" id="member-sex-f" data-role="radio" required>
         <label for="member-sex-f" >Женский</label>
     </section>
 </section>
 <section>
     <label for="member-status" >Родственная связь</label>
-    <select id="member-status" name="partner[member-status]" data-role="select">
+    <select id="member-status" name="partner[member-status]" data-role="select" required>
         <option value="" disabled selected>- Выбрать -</option>
         <option value="wife">Супруга</option>
         <option value="husband">Супруг</option>
@@ -67,12 +61,12 @@
     <label>Тип отношений</label>
     <section>
         <input name="partner[member-relation-type]" class="ass-radio" value="m" checked type="radio"
-               id="member-relation-type-m" data-role="radio">
+               id="member-relation-type-m" data-role="radio" required>
         <label for="member-relation-type-m" >Зарегистрированный брак</label>
     </section>
     <section>
         <input name="partner[member-relation-type]" class="ass-radio" value="cm" type="radio"
-               id="member-relation-type-cm" data-role="radio">
+               id="member-relation-type-cm" data-role="radio" required>
         <label for="member-relation-type-cm" >Гражданский брак</label>
     </section>
 </section>

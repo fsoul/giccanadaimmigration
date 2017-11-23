@@ -10,6 +10,7 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
  */
 
 require_once get_template_directory() . '/inc/admin_settings.php';
+require get_template_directory() . '/inc/widgets.php';
 
 
 function register_wp_sidebars() {
@@ -27,8 +28,6 @@ add_action( 'widgets_init', 'register_wp_sidebars' );
 
 
 function register_wp_widgets() {
-
-	require get_template_directory() . '/inc/widgets.php';
 	/* В боковой колонке - первый сайдбар */
 	register_widget('OpenCaseWidget');
 }
@@ -42,23 +41,18 @@ function start_session() {
 add_action('init', 'start_session', 1);
 
 function setOpenCaseCountry() {
-	$pathToLib = get_stylesheet_directory() . "/SxGeo.php";
-	$pathToDB = get_stylesheet_directory() . "/SxGeo.dat";
+	$pathToLib = get_template_directory() . "/SxGeo.php";
+	$pathToDB = get_template_directory() . "/SxGeo.dat";
 
 	require_once($pathToLib);
 
 	$SxGeo = new SxGeo($pathToDB);
 	$ip = $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ? '89.252.56.204' : $_SERVER['REMOTE_ADDR'];
 
-	$cookieCountryName = $_COOKIE['countryName'];
 	$cookieUserIp = $_COOKIE['userIp'];
 
-	if(isset($cookieUserIp) && $cookieUserIp === $ip){
-		$countryName = $cookieCountryName;
-	}else{
-
+	if( !(isset($cookieUserIp) && $cookieUserIp === $ip )){
 		$isoCode = $SxGeo->getCountry($ip);
-
 		setcookie('userIp', $ip);
 		setcookie('iso', $isoCode);
 	}
