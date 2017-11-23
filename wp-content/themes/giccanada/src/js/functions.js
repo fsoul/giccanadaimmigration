@@ -107,25 +107,14 @@ var onPartnerAddRadioClick = function (e) {
 };
 
 var onPartnerDelRadioClick = function (e) {
-    var div = document.getElementById(e.target.getAttribute('data-template'));
-    var c = div.querySelector('.copied');
-    if (c) {
-        div.removeChild(c);
-        var work = document.getElementById('part-work-cont');
-        var educ = document.getElementById('part-educ-cont');
-        work.style.display = 'none';
-        educ.style.display = 'none';
-
-        var dels = work.querySelectorAll('span.added-file-delete');
-        var i;
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
-
-        dels = educ.querySelectorAll('span.added-file-delete');
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
+    var div = document.querySelector('.' + e.target.getAttribute('data-parent'));
+    var c = div.querySelectorAll('.copied');
+    var work = document.getElementById('part-work-cont');
+    var educ = document.getElementById('part-educ-cont');
+    work.style.display = 'none';
+    educ.style.display = 'none';
+    for (var i = 0; i < c.length; ++i ) {
+        c[i].parentNode.removeChild(c[i]);
     }
 };
 
@@ -181,6 +170,25 @@ function onLicenseChange() {
     (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
 }
 
+function setRequire(input, isRequire) {
+    if (!isRequire) {
+        input.removeAttribute('required')
+    } else {
+        input.setAttribute('required', '')
+    }
+}
+
+function disableCombineDate(e) {
+    var cb = e.target;
+    var comb = document.getElementById( cb.getAttribute('data-combine') );
+    var inputs = comb.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; ++i) {
+        setRequire(inputs[i], !cb.checked);
+    }
+
+}
+
 module.exports = {
     paymentMethodClick: paymentMethodClick,
     saveRadioValToHidden: saveRadioValToHidden,
@@ -189,5 +197,6 @@ module.exports = {
     onPartnerAddRadioClick: onPartnerAddRadioClick,
     onFileAddRadioClick: onFileAddRadioClick,
     onFileDelRadioClick: onFileDelRadioClick,
-    onLicenseChange: onLicenseChange
+    onLicenseChange: onLicenseChange,
+    disableCombineDate: disableCombineDate
 };

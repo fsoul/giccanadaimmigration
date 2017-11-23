@@ -35,7 +35,8 @@ $labels = [
         [
             'passport-num' => 'Номер паспорта',
             'passport-exp-date' => 'Действителен до',
-            'passport-country' => 'Страна выдачи паспорта'
+            'passport-country' => 'Страна выдачи паспорта',
+            'ass-no-date-exp-cb' => 'нет срока истечения документа',
         ],
         [
             'ass-phone' => 'Телефон (код страны / города / тел.)',
@@ -76,8 +77,9 @@ $values = [
     ],
     [
         'passport-num' => $form['passport-num'],
-        'passport-exp-date' => $form['passport-exp-date-d'].".".$form['passport-exp-date-m'].".".$form['passport-exp-y'],
-        'passport-country' => $form['passport-country']
+        'passport-exp-date' => $form['ass-no-date-exp-cb'] != 'yes' ? $form['passport-exp-date-d'].".".$form['passport-exp-date-m'].".".$form['passport-exp-y'] : '',
+        'passport-country' => $form['passport-country'],
+        'ass-no-date-exp-cb' => $form['ass-no-date-exp-cb']
     ],
     [
         'ass-phone' => $form['ass-phone'],

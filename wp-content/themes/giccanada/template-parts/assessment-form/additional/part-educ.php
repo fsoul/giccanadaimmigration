@@ -3,17 +3,17 @@
                 class="fa fa-times"></i></span></div>
 <section>
     <label for="part-educ-name-<?= $index; ?>">Наименование учебного заведения</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-name]" id="part-educ-name-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-name]" id="part-educ-name-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-name-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-specialty-<?= $index; ?>">Факультет, специальность</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-specialty]" id="part-educ-specialty-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-specialty]" id="part-educ-specialty-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-specialty-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-country-<?= $index; ?>">Город, страна</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-country]" id="part-educ-country-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-country]" id="part-educ-country-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-country-<?= $index; ?>"></span>
 </section>
 <section>
@@ -43,7 +43,7 @@
 </section>
 <section>
     <label for="part-educ-type-<?= $index; ?>">Форма обучения</label>
-    <select id="part-educ-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-type]" data-role="select">
+    <select id="part-educ-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-type]" data-role="select" required>
         <option value="fulltime" selected>Full-time education</option>
         <option value="distance">Distance education</option>
     </select>

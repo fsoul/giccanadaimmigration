@@ -42,5 +42,6 @@
         <div>
             <input type="checkbox" onchange="app.func.onLicenseChange();" value="y" id="ass-licence-cb" name="is-agree" required checked data-role="checkbox"/>
             <label for="ass-licence-cb"><span>Я прочитал и принимаю условия <a href="#" class="ass-licence-link">Пользовательского соглашения</a>.</span></label>
+        </div>
     </section>
 </section>

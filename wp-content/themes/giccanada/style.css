@@ -11356,6 +11356,43 @@ body {
     #assessment-modal .modal-body #assessment-form .assessment-step.-step4 .ass-country section:first-of-type {
       width: 65%;
       margin-right: 5%; }
+    #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container {
+      height: 35px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] {
+        position: absolute;
+        left: -999999px; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label {
+        position: absolute;
+        left: 24px;
+        cursor: pointer;
+        margin: 0; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::before, #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::after {
+          content: '';
+          position: absolute;
+          margin: auto; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::before {
+          width: 18px;
+          height: 18px;
+          left: -24px;
+          top: 3px;
+          border: 3px solid transparent;
+          background: #FF8200;
+          border-radius: 20%; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::after {
+          content: '\F00C';
+          font-family: 'FontAwesome', sans-serif;
+          left: -22px;
+          top: 0;
+          color: transparent;
+          transition: color .2s;
+          -webkit-transition: color .2s;
+          -o-transition: color .2s;
+          -moz-transition: color .2s; }
+        #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label a {
+          text-decoration-line: underline;
+          color: #FF9500; }
+      #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type="checkbox"]:checked + label::after {
+        color: #fff; }
     #assessment-modal .modal-body #assessment-form .assessment-step.-step17 label .payment-type-logo {
       display: inline-block;
       position: absolute;

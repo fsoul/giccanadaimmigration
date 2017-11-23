@@ -608,6 +608,63 @@ $image-dir: '../images/';
           }
         }
 
+        &.-step5 {
+
+          .cb-container {
+            height: 35px;
+
+            input[type=checkbox] {
+              position: absolute;
+              left: -999999px;
+            }
+
+            input[type=checkbox] + label {
+
+              position: absolute;
+              left: 24px;
+              cursor: pointer;
+              margin: 0;
+
+              &::before, &::after {
+                content: '';
+                position: absolute;
+                margin: auto;
+              }
+
+              &::before {
+                width: 18px;
+                height: 18px;
+                left: -24px;
+                top: 3px;
+                border: 3px solid transparent;
+                background: #FF8200;
+                border-radius: 20%;
+              }
+
+              &::after {
+                content: '\f00c';
+                font-family: 'FontAwesome', sans-serif;
+                left: -22px;
+                top: 0;
+                color: transparent;
+                transition: color .2s;
+                -webkit-transition: color .2s;
+                -o-transition: color .2s;
+                -moz-transition: color .2s;
+              }
+              a {
+                text-decoration-line: underline;
+                color: #FF9500;
+
+              }
+            }
+
+            input[type="checkbox"]:checked + label::after {
+              color: #fff;
+            }
+          }
+        }
+
         &.-step17 {
 
           label {

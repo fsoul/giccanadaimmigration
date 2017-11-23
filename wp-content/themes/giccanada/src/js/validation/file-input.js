@@ -35,10 +35,12 @@ var FileInput = (function () {
 
     FileInput.prototype.doValidate = function () {
         try {
-            this.checkCount();
-            var file = this.input().files[0];
-            this.checkSize(file);
-            return this.doNormalize();
+            if (this.isRequired()) {
+                this.checkCount();
+                var file = this.input().files[0];
+                this.checkSize(file);
+                return this.doNormalize();
+            }
         } catch (e) {
             this.doValidateError(e.message);
         }

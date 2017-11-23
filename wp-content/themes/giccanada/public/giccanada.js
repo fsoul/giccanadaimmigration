@@ -10450,6 +10450,10 @@ DefaultInput.prototype.input = function () {
     return document.getElementById(this.id)
 };
 
+DefaultInput.prototype.isRequired = function () {
+    return this.input().hasAttribute('required');
+};
+
 DefaultInput.prototype.getErrorMessage = function () {
     return {
         'en-US': 'This field is required.',
@@ -10477,7 +10481,7 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input().value) {
+    if (this.isRequired() && !this.input().value) {
         return this.doValidateError();
     } else {
         return this.doNormalize();
@@ -30976,12 +30980,18 @@ var TextInput = (function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
+
         return res;
     };
 
@@ -31020,12 +31030,17 @@ var MixedInput = (function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
         return res;
     };
 
@@ -31051,7 +31066,7 @@ var EmailInput = (function () {
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!this.input().value || !this.input().value.match(mailPattern)) {
+        if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31164,8 +31179,17 @@ var CombineDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    CombineDateSelect.prototype.isRequired = function () {
+        var day = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return day.isRequired() ||
+            month.isRequired() ||
+            year.isRequired();
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31263,8 +31287,15 @@ var PeriodDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    PeriodDateSelect.prototype.isRequired = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isRequired() || f.month.isRequired() ||
+            t.month.isRequired() || t.year.isRequired();
+    };
+
     PeriodDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             return this.doValidateError();
         } else {
             return this.doNormalize();
@@ -31347,10 +31378,12 @@ var FileInput = (function () {
 
     FileInput.prototype.doValidate = function () {
         try {
-            this.checkCount();
-            var file = this.input().files[0];
-            this.checkSize(file);
-            return this.doNormalize();
+            if (this.isRequired()) {
+                this.checkCount();
+                var file = this.input().files[0];
+                this.checkSize(file);
+                return this.doNormalize();
+            }
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -31672,12 +31705,18 @@ var NumberInput = (function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
+
         return res;
     };
 
@@ -31717,12 +31756,16 @@ var TelInput = (function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
         var res = false;
-        if (!value)
-            res = this.doValidateError('empty');
-        else if (!value.match(pattern))
-            res = this.doValidateError('invalid-input');
-        else
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
             res = this.doNormalize();
+        }
         return res;
     };
 
@@ -32394,25 +32437,14 @@ var onPartnerAddRadioClick = function (e) {
 };
 
 var onPartnerDelRadioClick = function (e) {
-    var div = document.getElementById(e.target.getAttribute('data-template'));
-    var c = div.querySelector('.copied');
-    if (c) {
-        div.removeChild(c);
-        var work = document.getElementById('part-work-cont');
-        var educ = document.getElementById('part-educ-cont');
-        work.style.display = 'none';
-        educ.style.display = 'none';
-
-        var dels = work.querySelectorAll('span.added-file-delete');
-        var i;
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
-
-        dels = educ.querySelectorAll('span.added-file-delete');
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
+    var div = document.querySelector('.' + e.target.getAttribute('data-parent'));
+    var c = div.querySelectorAll('.copied');
+    var work = document.getElementById('part-work-cont');
+    var educ = document.getElementById('part-educ-cont');
+    work.style.display = 'none';
+    educ.style.display = 'none';
+    for (var i = 0; i < c.length; ++i ) {
+        c[i].parentNode.removeChild(c[i]);
     }
 };
 
@@ -32468,6 +32500,25 @@ function onLicenseChange() {
     (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
 }
 
+function setRequire(input, isRequire) {
+    if (!isRequire) {
+        input.removeAttribute('required')
+    } else {
+        input.setAttribute('required', '')
+    }
+}
+
+function disableCombineDate(e) {
+    var cb = e.target;
+    var comb = document.getElementById( cb.getAttribute('data-combine') );
+    var inputs = comb.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; ++i) {
+        setRequire(inputs[i], !cb.checked);
+    }
+
+}
+
 module.exports = {
     paymentMethodClick: paymentMethodClick,
     saveRadioValToHidden: saveRadioValToHidden,
@@ -32476,7 +32527,8 @@ module.exports = {
     onPartnerAddRadioClick: onPartnerAddRadioClick,
     onFileAddRadioClick: onFileAddRadioClick,
     onFileDelRadioClick: onFileDelRadioClick,
-    onLicenseChange: onLicenseChange
+    onLicenseChange: onLicenseChange,
+    disableCombineDate: disableCombineDate
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
