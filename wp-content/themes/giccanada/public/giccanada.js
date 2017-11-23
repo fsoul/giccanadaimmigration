@@ -32014,13 +32014,17 @@ var validation = __webpack_require__(4);
                     self.progressBar.udpateCaption(currentIndex + 1, self.steps.length);
                 },
                 onFinishing: function (event, currentIndex) {
-                    self.sendForm();
-                    // var paymentType = document.getElementById('ass-payment-type-hidden');
-                    // switch (paymentType.value) {
-                    //     case 'tc':
-                    //         self.payByCard();
-                    //         break;
-                    // }
+                    var paymentType = document.getElementById('ass-payment-type-hidden');
+                    switch (paymentType.value) {
+                        case 'tc':
+                            self.sendForm();
+                            // self.payByCard();
+                            break;
+                        default:
+                            self.sendForm();
+                            self.complete();
+                            break;
+                    }
                 }
             });
         };
@@ -32064,6 +32068,14 @@ var validation = __webpack_require__(4);
         AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
             var inputs = e.detail.inputs;
             this.initInputsValidation(stepIndex, inputs);
+        };
+
+        AssessmentForm.prototype.complete = function () {
+            var form = document.getElementById('assessment-form');
+            var finish = form.querySelector(".actions a[href='#finish']");
+            finish.style.visibility = 'hidden';
+            $('#assessment-modal').modal('hide');
+            $('#assessment-complete').modal('show');
         };
 
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {

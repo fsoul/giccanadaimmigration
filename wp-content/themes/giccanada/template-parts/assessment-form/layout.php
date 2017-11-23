@@ -84,3 +84,15 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="assessment-complete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span>Ваш запрос отправлен, ожидаем оплаты</span>
+            </div>
+            <div class="modal-footer" style="border-top:none;">
+                <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -46,6 +46,37 @@ $image-dir: '../images/';
   }
 }
 
+#assessment-complete {
+
+  &.modal {
+    text-align: center;
+    padding: 0!important;
+  }
+
+  &.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+  }
+
+  .modal-content {
+    padding: 15px 15px 0 15px;
+  }
+
+  .modal-body, .modal-footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+}
+
 #assessment-modal {
 
   .modal-header {
