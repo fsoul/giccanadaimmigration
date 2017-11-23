@@ -60,7 +60,7 @@
                     <fieldset class="assessment-step -step8"></fieldset>
                     <h5>Родственники в Канаде</h5>
                     <fieldset class="assessment-step -step9 relations"></fieldset>
-                    <h5>Где вы намереваетесь жить в Канаде?</h5>
+                    <h5>Где вы планируете жить в Канаде?</h5>
                     <fieldset class="assessment-step -step10"></fieldset>
                     <h5>Образование</h5>
                     <fieldset class="assessment-step -step11 education"></fieldset>

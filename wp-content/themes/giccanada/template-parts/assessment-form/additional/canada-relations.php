@@ -11,11 +11,6 @@
 	<span class="error-text" id="error-ass-rel-first-name-<?=$index;?>"></span>
 </section>
 <section>
-	<label for="ass-rel-middle-name-<?=$index;?>">Отчество</label>
-	<input type="text" id="ass-rel-middle-name-<?=$index;?>" placeholder="Введите отчетство" data-role="text" name="relative[rel-<?=$index;?>][ass-rel-middle-name]">
-	<span class="error-text" id="error-ass-rel-middle-name-<?=$index;?>"></span>
-</section>
-<section>
 	<label for="ass-rel-with-<?=$index;?>">Родственные связи с вами</label>
 	<input type="text" id="ass-rel-with-<?=$index;?>" data-role="text" name="relative[rel-<?=$index;?>][ass-rel-with]">
 	<span class="error-text" id="error-ass-rel-with-<?=$index;?>"></span>

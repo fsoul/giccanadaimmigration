@@ -11,12 +11,6 @@
            placeholder="Введите имя" data-role="text">
     <span class="error-text" id="error-member-first-name"></span>
 </section>
-<section>
-    <label for="member-middle-name">Отчество</label>
-    <input type="text" name="partner[member-middle-name]" id="member-middle-name"
-           placeholder="Введите отчетство" data-role="text">
-    <span class="error-text" id="error-member-middle-name"></span>
-</section>
 <section class="combine-date birth-date">
     <div data-role="combine-date" data-msg="error-member-birth-date" id="combine-date-member-birth-date">
         <label>Дата рождения</label>

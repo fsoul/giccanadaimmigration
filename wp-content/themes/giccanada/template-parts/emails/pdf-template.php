@@ -19,7 +19,6 @@ $labels = [
         [
             'last-name' => 'Фамилия',
             'first-name' => 'Имя',
-            'middle-name' => 'Отчество',
             'birth-date' => 'Дата рождения',
             'ass-sex' => 'Пол'
         ],
@@ -62,7 +61,6 @@ $values = [
     [
         'last-name' => $form['last-name'],
         'first-name' => $form['first-name'],
-        'middle-name' => $form['middle-name'],
         'birth-date' => $form['birth-date-d'].".".$form['birth-date-m'].".".$form['birth-date-y'],
         'ass-sex' => $form['ass-sex'] == 'm' ? 'Мужской' : 'Женский'
     ],
@@ -133,9 +131,6 @@ $values = [
                 Имя: <?= $form['relative'][$k]['ass-rel-first-name']; ?>
             </p>
             <p>
-                Отчество: <?= $form['relative'][$k]['ass-rel-middle-name']; ?>
-            </p>
-            <p>
                 Родственные связи с вами: <?= $form['relative'][$k]['ass-rel-with']; ?>
             </p>
             <p>
@@ -148,7 +143,7 @@ $values = [
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <h3>Где вы намереваетесь жить в Канаде?</h3>
+    <h3>Где вы планируете жить в Канаде?</h3>
     <p>Провинция в Канаде: <?= $form['ass-rel-province']; ?></p>
     <p>Город: <?= $form['ass-rel-city']; ?></p>
 
@@ -213,9 +208,6 @@ $values = [
         </p>
         <p>
             Имя: <?= $form['partner']['member-first-name']; ?>
-        </p>
-        <p>
-            Отчество: <?= $form['partner']['member-middle-name']; ?>
         </p>
         <p>
             Дата рождения: <?= $form['partner']['member-birth-day'].'.'.$form['partner']['member-birth-month'].'.'.$form['partner']['member-birth-year']; ?>

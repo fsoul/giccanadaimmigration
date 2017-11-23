@@ -69,6 +69,8 @@
     <label>Статус в стране проживания</label>
     <select title="" id="status-residence" name="status-residence" data-role="select">
         <option value="resident" selected>Резидент</option>
+        <option value="temporary residence">Временное место жительства</option>
+        <option value="travel document">Тревел документ</option>
     </select>
     <span class="error-text" id="error-status-residence"></span>
 </section>

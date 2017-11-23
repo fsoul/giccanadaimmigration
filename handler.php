@@ -27,7 +27,6 @@ $labels = [
         [
             'last-name' => 'Фамилия',
             'first-name' => 'Имя',
-            'middle-name' => 'Отчество',
             'birth-date' => 'Дата рождения',
             'ass-sex' => 'Пол'
         ],
@@ -70,7 +69,6 @@ $values = [
     [
         'last-name' => $_POST['last-name'],
         'first-name' => $_POST['first-name'],
-        'middle-name' => $_POST['middle-name'],
         'birth-date' => $_POST['birth-date-d'].".".$_POST['birth-date-m'].".".$_POST['birth-date-y'],
         'ass-sex' => $_POST['ass-sex'] == 'm' ? 'Мужской' : 'Женский'
     ],
@@ -141,9 +139,6 @@ $values = [
                 Имя: <?= $_POST['relative'][$k]['ass-rel-first-name']; ?>
             </p>
             <p>
-                Отчество: <?= $_POST['relative'][$k]['ass-rel-middle-name']; ?>
-            </p>
-            <p>
                 Родственные связи с вами: <?= $_POST['relative'][$k]['ass-rel-with']; ?>
             </p>
             <p>
@@ -156,7 +151,7 @@ $values = [
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <h3>Где вы намереваетесь жить в Канаде?</h3>
+    <h3>Где вы планируете жить в Канаде?</h3>
     <p>Провинция в Канаде: <?= $_POST['ass-rel-province']; ?></p>
     <p>Город: <?= $_POST['ass-rel-city']; ?></p>
 
@@ -221,9 +216,6 @@ $values = [
         </p>
         <p>
             Имя: <?= $_POST['partner']['member-first-name']; ?>
-        </p>
-        <p>
-            Отчество: <?= $_POST['partner']['member-middle-name']; ?>
         </p>
         <p>
             Дата рождения: <?= $_POST['partner']['member-birth-day'].'.'.$_POST['partner']['member-birth-month'].'.'.$_POST['partner']['member-birth-year']; ?>

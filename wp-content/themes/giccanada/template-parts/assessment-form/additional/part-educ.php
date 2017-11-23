@@ -20,12 +20,12 @@
     <label for="part-educ-level-<?= $index; ?>">Уровень образования</label>
     <select id="part-educ-level-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-level]" required data-role="select">
         <option value="" disabled selected>- Выбрать -</option>
-        <option value="preschool">Preschool</option>
         <option value="primary">Primary</option>
         <option value="secondary">Secondary</option>
-        <option value="higher">Tertiary (higher)</option>
-        <option value="vocational">Vocational</option>
-        <option value="special">Special</option>
+        <option value="2-3 years Certificate program (College, School)">2-3 years Certificate program (College, School)</option>
+        <option value="3-4 years Bachelor program (College, University)">3-4 years Bachelor program (College, University)</option>
+        <option value="4-6 years Master program (College, University)">4-6 years Master program (College, University)</option>
+        <option value="PhD (Doctor of Science)">PhD (Doctor of Science)</option>
     </select>
     <span class="error-text" id="error-part-educ-level-<?= $index; ?>"></span>
 </section>

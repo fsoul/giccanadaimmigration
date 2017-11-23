@@ -9,11 +9,6 @@
     <input type="text" name="first-name" id="first-name" placeholder="Введите свое имя" data-role="text">
     <span class="error-text" id="error-first-name"></span>
 </section>
-<section>
-    <label for="middle-name">Отчество</label>
-    <input type="text" name="middle-name" id="middle-name" placeholder="Введите свое отчетство" data-role="text">
-    <span class="error-text" id="error-middle-name"></span>
-</section>
 <section class="combine-date birth-date">
     <div data-role="combine-date" data-msg="error-birth-date" id="combine-date-birth-date">
         <label>Дата рождения</label>
