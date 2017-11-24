@@ -7,7 +7,7 @@ function wlog( $typelog, $log_text ) {
 	fclose( $log );
 }
 
-function send_assessment_user_mail( $to ) {
+function send_user_mail( $to ) {
 	$subject = 'Congratulations you on case opened!';
 	ob_start();
 	require_once( 'wp-content/themes/giccanada/template-parts/emails/assessment-user-mail.phtml' );
@@ -35,7 +35,7 @@ $status = $parsed_data['status'];
 
 if ($status === 'success' || $status === 'sandbox') {
 	$to = $parsed_data['info'];
-	send_assessment_user_mail( $to );
+	send_user_mail( $to );
 }
 
 wlog( 'status', print_r( $parsed_data, true ) );

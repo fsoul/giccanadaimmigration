@@ -177,7 +177,6 @@ var helpers = require("./lib/helpers");
             });
         };
 
-
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var self = this;
             var stepClass = '-step' + index;
@@ -211,7 +210,6 @@ var helpers = require("./lib/helpers");
                 });
             }
         };
-
 
         AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
             var inputs = e.detail.inputs;

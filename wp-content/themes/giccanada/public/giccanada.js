@@ -10482,24 +10482,27 @@ DefaultInput.prototype.setErrorText = function (text) {
 
 DefaultInput.prototype.doValidate = function () {
     if (this.isRequired() && !this.input().value) {
-        return this.doValidateError();
+        this.doValidateError();
     } else {
-        return this.doNormalize();
+        this.doNormalize();
     }
+    return this.isValid();
 };
 
 DefaultInput.prototype.doValidateError = function () {
     this.setState(STATES.invalid);
     this.setErrorText(this.getErrorMessage());
     this.fire(new CustomEvent('onValidateError'));
-    return false;
 };
 
 DefaultInput.prototype.doNormalize = function () {
     this.setState(STATES.valid);
     this.setErrorText('');
     this.fire(new CustomEvent('onNormalize'));
-    return true;
+};
+
+DefaultInput.prototype.isValid = function () {
+    return !this.input().classList.contains(STATES.invalid);
 };
 
 DefaultInput.prototype.subscribe = function (input) {
@@ -30979,27 +30982,25 @@ var TextInput = (function () {
     TextInput.prototype.doValidate = function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
-        var res = false;
 
         if (this.isRequired()) {
             if (!value)
-                res = this.doValidateError('empty');
+                this.doValidateError('empty');
             else if (!value.match(pattern))
-                res = this.doValidateError('invalid-input');
+                this.doValidateError('invalid-input');
             else
-                res = this.doNormalize();
+                this.doNormalize();
         } else {
-            res = this.doNormalize();
+            this.doNormalize();
         }
 
-        return res;
+        return this.isValid();
     };
 
     TextInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return TextInput;
@@ -31029,19 +31030,18 @@ var MixedInput = (function () {
     MixedInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
-        var res = false;
 
         if (this.isRequired()) {
             if (!value)
-                res = this.doValidateError('empty');
+                this.doValidateError('empty');
             else if (value.match(pattern))
-                res = this.doValidateError('invalid-input');
+                this.doValidateError('invalid-input');
             else
-                res = this.doNormalize();
+                this.doNormalize();
         } else {
-            res = this.doNormalize();
+             this.doNormalize();
         }
-        return res;
+        return this.isValid();
     };
 
     return MixedInput;
@@ -31056,21 +31056,49 @@ var EmailInput = (function () {
     EmailInput.prototype = Object.create(TextInput.prototype);
     EmailInput.prototype.constructor = EmailInput;
 
-    EmailInput.prototype.getErrorMessage = function () {
+    EmailInput.prototype.getErrorMessage = function (errType) {
         return {
-            'en-US': 'Enter valid email.',
-            'ru-RU': 'Введите валидный адрес электронной почты.'
-        }[this.lang];
+            'en-US': {
+                'invalid-input': 'Enter valid email.',
+                'exists': 'The email is already registered.'
+            },
+            'ru-RU': {
+                'invalid-input': 'Введите валидный адрес электронной почты.',
+                'exists': 'Указнанный емейл уже зарегестрирован.'
+            }
+        }[this.lang][errType];
     };
 
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+        this.isExist();
         if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
-            return this.doValidateError();
+            this.doValidateError('invalid-input');
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+
+        return this.isValid();
+    };
+
+    EmailInput.prototype.isExist = function () {
+        var fd = new FormData();
+        var xhr = new XMLHttpRequest();
+        var self = this;
+
+        fd.append('action', 'check_email_exist');
+        fd.append('email', this.input().value);
+        xhr.open('POST', gic.ajaxurl, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText) {
+                    self.doValidateError('exists');
+                }
+            }
+        };
+        xhr.send(fd);
     };
 
     return EmailInput;
@@ -31190,22 +31218,28 @@ var CombineDateSelect = (function () {
 
     CombineDateSelect.prototype.doValidate = function () {
         if (this.isRequired() && this.checkDate()) {
-            return this.doValidateError();
+            this.doValidateError();
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+        return this.isValid();
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
-        return false;
     };
 
     CombineDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-        return true;
+    };
+
+    CombineDateSelect.prototype.isValid = function () {
+        var date = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return year.isValid() && month.isValid() && date.isValid();
     };
 
     CombineDateSelect.prototype.checkDate = function () {
@@ -31296,22 +31330,28 @@ var PeriodDateSelect = (function () {
 
     PeriodDateSelect.prototype.doValidate = function () {
         if (this.isRequired() && this.checkDate()) {
-            return this.doValidateError();
+            this.doValidateError();
         } else {
-            return this.doNormalize();
+            this.doNormalize();
         }
+
+        return this.isValid();
     };
 
     PeriodDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
-        return false;
     };
 
     PeriodDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-        return true;
+    };
+
+    PeriodDateSelect.prototype.isValid = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isValid() && f.month.isValid() &&  t.year.isValid() && t.month.isValid();
     };
 
     PeriodDateSelect.prototype.checkDate = function () {
@@ -31382,7 +31422,8 @@ var FileInput = (function () {
                 this.checkCount();
                 var file = this.input().files[0];
                 this.checkSize(file);
-                return this.doNormalize();
+                this.doNormalize();
+                return this.isValid();
             }
         } catch (e) {
             this.doValidateError(e.message);
@@ -31393,7 +31434,6 @@ var FileInput = (function () {
         this.setState(STATES.invalid);
         this.setErrorText(errMsg);
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return FileInput;
@@ -31429,7 +31469,8 @@ var MultipleFileInput = (function () {
             }
             this.checkCount();
             this.input().value = '';
-            return this.doNormalize();
+            this.doNormalize();
+            return this.isValid();
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -31598,7 +31639,6 @@ var PhotoInput = (function () {
         }
     };
 
-
     PhotoInput.prototype.upload = function () {
         var fd = new FormData();
         var self = this;
@@ -31704,27 +31744,25 @@ var NumberInput = (function () {
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
-        var res = false;
 
         if (this.isRequired()) {
             if (!value)
-                res = this.doValidateError('empty');
+                this.doValidateError('empty');
             else if (!value.match(pattern))
-                res = this.doValidateError('invalid-input');
+                this.doValidateError('invalid-input');
             else
-                res = this.doNormalize();
+                this.doNormalize();
         } else {
-            res = this.doNormalize();
+            this.doNormalize();
         }
 
-        return res;
+        return this.isValid();
     };
 
     NumberInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return NumberInput;
@@ -31755,18 +31793,18 @@ var TelInput = (function () {
     TelInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
-        var res = false;
+
         if (this.isRequired()) {
             if (!value)
-                res = this.doValidateError('empty');
+                this.doValidateError('empty');
             else if (!value.match(pattern))
-                res = this.doValidateError('invalid-input');
+                this.doValidateError('invalid-input');
             else
-                res = this.doNormalize();
+                this.doNormalize();
         } else {
-            res = this.doNormalize();
+            this.doNormalize();
         }
-        return res;
+        return this.isValid();
     };
 
     return TelInput;
@@ -31896,6 +31934,7 @@ module.exports =  (function () {
 /* WEBPACK VAR INJECTION */(function($) {
 
 var validation = __webpack_require__(4);
+var helpers = __webpack_require__(1);
 
 (function () {
     var AssessmentProgressBar = (function () {
@@ -32061,17 +32100,15 @@ var validation = __webpack_require__(4);
                     switch (paymentType.value) {
                         case 'tc':
                             self.sendForm();
-                            // self.payByCard();
+                            //self.sendForm(self.payByLiqPay);
                             break;
                         default:
                             self.sendForm();
                             self.complete();
-                            break;
                     }
                 }
             });
         };
-
 
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var self = this;
@@ -32106,7 +32143,6 @@ var validation = __webpack_require__(4);
                 });
             }
         };
-
 
         AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
             var inputs = e.detail.inputs;
@@ -32153,23 +32189,42 @@ var validation = __webpack_require__(4);
             return result;
         };
 
-        AssessmentForm.prototype.payByCard = function () {
-            this.sendForm();
-            document.getElementById('ass-liqpay').submit();
-        };
-
-
-        AssessmentForm.prototype.sendForm = function () {
-            var fd = new FormData(document.getElementById('assessment-form'));
-            fd.append('action', 'send_assessment_form');
+        AssessmentForm.prototype.payByLiqPay = function () {
+            var fd = new FormData();
+            fd.append('action', 'get_liqpay_data');
+            fd.append('country', helpers.getCookie('iso').toLowerCase());
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', gic.ajaxurl, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.responseText;
+                    document.body.insertAdjacentHTML('beforeend', res);
+                    document.getElementById('ass-liqpay').submit();
+                }
+            };
+            xhr.send(fd);
+        };
+
+
+        AssessmentForm.prototype.sendForm = function (paymentFunc) {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+
+            fd.append('action', 'send_assessment_form');
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
                     var res = JSON.parse(xhr.responseText);
-                    console.log(res)
+                    if (res.isSuccess && typeof paymentFunc === 'function') {
+                        paymentFunc();
+                    } else {
+                        console.log(res.message)
+                    }
                 }
             };
             xhr.send(fd);
@@ -32515,8 +32570,9 @@ function disableCombineDate(e) {
 
     for (var i = 0; i < inputs.length; ++i) {
         setRequire(inputs[i], !cb.checked);
+        inputs[i].classList.remove('invalid-input');
     }
-
+    comb.querySelector('#' + comb.getAttribute('data-msg')).innerText = '';
 }
 
 module.exports = {

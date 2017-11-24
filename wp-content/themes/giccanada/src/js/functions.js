@@ -185,8 +185,9 @@ function disableCombineDate(e) {
 
     for (var i = 0; i < inputs.length; ++i) {
         setRequire(inputs[i], !cb.checked);
+        inputs[i].classList.remove('invalid-input');
     }
-
+    comb.querySelector('#' + comb.getAttribute('data-msg')).innerText = '';
 }
 
 module.exports = {
