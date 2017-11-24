@@ -90,8 +90,17 @@ var CombineDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    CombineDateSelect.prototype.isRequired = function () {
+        var day = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return day.isRequired() ||
+            month.isRequired() ||
+            year.isRequired();
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             this.doValidateError();
         } else {
             this.doNormalize();
@@ -195,8 +204,15 @@ var PeriodDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    PeriodDateSelect.prototype.isRequired = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isRequired() || f.month.isRequired() ||
+            t.month.isRequired() || t.year.isRequired();
+    };
+
     PeriodDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
+        if (this.isRequired() && this.checkDate()) {
             this.doValidateError();
         } else {
             this.doNormalize();

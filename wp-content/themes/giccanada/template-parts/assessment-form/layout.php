@@ -41,7 +41,7 @@
                         <div></div>
                     </div>
                 </div>
-                <form id="assessment-form" action="handler.php" method="post">
+                <form id="assessment-form" method="post">
                     <h5>Личные данные</h5>
                     <fieldset class="assessment-step -step1"></fieldset>
                     <h5>Семейное положение</h5>
@@ -60,7 +60,7 @@
                     <fieldset class="assessment-step -step8"></fieldset>
                     <h5>Родственники в Канаде</h5>
                     <fieldset class="assessment-step -step9 relations"></fieldset>
-                    <h5>Где вы намереваетесь жить в Канаде?</h5>
+                    <h5>Где вы планируете жить в Канаде?</h5>
                     <fieldset class="assessment-step -step10"></fieldset>
                     <h5>Образование</h5>
                     <fieldset class="assessment-step -step11 education"></fieldset>
@@ -80,6 +80,18 @@
                         <input type="submit">
                     <?php endif; ?>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="assessment-complete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span>Ваш запрос отправлен, ожидаем оплаты</span>
+            </div>
+            <div class="modal-footer" style="border-top:none;">
+                <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>

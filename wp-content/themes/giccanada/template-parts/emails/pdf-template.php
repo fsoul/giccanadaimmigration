@@ -19,7 +19,6 @@ $labels = [
         [
             'last-name' => 'Фамилия',
             'first-name' => 'Имя',
-            'middle-name' => 'Отчество',
             'birth-date' => 'Дата рождения',
             'ass-sex' => 'Пол'
         ],
@@ -36,7 +35,8 @@ $labels = [
         [
             'passport-num' => 'Номер паспорта',
             'passport-exp-date' => 'Действителен до',
-            'passport-country' => 'Страна выдачи паспорта'
+            'passport-country' => 'Страна выдачи паспорта',
+            'ass-no-date-exp-cb' => 'нет срока истечения документа',
         ],
         [
             'ass-phone' => 'Телефон (код страны / города / тел.)',
@@ -62,7 +62,6 @@ $values = [
     [
         'last-name' => $form['last-name'],
         'first-name' => $form['first-name'],
-        'middle-name' => $form['middle-name'],
         'birth-date' => $form['birth-date-d'].".".$form['birth-date-m'].".".$form['birth-date-y'],
         'ass-sex' => $form['ass-sex'] == 'm' ? 'Мужской' : 'Женский'
     ],
@@ -78,8 +77,9 @@ $values = [
     ],
     [
         'passport-num' => $form['passport-num'],
-        'passport-exp-date' => $form['passport-exp-date-d'].".".$form['passport-exp-date-m'].".".$form['passport-exp-y'],
-        'passport-country' => $form['passport-country']
+        'passport-exp-date' => $form['ass-no-date-exp-cb'] != 'yes' ? $form['passport-exp-date-d'].".".$form['passport-exp-date-m'].".".$form['passport-exp-y'] : '',
+        'passport-country' => $form['passport-country'],
+        'ass-no-date-exp-cb' => $form['ass-no-date-exp-cb']
     ],
     [
         'ass-phone' => $form['ass-phone'],
@@ -133,9 +133,6 @@ $values = [
                 Имя: <?= $form['relative'][$k]['ass-rel-first-name']; ?>
             </p>
             <p>
-                Отчество: <?= $form['relative'][$k]['ass-rel-middle-name']; ?>
-            </p>
-            <p>
                 Родственные связи с вами: <?= $form['relative'][$k]['ass-rel-with']; ?>
             </p>
             <p>
@@ -148,7 +145,7 @@ $values = [
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <h3>Где вы намереваетесь жить в Канаде?</h3>
+    <h3>Где вы планируете жить в Канаде?</h3>
     <p>Провинция в Канаде: <?= $form['ass-rel-province']; ?></p>
     <p>Город: <?= $form['ass-rel-city']; ?></p>
 
@@ -213,9 +210,6 @@ $values = [
         </p>
         <p>
             Имя: <?= $form['partner']['member-first-name']; ?>
-        </p>
-        <p>
-            Отчество: <?= $form['partner']['member-middle-name']; ?>
         </p>
         <p>
             Дата рождения: <?= $form['partner']['member-birth-day'].'.'.$form['partner']['member-birth-month'].'.'.$form['partner']['member-birth-year']; ?>

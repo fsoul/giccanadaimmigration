@@ -10450,6 +10450,10 @@ DefaultInput.prototype.input = function () {
     return document.getElementById(this.id)
 };
 
+DefaultInput.prototype.isRequired = function () {
+    return this.input().hasAttribute('required');
+};
+
 DefaultInput.prototype.getErrorMessage = function () {
     return {
         'en-US': 'This field is required.',
@@ -10477,28 +10481,25 @@ DefaultInput.prototype.setErrorText = function (text) {
 };
 
 DefaultInput.prototype.doValidate = function () {
-    if (!this.input().value) {
-        this.doValidateError();
+    if (this.isRequired() && !this.input().value) {
+        return this.doValidateError();
     } else {
-        this.doNormalize();
+        return this.doNormalize();
     }
-    return this.isValid();
 };
 
 DefaultInput.prototype.doValidateError = function () {
     this.setState(STATES.invalid);
     this.setErrorText(this.getErrorMessage());
     this.fire(new CustomEvent('onValidateError'));
+    return false;
 };
 
 DefaultInput.prototype.doNormalize = function () {
     this.setState(STATES.valid);
     this.setErrorText('');
     this.fire(new CustomEvent('onNormalize'));
-};
-
-DefaultInput.prototype.isValid = function () {
-    return !this.input().classList.contains(STATES.invalid);
+    return true;
 };
 
 DefaultInput.prototype.subscribe = function (input) {
@@ -30978,19 +30979,27 @@ var TextInput = (function () {
     TextInput.prototype.doValidate = function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-            this.doNormalize();
-        return this.isValid();
+        var res = false;
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
+            res = this.doNormalize();
+        }
+
+        return res;
     };
 
     TextInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
+        return false;
     };
 
     return TextInput;
@@ -31020,13 +31029,19 @@ var MixedInput = (function () {
     MixedInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
-        if (!value)
-            this.doValidateError('empty');
-        else if (value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-            this.doNormalize();
-        return this.isValid();
+        var res = false;
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
+            res = this.doNormalize();
+        }
+        return res;
     };
 
     return MixedInput;
@@ -31041,50 +31056,21 @@ var EmailInput = (function () {
     EmailInput.prototype = Object.create(TextInput.prototype);
     EmailInput.prototype.constructor = EmailInput;
 
-
-    EmailInput.prototype.getErrorMessage = function (errType) {
+    EmailInput.prototype.getErrorMessage = function () {
         return {
-            'en-US': {
-                'invalid-input': 'Enter valid email.',
-                'exists': 'The email is already registered.'
-            },
-            'ru-RU': {
-                'invalid-input': 'Введите валидный адрес электронной почты.',
-                'exists': 'Указнанный емейл уже зарегестрирован.'
-            }
-        }[this.lang][errType];
+            'en-US': 'Enter valid email.',
+            'ru-RU': 'Введите валидный адрес электронной почты.'
+        }[this.lang];
     };
 
     EmailInput.prototype.doValidate = function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        this.isExist();
-        if (!this.input().value || !this.input().value.match(mailPattern)) {
-            this.doValidateError('invalid-input');
+        if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
+            return this.doValidateError();
         } else {
-            this.doNormalize();
+            return this.doNormalize();
         }
-
-        return this.isValid();
-    };
-
-    EmailInput.prototype.isExist = function () {
-        var fd = new FormData();
-        var xhr = new XMLHttpRequest();
-        var self = this;
-
-        fd.append('action', 'check_email_exist');
-        fd.append('email', this.input().value);
-        xhr.open('POST', gic.ajaxurl, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if (xhr.responseText) {
-                    self.doValidateError('exists');
-                }
-            }
-        };
-        xhr.send(fd);
     };
 
     return EmailInput;
@@ -31193,30 +31179,33 @@ var CombineDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
+    CombineDateSelect.prototype.isRequired = function () {
+        var day = this.dateParts['day'],
+            month = this.dateParts['month'],
+            year = this.dateParts['year'];
+        return day.isRequired() ||
+            month.isRequired() ||
+            year.isRequired();
+    };
+
     CombineDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
-            this.doValidateError();
+        if (this.isRequired() && this.checkDate()) {
+            return this.doValidateError();
         } else {
-            this.doNormalize();
+            return this.doNormalize();
         }
-        return this.isValid();
     };
 
     CombineDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
+        return false;
     };
 
     CombineDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-    };
-
-    CombineDateSelect.prototype.isValid = function () {
-        var date = this.dateParts['day'],
-            month = this.dateParts['month'],
-            year = this.dateParts['year'];
-        return year.isValid() && month.isValid() && date.isValid();
+        return true;
     };
 
     CombineDateSelect.prototype.checkDate = function () {
@@ -31298,30 +31287,31 @@ var PeriodDateSelect = (function () {
             this.errorMsg.innerText = text;
     };
 
-    PeriodDateSelect.prototype.doValidate = function () {
-        if (this.checkDate()) {
-            this.doValidateError();
-        } else {
-            this.doNormalize();
-        }
+    PeriodDateSelect.prototype.isRequired = function () {
+        var f = this.dateParts.from,
+            t = this.dateParts.to;
+        return f.year.isRequired() || f.month.isRequired() ||
+            t.month.isRequired() || t.year.isRequired();
+    };
 
-        return this.isValid();
+    PeriodDateSelect.prototype.doValidate = function () {
+        if (this.isRequired() && this.checkDate()) {
+            return this.doValidateError();
+        } else {
+            return this.doNormalize();
+        }
     };
 
     PeriodDateSelect.prototype.doValidateError = function () {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage());
+        return false;
     };
 
     PeriodDateSelect.prototype.doNormalize = function () {
         this.setState(STATES.valid);
         this.setErrorText('');
-    };
-
-    PeriodDateSelect.prototype.isValid = function () {
-        var f = this.dateParts.from,
-            t = this.dateParts.to;
-        return f.year.isValid() && f.month.isValid() &&  t.year.isValid() && t.month.isValid();
+        return true;
     };
 
     PeriodDateSelect.prototype.checkDate = function () {
@@ -31388,11 +31378,12 @@ var FileInput = (function () {
 
     FileInput.prototype.doValidate = function () {
         try {
-            this.checkCount();
-            var file = this.input().files[0];
-            this.checkSize(file);
-            this.doNormalize();
-            return this.isValid()
+            if (this.isRequired()) {
+                this.checkCount();
+                var file = this.input().files[0];
+                this.checkSize(file);
+                return this.doNormalize();
+            }
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -31402,6 +31393,7 @@ var FileInput = (function () {
         this.setState(STATES.invalid);
         this.setErrorText(errMsg);
         this.fire(new CustomEvent('onValidateError'));
+        return false;
     };
 
     return FileInput;
@@ -31437,8 +31429,7 @@ var MultipleFileInput = (function () {
             }
             this.checkCount();
             this.input().value = '';
-            this.doNormalize();
-            return this.isValid();
+            return this.doNormalize();
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -31607,6 +31598,7 @@ var PhotoInput = (function () {
         }
     };
 
+
     PhotoInput.prototype.upload = function () {
         var fd = new FormData();
         var self = this;
@@ -31712,19 +31704,27 @@ var NumberInput = (function () {
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-            this.doNormalize();
-        return this.isValid();
+        var res = false;
+
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
+            res = this.doNormalize();
+        }
+
+        return res;
     };
 
     NumberInput.prototype.doValidateError = function (errType) {
         this.setState(STATES.invalid);
         this.setErrorText(this.getErrorMessage(errType));
         this.fire(new CustomEvent('onValidateError'));
+        return false;
     };
 
     return NumberInput;
@@ -31755,13 +31755,18 @@ var TelInput = (function () {
     TelInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-           this.doNormalize();
-        return this.isValid();
+        var res = false;
+        if (this.isRequired()) {
+            if (!value)
+                res = this.doValidateError('empty');
+            else if (!value.match(pattern))
+                res = this.doValidateError('invalid-input');
+            else
+                res = this.doNormalize();
+        } else {
+            res = this.doNormalize();
+        }
+        return res;
     };
 
     return TelInput;
@@ -31891,7 +31896,6 @@ module.exports =  (function () {
 /* WEBPACK VAR INJECTION */(function($) {
 
 var validation = __webpack_require__(4);
-var helpers = __webpack_require__(1);
 
 (function () {
     var AssessmentProgressBar = (function () {
@@ -32005,7 +32009,7 @@ var helpers = __webpack_require__(1);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 0,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32056,7 +32060,12 @@ var helpers = __webpack_require__(1);
                     var paymentType = document.getElementById('ass-payment-type-hidden');
                     switch (paymentType.value) {
                         case 'tc':
-                            self.sendForm(self.payByLiqPay);
+                            self.sendForm();
+                            // self.payByCard();
+                            break;
+                        default:
+                            self.sendForm();
+                            self.complete();
                             break;
                     }
                 }
@@ -32104,6 +32113,14 @@ var helpers = __webpack_require__(1);
             this.initInputsValidation(stepIndex, inputs);
         };
 
+        AssessmentForm.prototype.complete = function () {
+            var form = document.getElementById('assessment-form');
+            var finish = form.querySelector(".actions a[href='#finish']");
+            finish.style.visibility = 'hidden';
+            $('#assessment-modal').modal('hide');
+            $('#assessment-complete').modal('show');
+        };
+
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {
             var page = this.steps[pageIndex].step;
             return page.querySelectorAll('input[type=text], input[type=tel], input[type=email], ' +
@@ -32136,42 +32153,23 @@ var helpers = __webpack_require__(1);
             return result;
         };
 
-        AssessmentForm.prototype.payByLiqPay = function () {
-            var fd = new FormData();
-            fd.append('action', 'get_liqpay_data');
-            fd.append('country', helpers.getCookie('iso').toLowerCase());
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', gic.ajaxurl, true);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = xhr.responseText;
-                    document.body.insertAdjacentHTML('beforeend', res);
-                    document.getElementById('ass-liqpay').submit();
-                }
-            };
-            xhr.send(fd);
+        AssessmentForm.prototype.payByCard = function () {
+            this.sendForm();
+            document.getElementById('ass-liqpay').submit();
         };
 
 
-        AssessmentForm.prototype.sendForm = function (paymentFunc) {
+        AssessmentForm.prototype.sendForm = function () {
             var fd = new FormData(document.getElementById('assessment-form'));
             fd.append('action', 'send_assessment_form');
 
             var xhr = new XMLHttpRequest();
-
-            fd.append('action', 'send_assessment_form');
             xhr.open('POST', gic.ajaxurl, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var res = JSON.parse(xhr.responseText);
-                    if (res.isSuccess && typeof paymentFunc === 'function') {
-                        paymentFunc();
-                    } else {
-                        console.log(res.message)
-                    }
+                    console.log(res)
                 }
             };
             xhr.send(fd);
@@ -32439,25 +32437,14 @@ var onPartnerAddRadioClick = function (e) {
 };
 
 var onPartnerDelRadioClick = function (e) {
-    var div = document.getElementById(e.target.getAttribute('data-template'));
-    var c = div.querySelector('.copied');
-    if (c) {
-        div.removeChild(c);
-        var work = document.getElementById('part-work-cont');
-        var educ = document.getElementById('part-educ-cont');
-        work.style.display = 'none';
-        educ.style.display = 'none';
-
-        var dels = work.querySelectorAll('span.added-file-delete');
-        var i;
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
-
-        dels = educ.querySelectorAll('span.added-file-delete');
-        for (i = 0; i < dels.length; ++i ) {
-            dels.item(i).dispatchEvent(new Event('onLicenseChange'))
-        }
+    var div = document.querySelector('.' + e.target.getAttribute('data-parent'));
+    var c = div.querySelectorAll('.copied');
+    var work = document.getElementById('part-work-cont');
+    var educ = document.getElementById('part-educ-cont');
+    work.style.display = 'none';
+    educ.style.display = 'none';
+    for (var i = 0; i < c.length; ++i ) {
+        c[i].parentNode.removeChild(c[i]);
     }
 };
 
@@ -32513,6 +32500,25 @@ function onLicenseChange() {
     (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
 }
 
+function setRequire(input, isRequire) {
+    if (!isRequire) {
+        input.removeAttribute('required')
+    } else {
+        input.setAttribute('required', '')
+    }
+}
+
+function disableCombineDate(e) {
+    var cb = e.target;
+    var comb = document.getElementById( cb.getAttribute('data-combine') );
+    var inputs = comb.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; ++i) {
+        setRequire(inputs[i], !cb.checked);
+    }
+
+}
+
 module.exports = {
     paymentMethodClick: paymentMethodClick,
     saveRadioValToHidden: saveRadioValToHidden,
@@ -32521,7 +32527,8 @@ module.exports = {
     onPartnerAddRadioClick: onPartnerAddRadioClick,
     onFileAddRadioClick: onFileAddRadioClick,
     onFileDelRadioClick: onFileDelRadioClick,
-    onLicenseChange: onLicenseChange
+    onLicenseChange: onLicenseChange,
+    disableCombineDate: disableCombineDate
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 

@@ -2,12 +2,12 @@
 <div class="delete-copy"><span class="added-file-delete" data-parent="#own-children" data-del="-copy<?=$index;?>"><i class="fa fa-times"></i></span></div>
 <section>
 	<label for="child-surname-<?=$index;?>">Фамилия</label>
-	<input type="text" name="child[<?=$index?>][child-surname]" id="child-surname-<?=$index;?>" data-role="text">
+	<input type="text" name="child[<?=$index?>][child-surname]" id="child-surname-<?=$index;?>" data-role="text" required>
 	<span class="error-text" id="error-child-surname-<?=$index;?>"></span>
 </section>
 <section>
 	<label for="child-name-<?=$index;?>">Имя</label>
-	<input type="text" name="child[<?=$index?>][child-name]" id="child-name-<?=$index;?>" data-role="text">
+	<input type="text" name="child[<?=$index?>][child-name]" id="child-name-<?=$index;?>" data-role="text" required>
 	<span class="error-text" id="error-child-name-<?=$index;?>"></span>
 </section>
 <section class="combine-date birth-date">

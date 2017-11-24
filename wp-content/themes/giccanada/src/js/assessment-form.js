@@ -115,7 +115,7 @@ var helpers = require("./lib/helpers");
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 0,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -166,8 +166,12 @@ var helpers = require("./lib/helpers");
                     var paymentType = document.getElementById('ass-payment-type-hidden');
                     switch (paymentType.value) {
                         case 'tc':
-                            self.sendForm(self.payByLiqPay);
+                            self.sendForm();
+                            //self.sendForm(self.payByLiqPay);
                             break;
+                        default:
+                            self.sendForm();
+                            self.complete();
                     }
                 }
             });
@@ -212,6 +216,14 @@ var helpers = require("./lib/helpers");
         AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
             var inputs = e.detail.inputs;
             this.initInputsValidation(stepIndex, inputs);
+        };
+
+        AssessmentForm.prototype.complete = function () {
+            var form = document.getElementById('assessment-form');
+            var finish = form.querySelector(".actions a[href='#finish']");
+            finish.style.visibility = 'hidden';
+            $('#assessment-modal').modal('hide');
+            $('#assessment-complete').modal('show');
         };
 
         AssessmentForm.prototype._getPageInputs = function (pageIndex) {

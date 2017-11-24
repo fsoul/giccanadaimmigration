@@ -37,12 +37,18 @@ var TextInput = (function () {
     TextInput.prototype.doValidate = function () {
         var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
         var value = this.input().value;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                this.doValidateError('empty');
+            else if (!value.match(pattern))
+                this.doValidateError('invalid-input');
+            else
+                this.doNormalize();
+        } else {
             this.doNormalize();
+        }
+
         return this.isValid();
     };
 
@@ -79,12 +85,17 @@ var MixedInput = (function () {
     MixedInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /[-[\]{}()@*+?.,\\^$|#\s]/g;
-        if (!value)
-            this.doValidateError('empty');
-        else if (value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-            this.doNormalize();
+
+        if (this.isRequired()) {
+            if (!value)
+                this.doValidateError('empty');
+            else if (value.match(pattern))
+                this.doValidateError('invalid-input');
+            else
+                this.doNormalize();
+        } else {
+             this.doNormalize();
+        }
         return this.isValid();
     };
 
@@ -99,7 +110,6 @@ var EmailInput = (function () {
 
     EmailInput.prototype = Object.create(TextInput.prototype);
     EmailInput.prototype.constructor = EmailInput;
-
 
     EmailInput.prototype.getErrorMessage = function (errType) {
         return {
@@ -118,7 +128,7 @@ var EmailInput = (function () {
         var mailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         this.isExist();
-        if (!this.input().value || !this.input().value.match(mailPattern)) {
+        if (this.isRequired() && (!this.input().value || !this.input().value.match(mailPattern))) {
             this.doValidateError('invalid-input');
         } else {
             this.doNormalize();

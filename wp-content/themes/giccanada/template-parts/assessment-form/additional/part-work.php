@@ -4,17 +4,17 @@
                 class="fa fa-times"></i></span></div>
 <section>
     <label for="part-work-name-<?=$index;?>">Наименование компании / нанимателя</label>
-    <input type="text" name="part-work[<?=$index;?>][part-work-name]" id="part-work-name-<?=$index;?>" data-role="text">
+    <input type="text" name="part-work[<?=$index;?>][part-work-name]" id="part-work-name-<?=$index;?>" data-role="text" required>
     <span class="error-text" id="error-part-work-name-<?=$index;?>"></span>
 </section>
 <section>
     <label for="part-work-country-<?=$index;?>">Город, страна</label>
-    <input type="text" name="part-work[<?=$index;?>][part-work-country]" id="part-work-country-<?=$index;?>" data-role="text">
+    <input type="text" name="part-work[<?=$index;?>][part-work-country]" id="part-work-country-<?=$index;?>" data-role="text" required>
     <span class="error-text" id="error-part-work-country-<?=$index;?>"></span>
 </section>
 <section>
     <label for="part-work-position-<?=$index;?>">Должность</label>
-    <input type="text" name="part-work[<?=$index;?>][part-work-position]" id="part-work-position-<?=$index;?>" data-role="text">
+    <input type="text" name="part-work[<?=$index;?>][part-work-position]" id="part-work-position-<?=$index;?>" data-role="text" required>
     <span class="error-text" id="error-part-work-position-<?=$index;?>"></span>
 </section>
 <section>
@@ -55,6 +55,6 @@
 <section>
     <label for="part-work-requirement-<?=$index;?>">Должностные обязанности</label>
     <textarea name="part-work[<?=$index;?>][part-work-requirement]" id="part-work-requirement-<?=$index;?>" rows="4"
-              cols="50" data-role="mixed"></textarea>
+              cols="50" data-role="mixed" required></textarea>
     <span class="error-text" id="error-part-work-requirement-<?=$index;?>"></span>
 </section>

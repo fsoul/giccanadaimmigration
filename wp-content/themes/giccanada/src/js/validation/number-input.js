@@ -37,12 +37,18 @@ var NumberInput = (function () {
     NumberInput.prototype.doValidate = function () {
         var pattern = /^[0-9\s]+$/;
         var value = this.input().value;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
+
+        if (this.isRequired()) {
+            if (!value)
+                this.doValidateError('empty');
+            else if (!value.match(pattern))
+                this.doValidateError('invalid-input');
+            else
+                this.doNormalize();
+        } else {
             this.doNormalize();
+        }
+
         return this.isValid();
     };
 
@@ -80,12 +86,17 @@ var TelInput = (function () {
     TelInput.prototype.doValidate = function () {
         var value = this.input().value;
         var pattern = /^\+?\d{0,13}$/;
-        if (!value)
-            this.doValidateError('empty');
-        else if (!value.match(pattern))
-            this.doValidateError('invalid-input');
-        else
-           this.doNormalize();
+
+        if (this.isRequired()) {
+            if (!value)
+                this.doValidateError('empty');
+            else if (!value.match(pattern))
+                this.doValidateError('invalid-input');
+            else
+                this.doNormalize();
+        } else {
+            this.doNormalize();
+        }
         return this.isValid();
     };
 

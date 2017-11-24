@@ -3,29 +3,29 @@
                 class="fa fa-times"></i></span></div>
 <section>
     <label for="part-educ-name-<?= $index; ?>">Наименование учебного заведения</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-name]" id="part-educ-name-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-name]" id="part-educ-name-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-name-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-specialty-<?= $index; ?>">Факультет, специальность</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-specialty]" id="part-educ-specialty-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-specialty]" id="part-educ-specialty-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-specialty-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-country-<?= $index; ?>">Город, страна</label>
-    <input type="text" name="part-educ[<?=$index;?>][part-educ-country]" id="part-educ-country-<?= $index; ?>" data-role="text">
+    <input type="text" name="part-educ[<?=$index;?>][part-educ-country]" id="part-educ-country-<?= $index; ?>" data-role="text" required>
     <span class="error-text" id="error-part-educ-country-<?= $index; ?>"></span>
 </section>
 <section>
     <label for="part-educ-level-<?= $index; ?>">Уровень образования</label>
     <select id="part-educ-level-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-level]" required data-role="select">
         <option value="" disabled selected>- Выбрать -</option>
-        <option value="preschool">Preschool</option>
         <option value="primary">Primary</option>
         <option value="secondary">Secondary</option>
-        <option value="higher">Tertiary (higher)</option>
-        <option value="vocational">Vocational</option>
-        <option value="special">Special</option>
+        <option value="2-3 years Certificate program (College, School)">2-3 years Certificate program (College, School)</option>
+        <option value="3-4 years Bachelor program (College, University)">3-4 years Bachelor program (College, University)</option>
+        <option value="4-6 years Master program (College, University)">4-6 years Master program (College, University)</option>
+        <option value="PhD (Doctor of Science)">PhD (Doctor of Science)</option>
     </select>
     <span class="error-text" id="error-part-educ-level-<?= $index; ?>"></span>
 </section>
@@ -43,7 +43,7 @@
 </section>
 <section>
     <label for="part-educ-type-<?= $index; ?>">Форма обучения</label>
-    <select id="part-educ-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-type]" data-role="select">
+    <select id="part-educ-type-<?= $index; ?>" name="part-educ[<?=$index;?>][part-educ-type]" data-role="select" required>
         <option value="fulltime" selected>Full-time education</option>
         <option value="distance">Distance education</option>
     </select>
