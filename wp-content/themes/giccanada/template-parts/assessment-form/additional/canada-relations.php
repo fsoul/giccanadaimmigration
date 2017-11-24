@@ -2,7 +2,7 @@
 <div class="delete-copy"><span class="added-file-delete" data-parent="#canada-relations" data-del="-copy<?=$index;?>"><i class="fa fa-times"></i></span></div>
 <section>
 	<label for="ass-rel-last-name-<?=$index;?>">Фамилия</label>
-	<input type="text" id="ass-rel-last-name-<?=$index;?>" placeholder="Введите фамилию" data-role="text" name="relative[rel-<?=$index;?>][asa-rel-last-name]" required>
+	<input type="text" id="ass-rel-last-name-<?=$index;?>" placeholder="Введите фамилию" data-role="text" name="relative[rel-<?=$index;?>][ass-rel-last-name]" required>
 	<span class="error-text" id="error-ass-rel-last-name-<?=$index;?>"></span>
 </section>
 <section>

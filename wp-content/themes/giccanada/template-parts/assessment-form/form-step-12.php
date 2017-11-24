@@ -14,3 +14,14 @@
     </section>
 </section>
 <div id="canada-educ"></div>
+<section class="radio-block">
+    <label>Учился(ась) ли супруг(а) ли вы в Канаде в течение последних двух лет?</label>
+    <section>
+        <input name="ass-partner-studied-at-canada" class="ass-radio" value="no" checked type="radio" id="ass-partner-studied-at-canada-f" required>
+        <label for="ass-partner-studied-at-canada-f">Нет</label>
+    </section>
+    <section>
+        <input name="ass-partner-studied-at-canada" class="ass-radio" value="yes" type="radio" id="ass-partner-studied-at-canada-t" required>
+        <label for="ass-partner-studied-at-canada-t">Да</label>
+    </section>
+</section>

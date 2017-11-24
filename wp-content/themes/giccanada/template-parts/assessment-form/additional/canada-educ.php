@@ -10,14 +10,3 @@
     <div class="added-files" id="ass-studied-files-list"></div>
 </section>
 <section>
-<section class="radio-block">
-    <label>Учился(ась) ли супруг(а) ли вы в Канаде в течение последних двух лет?</label>
-    <section>
-        <input name="ass-partner-studied-at-canada" class="ass-radio" value="f" checked type="radio" id="ass-partner-studied-at-canada-f" required>
-        <label for="ass-partner-studied-at-canada-f">Нет</label>
-    </section>
-    <section>
-        <input name="ass-partner-studied-at-canada" class="ass-radio" value="t" type="radio" id="ass-partner-studied-at-canada-t" required>
-        <label for="ass-partner-studied-at-canada-t">Да</label>
-    </section>
-</section>
