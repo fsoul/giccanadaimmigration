@@ -30312,6 +30312,7 @@ function StickyMenu() {
 
 StickyMenu.prototype.init = function () {
     this._header = document.getElementById("menu-container");
+    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
@@ -30423,8 +30424,10 @@ function MenuLogo() {
 
     function init() {
         self.element = document.querySelector('.menu-logo');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
-        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+            self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);
@@ -30455,8 +30458,10 @@ function MenuPhoneBlock() {
 
     function init () {
         self.element = document.querySelector('.menu-phone-block');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+            self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);
@@ -30477,9 +30482,11 @@ function ButtonUp() {
 
     function init () {
         self.element = document.getElementById('mobile-btn-up');
-        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
-        self.element.addEventListener('click', self.doClick);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+            self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+            self.element.addEventListener('click', self.doClick);
+        }
     }
     document.addEventListener('DOMContentLoaded', init);
 }
@@ -30526,7 +30533,6 @@ module.exports =
             obj.addEventListener(type, func);
         };
 
-        var btnDropdown = document.querySelector('button.dropbtn');
         var fixedButton = document.getElementsByClassName("fixed-panel-button");
 
         function onFixedButtonHover() {
@@ -30564,8 +30570,13 @@ module.exports =
             document.getElementById("main-menu-content").classList.add('show-dropdown-content');
         }
 
+        var btnDropdown = document.querySelector('button.dropbtn');
+        if (btnDropdown) {
+            throttle("click", "toggleMenu", btnDropdown);
+            btnDropdown.addEventListener("toggleMenu", toggleMenu);
+        }
         /* init - you can init any event */
-        throttle("click", "toggleMenu", btnDropdown);
+
         throttle("click", "windowClick");
         throttle("resize", "windowResize");
 
@@ -30577,7 +30588,7 @@ module.exports =
             fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
         }
 
-        btnDropdown.addEventListener("toggleMenu", toggleMenu);
+
         window.addEventListener('click', onWindowClick);
     })();
 
@@ -31877,6 +31888,7 @@ module.exports =  (function () {
 
     function MobileModalMenu() {
         this._modal = document.getElementById('mobile-modal');
+        if (!this._modal) return;
         this._list = this._modal.querySelector('#modal-menu-list');
         var li = this._list.querySelectorAll('li.modal-item');
         var backArrow = document.getElementById('modal-back-arrow');

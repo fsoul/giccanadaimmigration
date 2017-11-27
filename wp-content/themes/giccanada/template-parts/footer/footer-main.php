@@ -3,7 +3,7 @@
 <div class="container-fluid">
 	<div class="row no-gutters align-items-start footer-block">
 		<div class="col-12 col-sm-3">
-			<a href="#" class="footer-logo"></a>
+			<a href="/" class="footer-logo"></a>
 		</div>
 		<div class="col-12 col-sm-6">
 			<div class="row no-gutters justify-content-center" id="footer-info">

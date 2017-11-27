@@ -14,7 +14,6 @@ module.exports =
             obj.addEventListener(type, func);
         };
 
-        var btnDropdown = document.querySelector('button.dropbtn');
         var fixedButton = document.getElementsByClassName("fixed-panel-button");
 
         function onFixedButtonHover() {
@@ -52,8 +51,13 @@ module.exports =
             document.getElementById("main-menu-content").classList.add('show-dropdown-content');
         }
 
+        var btnDropdown = document.querySelector('button.dropbtn');
+        if (btnDropdown) {
+            throttle("click", "toggleMenu", btnDropdown);
+            btnDropdown.addEventListener("toggleMenu", toggleMenu);
+        }
         /* init - you can init any event */
-        throttle("click", "toggleMenu", btnDropdown);
+
         throttle("click", "windowClick");
         throttle("resize", "windowResize");
 
@@ -65,6 +69,6 @@ module.exports =
             fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
         }
 
-        btnDropdown.addEventListener("toggleMenu", toggleMenu);
+
         window.addEventListener('click', onWindowClick);
     })();
