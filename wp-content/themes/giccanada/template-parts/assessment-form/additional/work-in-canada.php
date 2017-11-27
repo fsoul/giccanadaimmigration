@@ -13,12 +13,12 @@
 <section class="radio-block">
 	<label>Работал(а) ли супруг(а) в Канаде по рабочей визе последний год?</label>
 	<section>
-		<input name="ass-partner-worked-at-canada" class="ass-radio" value="f" checked
+		<input name="ass-partner-worked-at-canada" class="ass-radio" value="no" checked
 		       type="radio" id="ass-partner-worked-at-canada-f" data-role="radio" required>
 		<label for="ass-partner-worked-at-canada-f">Нет</label>
 	</section>
 	<section>
-		<input name="ass-partner-worked-at-canada" class="ass-radio" value="t"
+		<input name="ass-partner-worked-at-canada" class="ass-radio" value="yes"
 		       type="radio" id="ass-partner-worked-at-canada-t" data-role="radio" required>
 		<label for="ass-partner-worked-at-canada-t">Да</label>
 	</section>

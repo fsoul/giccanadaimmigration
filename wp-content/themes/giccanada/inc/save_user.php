@@ -74,7 +74,11 @@ function save_user_common_info( $user_id, $form ) {
 
 		//step 10
 		'uci_future_province' => $form['ass-future-province'],
-		'uci_future_city' => $form['ass-future-city']
+		'uci_future_city' => $form['ass-future-city'],
+
+		//step 12
+		'uci_ass_studied_at_canada' => $form['ass-studied-at-canada'],
+		'uci_ass_partner_studied_at_canada' => $form['ass-partner-studied-at-canada']
 	];
 	insert_into( 'wp_user_common_info', $data );
 }
