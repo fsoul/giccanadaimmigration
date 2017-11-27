@@ -2,16 +2,18 @@
 
 var helper = require('./lib/helpers');
 
-function StickyMenu() {
+function StickyMenu(header) {
     this._stuck = false;
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
+    if (!header)
+        throw new TypeError('Header must not be null!');
+    this._header = header;
+    this._stickPoint = 0;
 }
 
 StickyMenu.prototype.init = function () {
-    this._header = document.getElementById("menu-container");
-    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);

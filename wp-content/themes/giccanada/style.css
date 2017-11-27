@@ -12425,8 +12425,6 @@ body {
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
-  .header-container {
-    height: auto; }
   #menu-container {
     margin: 0; }
     #menu-container .menu-row {
@@ -12552,23 +12550,21 @@ body {
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
-  .header-container {
-    height: auto; }
-    .header-container .top-bar #desktop-top-bar {
-      display: none; }
-    .header-container .top-bar #mobile-top-bar {
-      display: flex; }
-    .header-container .top-bar .tb-menu-border {
-      width: 1px;
-      padding: 0; }
-    .header-container .top-bar .top-bar-menu-link {
-      margin-right: 10px;
-      font-size: .8em; }
-    .header-container .top-bar .messager-logo,
-    .header-container .top-bar .search-logo {
-      height: 20px;
-      width: 22px;
-      background-size: contain; }
+  .header-container .top-bar #desktop-top-bar {
+    display: none; }
+  .header-container .top-bar #mobile-top-bar {
+    display: flex; }
+  .header-container .top-bar .tb-menu-border {
+    width: 1px;
+    padding: 0; }
+  .header-container .top-bar .top-bar-menu-link {
+    margin-right: 10px;
+    font-size: .8em; }
+  .header-container .top-bar .messager-logo,
+  .header-container .top-bar .search-logo {
+    height: 20px;
+    width: 22px;
+    background-size: contain; }
   #programms .programms-grid-item .programms-gi-image {
     height: 305px; }
   #programms .orange-btn {
@@ -12679,12 +12675,10 @@ body {
       flex-wrap: wrap; } }
 
 @media (max-width: 375px) {
-  .header-container {
-    height: 660px; }
-    .header-container .header-mobile-content {
-      height: 616px; }
-      .header-container .header-mobile-content .hs-caption {
-        font-size: 2.1em; }
+  .header-container .header-mobile-content {
+    height: 616px; }
+    .header-container .header-mobile-content .hs-caption {
+      font-size: 2.1em; }
   #programms .programms-caption {
     font-size: 1.5em;
     margin-bottom: 0; }

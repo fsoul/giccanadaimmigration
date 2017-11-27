@@ -7,8 +7,7 @@ require('./js/vendor/jquery.steps');
 require('bootstrap');
 require('croppie');
 
-var StickyMenu = require('./js/stickymenu'),
-    stickMenu = new StickyMenu();
+var StickyMenu = require('./js/stickymenu');
 var listeners = require('./js/listeners'),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
@@ -75,14 +74,18 @@ document.addEventListener('DOMContentLoaded', function () {
     require('./js/modal-menu');
     require('./js/assessment-form');
 
-    stickMenu.subscribe(menuLogo);
-    stickMenu.subscribe(menuPhoneBlock);
-    stickMenu.subscribe(buttonUp);
-    stickMenu.init();
+    var sMenu = document.getElementById('menu-container');
+    if (sMenu) {
+        var stickMenu = new StickyMenu(sMenu);
+        stickMenu.subscribe(menuLogo);
+        stickMenu.subscribe(menuPhoneBlock);
+        stickMenu.subscribe(buttonUp);
+        stickMenu.init();
 
-    document.addEventListener('scroll', function () {
-        stickMenu.updateHeaderMenuPos();
-    });
+        document.addEventListener('scroll', function () {
+            stickMenu.updateHeaderMenuPos();
+        });
+    }
 });
 
 //css/scss-------------------------------------------

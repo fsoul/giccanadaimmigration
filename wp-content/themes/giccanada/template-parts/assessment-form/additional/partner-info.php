@@ -39,12 +39,12 @@
 <section class="radio-block">
     <label>Пол</label>
     <section>
-        <input name="partner[member-sex]" class="ass-radio" value="m" checked type="radio"
+        <input name="partner[member-sex]" class="ass-radio" value="male" checked type="radio"
                id="member-sex-m" data-role="radio" required>
         <label for="member-sex-m" >Мужской</label>
     </section>
     <section>
-        <input name="partner[member-sex]" class="ass-radio" value="f" type="radio" id="member-sex-f" data-role="radio" required>
+        <input name="partner[member-sex]" class="ass-radio" value="female" type="radio" id="member-sex-f" data-role="radio" required>
         <label for="member-sex-f" >Женский</label>
     </section>
 </section>

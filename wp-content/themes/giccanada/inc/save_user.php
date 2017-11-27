@@ -77,8 +77,12 @@ function save_user_common_info( $user_id, $form ) {
 		'uci_future_city' => $form['ass-future-city'],
 
 		//step 12
-		'uci_ass_studied_at_canada' => $form['ass-studied-at-canada'],
-		'uci_ass_partner_studied_at_canada' => $form['ass-partner-studied-at-canada']
+		'uci_studied_at_canada' => $form['ass-studied-at-canada'],
+		'uci_partner_studied_at_canada' => $form['ass-partner-studied-at-canada'],
+
+		//step 14
+		'uci_worked_at_canada' => $form['ass-worked-at-canada'],
+		'uci_partner_worked_at_canada' => $form['ass-partner-worked-at-canada']
 	];
 	insert_into( 'wp_user_common_info', $data );
 }
@@ -131,6 +135,44 @@ function save_user_education( $user_id, $form ) {
 			'ued_to' => $date_to
 		];
 		insert_into( 'wp_user_education', $data );
+	}
+}
+
+function save_user_work( $user_id, $form ) {
+
+	foreach ($form['work'] as $item) {
+		$date_from = format_date( $item['ass-company-from-y'], $item['ass-company-from-m'], '1' ) ;
+		$date_to = format_date( $item['ass-company-to-y'], $item['ass-company-to-m'], '1' ) ;
+
+		$data = [
+			'uw_user_id' => $user_id,
+			'uw_company_name' => $item['company-name'],
+			'uw_company_country' => $item['company-country'],
+			'uw_company_position' => $item['company-position'],
+			'uw_company_from' => $date_from,
+			'uw_company_to' => $date_to,
+			'uw_company_requirement' => $item['company-requirement']
+		];
+		insert_into( 'wp_user_work', $data );
+	}
+}
+
+function save_user_partner_info( $user_id, $form ) {
+
+	foreach ($form['partner'] as $item) {
+		$date_from = format_date( $item['ass-company-from-y'], $item['ass-company-from-m'], '1' ) ;
+		$date_to = format_date( $item['ass-company-to-y'], $item['ass-company-to-m'], '1' ) ;
+
+		$data = [
+			'uw_user_id' => $user_id,
+			'uw_company_name' => $item['member-last-name'],
+			'uw_company_country' => $item['member-first-name'],
+			'uw_company_position' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
+			'uw_company_from' => $date_from,
+			'uw_company_to' => $date_to,
+			'uw_company_requirement' => $item['company-requirement']
+		];
+		insert_into( 'wp_user_work', $data );
 	}
 }
 
