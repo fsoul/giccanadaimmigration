@@ -9,7 +9,7 @@
 			<div class="row no-gutters justify-content-center" id="footer-info">
 				<div class="col-sm-5 col-auto footer-item">
 					<nav class="nav flex-column footer-nav">
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Главная</a>
+						<a class="nav-link footer-text footer-nav-item white-link-underline" href="/">Главная</a>
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Виды иммиграции</a>
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Работа в Канаде</a>
 						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Учеба в Канаде</a>
