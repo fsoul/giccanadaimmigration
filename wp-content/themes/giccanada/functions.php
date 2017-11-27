@@ -75,3 +75,10 @@ function giccanada_footer_scripts() {
 add_action('wp_footer', 'giccanada_footer_scripts');
 
 require_once get_template_directory() . '/inc/ajax_scripts.php';
+
+
+// This theme uses wp_nav_menu() in two locations.
+register_nav_menus( array(
+	'top'    => __( 'Top Menu', 'gicanada' ),
+	'footer' => __( 'Footer Menu', 'gicanada' ),
+) );
