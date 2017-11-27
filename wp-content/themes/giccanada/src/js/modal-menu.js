@@ -6,6 +6,7 @@ module.exports =  (function () {
 
     function MobileModalMenu() {
         this._modal = document.getElementById('mobile-modal');
+        if (!this._modal) return;
         this._list = this._modal.querySelector('#modal-menu-list');
         var li = this._list.querySelectorAll('li.modal-item');
         var backArrow = document.getElementById('modal-back-arrow');

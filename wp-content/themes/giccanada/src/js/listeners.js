@@ -15,8 +15,10 @@ function MenuLogo() {
 
     function init() {
         self.element = document.querySelector('.menu-logo');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
-        self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateMenuLogo);
+            self.element.addEventListener(headerNormalizeStr, self.doNormalizeMenuLogo);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);
@@ -47,8 +49,10 @@ function MenuPhoneBlock() {
 
     function init () {
         self.element = document.querySelector('.menu-phone-block');
-        self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateMenuPhoneBlock);
+            self.element.addEventListener(headerNormalizeStr, self.doUpdateMenuPhoneBlock);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);
@@ -69,9 +73,11 @@ function ButtonUp() {
 
     function init () {
         self.element = document.getElementById('mobile-btn-up');
-        self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
-        self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
-        self.element.addEventListener('click', self.doClick);
+        if (self.element) {
+            self.element.addEventListener(headerStickingStr, self.doUpdateButtonUp);
+            self.element.addEventListener(headerNormalizeStr, self.doUpdateButtonUp);
+            self.element.addEventListener('click', self.doClick);
+        }
     }
     document.addEventListener('DOMContentLoaded', init);
 }

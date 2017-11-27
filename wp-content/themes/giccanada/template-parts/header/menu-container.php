@@ -3,7 +3,7 @@
     <div class="row justify-content-center no-gutters">
         <div class="col-md-11 col-lg-9">
             <div class="row justify-content-between align-items-end no-gutters flex-nowrap menu-row">
-                <a href="#" class="col-auto menu-logo"></a>
+                <a href="/" class="col-auto menu-logo"></a>
                 <button class="col-auto align-self-center mobile-menu-button" data-toggle="modal"
                         data-target="#mobile-modal"></button>
                 <div class="col-8 col-auto align-self-center menu-phone-block">

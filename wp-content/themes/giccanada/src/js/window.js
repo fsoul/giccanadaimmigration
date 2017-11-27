@@ -28,7 +28,8 @@ module.exports =  (function() {
             }
         }
         var academyCaption = document.querySelector('.academy-caption');
-        academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
+        if (academyCaption)
+            academyCaption.innerText = isMobile ?  'Учебные программы' : 'Учебные программы в Канаде';
     }
 
     /* init - you can init any event */

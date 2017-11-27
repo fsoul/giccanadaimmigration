@@ -2,23 +2,41 @@
 require_once( get_template_directory() . '/inc/mails.php' );
 require_once get_template_directory() . '/inc/provinces.php';
 require_once get_template_directory() . '/inc/upload.php';
+require_once get_template_directory() . '/inc/payment-forms.php';
+require_once( get_template_directory() . '/inc/save_user.php' );
 
-function clear_form( array &$data ) {
-	foreach ( $data as $key => $value ) {
-		if ( is_array( $value ) ) {
-			clear_form( $value );
-		} else {
-			$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+function clear_request( &$data ) {
+
+	if ( is_array( $data ) ) {
+		foreach ( $data as $key => $value ) {
+			if ( is_array( $value ) ) {
+				clear_request( $value );
+			} else {
+				$data[ $key ] = htmlspecialchars( strip_tags( stripcslashes( trim( $value ) ) ) );
+			}
 		}
+	} else if ( is_string( $data ) ) {
+		$data = htmlspecialchars( strip_tags( stripcslashes( trim( $data ) ) ) );
 	}
 }
+
+
+function check_email_exist() {
+	$email = $_POST['email'];
+	clear_request( $email );
+	echo is_numeric( email_exists( $email ) );
+	wp_die();
+}
+
+add_action( 'wp_ajax_check_email_exist', 'check_email_exist' );
+add_action( 'wp_ajax_nopriv_check_email_exist', 'check_email_exist' );
 
 function send_open_case_form() {
 
 	global $wpdb;
 
 	$form = $_POST['form'];
-	clear_form( $form );
+	clear_request( $form );
 	$is_debug_mode = $_COOKIE['debug'] == 1;
 	$ans_msg       = '';
 	$is_success    = false;
@@ -64,17 +82,29 @@ add_action( 'wp_ajax_nopriv_send_open_case_form', 'send_open_case_form' );
 
 function send_assessment_form() {
 
-	$form = $_POST;
-	clear_form( $form );
-//	save_user_info($form);
-	$isSuccess = send_pdf_admin_mail( $form );
-	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+	$isSuccess = false;
+	$ans_msg   = '';
+	$form      = $_POST;
+	clear_request( $form );
+	try {
+//		if ( save_user( $form ) ) {
+//			$isSuccess = send_pdf_admin_mail( $form ) &&
+//				send_assessment_user_mail($form['ass-email']);
+//		}
 
-	echo json_encode( array(
-		'isSuccess' => $isSuccess,
-		'message'   => $ans_msg
-	) );
-	wp_die();
+		$isSuccess = send_pdf_admin_mail( $form ) &&
+		             send_assessment_user_mail($form);
+
+		$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
+	} catch ( Exception $e ) {
+		$ans_msg = $e->getMessage();
+	} finally {
+		echo json_encode( array(
+			'isSuccess' => $isSuccess,
+			'message'   => $ans_msg
+		) );
+		wp_die();
+	}
 }
 
 add_action( 'wp_ajax_send_assessment_form', 'send_assessment_form' );
@@ -83,7 +113,7 @@ add_action( 'wp_ajax_nopriv_send_assessment_form', 'send_assessment_form' );
 function send_start_work_mail() {
 
 	$form = $_POST['form'];
-	clear_form( $form );
+	clear_request( $form );
 	$isSuccess = send_start_work_user_mail( $form );
 	$ans_msg   = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 
@@ -220,3 +250,12 @@ function get_additional_template() {
 
 add_action( 'wp_ajax_get_additional_template', 'get_additional_template' );
 add_action( 'wp_ajax_nopriv_get_additional_template', 'get_additional_template' );
+
+function get_liqpay_data() {
+	$message = getLiqPay( $_POST['country'] );
+	echo $message;
+	wp_die();
+}
+
+add_action( 'wp_ajax_get_liqpay_data', 'get_liqpay_data' );
+add_action( 'wp_ajax_nopriv_get_liqpay_data', 'get_liqpay_data' );

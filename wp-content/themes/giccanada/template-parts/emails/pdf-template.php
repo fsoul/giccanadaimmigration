@@ -86,18 +86,17 @@ $values = [
         'ass-email' => $form['ass-email']
     ],
     [
-        'speaking' => $form['en_lang'][0],
-        'reading' => $form['en_lang'][1],
-        'writing' => $form['en_lang'][2],
-        'listening' => $form['en_lang'][3]
+        'speaking' => $form['en_lang']['speaking'],
+        'reading' => $form['en_lang']['reading'],
+        'writing' => $form['en_lang']['writing'],
+        'listening' => $form['en_lang']['listening']
     ],
-    [
-        'speaking' => $form['fr_lang'][0],
-        'reading' => $form['fr_lang'][1],
-        'writing' => $form['fr_lang'][2],
-        'listening' => $form['fr_lang'][3]
-    ],
-
+	[
+		'speaking' => $form['fr_lang']['speaking'],
+		'reading' => $form['fr_lang']['reading'],
+		'writing' => $form['fr_lang']['writing'],
+		'listening' => $form['fr_lang']['listening']
+	]
 ];
 
 
@@ -127,7 +126,7 @@ $values = [
         <?php foreach ($form['relative'] as $k => $persons) : ?>
 
             <p>
-                Фамилия: <?= $form['relative'][$k]['asa-rel-last-name']; ?>
+                Фамилия: <?= $form['relative'][$k]['ass-rel-last-name']; ?>
             </p>
             <p>
                 Имя: <?= $form['relative'][$k]['ass-rel-first-name']; ?>
@@ -146,8 +145,8 @@ $values = [
     <?php endif; ?>
 
     <h3>Где вы планируете жить в Канаде?</h3>
-    <p>Провинция в Канаде: <?= $form['ass-rel-province']; ?></p>
-    <p>Город: <?= $form['ass-rel-city']; ?></p>
+    <p>Провинция в Канаде: <?= $form['ass-future-province']; ?></p>
+    <p>Город: <?= $form['ass-future-city']; ?></p>
 
     <?php if(!empty($form['education'])) : ?>
         <h3>Образование</h3>
@@ -224,7 +223,7 @@ $values = [
             Тип отношений <?= $form['partner']['member-relation-type']; ?>
         </p>
         <p>
-            Отношения с <?= $form['partner']['member-relation-from-m'].'.'.$form['partner']['member-relation-from-y']; ?> по <?= $form['partner']['member-relation-to-m'].'.'.$form['education']['member-relation-to-y']; ?>
+            Отношения с <?= $form['partner']['member-relation-from-m'].'.'.$form['partner']['member-relation-from-y']; ?> по <?= $form['partner']['member-relation-to-m'].'.'.$form['partner']['member-relation-to-y']; ?>
         </p>
 
         <?php if(!empty($form['part-educ'])) : ?>

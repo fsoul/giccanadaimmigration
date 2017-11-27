@@ -55,24 +55,27 @@ DefaultInput.prototype.setErrorText = function (text) {
 
 DefaultInput.prototype.doValidate = function () {
     if (this.isRequired() && !this.input().value) {
-        return this.doValidateError();
+        this.doValidateError();
     } else {
-        return this.doNormalize();
+        this.doNormalize();
     }
+    return this.isValid();
 };
 
 DefaultInput.prototype.doValidateError = function () {
     this.setState(STATES.invalid);
     this.setErrorText(this.getErrorMessage());
     this.fire(new CustomEvent('onValidateError'));
-    return false;
 };
 
 DefaultInput.prototype.doNormalize = function () {
     this.setState(STATES.valid);
     this.setErrorText('');
     this.fire(new CustomEvent('onNormalize'));
-    return true;
+};
+
+DefaultInput.prototype.isValid = function () {
+    return !this.input().classList.contains(STATES.invalid);
 };
 
 DefaultInput.prototype.subscribe = function (input) {

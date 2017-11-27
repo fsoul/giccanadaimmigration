@@ -1,6 +1,7 @@
 'use strict';
 
 var validation = require('./input-validation');
+var helpers = require("./lib/helpers");
 
 (function () {
     var AssessmentProgressBar = (function () {
@@ -114,7 +115,7 @@ var validation = require('./input-validation');
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 16,
+                startIndex: 11,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -166,17 +167,15 @@ var validation = require('./input-validation');
                     switch (paymentType.value) {
                         case 'tc':
                             self.sendForm();
-                            // self.payByCard();
+                            //self.sendForm(self.payByLiqPay);
                             break;
                         default:
                             self.sendForm();
                             self.complete();
-                            break;
                     }
                 }
             });
         };
-
 
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
             var self = this;
@@ -211,7 +210,6 @@ var validation = require('./input-validation');
                 });
             }
         };
-
 
         AssessmentForm.prototype.doCopyInputs = function (e, stepIndex) {
             var inputs = e.detail.inputs;
@@ -258,23 +256,42 @@ var validation = require('./input-validation');
             return result;
         };
 
-        AssessmentForm.prototype.payByCard = function () {
-            this.sendForm();
-            document.getElementById('ass-liqpay').submit();
-        };
-
-
-        AssessmentForm.prototype.sendForm = function () {
-            var fd = new FormData(document.getElementById('assessment-form'));
-            fd.append('action', 'send_assessment_form');
+        AssessmentForm.prototype.payByLiqPay = function () {
+            var fd = new FormData();
+            fd.append('action', 'get_liqpay_data');
+            fd.append('country', helpers.getCookie('iso').toLowerCase());
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', gic.ajaxurl, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.responseText;
+                    document.body.insertAdjacentHTML('beforeend', res);
+                    document.getElementById('ass-liqpay').submit();
+                }
+            };
+            xhr.send(fd);
+        };
+
+
+        AssessmentForm.prototype.sendForm = function (paymentFunc) {
+            var fd = new FormData(document.getElementById('assessment-form'));
+            fd.append('action', 'send_assessment_form');
+
+            var xhr = new XMLHttpRequest();
+
+            fd.append('action', 'send_assessment_form');
+            xhr.open('POST', gic.ajaxurl, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
                     var res = JSON.parse(xhr.responseText);
-                    console.log(res)
+                    if (res.isSuccess && typeof paymentFunc === 'function') {
+                        paymentFunc();
+                    } else {
+                        console.log(res.message)
+                    }
                 }
             };
             xhr.send(fd);

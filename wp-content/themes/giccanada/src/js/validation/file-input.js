@@ -39,7 +39,8 @@ var FileInput = (function () {
                 this.checkCount();
                 var file = this.input().files[0];
                 this.checkSize(file);
-                return this.doNormalize();
+                this.doNormalize();
+                return this.isValid();
             }
         } catch (e) {
             this.doValidateError(e.message);
@@ -50,7 +51,6 @@ var FileInput = (function () {
         this.setState(STATES.invalid);
         this.setErrorText(errMsg);
         this.fire(new CustomEvent('onValidateError'));
-        return false;
     };
 
     return FileInput;
@@ -86,7 +86,8 @@ var MultipleFileInput = (function () {
             }
             this.checkCount();
             this.input().value = '';
-            return this.doNormalize();
+            this.doNormalize();
+            return this.isValid();
         } catch (e) {
             this.doValidateError(e.message);
         }
@@ -254,7 +255,6 @@ var PhotoInput = (function () {
             reader.readAsDataURL(file)
         }
     };
-
 
     PhotoInput.prototype.upload = function () {
         var fd = new FormData();

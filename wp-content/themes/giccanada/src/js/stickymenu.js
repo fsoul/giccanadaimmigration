@@ -11,6 +11,7 @@ function StickyMenu() {
 
 StickyMenu.prototype.init = function () {
     this._header = document.getElementById("menu-container");
+    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
