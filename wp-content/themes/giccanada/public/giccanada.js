@@ -10707,7 +10707,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $('#mobile-modal').on('hidden.bs.modal', function () {
-        var li = this.querySelectorAll('li.modal-item');
+        var li = this.querySelectorAll('li.main-menu-item');
         for (var i = 0; i < li.length; ++i) {
             li[i].classList.remove('to-hide');
             li[i].classList.remove('modal-inspected');
@@ -30552,31 +30552,6 @@ module.exports =
                 btnHoverText.style.display = 'none';
         }
 
-
-        // Close the dropdown menu if the user clicks outside of it
-        function onWindowClick(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show-dropdown-content')) {
-                        openDropdown.classList.remove('show-dropdown-content');
-                    }
-                }
-            }
-        }
-
-        function toggleMenu() {
-            document.getElementById("main-menu-content").classList.add('show-dropdown-content');
-        }
-
-        var btnDropdown = document.querySelector('button.dropbtn');
-        if (btnDropdown) {
-            throttle("click", "toggleMenu", btnDropdown);
-            btnDropdown.addEventListener("toggleMenu", toggleMenu);
-        }
-        /* init - you can init any event */
-
         throttle("click", "windowClick");
         throttle("resize", "windowResize");
 
@@ -30587,9 +30562,6 @@ module.exports =
             fixedButton[i].addEventListener('mouseover', onFixedButtonHover);
             fixedButton[i].addEventListener('mouseout', onFixedButtonHover);
         }
-
-
-        window.addEventListener('click', onWindowClick);
     })();
 
 
@@ -31890,7 +31862,7 @@ module.exports =  (function () {
         this._modal = document.getElementById('mobile-modal');
         if (!this._modal) return;
         this._list = this._modal.querySelector('#modal-menu-list');
-        var li = this._list.querySelectorAll('li.modal-item');
+        var li = this._list.querySelectorAll('li.main-menu-item');
         var backArrow = document.getElementById('modal-back-arrow');
 
         for (var i = 0; i < li.length; ++i) {
@@ -31921,7 +31893,7 @@ module.exports =  (function () {
     };
 
     MobileModalMenu.prototype.doFireHideItems = function () {
-        var items = this.querySelectorAll('li.modal-item');
+        var items = this.querySelectorAll('li.main-menu-item');
         for (var i = 0; i < items.length; ++i) {
             items[i].dispatchEvent(new CustomEvent('onHideItem'));
         }
