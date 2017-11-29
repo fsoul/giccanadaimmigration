@@ -1,4 +1,4 @@
-<?php ?>
+<?php require_once  get_template_directory() .'/inc/walkers.php'; ?>
 
 <div class="container-fluid">
 	<div class="row no-gutters align-items-start footer-block">
@@ -8,14 +8,14 @@
 		<div class="col-12 col-sm-6">
 			<div class="row no-gutters justify-content-center" id="footer-info">
 				<div class="col-sm-5 col-auto footer-item">
-					<nav class="nav flex-column footer-nav">
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="/">Главная</a>
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Виды иммиграции</a>
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Работа в Канаде</a>
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Учеба в Канаде</a>
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Полезная информация</a>
-						<a class="nav-link footer-text footer-nav-item white-link-underline" href="#">Контакты</a>
-					</nav>
+					<?php wp_nav_menu( array(
+						'theme_location'  => 'footer',
+						'menu_id'         => 'footer-menu',
+//							'menu_class'      => 'nav flex-nowrap',
+						'walker'          => new Footer_Menu_Walker_Nav(),
+						'container'          => 'nav',
+						'container_class' => 'nav flex-column footer-nav'
+					) ); ?>
 				</div>
 				<div class="col-sm-7 col-md-5 col-auto footer-item">
 					<div class="row no-gutters footer-contact-item">

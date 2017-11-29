@@ -5,6 +5,10 @@ $image-dir: '../images/';
   height: 372px;
   background: linear-gradient(82.05deg, #FF8200 54.81%, #FF3400 190%);
   padding: 8px 0 64px 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer-text {
@@ -42,6 +46,14 @@ $image-dir: '../images/';
 
 .footer-nav {
   height: 180px;
+
+  #footer-menu {
+    padding: 0;
+
+    .menu-item {
+      list-style-type: none;
+    }
+  }
 }
 
 .footer-nav-item,

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $('#mobile-modal').on('hidden.bs.modal', function () {
-        var li = this.querySelectorAll('li.modal-item');
+        var li = this.querySelectorAll('li.main-menu-item');
         for (var i = 0; i < li.length; ++i) {
             li[i].classList.remove('to-hide');
             li[i].classList.remove('modal-inspected');
@@ -96,6 +96,7 @@ require('./scss/reviews.scss');
 require('./scss/news.scss');
 require('./scss/footer.scss');
 require('./scss/assessment-form.scss');
+require('./scss/posts-content.scss');
 
 
 require('./scss/media-query.scss');

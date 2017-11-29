@@ -37,19 +37,19 @@ class OpenCaseWidget extends WP_Widget {
                 <h2><?= $title; ?></h2>
 <!--                <p>Оставьте свои контактные данные и мы свяжемся с Вами в ближайшее время</p>-->
                 <p><?= $instance['phrase']; ?></p>
-                <input type="text" name="first_name" id="last_name" placeholder="Ваше имя *" data-role="text">
+                <input type="text" name="first_name" id="last_name" placeholder="Ваше имя *" data-role="text" required>
                 <span class="error-text" id="error-last_name"></span>
-                <input type="tel" name="phone" id="phone" placeholder="Ваш телефон *" data-role="tel">
+                <input type="tel" name="phone" id="phone" placeholder="Ваш телефон *" data-role="tel" required>
                 <span class="error-text" id="error-phone"></span>
-                <input type="email" name="email" id="email" placeholder="Ваш E-mail" data-role="email">
+                <input type="email" name="email" id="email" placeholder="Ваш E-mail" data-role="email" required>
                 <span class="error-text" id="error-email"></span>
                 <div id="selection-block">
-                    <select name="country" id="open-case-country" style="width: 100%" data-role="select">
+                    <select name="country" id="open-case-country" style="width: 100%" data-role="select" required>
 						<?php foreach ($this->countries as $key => $value):?>
                             <option value="<?= $key; ?>"><?= $value;?></option>
 						<?php endforeach;?>
                     </select>
-                    <select name="lang" id="open-case-lang" style="width: 100%">
+                    <select name="lang" id="open-case-lang" style="width: 100%" required>
                         <option value="RU">Русский</option>
                         <option value="EN">Английский</option>
                         <option value="UA">Украинский</option>

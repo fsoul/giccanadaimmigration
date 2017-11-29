@@ -8,7 +8,7 @@ module.exports =  (function () {
         this._modal = document.getElementById('mobile-modal');
         if (!this._modal) return;
         this._list = this._modal.querySelector('#modal-menu-list');
-        var li = this._list.querySelectorAll('li.modal-item');
+        var li = this._list.querySelectorAll('li.main-menu-item');
         var backArrow = document.getElementById('modal-back-arrow');
 
         for (var i = 0; i < li.length; ++i) {
@@ -39,7 +39,7 @@ module.exports =  (function () {
     };
 
     MobileModalMenu.prototype.doFireHideItems = function () {
-        var items = this.querySelectorAll('li.modal-item');
+        var items = this.querySelectorAll('li.main-menu-item');
         for (var i = 0; i < items.length; ++i) {
             items[i].dispatchEvent(new CustomEvent('onHideItem'));
         }
