@@ -80,8 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
     stickMenu.subscribe(buttonUp);
     stickMenu.init();
 
-    document.addEventListener('scroll', function () {
-        stickMenu.updateHeaderMenuPos();
+    $('#top-menu .dropdown-menu').on('show.bs.dropdown', function () {
+        var $width = 0;
+        $( ".dropdown-submenu" ).each(function( index ) {
+            if (index < 4)
+                $width += $(this).width();
+
+        });
+        $(this).css("width", $width + "px");
+        $(this).dropdown('update')
     });
 });
 

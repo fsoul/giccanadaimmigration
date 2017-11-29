@@ -10727,8 +10727,15 @@ document.addEventListener('DOMContentLoaded', function () {
     stickMenu.subscribe(buttonUp);
     stickMenu.init();
 
-    document.addEventListener('scroll', function () {
-        stickMenu.updateHeaderMenuPos();
+    $('#top-menu .dropdown-menu').on('show.bs.dropdown', function () {
+        var $width = 0;
+        $( ".dropdown-submenu" ).each(function( index ) {
+            if (index < 4)
+                $width += $(this).width();
+
+        });
+        $(this).css("width", $width + "px");
+        $(this).dropdown('update')
     });
 });
 
@@ -10743,12 +10750,13 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
-
-
 __webpack_require__(40);
 
+
+__webpack_require__(41);
+
 module.exports = {
-    func: __webpack_require__(41)
+    func: __webpack_require__(42)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -32365,6 +32373,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
