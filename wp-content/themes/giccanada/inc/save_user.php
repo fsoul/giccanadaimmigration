@@ -164,14 +164,16 @@ function save_user_partner_info( $user_id, $form ) {
 		$date_to = format_date( $item['ass-company-to-y'], $item['ass-company-to-m'], '1' ) ;
 
 		$data = [
-			'uw_user_id' => $user_id,
-			'uw_company_name' => $item['member-last-name'],
-			'uw_company_country' => $item['member-first-name'],
-			'uw_company_position' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
+			'upi_user_id' => $user_id,
+			'upi_last_name' => $item['member-last-name'],
+			'upi_first_name' => $item['member-first-name'],
+			'upi_birthday' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
 			'uw_company_from' => $date_from,
 			'uw_company_to' => $date_to,
 			'uw_company_requirement' => $item['company-requirement']
 		];
+
+
 		insert_into( 'wp_user_work', $data );
 	}
 }
