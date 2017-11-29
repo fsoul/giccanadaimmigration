@@ -96,6 +96,7 @@ require('./scss/reviews.scss');
 require('./scss/news.scss');
 require('./scss/footer.scss');
 require('./scss/assessment-form.scss');
+require('./scss/posts-content.scss');
 
 
 require('./scss/media-query.scss');
