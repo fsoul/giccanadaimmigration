@@ -43,12 +43,12 @@
         <div>
             <input type="checkbox" onchange="app.func.onLicenseChange();" value="yes" id="ass-licence-cb" name="is-agree"
                    required data-role="checkbox"/>
-            <label for="ass-licence-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link popmake-131">Условия использования</a></span></label>
+            <label for="ass-licence-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link terms-modal">Условия использования</a></span></label>
         </div>
         <div>
             <input type="checkbox" onchange="app.func.onLicenseChange();" value="yes" id="ass-user-agreement-cb" name="is-agree"
                    required data-role="checkbox"/>
-            <label for="ass-user-agreement-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link popmake-126">Пользовательское соглашение и политика конфиденциальности</a></span></span></label>
+            <label for="ass-user-agreement-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link agreement-modal">Пользовательское соглашение и политика конфиденциальности</a></span></span></label>
         </div>
     </section>
 </section>
