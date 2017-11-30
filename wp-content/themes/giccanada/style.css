@@ -10846,6 +10846,10 @@ html, body {
   #footer .footer-bottom .terms-modal,
   #footer .footer-bottom .agreement-modal {
     text-decoration-line: underline; }
+    #footer .footer-bottom .terms-modal:active, #footer .footer-bottom .terms-modal:focus,
+    #footer .footer-bottom .agreement-modal:active,
+    #footer .footer-bottom .agreement-modal:focus {
+      outline: none; }
   #footer .terms-modal {
     line-height: 50px;
     text-align: center; }

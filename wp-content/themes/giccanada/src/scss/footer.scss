@@ -15,6 +15,10 @@ $image-dir: '../images/';
     .terms-modal,
     .agreement-modal {
       text-decoration-line: underline;
+
+      &:active, &:focus {
+        outline: none;
+      }
     }
   }
 
