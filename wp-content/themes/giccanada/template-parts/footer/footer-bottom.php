@@ -23,7 +23,3 @@
 		</div>
 	</div>
 </div>
-<?php dynamic_sidebar( 'contact-sidebar' ); ?>
-<?php get_template_part( 'template-parts/footer/fixed-right-panel'); ?>
-<?php get_template_part( 'template-parts/footer/mobile-btn-up'); ?>
-<?php get_template_part( 'template-parts/assessment-form/layout'); ?>

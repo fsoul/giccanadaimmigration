@@ -10843,6 +10843,12 @@ html, body {
   left: 0;
   bottom: 0;
   width: 100%; }
+  #footer .footer-bottom .terms-modal,
+  #footer .footer-bottom .agreement-modal {
+    text-decoration-line: underline; }
+  #footer .terms-modal {
+    line-height: 50px;
+    text-align: center; }
 
 .footer-text {
   line-height: 30px;
@@ -10882,14 +10888,6 @@ html, body {
 .footer-site-map {
   text-decoration-line: underline;
   padding: 0; }
-
-.terms-modal,
-.agreement-modal {
-  text-decoration-line: underline; }
-
-.terms-modal {
-  line-height: 50px;
-  text-align: center; }
 
 .footer-contact-item {
   padding: 8px 0; }

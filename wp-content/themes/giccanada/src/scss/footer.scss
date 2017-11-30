@@ -9,6 +9,19 @@ $image-dir: '../images/';
   left: 0;
   bottom: 0;
   width: 100%;
+
+
+  .footer-bottom {
+    .terms-modal,
+    .agreement-modal {
+      text-decoration-line: underline;
+    }
+  }
+
+  .terms-modal {
+    line-height: 50px;
+    text-align: center;
+  }
 }
 
 .footer-text {
@@ -61,16 +74,6 @@ $image-dir: '../images/';
 {
   text-decoration-line: underline;
   padding: 0;
-}
-
-.terms-modal,
-.agreement-modal {
-  text-decoration-line: underline;
-}
-
-.terms-modal {
-  line-height: 50px;
-  text-align: center;
 }
 
 .footer-contact-item {
