@@ -2,7 +2,8 @@
     <label>Способ оплаты</label>
     <input type="hidden" id="ass-payment-type-hidden" value="tc">
     <section>
-        <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required data-role="radio"
+        <input name="ass-payment-type" class="ass-radio" value="tc" type="radio" id="ass-target-card" required
+               data-role="radio"
                data-hidden="ass-payment-type-hidden" checked>
         <label for="ass-target-card" onclick="app.func.paymentMethodClick(event);">Платежная карта
             <span class="payment-type-logo"><span id="visa-logo"></span><span id="master-logo"></span><span
@@ -34,14 +35,20 @@
             </section>
         </div>
     </section>
-       <section class="ass-licence">
+    <section class="ass-licence">
         <p>
             После оплаты за открытие иммиграционного файла, Ваше дело будет изучено специалистами нашей компании, и <b>в
                 течении 3 рабочих дней</b> вы получите контракт на подходящую для вас иммиграционную программу.
         </p>
         <div>
-            <input type="checkbox" onchange="app.func.onLicenseChange();" value="y" id="ass-licence-cb" name="is-agree" required checked data-role="checkbox"/>
-            <label for="ass-licence-cb"><span>Я прочитал и принимаю условия <a href="#" class="ass-licence-link">Пользовательского соглашения</a>.</span></label>
+            <input type="checkbox" onchange="app.func.onLicenseChange();" value="yes" id="ass-licence-cb" name="is-agree"
+                   required data-role="checkbox"/>
+            <label for="ass-licence-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link popmake-131">Условия использования</a></span></label>
+        </div>
+        <div>
+            <input type="checkbox" onchange="app.func.onLicenseChange();" value="yes" id="ass-user-agreement-cb" name="is-agree"
+                   required data-role="checkbox"/>
+            <label for="ass-user-agreement-cb"><span>Я прочитал и принимаю <a href="javascript:void(0);" class="ass-licence-link popmake-126">Пользовательское соглашение и политика конфиденциальности</a></span></span></label>
         </div>
     </section>
 </section>
