@@ -1,6 +1,9 @@
 $image-dir: '../images/';
 
 #footer {
+  padding: 8px 0 145px 0;
+  height: 803px;
+
   .footer-wrapper {
 
     padding-left: 0;
@@ -65,19 +68,20 @@ $image-dir: '../images/';
 
   }
 
-  .footer-site-map {
-    font-size: 1em;
-    float: right;
-    padding: 0;
-  }
-  //
-  //#footer-socials,
-  //#footer-map {
-  //  max-width: 47%;
-  //}
-
-
   #footer-info {
     flex-wrap: wrap;
+  }
+
+  .footer-bottom {
+    .terms-modal,
+    .agreement-modal {
+      text-decoration-line: underline;
+      padding-bottom: 10px;
+    }
+  }
+
+  .terms-modal {
+    line-height: 24px;
+    text-align: left;
   }
 }

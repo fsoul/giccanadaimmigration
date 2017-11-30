@@ -1,7 +1,8 @@
 $image-dir: '../images/';
 
 #footer {
-  height: 713px;
+  padding: 8px 0 145px 0;
+  height: 803px;
 
   .footer-wrapper {
 
@@ -67,5 +68,18 @@ $image-dir: '../images/';
 
   #footer-info {
     flex-wrap: wrap;
+  }
+
+  .footer-bottom {
+    .terms-modal,
+    .agreement-modal {
+      text-decoration-line: underline;
+      padding-bottom: 10px;
+    }
+  }
+
+  .terms-modal {
+    line-height: 24px;
+    text-align: left;
   }
 }
