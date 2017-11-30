@@ -4,8 +4,10 @@ $image-dir: '../images/';
 @media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
 
   .wrapper {
+    position: relative;
+    min-height: 100%;
     .wrapper-content {
-      padding-bottom:  713px;
+      padding-bottom: 803px;
     }
   }
 

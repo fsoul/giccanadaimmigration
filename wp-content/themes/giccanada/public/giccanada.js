@@ -32550,8 +32550,9 @@ var onFileDelRadioClick = function (e) {
 function onLicenseChange() {
     var form = document.getElementById('assessment-form');
     var finish = form.querySelector(".actions a[href='#finish']");
-    var cb = document.getElementById('ass-licence-cb');
-    (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
+    var l_cb = document.getElementById('ass-licence-cb');
+    var u_cb = document.getElementById('ass-user-agreement-cb');
+    l_cb.checked && u_cb.checked ? finish.style.display = 'block' : finish.style.display = 'none';
 }
 
 function setRequire(input, isRequire) {

@@ -9,6 +9,23 @@ $image-dir: '../images/';
   left: 0;
   bottom: 0;
   width: 100%;
+
+
+  .footer-bottom {
+    .terms-modal,
+    .agreement-modal {
+      text-decoration-line: underline;
+
+      &:active, &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .terms-modal {
+    line-height: 50px;
+    text-align: center;
+  }
 }
 
 .footer-text {
@@ -57,7 +74,8 @@ $image-dir: '../images/';
 }
 
 .footer-nav-item,
-.footer-site-map {
+.footer-site-map
+{
   text-decoration-line: underline;
   padding: 0;
 }
@@ -86,14 +104,6 @@ $image-dir: '../images/';
 .footer-address {
   line-height: 20px;
   margin: 0;
-}
-
-.footer-socials {
-  width: 300px;
-}
-
-.footer-site-map {
-  padding-left: 45px;
 }
 
 /*images------------*/
