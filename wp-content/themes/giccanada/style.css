@@ -12263,7 +12263,9 @@ html, body {
       margin-top: .5em; } }
   @media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-width: 480px) {
     #assessment-modal .modal-body .wizard > .steps > ul > li {
-      width: 100%; } }
+      width: 100%; }
+    #assessment-modal .modal-body .ass-licence label {
+      min-height: 24px; } }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
   .posts-content {
