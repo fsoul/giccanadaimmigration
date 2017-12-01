@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
     stickMenu.init();
 
     var $test = $('#menu-item-17');
-
     $test.on('shown.bs.dropdown', function () {
         var width = 0;
         var $dropdownMenu = $(this).find('.dropdown-menu');
@@ -90,8 +89,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 width += $(value).width();
 
         });
+        var $menu = $(this);
+
+        function menuResize() {
+            $menu.find('.dropdown-toggle').dropdown('update');
+
+            requestAnimationFrame(menuResize);
+        }
+
         $dropdownMenu.css("width", Math.round(width) + "px");
-        $(this).find('.dropdown-toggle').dropdown('update');
+
+        requestAnimationFrame(menuResize);
     });
 });
 
