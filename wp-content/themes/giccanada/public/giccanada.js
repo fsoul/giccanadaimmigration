@@ -30333,7 +30333,7 @@ StickyMenu.prototype.init = function () {
                 if (index < 4)
                     width += $(value).width();
                 else {
-                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 15); //15 padding right
+                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 30); //15 padding right
                 }
             });
 
@@ -30344,7 +30344,7 @@ StickyMenu.prototype.init = function () {
                 requestAnimationFrame(menuResize);
             }
 
-            $dropdownMenu.width(Math.round(width + 100)); //20 padding right
+            $dropdownMenu.width(Math.round(width + 150)); //padding right
 
             requestAnimationFrame(menuResize);
         });
