@@ -1,7 +1,7 @@
 <section>
     <label for="ass-future-province">Провинция в Канаде</label>
     <select id="ass-future-province" class="ass-province" required name="ass-future-province" data-role="select"
-            onchange="app.func.onProvinceChanged(this.value, 'ass-rel-city');">
+            onchange="app.func.onProvinceChanged(this.value, 'ass-future-city');">
         <option value="" disabled selected>Выберите провинцию</option>
 	    <?= getProvinceOptions();?>
     </select>

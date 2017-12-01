@@ -19,7 +19,7 @@ class Top_Menu_Walker_Nav extends Walker_Nav_Menu {
 					$item_html = str_replace( '<a', '<a class="dropdown-toggle" data-toggle="dropdown"', $item_html );
 					break;
 				case 1:
-					$item_html = str_replace( '<a href="#">', '<a href="javascript:void(0);" class="dropdown-submenu-header">', $item_html );
+					$item_html = str_replace( '<a', '<a class="dropdown-submenu-header"', $item_html );
 					break;
 			}
 		}

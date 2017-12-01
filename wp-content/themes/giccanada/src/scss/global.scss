@@ -32,10 +32,11 @@ $image-dir: '../images/';
   outline: none;
 }
 
-body {
+html, body {
   font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: normal;
+  height: 100%;
 }
 
 .orange-btn {
@@ -236,4 +237,12 @@ body {
 
 .invalid-input {
   @include invalid-input;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+  .wrapper-content {
+    padding-bottom:  372px;
+  }
 }

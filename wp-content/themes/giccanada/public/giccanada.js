@@ -10654,7 +10654,8 @@ __webpack_require__(9);
 __webpack_require__(10);
 __webpack_require__(12);
 
-var StickyMenu = __webpack_require__(16);
+var StickyMenu = __webpack_require__(16),
+    stickMenu = new StickyMenu();
 var listeners = __webpack_require__(17),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
@@ -10721,18 +10722,14 @@ document.addEventListener('DOMContentLoaded', function () {
     __webpack_require__(27);
     __webpack_require__(28);
 
-    var sMenu = document.getElementById('menu-container');
-    if (sMenu) {
-        var stickMenu = new StickyMenu(sMenu);
-        stickMenu.subscribe(menuLogo);
-        stickMenu.subscribe(menuPhoneBlock);
-        stickMenu.subscribe(buttonUp);
-        stickMenu.init();
+    stickMenu.subscribe(menuLogo);
+    stickMenu.subscribe(menuPhoneBlock);
+    stickMenu.subscribe(buttonUp);
+    stickMenu.init();
 
-        document.addEventListener('scroll', function () {
-            stickMenu.updateHeaderMenuPos();
-        });
-    }
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
+    });
 });
 
 //css/scss-------------------------------------------
@@ -10746,12 +10743,13 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
-
-
 __webpack_require__(40);
 
+
+__webpack_require__(41);
+
 module.exports = {
-    func: __webpack_require__(41)
+    func: __webpack_require__(42)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30302,28 +30300,55 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 var helper = __webpack_require__(1);
 
-function StickyMenu(header) {
+function StickyMenu() {
     this._stuck = false;
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
-    if (!header)
-        throw new TypeError('Header must not be null!');
-    this._header = header;
-    this._stickPoint = 0;
 }
 
 StickyMenu.prototype.init = function () {
+    this._header = document.getElementById("menu-container");
+    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
     this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
     this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
     this.updateHeaderMenuPos();
+
+    var $topMenu = $('#top-menu');
+    $topMenu.find('li.dropdown').each(function (index, value) {
+        var $dropdown = $(value);
+
+        $dropdown.on('shown.bs.dropdown', function () {
+            var width = 0;
+            var $dropdownMenu = $(this).find('.dropdown-menu');
+
+            $( ".dropdown-submenu" ).each(function( index, value ) {
+                if (index < 4)
+                    width += $(value).width();
+                else {
+                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 30); //15 padding right
+                }
+            });
+
+            var $menu = $(this);
+            function menuResize() {
+                $menu.find('.dropdown-toggle').dropdown('update');
+
+                requestAnimationFrame(menuResize);
+            }
+
+            $dropdownMenu.width(Math.round(width + 150)); //padding right
+
+            requestAnimationFrame(menuResize);
+        });
+    });
 };
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
@@ -30406,6 +30431,7 @@ StickyMenu.prototype.fire = function (eventName, isMobile) {
 
 module.exports = StickyMenu;
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 17 */
@@ -32038,7 +32064,7 @@ var helpers = __webpack_require__(1);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 14,
+                // startIndex: 11,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32370,6 +32396,12 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32541,8 +32573,9 @@ var onFileDelRadioClick = function (e) {
 function onLicenseChange() {
     var form = document.getElementById('assessment-form');
     var finish = form.querySelector(".actions a[href='#finish']");
-    var cb = document.getElementById('ass-licence-cb');
-    (cb.checked) ? finish.style.display = 'block' : finish.style.display = 'none';
+    var l_cb = document.getElementById('ass-licence-cb');
+    var u_cb = document.getElementById('ass-user-agreement-cb');
+    l_cb.checked && u_cb.checked ? finish.style.display = 'block' : finish.style.display = 'none';
 }
 
 function setRequire(input, isRequire) {

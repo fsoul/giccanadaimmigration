@@ -2,6 +2,15 @@ $image-dir: '../images/';
 
 /* Portrait and Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
+
+  .wrapper {
+    position: relative;
+    min-height: 100%;
+    .wrapper-content {
+      padding-bottom: 803px;
+    }
+  }
+
   .fixed-right-panel {
     position: fixed;
     width: 192px;
@@ -281,4 +290,5 @@ $image-dir: '../images/';
   }
 
   @import "assessment-form";
+  @import "posts-content";
 }

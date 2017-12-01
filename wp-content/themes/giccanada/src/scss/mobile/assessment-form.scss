@@ -238,13 +238,6 @@ $image-dir: '../images/';
             }
           }
         }
-
-        &.-step17 {
-          .ass-licence {
-            padding-bottom: 20px;
-
-          }
-        }
       }
     }
 
@@ -448,6 +441,12 @@ $image-dir: '../images/';
     @media(max-width: 480px) {
       .wizard > .steps > ul > li {
         width: 100%
+      }
+
+      .ass-licence {
+        label {
+          min-height: 24px;
+        }
       }
     }
   }

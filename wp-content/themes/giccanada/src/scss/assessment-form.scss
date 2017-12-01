@@ -755,7 +755,7 @@ $image-dir: '../images/';
           }
 
           .ass-licence {
-            padding-top: 20px;
+            padding: 20px 0;
 
             input[type=checkbox] {
               position: absolute;
@@ -1023,6 +1023,10 @@ $image-dir: '../images/';
         transform: translateY(4px);
         text-decoration: none;
       }
+    }
+
+    .wizard > .actions a[href='#finish'] {
+      display: none;
     }
 
     .wizard > .actions a[href='#previous'] {

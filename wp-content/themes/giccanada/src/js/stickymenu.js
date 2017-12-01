@@ -20,6 +20,35 @@ StickyMenu.prototype.init = function () {
     this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
     this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
     this.updateHeaderMenuPos();
+
+    var $topMenu = $('#top-menu');
+    $topMenu.find('li.dropdown').each(function (index, value) {
+        var $dropdown = $(value);
+
+        $dropdown.on('shown.bs.dropdown', function () {
+            var width = 0;
+            var $dropdownMenu = $(this).find('.dropdown-menu');
+
+            $( ".dropdown-submenu" ).each(function( index, value ) {
+                if (index < 4)
+                    width += $(value).width();
+                else {
+                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 30); //15 padding right
+                }
+            });
+
+            var $menu = $(this);
+            function menuResize() {
+                $menu.find('.dropdown-toggle').dropdown('update');
+
+                requestAnimationFrame(menuResize);
+            }
+
+            $dropdownMenu.width(Math.round(width + 150)); //padding right
+
+            requestAnimationFrame(menuResize);
+        });
+    });
 };
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
