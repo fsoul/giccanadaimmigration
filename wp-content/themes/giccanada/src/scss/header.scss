@@ -188,6 +188,10 @@ $image-dir: '../images/';
           padding-right: 0;
         }
 
+        &:nth-child(n+5) {
+          padding-top: 20px;
+        }
+
         .dropdown-submenu-header {
           height: 24px;
           line-height: 24px;

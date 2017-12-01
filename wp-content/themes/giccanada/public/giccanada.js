@@ -10727,26 +10727,8 @@ document.addEventListener('DOMContentLoaded', function () {
     stickMenu.subscribe(buttonUp);
     stickMenu.init();
 
-    var $test = $('#menu-item-17');
-    $test.on('shown.bs.dropdown', function () {
-        var width = 0;
-        var $dropdownMenu = $(this).find('.dropdown-menu');
-        $( ".dropdown-submenu" ).each(function( index, value ) {
-            if (index < 5)
-                width += $(value).width();
-
-        });
-        var $menu = $(this);
-
-        function menuResize() {
-            $menu.find('.dropdown-toggle').dropdown('update');
-
-            requestAnimationFrame(menuResize);
-        }
-
-        $dropdownMenu.css("width", Math.round(width) + "px");
-
-        requestAnimationFrame(menuResize);
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
     });
 });
 
@@ -30318,7 +30300,7 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 var helper = __webpack_require__(1);
 
@@ -30338,6 +30320,35 @@ StickyMenu.prototype.init = function () {
     this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
     this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
     this.updateHeaderMenuPos();
+
+    var $topMenu = $('#top-menu');
+    $topMenu.find('li.dropdown').each(function (index, value) {
+        var $dropdown = $(value);
+
+        $dropdown.on('shown.bs.dropdown', function () {
+            var width = 0;
+            var $dropdownMenu = $(this).find('.dropdown-menu');
+
+            $( ".dropdown-submenu" ).each(function( index, value ) {
+                if (index < 4)
+                    width += $(value).width();
+                else {
+                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 15); //15 padding right
+                }
+            });
+
+            var $menu = $(this);
+            function menuResize() {
+                $menu.find('.dropdown-toggle').dropdown('update');
+
+                requestAnimationFrame(menuResize);
+            }
+
+            $dropdownMenu.width(Math.round(width + 100)); //20 padding right
+
+            requestAnimationFrame(menuResize);
+        });
+    });
 };
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
@@ -30420,6 +30431,7 @@ StickyMenu.prototype.fire = function (eventName, isMobile) {
 
 module.exports = StickyMenu;
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 17 */

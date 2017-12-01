@@ -80,26 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
     stickMenu.subscribe(buttonUp);
     stickMenu.init();
 
-    var $test = $('#menu-item-17');
-    $test.on('shown.bs.dropdown', function () {
-        var width = 0;
-        var $dropdownMenu = $(this).find('.dropdown-menu');
-        $( ".dropdown-submenu" ).each(function( index, value ) {
-            if (index < 5)
-                width += $(value).width();
-
-        });
-        var $menu = $(this);
-
-        function menuResize() {
-            $menu.find('.dropdown-toggle').dropdown('update');
-
-            requestAnimationFrame(menuResize);
-        }
-
-        $dropdownMenu.css("width", Math.round(width) + "px");
-
-        requestAnimationFrame(menuResize);
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
     });
 });
 
