@@ -1,14 +1,9 @@
 <?php ?>
 <div class="container-fluid">
 	<div class="row align-items-center no-gutters footer-bottom">
-		<div class="col-6 col-sm-2 col-md-2" id="footer-socials">
-			<!--footer-socials-->
-			<div class="row flex-nowrap">
-                <a href="#" class="col-2"><i class="fa fa-vk tb-menu-logo"></i></a>
-                <a href="#" class="col-2"><i class="fa fa fa-facebook tb-menu-logo"></i></a>
-                <a href="#" class="col-2"><i class="fa fa-instagram tb-menu-logo"></i></a>
-			</div>
-		</div>
+        <div class="col-6 col-sm-2 col-md-2" id="footer-socials">
+            <?php dynamic_sidebar( 'bottom-footer' ); ?>
+        </div>
         <div class="col-6 col-sm-2 col-md-1" id="footer-map">
             <a href="#" class="footer-site-map white-link-underline">Карта сайта</a>
         </div>

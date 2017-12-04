@@ -10869,6 +10869,8 @@ html, body {
   #footer .terms-modal {
     line-height: 50px;
     text-align: center; }
+  #footer .widget.widget_black_studio_tinymce {
+    display: block; }
 
 .footer-text {
   line-height: 30px;

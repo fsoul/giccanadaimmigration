@@ -98,4 +98,4 @@ class OpenCaseWidget extends WP_Widget {
 		$instance['phrase'] = ( ! empty( $new_instance['phrase'] ) ) ? strip_tags( $new_instance['phrase'] ) : '';
 		return $instance;
 	}
-} // Class wpb_widget ends here
+}

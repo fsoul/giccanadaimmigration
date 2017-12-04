@@ -23,6 +23,30 @@ function register_wp_sidebars() {
 			'description' => 'Fixed widgets'// описание
 		)
 	);
+	/* В боковой колонке - первый сайдбар */
+	register_sidebar(
+		array(
+			'id' => 'footer-contacts',
+			'name' => __( 'Footer contacts', 'giccanada' ),
+			'description' => __( 'Contacts in the footer area', 'giccanada' )// описание
+		)
+	);
+
+	register_sidebar(
+		array(
+			'id' => 'footer-addresses',
+			'name' => __( 'Footer addresses', 'giccanada' ),
+			'description' => __( 'Addresses in the footer area', 'giccanada' )// описание
+		)
+	);
+
+	register_sidebar(
+		array(
+			'id' => 'bottom-footer',
+			'name' => __( 'Footer bottom', 'giccanada' ),
+			'description' => __( 'Footer bottom area', 'giccanada' )// описание
+		)
+	);
 }
 
 add_action( 'widgets_init', 'register_wp_sidebars' );
