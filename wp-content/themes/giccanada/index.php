@@ -49,7 +49,7 @@
             </div>
 	    <?php else: ?>
             <div class="container" id="programms"> <!--programms-->
-			    <?php get_template_part( 'template-parts/programms/programms' ); ?>
+			    <?php get_template_part( 'template-parts/programms' ); ?>
             </div> <!--programms end-->
             <div class="container-fluid" id="academy-container"><!--academy-->
 			    <?php get_template_part( 'template-parts/academy/academy' ); ?>

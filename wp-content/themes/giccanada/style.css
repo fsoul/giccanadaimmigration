@@ -10405,94 +10405,104 @@ html, body {
 /*menu slider end ------------------------------*/
 .header-mobile-content {
   display: none; }
+#et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post {
+  border: none !important; }
+  #et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post .entry-title, #et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post .post-content {
+    position: relative;
+    left: -19px; }
+  #et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post .post-content a.more-link {
+    height: 24px;
+    max-width: 120px;
+    line-height: 24px !important;
+    font-size: 1em;
+    text-decoration-line: underline !important;
+    color: #FF9500 !important;
+    margin-top: 20px;
+    background: url(./public/images/arrow-81bf20bc49.png) no-repeat right center;
+    background-size: 18px 12px; }
+    #et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post .post-content a.more-link:hover {
+      color: #FF9500; }
+
+#et_builder_outer_content #programms-row .orange-btn:hover {
+  padding: 10px 20px 6px 20px !important; }
+
+#et_builder_outer_content #programms-row .orange-btn::after {
+  display: none !important; }
+
 #programms {
-  padding: 0 0 40px 0; }
+  padding: 0 0 40px 0;
+  /*programms*/
+  /*images---------------------------------*/ }
   #programms .orange-btn {
     display: none; }
-
-/*programms*/
-.programms-desktop-content {
-  padding-bottom: 40px; }
-
-.programms-mobile-content {
-  display: none; }
-
-.programms-caption {
-  width: 807px;
-  height: 56px;
-  text-align: center;
-  line-height: 56px;
-  font-size: 3em;
-  letter-spacing: 0.42px;
-  text-transform: uppercase;
-  color: #FF8200;
-  margin-top: 80px; }
-
-.programms-grid-item {
-  height: 444px;
-  margin-top: 60px; }
-
-.programms-gi-image {
-  width: 370px;
-  height: 220px; }
-
-.programms-gi-caption {
-  height: 30px;
-  line-height: 30px;
-  font-size: 1.5em;
-  color: #0076FF;
-  text-decoration: none;
-  padding: 0;
-  margin-top: 20px; }
-  .programms-gi-caption:visited, .programms-gi-caption:link, .programms-gi-caption:hover {
+  #programms .programms-desktop-content {
+    padding-bottom: 40px; }
+  #programms .programms-mobile-content {
+    display: none; }
+  #programms .programms-caption {
+    width: 807px;
+    height: 56px;
+    text-align: center;
+    line-height: 56px;
+    font-size: 3em;
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+    color: #FF8200;
+    margin-top: 80px; }
+  #programms .programms-grid-item {
+    height: 444px;
+    margin-top: 60px; }
+  #programms .programms-gi-image {
+    width: 370px;
+    height: 220px; }
+  #programms .programms-gi-caption {
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.5em;
+    color: #0076FF;
     text-decoration: none;
-    color: #0076FF; }
-
-.programms-gi-text {
-  line-height: 24px;
-  font-size: 1em;
-  color: #00003A;
-  padding: 0;
-  margin-top: 10px; }
-
-.programms-gi-link {
-  height: 24px;
-  min-width: 120px;
-  line-height: 24px;
-  font-size: 1em;
-  text-decoration-line: underline;
-  color: #FF9500;
-  margin-top: 20px;
-  padding: 0;
-  background: url(./public/images/arrow-81bf20bc49.png) no-repeat right center;
-  background-size: 18px 12px; }
-  .programms-gi-link:hover {
-    color: #FF9500; }
-
-/*images---------------------------------*/
-#programms-pic1 {
-  background: url(./public/images/1-f30c028dd5.png) no-repeat left center;
-  background-size: contain; }
-
-#programms-pic2 {
-  background: url(./public/images/2-4af33da74e.png) no-repeat left center;
-  background-size: contain; }
-
-#programms-pic3 {
-  background: url(./public/images/3-763ce1702f.png) no-repeat left center;
-  background-size: contain; }
-
-#programms-pic4 {
-  background: url(./public/images/4-47d913ce56.png) no-repeat left center;
-  background-size: contain; }
-
-#programms-pic5 {
-  background: url(./public/images/5-0a5f25e7ff.png) no-repeat left center;
-  background-size: contain; }
-
-#programms-pic6 {
-  background: url(./public/images/6-5c5e01e62b.png) no-repeat center;
-  background-size: contain; }
+    padding: 0;
+    margin-top: 20px; }
+    #programms .programms-gi-caption:visited, #programms .programms-gi-caption:link, #programms .programms-gi-caption:hover {
+      text-decoration: none;
+      color: #0076FF; }
+  #programms .programms-gi-text {
+    line-height: 24px;
+    font-size: 1em;
+    color: #00003A;
+    padding: 0;
+    margin-top: 10px; }
+  #programms .programms-gi-link {
+    height: 24px;
+    min-width: 120px;
+    line-height: 24px;
+    font-size: 1em;
+    text-decoration-line: underline;
+    color: #FF9500;
+    margin-top: 20px;
+    padding: 0;
+    background: url(./public/images/arrow-81bf20bc49.png) no-repeat right center;
+    background-size: 18px 12px; }
+    #programms .programms-gi-link:hover {
+      color: #FF9500; }
+  #programms #programms-pic1 {
+    background: url(./public/images/1-f30c028dd5.png) no-repeat left center;
+    background-size: contain; }
+  #programms #programms-pic2 {
+    background: url(./public/images/2-4af33da74e.png) no-repeat left center;
+    background-size: contain; }
+  #programms #programms-pic3 {
+    background: url(./public/images/3-763ce1702f.png) no-repeat left center;
+    background-size: contain; }
+  #programms #programms-pic4 {
+    background: url(./public/images/4-47d913ce56.png) no-repeat left center;
+    background-size: contain; }
+  #programms #programms-pic5 {
+    background: url(./public/images/5-0a5f25e7ff.png) no-repeat left center;
+    background-size: contain; }
+  #programms #programms-pic6 {
+    background: url(./public/images/6-5c5e01e62b.png) no-repeat center;
+    background-size: contain; }
 
 /*images end-----------------------------*/
 /*programms end -------------------------------------*/
