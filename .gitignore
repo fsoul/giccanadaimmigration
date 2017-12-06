@@ -12,3 +12,4 @@ wp-content/wp-cache-config.php
 wp-content/themes/giccanada/public/uploads/*
 wp-content/themes/giccanada/public/pdf
 !wp-content/themes/giccanada/src/js/vendor
+/wp-content/uploads/*
