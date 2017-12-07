@@ -10669,25 +10669,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dots: true,
         items: 1
     });
-
-    $("#academy-carousel").owlCarousel({
-        autoPlay: true,
-        dots: true,
-        loop: true,
-        margin: 15,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
-
+    
     $("#reviews-carousel").owlCarousel({
         autoPlay: true,
         dots: true,
@@ -10743,13 +10725,11 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
+
 __webpack_require__(40);
 
-
-__webpack_require__(41);
-
 module.exports = {
-    func: __webpack_require__(42)
+    func: __webpack_require__(41)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -32396,12 +32376,6 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

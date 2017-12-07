@@ -22,25 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dots: true,
         items: 1
     });
-
-    $("#academy-carousel").owlCarousel({
-        autoPlay: true,
-        dots: true,
-        loop: true,
-        margin: 15,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
-
+    
     $("#reviews-carousel").owlCarousel({
         autoPlay: true,
         dots: true,
@@ -90,14 +72,12 @@ require('./scss/global.scss');
 require('./scss/header.scss');
 require('./scss/programms.scss');
 require('./scss/academy.scss');
-require('./scss/common-info.scss');
 require('./scss/process.scss');
 require('./scss/reviews.scss');
 require('./scss/news.scss');
 require('./scss/footer.scss');
 require('./scss/assessment-form.scss');
 require('./scss/posts-content.scss');
-
 
 require('./scss/media-query.scss');
 

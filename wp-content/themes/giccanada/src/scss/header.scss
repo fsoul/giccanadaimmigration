@@ -235,77 +235,130 @@ $image-dir: '../images/';
 
 /*menu slider*/
 
-.carousel-div {
-  padding: 0;
+#header-slider-row {
 
-  #header-carousel {
+  .carousel-div {
+    padding: 0;
 
-    .item {
-      padding-top: 200px;
-      padding-bottom: 180px;
+    #header-carousel {
+
+      .item {
+        padding-top: 200px;
+        padding-bottom: 180px;
+
+        .hs-item {
+          width: 570px;
+          margin: 0 auto;
+
+          .hs-caption, .hs-content,
+          .hs-item-button {
+            color: #fff;
+            text-align: center;
+          }
+
+          .hs-caption {
+            font-size: 4.5em;
+            line-height: 80px;
+            text-transform: uppercase;
+            letter-spacing: .75px;
+          }
+
+          .hs-content {
+            line-height: 32px;
+            font-size: 1.5em;
+          }
+
+
+          .orange-btn {
+            color: #fff;
+            text-align: center;
+            font-size: 1em;
+            text-transform: uppercase;
+            background: linear-gradient(82.05deg, #FF8200 54.81%, #FF3400 190%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 28px;
+            line-height: 56px;
+            margin-bottom: 10px;
+            cursor: pointer;
+
+            &:hover {
+              background: #fff;
+              border: 2px solid #FF6200;
+              color: #FF8200;
+              text-decoration: none;
+            }
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .hs-item-button {
+            width: 370px;
+            height: 56px;
+            margin-top: 40px;
+
+            &:visited, &:link {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      .owl-nav.disabled + .owl-dots {
+        margin-top: 10px;
+        padding-top: 30px;
+      }
+
+      .owl-dots {
+        position: relative;
+        top: -70px;
+        text-align: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .owl-dots .owl-dot {
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+      }
+      .owl-dots .owl-dot span {
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        background: #D6D6D6;
+        display: block;
+        -webkit-backface-visibility: visible;
+        transition: opacity 200ms ease;
+        border-radius: 30px;
+      }
+      .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+        background: #D6D6D6;
+      }
     }
 
-    .owl-dots {
+    .hs-indicators {
       position: relative;
-      top: -70px;
+      top: -60px;
+    }
+
+    #hs-sl1 {
+      background: url($image-dir + "header/Hero-image_1.jpg") no-repeat;
+      background-size: cover;
+    }
+
+    #hs-sl2 {
+      background: url($image-dir + "header/Hero-image_2.jpg") no-repeat;
+      background-size: cover;
+    }
+
+    #hs-sl3 {
+      background: url($image-dir + "header/Hero-image_3.jpg") no-repeat;
+      background-size: cover;
     }
   }
-}
+  /*menu slider end ------------------------------*/
 
-.hs-item {
-  width: 570px;
-}
-
-.hs-caption, .hs-content,
-.hs-item-button {
-  color: #fff;
-  text-align: center;
-}
-
-.hs-caption {
-  font-size: 4.5em;
-  line-height: 80px;
-  text-transform: uppercase;
-  letter-spacing: .75px;
-}
-
-.hs-content {
-  line-height: 32px;
-  font-size: 1.5em;
-}
-
-.hs-item-button {
-  width: 370px;
-  height: 56px;
-  margin-top: 40px;
-
-  &:visited, &:link {
-    text-decoration: none;
+  .header-mobile-content {
+    display: none;
   }
-}
-
-.hs-indicators {
-  position: relative;
-  top: -60px;
-}
-
-#hs-sl1 {
-  background: url($image-dir + "header/Hero-image_1.jpg") no-repeat;
-  background-size: cover;
-}
-
-#hs-sl2 {
-  background: url($image-dir + "header/Hero-image_2.jpg") no-repeat;
-  background-size: cover;
-}
-
-#hs-sl3 {
-  background: url($image-dir + "header/Hero-image_3.jpg") no-repeat;
-  background-size: cover;
-}
-
-/*menu slider end ------------------------------*/
-
-.header-mobile-content {
-  display: none;
 }

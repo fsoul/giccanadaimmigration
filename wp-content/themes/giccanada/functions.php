@@ -122,3 +122,14 @@ function shortcode_reviews_slider( $atts  ) {
 }
 
 add_shortcode( 'reviews_slider', 'shortcode_reviews_slider' );
+
+function shortcode_header_slider( $atts  ) {
+	ob_start();
+	require_once( get_template_directory() . '/template-parts/header/header-slider.php' );
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	return $html;
+}
+
+add_shortcode( 'header_slider', 'shortcode_header_slider' );
