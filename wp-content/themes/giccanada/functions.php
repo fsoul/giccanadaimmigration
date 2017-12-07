@@ -111,3 +111,14 @@ register_nav_menus( array(
 	'mobile-top' => __( 'Mobile Top Menu', 'gicanada' ),
 	'footer' => __( 'Footer Menu', 'gicanada' )
 ) );
+
+function shortcode_reviews_slider( $atts  ) {
+	ob_start();
+	require_once( get_template_directory() . '/template-parts/reviews/reviews-slider.php' );
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	return $html;
+}
+
+add_shortcode( 'reviews_slider', 'shortcode_reviews_slider' );

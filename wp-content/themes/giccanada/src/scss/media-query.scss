@@ -124,21 +124,6 @@ only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5)
     background-size: cover;
   }
 
-  .reviews-pic1 {
-    background: url($image-dir + 'reviews/2x/Review1m.jpg') no-repeat;
-    background-size: cover;
-  }
-
-  .reviews-pic2 {
-    background: url($image-dir + 'reviews/2x/Review2m.jpg') no-repeat;
-    background-size: cover;
-  }
-
-  .reviews-pic3 {
-    background: url($image-dir + 'reviews/2x/Review3m.jpg') no-repeat;
-    background-size: cover;
-  }
-
   .quotes-img {
     background: url($image-dir + 'quote_black@2x.png') no-repeat center;
     background-size: 28px 20px;
