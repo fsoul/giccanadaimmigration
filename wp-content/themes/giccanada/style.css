@@ -10055,7 +10055,10 @@ html, body {
     .fixed-right-panel div .fixed-panel-button {
       width: 72px;
       height: 72px;
-      cursor: pointer; }
+      cursor: pointer;
+      display: block; }
+      .fixed-right-panel div .fixed-panel-button:focus {
+        outline: none; }
     .fixed-right-panel div #contact-form {
       background: url(./public/images/Contact-form-a51db5f995.png) no-repeat center;
       background-size: 32.4px 36px; }
@@ -10450,19 +10453,21 @@ html, body {
     #et_builder_outer_content #programms-row .et_pb_blog_grid .et_pb_post .post-content a.more-link:hover {
       color: #FF9500; }
 
-#et_builder_outer_content #programms-row .orange-btn:hover {
-  padding: 10px 20px 6px 20px !important; }
-
-#et_builder_outer_content #programms-row .orange-btn::after {
-  display: none !important; }
+#et_builder_outer_content #programms-row .orange-btn {
+  padding: 10px 20px !important; }
+  #et_builder_outer_content #programms-row .orange-btn:hover {
+    padding: 10px 20px !important; }
+  #et_builder_outer_content #programms-row .orange-btn::after {
+    display: none !important; }
 
 /*images end-----------------------------*/
 /*programms end -------------------------------------*/
-#et_builder_outer_content #academy-row .orange-btn:hover {
-  padding: 10px 20px 6px 20px !important; }
-
-#et_builder_outer_content #academy-row .orange-btn::after {
-  display: none !important; }
+#et_builder_outer_content #academy-row .orange-btn {
+  padding: 10px 20px !important; }
+  #et_builder_outer_content #academy-row .orange-btn:hover {
+    padding: 10px 20px !important; }
+  #et_builder_outer_content #academy-row .orange-btn::after {
+    display: none !important; }
 /*process ------------------------------------------*/
 #process-row .process-descr {
   line-height: 24px;
@@ -10521,11 +10526,12 @@ html, body {
   margin-top: 60px;
   margin-bottom: 30px; }
 
-#process-row .orange-btn:hover {
-  padding: 10px 20px 6px 20px !important; }
-
-#process-row .orange-btn::after {
-  display: none !important; }
+#process-row #process-orange-btn.orange-btn {
+  padding: 10px 20px !important; }
+  #process-row #process-orange-btn.orange-btn:hover {
+    padding: 10px 20px !important; }
+  #process-row #process-orange-btn.orange-btn::after {
+    display: none !important; }
 
 /*process end----------------------------------------*/
 /*reviews -------------------------------------------*/
@@ -10615,11 +10621,12 @@ html, body {
     #et_builder_outer_content #news-row .et_pb_blog_grid .et_pb_post .post-content a.more-link:hover {
       color: #FF9500; }
 
-#et_builder_outer_content #news-row .orange-btn:hover {
-  padding: 10px 20px 6px 20px !important; }
-
-#et_builder_outer_content #news-row .orange-btn::after {
-  display: none !important; }
+#et_builder_outer_content #news-row .orange-btn {
+  padding: 10px 20px !important; }
+  #et_builder_outer_content #news-row .orange-btn:hover {
+    padding: 10px 20px !important; }
+  #et_builder_outer_content #news-row .orange-btn::after {
+    display: none !important; }
 
 .news-grid > .row {
   justify-content: center;
@@ -10907,7 +10914,7 @@ html, body {
       color: #000; }
     #assessment-modal .modal-body #ass-step-init button {
       font-family: "Lato", sans-serif;
-      width: 290px;
+      width: 270px;
       line-height: 40px;
       margin-top: 15px;
       border: 2px solid transparent; }
@@ -11880,14 +11887,15 @@ html, body {
   #assessment-modal .modal-body {
     padding: 0 7px; }
     #assessment-modal .modal-body .modal-title {
-      font-size: 1.5em;
-      line-height: 30px; }
+      font-size: 1.2em;
+      line-height: 30px;
+      height: 30px; }
     #assessment-modal .modal-body .progress-container {
       text-align: center; }
       #assessment-modal .modal-body .progress-container div.container-fluid {
         padding: 0; }
         #assessment-modal .modal-body .progress-container div.container-fluid h5 {
-          line-height: 48px;
+          line-height: 30px;
           font-size: 1.5em; }
     #assessment-modal .modal-body #ass-step-init p span {
       padding-bottom: 20px; }

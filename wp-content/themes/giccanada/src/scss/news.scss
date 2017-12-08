@@ -50,15 +50,16 @@ $image-dir: '../images/';
     }
 
     .orange-btn {
+      padding: 10px 20px !important;
+
       &:hover {
-        padding: 10px 20px 6px 20px !important;
+        padding: 10px 20px !important;
       }
 
       &::after {
         display: none !important;
       }
     }
-
   }
 }
 
