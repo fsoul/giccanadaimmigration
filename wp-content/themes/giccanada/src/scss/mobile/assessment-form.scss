@@ -24,8 +24,9 @@ $image-dir: '../images/';
     padding: 0 7px;
 
     .modal-title {
-      font-size: 1.5em;
+      font-size: 1.2em;
       line-height: 30px;
+      height: 30px;
     }
 
     .progress-container {
@@ -35,7 +36,7 @@ $image-dir: '../images/';
         padding: 0;
 
         h5 {
-          line-height: 48px;
+          line-height: 30px;
           font-size: 1.5em;
         }
       }

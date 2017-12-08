@@ -1,23 +1,21 @@
-#process {
-  .process-spider-top {
-    max-width: 222px;
-  }
+#process-row  {
+  .process-desktop-content {
+    .process-spider-top {
+      max-width: 222px;
+    }
 
-  .process-spider {
-    background-size: contain;
-    height: 290px;
-  }
+    .process-spider {
+      background-size: contain;
+      height: 290px;
+    }
 
-  .process-text, .process-descr {
-    font-size: .9em;
-    line-height: 20px;
-  }
+    .process-text, .process-descr {
+      font-size: .9em;
+      line-height: 20px;
+    }
 
-  .process-spider-bottom {
-    max-width: 175px;
-  }
-
-  .process-caption {
-
+    .process-spider-bottom {
+      max-width: 175px;
+    }
   }
 }

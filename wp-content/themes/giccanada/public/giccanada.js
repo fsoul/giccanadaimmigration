@@ -10654,7 +10654,8 @@ __webpack_require__(9);
 __webpack_require__(10);
 __webpack_require__(12);
 
-var StickyMenu = __webpack_require__(16);
+var StickyMenu = __webpack_require__(16),
+    stickMenu = new StickyMenu();
 var listeners = __webpack_require__(17),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
@@ -10668,25 +10669,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dots: true,
         items: 1
     });
-
-    $("#academy-carousel").owlCarousel({
-        autoPlay: true,
-        dots: true,
-        loop: true,
-        margin: 15,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
-
+    
     $("#reviews-carousel").owlCarousel({
         autoPlay: true,
         dots: true,
@@ -10721,18 +10704,14 @@ document.addEventListener('DOMContentLoaded', function () {
     __webpack_require__(27);
     __webpack_require__(28);
 
-    var sMenu = document.getElementById('menu-container');
-    if (sMenu) {
-        var stickMenu = new StickyMenu(sMenu);
-        stickMenu.subscribe(menuLogo);
-        stickMenu.subscribe(menuPhoneBlock);
-        stickMenu.subscribe(buttonUp);
-        stickMenu.init();
+    stickMenu.subscribe(menuLogo);
+    stickMenu.subscribe(menuPhoneBlock);
+    stickMenu.subscribe(buttonUp);
+    stickMenu.init();
 
-        document.addEventListener('scroll', function () {
-            stickMenu.updateHeaderMenuPos();
-        });
-    }
+    document.addEventListener('scroll', function () {
+        stickMenu.updateHeaderMenuPos();
+    });
 });
 
 //css/scss-------------------------------------------
@@ -10746,13 +10725,11 @@ __webpack_require__(36);
 __webpack_require__(37);
 __webpack_require__(38);
 __webpack_require__(39);
+
 __webpack_require__(40);
 
-
-__webpack_require__(41);
-
 module.exports = {
-    func: __webpack_require__(42)
+    func: __webpack_require__(41)
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -30307,18 +30284,16 @@ process.umask = function() { return 0; };
 
 var helper = __webpack_require__(1);
 
-function StickyMenu(header) {
+function StickyMenu() {
     this._stuck = false;
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
-    if (!header)
-        throw new TypeError('Header must not be null!');
-    this._header = header;
-    this._stickPoint = 0;
 }
 
 StickyMenu.prototype.init = function () {
+    this._header = document.getElementById("menu-container");
+    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
@@ -32069,7 +32044,7 @@ var helpers = __webpack_require__(1);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                startIndex: 14,
+                // startIndex: 16,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))
@@ -32174,7 +32149,7 @@ var helpers = __webpack_require__(1);
             var form = document.getElementById('assessment-form');
             var finish = form.querySelector(".actions a[href='#finish']");
             finish.style.visibility = 'hidden';
-            $('#assessment-modal').modal('hide');
+            $('.pum-active').find('.popmake-close').click();
             $('#assessment-complete').modal('show');
         };
 
@@ -32401,12 +32376,6 @@ module.exports = ProgressBar;
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

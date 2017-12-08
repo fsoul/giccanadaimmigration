@@ -220,7 +220,7 @@ var helpers = require("./lib/helpers");
             var form = document.getElementById('assessment-form');
             var finish = form.querySelector(".actions a[href='#finish']");
             finish.style.visibility = 'hidden';
-            $('#assessment-modal').modal('hide');
+            $('.pum-active').find('.popmake-close').click();
             $('#assessment-complete').modal('show');
         };
 

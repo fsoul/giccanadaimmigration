@@ -18,34 +18,12 @@
 					) ); ?>
 				</div>
 				<div class="col-sm-7 col-md-5 col-auto footer-item">
-					<div class="row no-gutters footer-contact-item">
-						<a href="#" class="col-auto footer-phone"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">+16475584910</a>
-					</div>
-					<div class="row no-gutters footer-contact-item">
-						<a href="#" class="col-auto footer-fax"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">+16475584910</a>
-					</div>
-					<div class="row no-gutters footer-contact-item">
-						<a href="#" class="col-auto footer-mail"></a>
-						<a href="#" class="col-auto footer-contact-link footer-text white-link-none">cicinfocenter@gmail.com</a>
-					</div>
+					<?php dynamic_sidebar( 'footer-contacts' ); ?>
 				</div>
 			</div>
 		</div>
 		<div class="col-12 col-sm-3">
-			<div class="footer-address-item row no-gutters">
-				<div class="col">
-					<h2 class="footer-address-name footer-text">Киев, Украина</h2>
-					<p class="footer-address footer-text">ул. Антоновича 172, 714а</p>
-				</div>
-			</div>
-			<div class="row no-gutters footer-address-item">
-				<div class="col">
-					<h2 class="footer-address-name footer-text">Aventura, FL 33180, USA</h2>
-					<p class="footer-address footer-text">APT 1410</p>
-				</div>
-			</div>
+			<?php dynamic_sidebar( 'footer-addresses' ); ?>
 		</div>
 	</div>
 </div>

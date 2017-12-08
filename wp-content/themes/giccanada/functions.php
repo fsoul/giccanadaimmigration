@@ -23,6 +23,30 @@ function register_wp_sidebars() {
 			'description' => 'Fixed widgets'// описание
 		)
 	);
+	/* В боковой колонке - первый сайдбар */
+	register_sidebar(
+		array(
+			'id' => 'footer-contacts',
+			'name' => __( 'Footer contacts', 'giccanada' ),
+			'description' => __( 'Contacts in the footer area', 'giccanada' )// описание
+		)
+	);
+
+	register_sidebar(
+		array(
+			'id' => 'footer-addresses',
+			'name' => __( 'Footer addresses', 'giccanada' ),
+			'description' => __( 'Addresses in the footer area', 'giccanada' )// описание
+		)
+	);
+
+	register_sidebar(
+		array(
+			'id' => 'bottom-footer',
+			'name' => __( 'Footer bottom', 'giccanada' ),
+			'description' => __( 'Footer bottom area', 'giccanada' )// описание
+		)
+	);
 }
 
 add_action( 'widgets_init', 'register_wp_sidebars' );
@@ -87,3 +111,25 @@ register_nav_menus( array(
 	'mobile-top' => __( 'Mobile Top Menu', 'gicanada' ),
 	'footer' => __( 'Footer Menu', 'gicanada' )
 ) );
+
+function shortcode_reviews_slider( $atts  ) {
+	ob_start();
+	require_once( get_template_directory() . '/template-parts/reviews/reviews-slider.php' );
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	return $html;
+}
+
+add_shortcode( 'reviews_slider', 'shortcode_reviews_slider' );
+
+function shortcode_header_slider( $atts  ) {
+	ob_start();
+	require_once( get_template_directory() . '/template-parts/header/header-slider.php' );
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	return $html;
+}
+
+add_shortcode( 'header_slider', 'shortcode_header_slider' );

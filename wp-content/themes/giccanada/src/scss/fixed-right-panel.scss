@@ -42,6 +42,11 @@ $image-dir: '../images/';
       width: 72px;
       height: 72px;
       cursor: pointer;
+      display: block;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     #contact-form {

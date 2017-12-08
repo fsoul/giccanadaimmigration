@@ -1,22 +1,7 @@
 $image-dir: '../images/';
 
-#process {
+#process-row {
   padding: 30px;
-
-  .process-caption {
-    height: auto;
-    line-height: 30px;
-    font-size: 1.5em;
-    margin: 0;
-    padding-bottom: 20px;
-  }
-
-  .process-text {
-    line-height: 20px;
-    font-size: 1em;
-    margin: 0;
-    padding-bottom: 30px;
-  }
 
   .process-desktop-content {
     display: none;
@@ -80,10 +65,10 @@ $image-dir: '../images/';
   }
 
   .academy-slr-item-btn {
-      width: 345px;
-      height: 48px;
-      line-height: 48px;
-      margin:0;
+    width: 345px;
+    height: 48px;
+    line-height: 48px;
+    margin:0;
 
   }
 
