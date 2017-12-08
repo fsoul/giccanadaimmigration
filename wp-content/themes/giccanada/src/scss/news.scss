@@ -9,9 +9,6 @@ $image-dir: '../images/';
 
     .et_pb_blog_grid {
 
-      .row-caption {
-      }
-
       .et_pb_post {
 
         border: none !important;
@@ -21,15 +18,17 @@ $image-dir: '../images/';
           left: -19px;
         };
 
-        .post-content {
+        .et_pb_image_container {
 
-          .et_pb_image_container {
-
+          a {
             img {
               border-top-left-radius: 28px;
               border-top-right-radius: 28px;
             }
           }
+        }
+
+        .post-content {
 
           a.more-link {
             height: 24px;
