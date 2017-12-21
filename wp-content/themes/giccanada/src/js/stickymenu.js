@@ -75,7 +75,6 @@ StickyMenu.prototype.doHeadSticking = function (event) {
     stMenu._header.style.top = '0px';
     stMenu._header.style.marginTop = '0px';
     stMenu._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-    stMenu._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
     stMenu._stuck = true;
     stMenu.fire(stMenu._headerStickingStr, event.detail.isMobile);
 };

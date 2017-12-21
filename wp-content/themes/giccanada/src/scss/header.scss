@@ -98,12 +98,10 @@ $image-dir: '../images/';
 /*menu*/
 #menu-container {
 
-  &.not-main {
-    background: -webkit-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
-    background: -moz-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%); /* FF3.6-15 */
-    background: -o-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%); /* For Opera 11.1 to 12.0 */
-    background: linear-gradient(10deg, #852EF6 15.55%, #00FFD4 130.9%);
-  }
+  background: -webkit-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
+  background: -moz-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%); /* FF3.6-15 */
+  background: -o-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%); /* For Opera 11.1 to 12.0 */
+  background: linear-gradient(10deg, #852EF6 15.55%, #00FFD4 130.9%);
 
   padding: 34px 0 20px;
   position: absolute;

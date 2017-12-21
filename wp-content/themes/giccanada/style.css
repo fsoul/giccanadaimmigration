@@ -10260,17 +10260,16 @@ html, body {
 /*top bar end --------------------*/
 /*menu*/
 #menu-container {
+  background: -webkit-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
+  background: -moz-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
+  /* FF3.6-15 */
+  background: -o-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
+  /* For Opera 11.1 to 12.0 */
+  background: linear-gradient(10deg, #852EF6 15.55%, #00FFD4 130.9%);
   padding: 34px 0 20px;
   position: absolute;
   z-index: 20;
   width: 100%; }
-  #menu-container.not-main {
-    background: -webkit-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
-    background: -moz-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
-    /* FF3.6-15 */
-    background: -o-linear-gradient(86deg, #852EF6 15.55%, #00FFD4 130.9%);
-    /* For Opera 11.1 to 12.0 */
-    background: linear-gradient(10deg, #852EF6 15.55%, #00FFD4 130.9%); }
   #menu-container .mobile-menu-button {
     display: none; }
   #menu-container .menu-phone-block {
@@ -12260,8 +12259,6 @@ html, body {
 
 /* sm-размер (<=768px) */
 @media (max-width: 768px) {
-  .header-container {
-    height: auto; }
   #menu-container {
     margin: 0; }
     #menu-container .menu-row {
@@ -12369,23 +12366,21 @@ html, body {
 
 /* xs-размер (<=575px) */
 @media (max-width: 575px) {
-  .header-container {
-    height: auto; }
-    .header-container .top-bar #desktop-top-bar {
-      display: none; }
-    .header-container .top-bar #mobile-top-bar {
-      display: flex; }
-    .header-container .top-bar .tb-menu-border {
-      width: 1px;
-      padding: 0; }
-    .header-container .top-bar .top-bar-menu-link {
-      margin-right: 10px;
-      font-size: .8em; }
-    .header-container .top-bar .messager-logo,
-    .header-container .top-bar .search-logo {
-      height: 20px;
-      width: 22px;
-      background-size: contain; }
+  .header-container .top-bar #desktop-top-bar {
+    display: none; }
+  .header-container .top-bar #mobile-top-bar {
+    display: flex; }
+  .header-container .top-bar .tb-menu-border {
+    width: 1px;
+    padding: 0; }
+  .header-container .top-bar .top-bar-menu-link {
+    margin-right: 10px;
+    font-size: .8em; }
+  .header-container .top-bar .messager-logo,
+  .header-container .top-bar .search-logo {
+    height: 20px;
+    width: 22px;
+    background-size: contain; }
   #reviews-slider {
     padding: 30px 15px;
     height: auto; }

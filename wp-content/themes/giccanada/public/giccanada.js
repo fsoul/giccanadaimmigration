@@ -10654,8 +10654,7 @@ __webpack_require__(9);
 __webpack_require__(10);
 __webpack_require__(12);
 
-var StickyMenu = __webpack_require__(16),
-    stickMenu = new StickyMenu();
+var StickyMenu = __webpack_require__(16);
 var listeners = __webpack_require__(17),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
@@ -10704,14 +10703,18 @@ document.addEventListener('DOMContentLoaded', function () {
     __webpack_require__(27);
     __webpack_require__(28);
 
-    stickMenu.subscribe(menuLogo);
-    stickMenu.subscribe(menuPhoneBlock);
-    stickMenu.subscribe(buttonUp);
-    stickMenu.init();
+    var sMenu = document.getElementById('menu-container');
+    if (sMenu) {
+        var stickMenu = new StickyMenu(sMenu);
+        stickMenu.subscribe(menuLogo);
+        stickMenu.subscribe(menuPhoneBlock);
+        stickMenu.subscribe(buttonUp);
+        stickMenu.init();
 
-    document.addEventListener('scroll', function () {
-        stickMenu.updateHeaderMenuPos();
-    });
+        document.addEventListener('scroll', function () {
+            stickMenu.updateHeaderMenuPos();
+        });
+    }
 });
 
 //css/scss-------------------------------------------
@@ -30284,16 +30287,18 @@ process.umask = function() { return 0; };
 
 var helper = __webpack_require__(1);
 
-function StickyMenu() {
+function StickyMenu(header) {
     this._stuck = false;
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
+    if (!header)
+        throw new TypeError('Header must not be null!');
+    this._header = header;
+    this._stickPoint = 0;
 }
 
 StickyMenu.prototype.init = function () {
-    this._header = document.getElementById("menu-container");
-    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
@@ -30355,7 +30360,6 @@ StickyMenu.prototype.doHeadSticking = function (event) {
     stMenu._header.style.top = '0px';
     stMenu._header.style.marginTop = '0px';
     stMenu._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-    stMenu._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
     stMenu._stuck = true;
     stMenu.fire(stMenu._headerStickingStr, event.detail.isMobile);
 };
@@ -32044,7 +32048,7 @@ var helpers = __webpack_require__(1);
                 headerTag: "h5",
                 bodyTag: "fieldset",
                 transitionEffect: "slideLeft",
-                // startIndex: 16,
+                startIndex: 14,
                 onStepChanging: function (event, currentIndex, newIndex) {
 
                     if (newIndex > currentIndex && !self.stepValidation(currentIndex))

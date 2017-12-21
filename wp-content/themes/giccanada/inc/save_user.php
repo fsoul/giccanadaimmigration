@@ -160,19 +160,20 @@ function save_user_work( $user_id, $form ) {
 function save_user_partner_info( $user_id, $form ) {
 
 	foreach ($form['partner'] as $item) {
-		$date_from = format_date( $item['ass-company-from-y'], $item['ass-company-from-m'], '1' ) ;
-		$date_to = format_date( $item['ass-company-to-y'], $item['ass-company-to-m'], '1' ) ;
+		$relation_from = format_date( $item['member-relation-from-y'], $item['member-relation-from-m'], '1' ) ;
+		$relation_to = format_date( $item['member-relation-to-y'], $item['member-relation-to-m'], '1' ) ;
 
 		$data = [
 			'upi_user_id' => $user_id,
 			'upi_last_name' => $item['member-last-name'],
 			'upi_first_name' => $item['member-first-name'],
 			'upi_birthday' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
-			'uw_company_from' => $date_from,
-			'uw_company_to' => $date_to,
-			'uw_company_requirement' => $item['company-requirement']
+			'upi_sex' => $item['member-sex'],
+			'upi_status' => $item['member-status'],
+			'upi_relation_type' => $item['member-relation-type'],
+			'upi_relation_from' => $relation_from,
+			'upi_relation_to' => $relation_to
 		];
-
 
 		insert_into( 'wp_user_work', $data );
 	}

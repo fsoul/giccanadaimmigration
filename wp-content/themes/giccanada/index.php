@@ -4,13 +4,6 @@
             <div class="header-container">
             <?php get_template_part( 'template-parts/header/top-bar' ); ?>
             <?php get_template_part( 'template-parts/header/menu-container' ); ?>
-            <?php
-            if ( is_home() ) :
-                ?>
-                <div id="header-slider-container">
-                    <?php get_template_part( 'template-parts/header/header-slider' ); ?>
-                </div>
-            <?php endif; ?>
         </div> <!--header-container end-->
 	        <?php
 
