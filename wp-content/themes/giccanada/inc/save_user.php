@@ -3,6 +3,7 @@
  * @param string $table table name
  * @param array $data
  *
+ * @return int
  * @throws Exception
  */
 function insert_into( $table, array $data ) {
@@ -14,6 +15,7 @@ function insert_into( $table, array $data ) {
 		throw new Exception( $wpdb->last_error );
 	}
 
+	return $wpdb->insert_id;
 }
 
 /**
@@ -30,12 +32,27 @@ function format_date( $year, $month, $day ) {
 }
 
 
+/**
+ * @param $form
+ * @return bool
+ * @throws Exception
+ */
 function save_user( $form ) {
-	$id = save_user_meta( $form );
+	try {
+		$id = save_user_meta( $form );
+	} catch ( Exception $e ) {
+		throw new Exception($e);
+	}
 
 	return is_numeric( $id );
 }
 
+
+/**
+ * @param $form
+ * @return int|WP_Error
+ * @throws Exception
+ */
 function save_user_meta( $form ) {
 	$email = $form['ass-email'];
 //	$email = 'rogovoyalexandr94@gmail.com';
@@ -56,6 +73,12 @@ function save_user_meta( $form ) {
 	return $id;
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
 function save_user_common_info( $user_id, $form ) {
 	$data = [
 		'uci_userid'                 => $user_id,
@@ -84,9 +107,19 @@ function save_user_common_info( $user_id, $form ) {
 		'uci_worked_at_canada' => $form['ass-worked-at-canada'],
 		'uci_partner_worked_at_canada' => $form['ass-partner-worked-at-canada']
 	];
-	insert_into( 'wp_user_common_info', $data );
+	try {
+		insert_into( 'wp_user_common_info', $data );
+	} catch ( Exception $e ) {
+		throw $e;
+	}
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
 function save_user_lang( $user_id, $form ) {
 	$data = [
 		'ul_user_id'      => $user_id,
@@ -99,9 +132,19 @@ function save_user_lang( $user_id, $form ) {
 		'ul_en_reading'   => $form['en_reading'],
 		'ul_en_speaking'  => $form['en_speaking']
 	];
-	insert_into( 'wp_user_lang', $data );
+	try {
+		insert_into( 'wp_user_lang', $data );
+	} catch ( Exception $e ) {
+		throw $e;
+	}
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
 function save_user_relatives( $user_id, $form ) {
 
 	foreach ($form['relative'] as $item) {
@@ -113,10 +156,20 @@ function save_user_relatives( $user_id, $form ) {
 			'ur_status'     => $item['ass-rel-status'],
 			'ur_province'   => $item['ass-rel-province']
 		];
-		insert_into( 'wp_user_common_info', $data );
+		try {
+			insert_into( 'wp_user_common_info', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
 	}
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
 function save_user_education( $user_id, $form ) {
 
 	foreach ($form['education'] as $item) {
@@ -134,10 +187,20 @@ function save_user_education( $user_id, $form ) {
 			'ued_from' => $date_from,
 			'ued_to' => $date_to
 		];
-		insert_into( 'wp_user_education', $data );
+		try {
+			insert_into( 'wp_user_education', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
 	}
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
 function save_user_work( $user_id, $form ) {
 
 	foreach ($form['work'] as $item) {
@@ -153,29 +216,75 @@ function save_user_work( $user_id, $form ) {
 			'uw_company_to' => $date_to,
 			'uw_company_requirement' => $item['company-requirement']
 		];
-		insert_into( 'wp_user_work', $data );
+		try {
+			insert_into( 'wp_user_work', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
 	}
 }
 
+/**
+ * @param $user_id
+ * @param $form
+ *
+ * @return int
+ * @throws Exception
+ */
 function save_user_partner_info( $user_id, $form ) {
 
-	foreach ($form['partner'] as $item) {
-		$relation_from = format_date( $item['member-relation-from-y'], $item['member-relation-from-m'], '1' ) ;
-		$relation_to = format_date( $item['member-relation-to-y'], $item['member-relation-to-m'], '1' ) ;
+	$item = $form['partner'];
 
-		$data = [
-			'upi_user_id' => $user_id,
-			'upi_last_name' => $item['member-last-name'],
-			'upi_first_name' => $item['member-first-name'],
-			'upi_birthday' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
-			'upi_sex' => $item['member-sex'],
-			'upi_status' => $item['member-status'],
-			'upi_relation_type' => $item['member-relation-type'],
-			'upi_relation_from' => $relation_from,
-			'upi_relation_to' => $relation_to
-		];
+	$relation_from = format_date( $item['member-relation-from-y'], $item['member-relation-from-m'], '1' ) ;
+	$relation_to = format_date( $item['member-relation-to-y'], $item['member-relation-to-m'], '1' ) ;
 
-		insert_into( 'wp_user_work', $data );
+	$data = [
+		'upi_user_id' => $user_id,
+		'upi_last_name' => $item['member-last-name'],
+		'upi_first_name' => $item['member-first-name'],
+		'upi_birthday' => format_date( $item['member-birth-year'], $item['member-birth-month'], $item['member-birth-day'] ),
+		'upi_sex' => $item['member-sex'],
+		'upi_status' => $item['member-status'],
+		'upi_relation_type' => $item['member-relation-type'],
+		'upi_relation_from' => $relation_from,
+		'upi_relation_to' => $relation_to
+	];
+
+	try {
+		return insert_into( 'wp_user_work', $data );
+	} catch ( Exception $e ) {
+		throw $e;
 	}
 }
 
+/**
+ * @param $partner_id
+ * @param $form
+ *
+ * @throws Exception
+ */
+function save_partner_education( $partner_id, $form ) {
+
+	foreach ($form['part-educ'] as $item) {
+		$from = format_date( $item['ass-part-work-from-y'], $item['ass-part-work-from-m'], '1' ) ;
+		$to = format_date( $item['ass-part-work-to-y'], $item['ass-part-work-to-m'], '1' ) ;
+
+		$data = [
+			'ped_partner_id' => $partner_id,
+			'ped_education_name' => $item['part-educ-name'],
+			'ped_speciality' => $item['part-educ-specialty'],
+			'ped_country' => $item['part-educ-country'],
+			'ped_level' => $item['member-sex'],
+			'ped_type' => $item['member-status'],
+			'ped_from' => $item['member-relation-type'],
+			'ped_to' => $from,
+			'upi_relation_to' => $to
+		];
+
+		try {
+			insert_into( 'wp_partner_education', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
+	}
+}
