@@ -77,7 +77,7 @@ $values = [
     ],
     [
         'passport-num' => $form['passport-num'],
-        'passport-exp-date' => $form['ass-no-date-exp-cb'] != 'yes' ? $form['passport-exp-date-d'].".".$form['passport-exp-date-m'].".".$form['passport-exp-y'] : '',
+        'passport-exp-date' => $form['ass-no-date-exp-cb'] != 'yes' ? $form['passport-exp-d'].".".$form['passport-exp-m'].".".$form['passport-exp-y'] : '',
         'passport-country' => $form['passport-country'],
         'ass-no-date-exp-cb' => $form['ass-no-date-exp-cb']
     ],

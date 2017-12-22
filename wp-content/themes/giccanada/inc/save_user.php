@@ -7,7 +7,8 @@
  * @throws Exception
  */
 function insert_into( $table, array $data ) {
-	global $wpdb;
+	if (!isset($wpdb))
+		global $wpdb;
 
 	$wpdb->insert( $table, $data );
 
@@ -26,9 +27,8 @@ function insert_into( $table, array $data ) {
  * @return false|string
  */
 function format_date( $year, $month, $day ) {
-	$date = date_create_from_format( 'j-M-Y', "$day-$month-$year" );
-
-	return date_format( $date, 'Y-m-d' );
+	$date = date_create_from_format( 'd-n-Y', "$day-$month-$year" );
+	return (!$date) ? null : date_format( $date, 'Y-m-d' );
 }
 
 
@@ -38,7 +38,10 @@ function format_date( $year, $month, $day ) {
  * @throws Exception
  */
 function save_user( $form ) {
+	global $wpdb;
 	try {
+		$wpdb->query('START TRANSACTION');
+
 		$id = save_user_meta( $form );
 
 		save_user_common_info($id, $form);
@@ -52,8 +55,11 @@ function save_user( $form ) {
 		save_user_child($id, $form);
 		save_user_payment($id, $form);
 
+		$wpdb->query('COMMIT');
+
 	} catch ( Exception $e ) {
-		throw new Exception($e);
+		$wpdb->query('ROLLBACK');
+		throw $e;
 	}
 
 	return is_numeric( $id );

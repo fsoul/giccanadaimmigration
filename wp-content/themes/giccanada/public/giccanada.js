@@ -30978,7 +30978,7 @@ var TextInput = (function () {
     };
 
     TextInput.prototype.doValidate = function () {
-        var pattern = /^[a-zA-z\u0400-\u04FF\s]+$/;
+        var pattern = /^[\s,'a-zA-z\u0400-\u04FF]+$/;
         var value = this.input().value;
 
         if (this.isRequired()) {

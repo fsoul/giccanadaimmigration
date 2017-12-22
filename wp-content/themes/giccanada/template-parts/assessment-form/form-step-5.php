@@ -7,12 +7,12 @@
     <div data-role="combine-date" data-msg="error-passport-exp-date" id="combine-date-passport-exp-date">
         <label>Действителен до</label>
         <div>
-            <select title="" name="passport-exp-date-d" class="day" required data-class="passport-exp-date" id="passport-exp-date-d">
+            <select title="" name="passport-exp-d" class="day" required data-class="passport-exp-date" id="passport-exp-date-d">
                 <option value="" disabled selected>Day</option>
                 <?= getDayOptions();?>
             </select>
 
-            <select title="" name="passport-exp-date-m" class="month" required data-class="passport-exp-date" id="passport-exp-date-m">
+            <select title="" name="passport-exp-m" class="month" required data-class="passport-exp-date" id="passport-exp-date-m">
                 <option value="" disabled selected>Month</option>
                 <?= getMonthOptions();?>
             </select>

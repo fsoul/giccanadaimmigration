@@ -11278,8 +11278,8 @@ html, body {
         #assessment-modal .modal-body #assessment-form .assessment-step.-step5 .cb-container input[type=checkbox] + label::after {
           content: '\F00C';
           font-family: 'FontAwesome', sans-serif;
-          left: -22px;
-          top: 0;
+          left: -23px;
+          top: 4px;
           color: transparent;
           transition: color .2s;
           -webkit-transition: color .2s;
