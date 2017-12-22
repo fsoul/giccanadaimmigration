@@ -40,6 +40,18 @@ function format_date( $year, $month, $day ) {
 function save_user( $form ) {
 	try {
 		$id = save_user_meta( $form );
+
+		save_user_common_info($id, $form);
+		save_user_lang($id, $form);
+		save_user_relatives($id, $form);
+		save_user_education($id, $form);
+		save_user_work($id, $form);
+		$partner_id = save_user_partner_info($id, $form);
+		save_partner_education($partner_id, $form);
+		save_partner_work($partner_id, $form);
+		save_user_child($id, $form);
+		save_user_payment($id, $form);
+
 	} catch ( Exception $e ) {
 		throw new Exception($e);
 	}
@@ -74,7 +86,7 @@ function save_user_meta( $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @throws Exception
@@ -115,7 +127,7 @@ function save_user_common_info( $user_id, $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @throws Exception
@@ -140,7 +152,7 @@ function save_user_lang( $user_id, $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @throws Exception
@@ -165,7 +177,7 @@ function save_user_relatives( $user_id, $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @throws Exception
@@ -196,7 +208,7 @@ function save_user_education( $user_id, $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @throws Exception
@@ -225,7 +237,7 @@ function save_user_work( $user_id, $form ) {
 }
 
 /**
- * @param $user_id
+ * @param int $user_id
  * @param $form
  *
  * @return int
@@ -258,16 +270,15 @@ function save_user_partner_info( $user_id, $form ) {
 }
 
 /**
- * @param $partner_id
+ * @param int $partner_id
  * @param $form
  *
  * @throws Exception
  */
 function save_partner_education( $partner_id, $form ) {
-
 	foreach ($form['part-educ'] as $item) {
-		$from = format_date( $item['ass-part-work-from-y'], $item['ass-part-work-from-m'], '1' ) ;
-		$to = format_date( $item['ass-part-work-to-y'], $item['ass-part-work-to-m'], '1' ) ;
+		$from = format_date( $item['part-educ-from-y'], $item['part-educ-from-m'], '1' ) ;
+		$to = format_date( $item['part-educ-to-y'], $item['part-educ-to-m'], '1' ) ;
 
 		$data = [
 			'ped_partner_id' => $partner_id,
@@ -286,5 +297,79 @@ function save_partner_education( $partner_id, $form ) {
 		} catch ( Exception $e ) {
 			throw $e;
 		}
+	}
+}
+
+/**
+ * @param int $partner_id
+ * @param $form
+ *
+ * @throws Exception
+ */
+function save_partner_work( $partner_id, $form ) {
+
+	foreach ($form['part-work'] as $item) {
+		$from = format_date( $item['ass-part-work-from-y'], $item['ass-part-work-from-m'], '1' ) ;
+		$to = format_date( $item['ass-part-work-to-y'], $item['ass-part-work-to-m'], '1' ) ;
+
+		$data = [
+			'pw_partner_id' => $partner_id,
+			'pw_company_name' => $item['part-work-name'],
+			'pw_company_country' => $item['part-work-country'],
+			'pw_company_position' => $item['part-work-position'],
+			'pw_company_from' => $from,
+			'pw_company_to' => $to,
+			'pw_company_requirement' => $item['part-work-requirement']
+		];
+
+		try {
+			insert_into( 'wp_partner_work', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
+	}
+}
+
+/**
+ * @param int $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
+function save_user_child( $user_id, $form ) {
+
+	foreach ($form['child'] as $item) {
+		$data = [
+			'uc_user_id' => $user_id,
+			'uc_surname' => $item['child-surname'],
+			'uc_name' => $item['child-name'],
+			'uc_birthday' => format_date( $form['child-birth-year'], $form['child-birth-month'], $form['child-birth-day'] ),
+		];
+
+		try {
+			insert_into( 'wp_user_child', $data );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
+	}
+}
+
+/**
+ * @param int $user_id
+ * @param $form
+ *
+ * @throws Exception
+ */
+function save_user_payment( $user_id, $form ) {
+
+	$data = [
+		'usp_user_id' => $user_id,
+		'usp_type' => $form['ass-payment-type']
+	];
+
+	try {
+		insert_into( 'wp_user_payment', $data );
+	} catch ( Exception $e ) {
+		throw $e;
 	}
 }
