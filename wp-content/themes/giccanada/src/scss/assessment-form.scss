@@ -745,10 +745,11 @@ $image-dir: '../images/';
               display: inline-block;
               width: 100%;
               line-height: 48px;
-              border-top: 1px solid #CFCFCF;
+              border-top: 1px solid #cfcfcf;
+              color: #212529 !important;
 
               &:last-child {
-                border-bottom: 1px solid #CFCFCF;
+                border-bottom: 1px solid #cfcfcf;
               }
 
             }

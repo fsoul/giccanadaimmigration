@@ -11347,9 +11347,10 @@ html, body {
         display: inline-block;
         width: 100%;
         line-height: 48px;
-        border-top: 1px solid #CFCFCF; }
+        border-top: 1px solid #cfcfcf;
+        color: #212529 !important; }
         #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .payment-panel .payment-bank-info:last-child {
-          border-bottom: 1px solid #CFCFCF; }
+          border-bottom: 1px solid #cfcfcf; }
     #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence {
       padding: 20px 0; }
       #assessment-modal .modal-body #assessment-form .assessment-step.-step17 .ass-licence input[type=checkbox] {
