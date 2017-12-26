@@ -31990,19 +31990,19 @@ var helpers = __webpack_require__(1);
                 }
             });
 
-            var test = document.getElementById('test-block');
-            var edit = test.querySelector('input[type=number]');
-            var btn = test.querySelector('.but');
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                self.form.steps('goToStep', edit.value - 1);
-            });
-
-            var btn17 = test.querySelector('.but17');
-            btn17.addEventListener('click', function(e) {
-                e.preventDefault();
-                self.form.steps('goToStep', 16);
-            });
+            // var test = document.getElementById('test-block');
+            // var edit = test.querySelector('input[type=number]');
+            // var btn = test.querySelector('.but');
+            // btn.addEventListener('click', function(e) {
+            //     e.preventDefault();
+            //     self.form.steps('goToStep', edit.value - 1);
+            // });
+            //
+            // var btn17 = test.querySelector('.but17');
+            // btn17.addEventListener('click', function(e) {
+            //     e.preventDefault();
+            //     self.form.steps('goToStep', 16);
+            // });
         };
 
         AssessmentForm.prototype._loadFormByStepIndex = function (index) {
