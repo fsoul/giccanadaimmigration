@@ -35,10 +35,6 @@
                                 <h5>ASSESSMENT FORM</h5>
                             </div>
                         </div>
-                        <div id="test-block">
-                            <input type="number"><br>
-                            <button>Go to Step</button>
-                        </div>
                     </div>
                     <p class="progress-cation">Шаг <span class="progress-current-step"></span> из <span class="progress-steps-count"></span></p>
                     <div class="progressbar">

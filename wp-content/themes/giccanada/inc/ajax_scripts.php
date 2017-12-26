@@ -89,11 +89,8 @@ function send_assessment_form() {
 	try {
 		if ( save_user( $form ) ) {
 			$isSuccess = send_pdf_admin_mail( $form ) &&
-				send_assessment_user_mail($form['ass-email']);
+				send_assessment_user_mail($form);
 		}
-
-//		$isSuccess = send_pdf_admin_mail( $form ) &&
-//		             send_assessment_user_mail($form);
 
 		$ans_msg = $isSuccess ? 'Form sent successfully!' : 'Failed to send your message!';
 	} catch ( Exception $e ) {
