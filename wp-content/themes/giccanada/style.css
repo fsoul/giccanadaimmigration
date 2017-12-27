@@ -9989,7 +9989,8 @@ html, body {
     background: #fff;
     border: 2px solid #FF6200;
     color: #FF8200;
-    text-decoration: none; }
+    text-decoration: none;
+    padding: 10px 20px !important; }
   .orange-btn:focus {
     outline: none; }
 
