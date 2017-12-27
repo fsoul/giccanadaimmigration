@@ -15,6 +15,9 @@
  */
 class OpenCaseWidget extends WP_Widget {
 
+
+	private $countries;
+
 	function __construct() {
 
 	    require_once 'countries.php';
@@ -44,12 +47,12 @@ class OpenCaseWidget extends WP_Widget {
                 <input type="email" name="email" id="email" placeholder="Ваш E-mail" data-role="email" required>
                 <span class="error-text" id="error-email"></span>
                 <div id="selection-block">
-                    <select name="country" id="open-case-country" style="width: 100%" data-role="select" required>
+                    <select title="" name="country" id="open-case-country" style="width: 100%" data-role="select" required>
 						<?php foreach ($this->countries as $key => $value):?>
                             <option value="<?= $key; ?>"><?= $value;?></option>
 						<?php endforeach;?>
                     </select>
-                    <select name="lang" id="open-case-lang" style="width: 100%" required>
+                    <select title="" name="lang" id="open-case-lang" style="width: 100%" required>
                         <option value="RU">Русский</option>
                         <option value="EN">Английский</option>
                         <option value="UA">Украинский</option>

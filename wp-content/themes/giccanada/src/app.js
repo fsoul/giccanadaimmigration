@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     require('./js/header');
-    require('./js/widget');
+    var widget = require('./js/widget');
     require('./js/window');
     require('./js/modal-menu');
     require('./js/assessment-form');
@@ -67,6 +67,27 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('scroll', function () {
             stickMenu.updateHeaderMenuPos();
         });
+    }
+
+    var i = 0;
+    var btns = document.querySelectorAll('.open-case-form-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doOpenCaseToggle();
+        })
+    }
+
+    btns = document.querySelectorAll('.chat-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doChatToggle(e);
+        })
     }
 });
 

@@ -10698,7 +10698,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     __webpack_require__(18);
-    __webpack_require__(19);
+    var widget = __webpack_require__(19);
     __webpack_require__(26);
     __webpack_require__(27);
     __webpack_require__(28);
@@ -10714,6 +10714,27 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('scroll', function () {
             stickMenu.updateHeaderMenuPos();
         });
+    }
+
+    var i = 0;
+    var btns = document.querySelectorAll('.open-case-form-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doOpenCaseToggle();
+        })
+    }
+
+    btns = document.querySelectorAll('.chat-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doChatToggle(e);
+        })
     }
 });
 
@@ -30495,7 +30516,7 @@ module.exports = (function () {
         }
 
         this.buttons['live-chat'].addEventListener('click', function (e) {
-            self.doChatToogle(e);
+            self.doChatToggle(e);
         });
 
         this.buttons['open-case'].addEventListener('click', function (e) {
@@ -30529,7 +30550,7 @@ module.exports = (function () {
         }
     };
 
-    Widget.prototype.doChatToogle = function (e) {
+    Widget.prototype.doChatToggle = function (e) {
         e.preventDefault();
         this.api.toggle();
     };
