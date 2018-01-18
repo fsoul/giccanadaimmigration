@@ -27,7 +27,7 @@ module.exports = (function () {
         }
 
         this.buttons['live-chat'].addEventListener('click', function (e) {
-            self.doChatToogle(e);
+            self.doChatToggle(e);
         });
 
         this.buttons['open-case'].addEventListener('click', function (e) {
@@ -61,7 +61,7 @@ module.exports = (function () {
         }
     };
 
-    Widget.prototype.doChatToogle = function (e) {
+    Widget.prototype.doChatToggle = function (e) {
         e.preventDefault();
         this.api.toggle();
     };

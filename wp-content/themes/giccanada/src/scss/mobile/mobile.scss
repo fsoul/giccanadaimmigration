@@ -4,8 +4,10 @@ $image-dir: '../images/';
 @media only screen and (min-device-width: 320px) and (max-device-width: 736px) {
 
   .wrapper {
+    position: relative;
+    min-height: 100%;
     .wrapper-content {
-      padding-bottom:  713px;
+      padding-bottom: 803px;
     }
   }
 
@@ -78,7 +80,7 @@ $image-dir: '../images/';
     mix-blend-mode: normal;
     border-radius: 68px;
     padding: 10px;
-    z-index: 3;
+    z-index: 50;
 
     a {
       display: block;
@@ -149,45 +151,75 @@ $image-dir: '../images/';
     }
   }
 
-  .carousel-div {
-    display: none;
-  }
+  #header-slider-row {
 
-  .header-mobile-content {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 155px;
-
-    background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;
-    background-size: cover;
-    height: 616px;
-
-    .row {
-      width: 90%;
-      max-width: 345px;
+    .carousel-div {
+      display: none;
     }
 
-    .hs-caption {
-      font-size: 2.5em;
-      letter-spacing: 1px;
-      line-height: normal;
-    }
+    .header-mobile-content {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 155px;
 
-    .hs-content {
-      line-height: 20px;
-      font-size: 1em;
-      padding-top: 20px;
-      padding-bottom: 40px;
-    }
+      background: url($image-dir + "header/Hero-image_3m.jpg") no-repeat center;
+      background-size: cover;
+      height: 616px;
 
-    a.hs-item-button {
-      margin: 0;
-      height: 48px;
-      line-height: 48px;
-      min-width: initial;
-      width: initial;
+      .row {
+        width: 90%;
+        max-width: 345px;
+        color: #fff;
+        text-align: center;
+
+        .hs-caption {
+          font-size: 2.5em;
+          letter-spacing: 1px;
+          line-height: normal;
+        }
+
+        .hs-content {
+          line-height: 20px;
+          font-size: 1em;
+          padding-top: 20px;
+          padding-bottom: 40px;
+        }
+
+
+        .orange-btn {
+          color: #fff;
+          text-align: center;
+          font-size: 1em;
+          text-transform: uppercase;
+          background: linear-gradient(82.05deg, #FF8200 54.81%, #FF3400 190%);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+          border-radius: 28px;
+          line-height: 56px;
+          margin-bottom: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background: #fff;
+            border: 2px solid #FF6200;
+            color: #FF8200;
+            text-decoration: none;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        a.hs-item-button {
+          margin: 0;
+          height: 48px;
+          line-height: 48px;
+          min-width: initial;
+          width: initial;
+        }
+      }
     }
   }
 

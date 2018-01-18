@@ -184,7 +184,7 @@ $image-dir: '../images/';
 
       button {
         font-family: "Lato", sans-serif;
-        width: 290px;
+        width: 270px;
         line-height: 40px;
         margin-top: 15px;
         border: 2px solid transparent;
@@ -644,8 +644,8 @@ $image-dir: '../images/';
               &::after {
                 content: '\f00c';
                 font-family: 'FontAwesome', sans-serif;
-                left: -22px;
-                top: 0;
+                left: -23px;
+                top: 4px;
                 color: transparent;
                 transition: color .2s;
                 -webkit-transition: color .2s;
@@ -745,17 +745,18 @@ $image-dir: '../images/';
               display: inline-block;
               width: 100%;
               line-height: 48px;
-              border-top: 1px solid #CFCFCF;
+              border-top: 1px solid #cfcfcf;
+              color: #212529 !important;
 
               &:last-child {
-                border-bottom: 1px solid #CFCFCF;
+                border-bottom: 1px solid #cfcfcf;
               }
 
             }
           }
 
           .ass-licence {
-            padding-top: 20px;
+            padding: 20px 0;
 
             input[type=checkbox] {
               position: absolute;
@@ -1023,6 +1024,10 @@ $image-dir: '../images/';
         transform: translateY(4px);
         text-decoration: none;
       }
+    }
+
+    .wizard > .actions a[href='#finish'] {
+      display: none;
     }
 
     .wizard > .actions a[href='#previous'] {

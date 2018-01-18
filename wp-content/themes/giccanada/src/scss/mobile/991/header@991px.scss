@@ -96,6 +96,23 @@ $image-dir: '../images/';
   width: 18px;
 }
 
-.hs-item-button {
-  min-width: 340px;
+#header-slider-row {
+
+  .carousel-div {
+    padding: 0;
+
+    #header-carousel {
+
+      .item {
+
+        .hs-item {
+
+          .hs-item-button {
+            min-width: 340px;
+          }
+
+        }
+      }
+    }
+  }
 }

@@ -3,6 +3,67 @@ $image-dir: '../images/';
 /*news--------------------------------------------*/
 
 
+#et_builder_outer_content {
+
+  #news-row {
+
+    .et_pb_blog_grid {
+
+      .et_pb_post {
+
+        border: none !important;
+
+        .entry-title, .post-content{
+          position: relative;
+          left: -19px;
+        };
+
+        .et_pb_image_container {
+
+          a {
+            img {
+              border-top-left-radius: 28px;
+              border-top-right-radius: 28px;
+            }
+          }
+        }
+
+        .post-content {
+
+          a.more-link {
+            height: 24px;
+            max-width: 120px;
+            line-height: 24px !important;
+            font-size: 1em;
+            text-decoration-line: underline !important;
+            color: #FF9500 !important;
+            margin-top: 20px;
+            background: url($image-dir + "arrow.png") no-repeat right center;
+            background-size: 18px 12px;
+
+            &:hover {
+              color: #FF9500;
+            }
+          }
+        }
+      }
+    }
+
+    .orange-btn {
+      padding: 10px 20px !important;
+
+      &:hover {
+        padding: 10px 20px !important;
+      }
+
+      &::after {
+        display: none !important;
+      }
+    }
+  }
+}
+
+
 .news-grid {
   & > .row {
     justify-content: center;

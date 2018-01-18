@@ -1,105 +1,104 @@
 $image-dir: '../images/';
 
 /*process ------------------------------------------*/
-.process-caption {
-  height: 56px;
-  text-align: center;
-  line-height: 56px;
-  font-size: 3em;
-  letter-spacing: 0.42px;
-  text-transform: uppercase;
-  margin-top: 80px;
-  color: #ff9500;
-}
+#process-row {
 
-.process-text, .process-descr {
-  line-height: 24px;
-  font-size: 1.25em;
-  text-align: center;
-  color: #000;
-}
+  .process-descr {
+    line-height: 24px;
+    font-size: 1.25em;
+    text-align: center;
+    color: #000;
+  }
 
-.process-text {
-  margin-top: 10px;
-  margin-bottom: 60px;
-  width: 570px;
-}
+  .process-desktop-content {
+    display: block;
 
-.process-desktop-content {
-  display: block;
-}
-.process-mobile-content {
-  display: none;
-}
+    .process-spider-top {
+      max-width: 400px;
+    }
 
-.process-spider-top {
-  max-width: 400px;
-}
+    .process-img {
+      width: 96px;
+      height: 96px;
+    }
 
-.process-img {
-  width: 96px;
-  height: 96px;
-}
+    .process-descr {
+      margin: 25px 10px 0 10px;
+      padding: 0 18px;
+    }
 
-.process-descr {
-  margin: 25px 10px 0 10px;
-  padding: 0 18px;
-}
+    .process-spider-bottom {
+      max-width: 300px;
+    }
 
-.process-spider-bottom {
-  max-width: 300px;
-}
+    /*images --------------------------*/
+    .process-spider {
+      background: url($image-dir + "process/Group.png") no-repeat center;
+      background-size: 902px 500px;
+      width: 902px;
+      height: 500px;
+      margin-bottom: 20px;
+    }
 
-.process-btn {
-  max-width: 290px;
-  width: 290px;
-  height: 56px;
-  margin-top: 60px;
-  margin-bottom: 30px;
-}
+    .proc-pic1 {
+      background: url($image-dir + "process/1.png") no-repeat center;
+      background-size: contain;
+    }
 
-/*images --------------------------*/
-.process-spider {
-  background: url($image-dir + "process/Group.png") no-repeat center;
-  background-size: 902px 500px;
-  width: 902px;
-  height: 500px;
-  margin-bottom: 20px;
-}
+    .proc-pic2 {
+      background: url($image-dir + "process/2.png") no-repeat center;
+      background-size: contain;
+    }
 
-.proc-pic1 {
-  background: url($image-dir + "process/1.png") no-repeat center;
-  background-size: contain;
-}
+    .proc-pic3 {
+      background: url($image-dir + "process/3.png") no-repeat center;
+      background-size: contain;
+    }
 
-.proc-pic2 {
-  background: url($image-dir + "process/2.png") no-repeat center;
-  background-size: contain;
-}
+    .proc-pic4 {
+      background: url($image-dir + "process/4.png") no-repeat center;
+      background-size: contain;
+    }
 
-.proc-pic3 {
-  background: url($image-dir + "process/3.png") no-repeat center;
-  background-size: contain;
-}
+    .proc-pic5 {
+      background: url($image-dir + "process/5.png") no-repeat center;
+      background-size: contain;
+    }
 
-.proc-pic4 {
-  background: url($image-dir + "process/4.png") no-repeat center;
-  background-size: contain;
-}
+    .proc-pic6 {
+      background: url($image-dir + "process/6.png") no-repeat center;
+      background-size: contain;
+    }
 
-.proc-pic5 {
-  background: url($image-dir + "process/5.png") no-repeat center;
-  background-size: contain;
-}
+    .proc-pic7 {
+      background: url($image-dir + "process/7.png") no-repeat center;
+      background-size: contain;
+    }
+  }
 
-.proc-pic6 {
-  background: url($image-dir + "process/6.png") no-repeat center;
-  background-size: contain;
-}
+  .process-mobile-content {
+    display: none;
+  }
 
-.proc-pic7 {
-  background: url($image-dir + "process/7.png") no-repeat center;
-  background-size: contain;
+  .process-btn {
+    max-width: 290px;
+    width: 290px;
+    height: 56px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+
+
+  #process-orange-btn.orange-btn {
+    padding: 10px 20px !important;
+
+    &:hover {
+      padding: 10px 20px !important;
+    }
+
+    &::after {
+      display: none !important;
+    }
+  }
 }
-/*images end ----------------------*/
 /*process end----------------------------------------*/

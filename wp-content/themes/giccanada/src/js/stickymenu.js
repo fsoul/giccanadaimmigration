@@ -2,22 +2,53 @@
 
 var helper = require('./lib/helpers');
 
-function StickyMenu() {
+function StickyMenu(header) {
     this._stuck = false;
     this._handlers = [];
     this._headerStickingStr = 'headerSticking';
     this._headerNormalizeStr = 'headerNormalize';
+    if (!header)
+        throw new TypeError('Header must not be null!');
+    this._header = header;
+    this._stickPoint = 0;
 }
 
 StickyMenu.prototype.init = function () {
-    this._header = document.getElementById("menu-container");
-    if (!this._header) return;
     this._stickPoint = this._header.offsetTop;
     helper.throttle('scroll', this._headerStickingStr, this._header);
     helper.throttle('scroll', this._headerNormalizeStr, this._header);
     this._header.addEventListener(this._headerStickingStr, this.doHeadSticking);
     this._header.addEventListener(this._headerNormalizeStr, this.doHeaderNormalize);
     this.updateHeaderMenuPos();
+
+    var $topMenu = $('#top-menu');
+    $topMenu.find('li.dropdown').each(function (index, value) {
+        var $dropdown = $(value);
+
+        $dropdown.on('shown.bs.dropdown', function () {
+            var width = 0;
+            var $dropdownMenu = $(this).find('.dropdown-menu');
+
+            $( ".dropdown-submenu" ).each(function( index, value ) {
+                if (index < 4)
+                    width += $(value).width();
+                else {
+                    $(value).width($( ".dropdown-submenu" )[index - 4].clientWidth - 30); //15 padding right
+                }
+            });
+
+            var $menu = $(this);
+            function menuResize() {
+                $menu.find('.dropdown-toggle').dropdown('update');
+
+                requestAnimationFrame(menuResize);
+            }
+
+            $dropdownMenu.width(Math.round(width + 150)); //padding right
+
+            requestAnimationFrame(menuResize);
+        });
+    });
 };
 
 StickyMenu.prototype.onHeaderSticking = function (isMobile) {
@@ -44,7 +75,6 @@ StickyMenu.prototype.doHeadSticking = function (event) {
     stMenu._header.style.top = '0px';
     stMenu._header.style.marginTop = '0px';
     stMenu._header.style.boxShadow = '0px 2px 4px rgba(0, 0, 58, 0.5)';
-    stMenu._header.style.background = 'linear-gradient(50deg, #852EF6 15.55%, #00FFD4 130.9%)';
     stMenu._stuck = true;
     stMenu.fire(stMenu._headerStickingStr, event.detail.isMobile);
 };

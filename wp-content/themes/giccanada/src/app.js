@@ -7,8 +7,7 @@ require('./js/vendor/jquery.steps');
 require('bootstrap');
 require('croppie');
 
-var StickyMenu = require('./js/stickymenu'),
-    stickMenu = new StickyMenu();
+var StickyMenu = require('./js/stickymenu');
 var listeners = require('./js/listeners'),
     menuLogo = listeners.menuLogo,
     menuPhoneBlock = listeners.menuPhoneBlock,
@@ -22,25 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dots: true,
         items: 1
     });
-
-    $("#academy-carousel").owlCarousel({
-        autoPlay: true,
-        dots: true,
-        loop: true,
-        margin: 15,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
-
+    
     $("#reviews-carousel").owlCarousel({
         autoPlay: true,
         dots: true,
@@ -70,19 +51,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     require('./js/header');
-    require('./js/widget');
+    var widget = require('./js/widget');
     require('./js/window');
     require('./js/modal-menu');
     require('./js/assessment-form');
 
-    stickMenu.subscribe(menuLogo);
-    stickMenu.subscribe(menuPhoneBlock);
-    stickMenu.subscribe(buttonUp);
-    stickMenu.init();
+    var sMenu = document.getElementById('menu-container');
+    if (sMenu) {
+        var stickMenu = new StickyMenu(sMenu);
+        stickMenu.subscribe(menuLogo);
+        stickMenu.subscribe(menuPhoneBlock);
+        stickMenu.subscribe(buttonUp);
+        stickMenu.init();
 
-    document.addEventListener('scroll', function () {
-        stickMenu.updateHeaderMenuPos();
-    });
+        document.addEventListener('scroll', function () {
+            stickMenu.updateHeaderMenuPos();
+        });
+    }
+
+    var i = 0;
+    var btns = document.querySelectorAll('.open-case-form-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doOpenCaseToggle();
+        })
+    }
+
+    btns = document.querySelectorAll('.chat-open');
+    for (i = 0; i < btns.length; ++i ) {
+        btns[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (widget)
+                widget.doChatToggle(e);
+        })
+    }
 });
 
 //css/scss-------------------------------------------
@@ -90,14 +96,12 @@ require('./scss/global.scss');
 require('./scss/header.scss');
 require('./scss/programms.scss');
 require('./scss/academy.scss');
-require('./scss/common-info.scss');
 require('./scss/process.scss');
 require('./scss/reviews.scss');
 require('./scss/news.scss');
 require('./scss/footer.scss');
 require('./scss/assessment-form.scss');
 require('./scss/posts-content.scss');
-
 
 require('./scss/media-query.scss');
 
